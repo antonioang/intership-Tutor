@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/InternshipTutor"/>
+  <Resource 
+      name="jdbc/heroku_fb8c344fac20fe1"
+      auth="Container"
+      type="javax.sql.DataSource"
+      maxTotal="50" 
+      maxIdle="30" 
+      maxWaitMillis="10000"
+      driverClassName="com.mysql.jdbc.Driver" 
+      username="b6502948953afc"
+      password="79e7b1ae" 
+      url="eu-cdbr-west-02.cleardb.net" 
+      
+      />
+</Context>
