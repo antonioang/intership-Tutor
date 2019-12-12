@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Antonio
  */
 public class Test {
-    private static final String DBtest="SELECT prova1 FROM heroku_fb8c344fac20fe1.test;";
+    private static final String DBtest="SELECT * FROM heroku_fb8c344fac20fe1.test;";
     
     
     public static String testDB() throws SQLException{
@@ -36,6 +36,7 @@ public class Test {
             try {
                 throw new DataLayerException("e allora");
             } catch (DataLayerException ex1) {
+                ex1.printStackTrace();
                 Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex1);
             }
             }
