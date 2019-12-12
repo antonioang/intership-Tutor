@@ -7,7 +7,6 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class provaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {              
         response.setContentType("text/html;charset=UTF-8");
         //Ottengo la sessione (se esiste) dalla richiesta
         HttpSession sessione = request.getSession(true);
