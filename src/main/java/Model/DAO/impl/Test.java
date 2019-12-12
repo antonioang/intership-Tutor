@@ -26,6 +26,7 @@ public class Test {
         String test="e no eh";
         
         try {
+            
             Connection connection = DataBase.getConnection();
             PreparedStatement ps =connection.prepareStatement(DBtest);
             ResultSet rset=ps.executeQuery();
@@ -33,12 +34,7 @@ public class Test {
             test=rset.getString("prova1");
             
             } catch (DataLayerException ex){
-            try {
-                throw new DataLayerException("e allora");
-            } catch (DataLayerException ex1) {
-                ex1.printStackTrace();
-                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
             }
         return test;
         
