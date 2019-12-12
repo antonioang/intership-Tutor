@@ -5,8 +5,12 @@
  */
 package Controller;
 
+import Model.DAO.impl.Test;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +39,13 @@ public class provaServlet extends HttpServlet {
         HttpSession sessione = request.getSession(true);
         //Ottengo il writer dalla risposta
         PrintWriter w = response.getWriter();
+        String testDB="";
+        Test prova= new Test();
+        try {
+            testDB=Test.testDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(provaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //Stampo la prima parte di output
         try{
             w.println("<HTML>");
@@ -44,6 +55,7 @@ public class provaServlet extends HttpServlet {
             w.println("<BODY>");
             w.println("<H2>");
             w.println("Test Servlet e Sessione");
+            w.println(testDB);
             w.println("</H2>");
         }
         catch(Exception e){
