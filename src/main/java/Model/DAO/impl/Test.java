@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author Antonio
  */
 public class Test {
-    private static final String DBtest="SELECT * FROM heroku_fb8c344fac20fe1.test;";
+    private static final String DBtest=" SELECT * FROM test";
     
     
     public static String testDB() throws SQLException{
@@ -30,8 +30,9 @@ public class Test {
             Connection connection = DataBase.getConnection();
             PreparedStatement ps =connection.prepareStatement(DBtest);
             ResultSet rset=ps.executeQuery();
-            
-            test=rset.getString("prova1");
+            if(rset.next()){
+                test=rset.getString("prova1");
+            }
             
             } catch (DataLayerException ex){
                 Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
