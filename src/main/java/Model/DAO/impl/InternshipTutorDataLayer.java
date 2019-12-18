@@ -22,9 +22,12 @@ public class InternshipTutorDataLayer extends DataLayer {
         super(datasource);
     }
     
+    //metodo che restituisce il dao del testDAO
     public Test getTestDAO() {
         return (Test) getDAO();
     }
+    
+    //inizializza i riferimenti ai file DAO
     @Override
     public void init() throws DataLayerException{
         registerDAO(new Test(this));
