@@ -5,37 +5,46 @@
  */
 package Model.DAO.impl;
 
-import framework.data.DataBase;
+import framework.data.DAO;
+import framework.data.DataLayer;
 import framework.data.DataLayerException;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
  * @author Antonio
  */
-public class Test {
-    private static final String DBtest=" SELECT * FROM test";
+public class Test extends DAO {
+    private PreparedStatement DBtest;
+    
+    public Test(DataLayer d){
+        super(d);
+    }
+    
+    @Override
+    public void init() throws DataLayerException{
+        try{
+            DBtest = connection.prepareStatement(" SELECT * FROM test");
+        } catch(SQLException ex){
+            throw new DataLayerException("Error initializing internship tutor datalayer", ex);
+        }
+    }
     
     
-    public static String testDB() throws SQLException{
+    public String testDB() throws DataLayerException {
         String test="e no eh";
         
         try {
-            
-            Connection connection = DataBase.getConnection();
-            PreparedStatement ps =connection.prepareStatement(DBtest);
-            ResultSet rset=ps.executeQuery();
+            ResultSet rset = DBtest.executeQuery();
             if(rset.next()){
                 test=rset.getString("prova1");
             }
             
-            } catch (DataLayerException ex){
-                Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex){
+                throw new DataLayerException("Error query", ex);
             }
         return test;
         

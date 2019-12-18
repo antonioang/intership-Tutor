@@ -5,23 +5,29 @@
  */
 package Controller;
 
+import Model.DAO.impl.InternshipTutorDataLayer;
 import Model.DAO.impl.Test;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 /**
  *
  * @author matti
  */
 public class provaServlet extends HttpServlet {
+    
+    @Resource(name = "jdbc/herokuDB")
+    private DataSource ds;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,12 +46,16 @@ public class provaServlet extends HttpServlet {
         //Ottengo il writer dalla risposta
         PrintWriter w = response.getWriter();
         String testDB="";
-        Test prova= new Test();
-        try {
-            testDB=Test.testDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(provaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        try{
+            InternshipTutorDataLayer dl= new InternshipTutorDataLayer(ds);
+            dl.init();
+            Test prova= dl.getTestDAO();
+            String s=prova.testDB();
+            w.println(s);
+        } catch(Exception ex){
+            ex.printStackTrace();
         }
+        
         //Stampo la prima parte di output
         try{
             w.println("<HTML>");
@@ -55,7 +65,6 @@ public class provaServlet extends HttpServlet {
             w.println("<BODY>");
             w.println("<H2>");
             w.println("Test Servlet e Sessione");
-            w.println(testDB);
             w.println("</H2>");
         }
         catch(Exception e){
