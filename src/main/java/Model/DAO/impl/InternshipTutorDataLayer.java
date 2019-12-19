@@ -9,8 +9,7 @@ import framework.data.DataLayer;
 import framework.data.DataLayerException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import Model.DAO.impl.Test;
-import framework.data.DAO;
+import Model.DAO.impl.TestDAO_Impl;
 
 /**
  *
@@ -23,14 +22,14 @@ public class InternshipTutorDataLayer extends DataLayer {
     }
     
     //metodo che restituisce il dao del testDAO
-    public Test getTestDAO() {
-        return (Test) getDAO();
+    public TestDAO_Impl getTestDAO() {
+        return (TestDAO_Impl) getDAO();
     }
     
     //inizializza i riferimenti ai file DAO
     @Override
     public void init() throws DataLayerException{
-        registerDAO(new Test(this));
+        registerDAO(new TestDAO_Impl(this));
     }
     
 }

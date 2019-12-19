@@ -22,7 +22,7 @@ public class DataLayer {
     private final List<DAO> dao;
     
     public DataLayer(DataSource dataSource) throws SQLException{
-        super();
+        //super();
         this.datasource=dataSource;
         this.connection=dataSource.getConnection();
         this.dao=new ArrayList<DAO>();
