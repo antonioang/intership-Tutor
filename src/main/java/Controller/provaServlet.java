@@ -74,7 +74,7 @@ public class provaServlet extends HttpServlet {
             //ottengo il numero di pagine visualizzate dalla sessione
             if(null == sessione.getAttribute("pagine") ){
                 System.out.println("Attributo vuoto, c'è un errore e la sessione sarà invalidata");
-                sessione.invalidate();
+                sessione.setAttribute("pagine", 1);
             }
             else{
                 int a  = ((Integer) sessione.getAttribute("pagine"));
