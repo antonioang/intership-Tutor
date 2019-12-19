@@ -5,13 +5,12 @@
  */
 package Controller;
 
+import Model.DAO.TestDAO;
 import Model.DAO.impl.InternshipTutorDataLayer;
-import Model.DAO.impl.Test;
+import Model.DAO.impl.TestDAO_Impl;
+import Model.Interfaces.Test;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,51 +40,56 @@ public class provaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {              
         response.setContentType("text/html;charset=UTF-8");
-        //Ottengo la sessione (se esiste) dalla richiesta
-        HttpSession sessione = request.getSession(true);
         //Ottengo il writer dalla risposta
         PrintWriter w = response.getWriter();
         String testDB="";
         try{
             InternshipTutorDataLayer dl= new InternshipTutorDataLayer(ds);
             dl.init();
-            Test prova= dl.getTestDAO();
-            String s=prova.testDB();
-            w.println(s);
+            TestDAO prova= dl.getTestDAO();
+            Test test = prova.getTest();
+            w.println(test.getTestString());
         } catch(Exception ex){
             ex.printStackTrace();
         }
-        
-        //Stampo la prima parte di output
-        try{
-            w.println("<HTML>");
-            w.println("<HEAD>");
-            w.println("<TITLE>Servlet di Prova</TITLE>");
-            w.println("</HEAD>");
-            w.println("<BODY>");
-            w.println("<H2>");
-            w.println("Test Servlet e Sessione");
-            w.println("</H2>");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        
+         
+        w.println("<HTML>");
+        w.println("<HEAD>");
+        w.println("<TITLE>Servlet di Prova</TITLE>");
+        w.println("</HEAD>");
+        w.println("<BODY>");
+        w.println("<H2>");
+        w.println("Test Servlet e Sessione");
+        w.println("</H2>");
+        //Ottengo la sessione (se esiste) dalla richiesta
+        HttpSession sessione = request.getSession(true);
+ 
         //Se la sessione è stata 
         if(sessione.isNew()){
+            System.out.println("Nuova Sessione");
             sessione.setAttribute("pagine", 1);
         }
-        //ottengo il numero di pagine visualizzate dalla sessione
-        int a  = ((Integer) sessione.getAttribute("pagine"));
-        //incremento il numero di pagine visualizzate
-        sessione.setAttribute("pagine", a+1);
+        else{
+            //ottengo il numero di pagine visualizzate dalla sessione
+            if(null == sessione.getAttribute("pagine") ){
+                System.out.println("Attributo vuoto, c'è un errore e la sessione sarà invalidata");
+                sessione.invalidate();
+            }
+            else{
+                int a  = ((Integer) sessione.getAttribute("pagine"));
+                //incremento il numero di pagine visualizzate
+                sessione.setAttribute("pagine", a+1);
+            }
+            
+        }
+        
         //Se hai visualizzato dieci o più pagine invalida la sessione
         if( ((Integer) sessione.getAttribute("pagine")) > 10){
             w.println("Hai visitato 10 pagine, la sessione sarà invalidata");
             sessione.invalidate();
         }
         else{
-            w.println("Numero di pagine visitate: "+a);
+            w.println("Numero di pagine visitate: "+sessione.getAttribute("pagine"));
             w.println("</BODY>");
             w.println("</HTML>");
         }
