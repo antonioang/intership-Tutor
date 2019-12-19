@@ -48,6 +48,7 @@ public class provaServlet extends HttpServlet {
             dl.init();
             TestDAO prova= dl.getTestDAO();
             Test test = prova.getTest();
+            //commentino
             w.println(test.getTestString());
         } catch(Exception ex){
             ex.printStackTrace();
