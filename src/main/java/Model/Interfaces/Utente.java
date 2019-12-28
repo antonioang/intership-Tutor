@@ -18,6 +18,8 @@ public interface Utente {
     
     int getTipo();
     
+    int getId();
+    
     void setUsername(String user);
     
     void setPassword(String psw);

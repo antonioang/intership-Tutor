@@ -8,7 +8,9 @@ package framework.data;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 
 /**
@@ -19,26 +21,27 @@ public class DataLayer {
     
     private final DataSource datasource;
     private Connection connection;
-    private final List<DAO> dao;
+    private final Map<Class,DAO> dao;
     
     public DataLayer(DataSource dataSource) throws SQLException{
         //super();
         this.datasource=dataSource;
         this.connection=dataSource.getConnection();
-        this.dao=new ArrayList<DAO>();
+        this.dao=new HashMap<>();
     }
 
     public void init() throws DataLayerException {
         //call registerDAO on your own DAOs
+        
     }
     
-    public void registerDAO(DAO dao) throws DataLayerException {
-        this.dao.add(dao);
+    public void registerDAO(Class entityClass,DAO dao) throws DataLayerException {
+        this.dao.put(entityClass, dao);
         dao.init();
     }
     
-    public DAO getDAO() {
-        return dao.get(0);
+    public DAO getDAO(Class entityClass) {
+        return dao.get(entityClass);
     }
     
     public void destroy() {
