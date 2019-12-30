@@ -6,7 +6,7 @@
 package Controller;
 
 import Model.DAO.TestDAO;
-import Model.DAO.impl.InternshipTutorDataLayer;
+import Model.DAO.impl.BaseDataLayer;
 import Model.DAO.impl.TestDAO_Impl;
 import Model.Interfaces.Test;
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class provaServlet extends HttpServlet {
         PrintWriter w = response.getWriter();
         String testDB="";
         try{
-            InternshipTutorDataLayer dl= new InternshipTutorDataLayer(ds);
+            BaseDataLayer dl= new BaseDataLayer(ds);
             dl.init();
             TestDAO prova= dl.getTestDAO();
             Test test = prova.getTest();
