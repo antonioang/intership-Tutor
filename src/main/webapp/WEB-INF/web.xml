@@ -24,6 +24,14 @@
         <servlet-name>provaServlet</servlet-name>
         <url-pattern>/ProvaTemplate</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Controller.Login</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -35,4 +43,8 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
+    <servlet>
+        <servlet-name>Prova</servlet-name>
+        <servlet-class>Controller.provaServlet</servlet-class>
+    </servlet>
 </web-app>
