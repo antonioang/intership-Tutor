@@ -67,7 +67,7 @@ public class TemplateResult {
         if (context.getInitParameter("view.template_directory") != null) {
             cfg.setServletContextForTemplateLoading(context, context.getInitParameter("view.template_directory"));
         } else {
-            cfg.setServletContextForTemplateLoading(context, "templates");
+            cfg.setServletContextForTemplateLoading(context, "template/html");
         }
         if (context.getInitParameter("view.debug") != null && context.getInitParameter("view.debug").equals("true")) {
             //impostiamo un handler per gli errori nei template - utile per il debug
