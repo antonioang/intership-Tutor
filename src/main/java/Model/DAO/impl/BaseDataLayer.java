@@ -10,6 +10,7 @@ import framework.data.DataLayerException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import Model.DAO.impl.TestDAO_Impl;
+import Model.Interfaces.Studente;
 import Model.Interfaces.Test;
 import Model.Interfaces.Utente;
 
@@ -28,16 +29,21 @@ public class BaseDataLayer extends DataLayer {
     public void init() throws DataLayerException{
         registerDAO(Test.class, new TestDAO_Impl(this));
         registerDAO(Utente.class, new UtenteDAO_Impl(this));
+        registerDAO(Studente.class, new StudenteDAO_Impl(this));
     }
     
-    //metodo che restituisce il dao del testDAO
+    //metodo che restituisce il dao del test
     public TestDAO_Impl getTestDAO() {
         return (TestDAO_Impl) getDAO(Test.class);
     }
     
-    //metodo che restituisce il dao del testDAO
+    //metodo che restituisce il dao dell'utente
     public UtenteDAO_Impl getUtenteDAO() {
         return (UtenteDAO_Impl) getDAO(Utente.class);
     }
     
+    //metodo che restituisce il dao dello studente
+    public StudenteDAO_Impl getStudenteDAO() {
+        return (StudenteDAO_Impl) getDAO(Studente.class);
+    }
 }
