@@ -22,6 +22,7 @@ body {
     padding: 0px !important;
     margin: 0px !important;
     font-size:13px;
+    height:100%;
 }
 
 ul li {
@@ -45,11 +46,13 @@ a, a:hover, a:focus {
 #container {
     width: 100%;
     height: 100%;
+    display:flex;
+    flex-direction: column;
 }
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #4ECDC4;
+	background: #b51e0b;
 }
 
 .modal-title {
@@ -97,8 +100,8 @@ a, a:hover, a:focus {
 
 .btn-theme {
   color: #fff;
-  background-color: #4ECDC4;
-  border-color: #48bcb4;
+  background-color: #b51e0b;
+  border-color: #b51e0b;
 }
 .btn-theme:hover,
 .btn-theme:focus,
@@ -106,8 +109,8 @@ a, a:hover, a:focus {
 .btn-theme.active,
 .open .dropdown-toggle.btn-theme {
   color: #fff;
-  background-color: #48bcb4;
-  border-color: #48bcb4;
+  background-color: #b51e0b;
+  border-color: #b51e0b;
 }
 
 .btn-theme02 {
@@ -2182,7 +2185,7 @@ ul li {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #4ecdc4;
+	background: #b51e0b;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -3545,6 +3548,7 @@ ul.chat-available-user li a:hover {
     background: #b51e0b;
     color: #fff;
     padding: 15px 0;
+    margin-top: auto;
 }
 
 .site-footer p {
