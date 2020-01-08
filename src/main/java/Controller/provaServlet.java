@@ -7,7 +7,7 @@ package Controller;
 
 import Model.DAO.TestDAO;
 import Model.DAO.impl.BaseDataLayer;
-import Model.DAO.impl.TestDAO_Impl;
+import Model.DAO.impl.TestDAO_imp;
 import Model.Interfaces.Test;
 import java.io.IOException;
 import java.io.PrintWriter;

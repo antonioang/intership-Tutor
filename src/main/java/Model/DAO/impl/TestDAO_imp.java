@@ -22,10 +22,10 @@ import java.util.logging.Logger;
  *
  * @author Antonio
  */
-public class TestDAO_Impl extends DAO implements TestDAO {
+public class TestDAO_imp extends DAO implements TestDAO {
     private PreparedStatement DBtest;
     
-    public TestDAO_Impl(DataLayer d){
+    public TestDAO_imp(DataLayer d){
         super(d);
     }
     
@@ -66,7 +66,7 @@ public class TestDAO_Impl extends DAO implements TestDAO {
         try {
             prova.setTestString(rs.getString("prova1"));
         } catch (SQLException ex) {
-            Logger.getLogger(TestDAO_Impl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
         }
         return prova;
     }

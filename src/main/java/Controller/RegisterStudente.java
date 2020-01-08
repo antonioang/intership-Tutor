@@ -14,8 +14,6 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,7 +74,6 @@ public class RegisterStudente extends BaseController{
                 //Inserisco l'utente nel DB
                 int insert = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().addUtente(ut);
                 if (insert != 1) {
-                    TIPO = "STUDENT";
                     request.setAttribute("errore", "errore_validazione");
                     request.setAttribute("messaggio", "I campi inseriti non sono corretti. Riprova!");
                     action_error(request, response);
@@ -105,9 +102,9 @@ public class RegisterStudente extends BaseController{
                 st.setCittaNascita(request.getParameter("citta_nascita"));
                 st.setProvinciaNascita(request.getParameter("provincia_nascita"));
                 st.setCittaResidenza(request.getParameter("citta_residenza"));
-                st.setCapResidenza(request.getParameter("cap_residenza"));
+                st.setCapResidenza(Integer.parseInt(request.getParameter("cap_residenza")));
                 st.setProvinciaResidenza(request.getParameter("provincia_residenza"));
-                st.setTelefono(request.getParameter("telefono"));
+                st.setTelefono(Integer.parseInt(request.getParameter("telefono")));
                 st.setCorsoLaurea(request.getParameter("corso_laurea"));
                 st.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
                 st.setUtente(ut);

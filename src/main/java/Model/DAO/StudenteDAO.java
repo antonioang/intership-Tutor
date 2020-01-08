@@ -6,6 +6,7 @@
 package Model.DAO;
 
 import Model.Interfaces.Studente;
+import framework.data.DataLayerException;
 import java.sql.ResultSet;
 
 /**
@@ -14,13 +15,13 @@ import java.sql.ResultSet;
  */
 public interface StudenteDAO {
     
-Studente createStudente();
+    Studente createStudente();
 
-Studente createStudente(ResultSet rs);
+    Studente createStudente(ResultSet rs) throws DataLayerException;
 
-Studente getStudente(int id);
+    Studente getStudente(int id) throws DataLayerException;
 
-int insertStudente(Studente st);
- 
-int updateStudente(Studente st);
+    int insertStudente(Studente st) throws DataLayerException;
+
+    int updateStudente(Studente st) throws DataLayerException;
 }

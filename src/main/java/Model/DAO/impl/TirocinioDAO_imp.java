@@ -5,70 +5,61 @@
  */
 package Model.DAO.impl;
 
-import Model.DAO.UtenteDAO;
-import Model.Interfaces.Utente;
+import Model.DAO.TirocinioDAO;
+import Model.Interfaces.Azienda;
+import Model.Interfaces.Tirocinio;
 import framework.data.DAO;
 import framework.data.DataLayer;
-import framework.data.DataLayerException;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
- * @author matti
+ * @author jacopo
  */
-public class UtenteDAO_Impl extends DAO implements UtenteDAO {
-    
-    public UtenteDAO_Impl(DataLayer d){
+public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
+
+    public TirocinioDAO_imp(DataLayer d) {
         super(d);
     }
-    
+
     @Override
-    public void init(){
-        //Preparazione degli Statement
-    }
-    
-    @Override
-    public Utente createUtente() {
+    public Tirocinio createTirocinio() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Utente createUtente(ResultSet rs) throws DataLayerException {
+    public Tirocinio createTirocinio(ResultSet rs) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Utente getUtente(int id_utente) throws DataLayerException {
+    public List<Tirocinio> getTirocinio(Azienda az, boolean attiva) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Utente getUtente(String username, String password) throws DataLayerException {
+    public List<Tirocinio> getTirocinio(Azienda az) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Utente getUtentebyUsername(String username) throws DataLayerException {
+    public Tirocinio getTirocinio(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean utenteExists(String username, String email) throws DataLayerException {
+    public int insertTirocinio(Tirocinio ot) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int addUtente(Utente utente) throws DataLayerException {
+    public int updateTirocinioAttiva(int id_ot, boolean attiva) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int delUtente(Utente utente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int updateUtente(Utente utente) throws DataLayerException {
+    public List<Tirocinio> searchTirocinio(String durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

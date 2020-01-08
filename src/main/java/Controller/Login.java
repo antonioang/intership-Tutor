@@ -13,11 +13,7 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,19 +23,11 @@ import org.jasypt.util.password.BasicPasswordEncryptor;
  *
  * @author Mattia Lenza
  */
-public class Login extends HttpServlet {
+public class Login extends BaseController {
     
     BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         
@@ -103,21 +91,20 @@ public class Login extends HttpServlet {
                                 break;
                             default:
                                 //default code
-                        }
-                        
+                        }                        
                     } else{ //altrimenti rimando alla home page
                         response.sendRedirect("home");
                     }
                 } else{
                     //errore credenziali di accesso
-                    request.setAttribute("messaggio", "errore_autenticazione");
-                    request.setAttribute("errore", "Errore durante la fase di Autenticazione, Username e/o Password non validi, Riprova");
+                    request.setAttribute("errore", "errore_autenticazione");
+                    request.setAttribute("messaggio", "Errore durante la fase di Autenticazione, Username e/o Password non validi, Riprova");
                     action_error(request, response);
                 }
             } else{
                 //errore formato campi
-                request.setAttribute("messaggio", "errore_autenticazione");
-                request.setAttribute("errore", "Errore durante la fase di Autenticazione, controlla che i campi inseriti siano corretti e riprova");
+                request.setAttribute("errore", "errore_autenticazione");
+                request.setAttribute("messaggio", "Errore durante la fase di Autenticazione, controlla che i campi inseriti siano corretti e riprova");
                 action_error(request, response);
             }
         } catch (DataLayerException ex){

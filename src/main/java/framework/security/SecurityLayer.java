@@ -3,8 +3,10 @@ package framework.security;
 import framework.data.DataLayerException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.IllegalFormatException;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -305,4 +307,59 @@ public class SecurityLayer {
             }
         }
     }
+    
+    public static boolean checkEmail(String email){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
+                            "[a-zA-Z0-9_+&*-]+)*@" + 
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
+                            "A-Z]{2,7}$"; 
+                              
+        Pattern pat = Pattern.compile(emailRegex); 
+        if (email == null) 
+            return false; 
+        return pat.matcher(email).matches();
+    }
+    
+    public static boolean checkBoolean(String b) throws IllegalArgumentException {
+        //controllo che la stringa contenga solo "true" o "false" per essere un booleano corretto
+        if (b != null) {
+            if (b.equals("true") || b.equals("false"))
+                return true;
+        }
+        else{
+            throw new IllegalArgumentException("boolean argument isn't valid");
+        }
+        return false;
+    }
+    
+    public static boolean isDate(String data){
+        if (data != null) {
+            try {
+                LocalDate.parse(data);
+                
+            } catch (DateTimeParseException ex){
+                throw new IllegalArgumentException("Date wrong");
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean checkTelNum(String numero){
+        if(numero !=null && numero.length() == 10){
+            return true;
+        }
+        else{
+            throw new IllegalArgumentException("Telephone number argument isn't valid");
+        }
+    }
+    
+    public static boolean checkCap(String c) {
+        if (c != null && c.length() == 5) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("Cap argument isn't valid");
+        }
+    }
+            
 }

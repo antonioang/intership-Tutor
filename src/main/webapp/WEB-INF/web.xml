@@ -12,11 +12,19 @@
         <servlet-name>Prova</servlet-name>
         <servlet-class>Controller.provaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterStudente</servlet-name>
+        <servlet-class>Controller.RegisterStudente</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RefisterAzienda</servlet-name>
+        <servlet-class>Controller.RegisterAzienda</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
     </servlet-mapping>
-        <servlet>
+    <servlet>
         <servlet-name>provaServlet</servlet-name>
         <servlet-class>Controller.ServletProvaTemplate</servlet-class>
     </servlet>
@@ -24,13 +32,21 @@
         <servlet-name>provaServlet</servlet-name>
         <url-pattern>/ProvaTemplate</url-pattern>
     </servlet-mapping>
-        <servlet>
+    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Controller.Login</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterStudente</servlet-name>
+        <url-pattern>/RegisterStudente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RefisterAzienda</servlet-name>
+        <url-pattern>/RefisterAzienda</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

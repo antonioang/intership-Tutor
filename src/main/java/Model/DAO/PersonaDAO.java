@@ -6,6 +6,7 @@
 package Model.DAO;
 
 import Model.Interfaces.Persona;
+import framework.data.DataLayerException;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -17,15 +18,15 @@ public interface PersonaDAO {
     
     Persona createPersona();
     
-    Persona createPersona(ResultSet rs);
+    Persona createPersona(ResultSet rs) throws DataLayerException;
     
-    Persona getPersona(int id);
+    Persona getPersona(int id) throws DataLayerException;
     
-    List<Persona> getPersona();
+    List<Persona> getPersona() throws DataLayerException;
     
-    int insertPersona(Persona p);
+    int insertPersona(Persona p) throws DataLayerException;
     
-    int deletePersona(int id);
+    int deletePersona(int id) throws DataLayerException;
     
-    int UpdatePersona(Persona p);
+    int UpdatePersona(Persona p) throws DataLayerException;
 }

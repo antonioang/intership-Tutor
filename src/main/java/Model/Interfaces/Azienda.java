@@ -6,6 +6,7 @@
 package Model.Interfaces;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -37,11 +38,13 @@ public interface Azienda {
     
     String getCorsoStudi();
     
-    Date getInizioConv();
+    LocalDate getInizioConv();
     
-    Date getFineConv();
+    LocalDate getFineConv();
     
-    Persona getPersona();
+    Persona getRespTirocini();
+    
+    Utente getUtente();
     
     //setter
     void setRagioneSociale(String rs);
@@ -68,9 +71,11 @@ public interface Azienda {
     
     void setCorsoStudi(String cs);
     
-    void setInizioConv(Date dataI);
+    void setInizioConv(LocalDate dataI);
     
-    void setFineConv(Date dataF);
+    void setFineConv(LocalDate dataF);
+        
+    void setRespTirocini (Persona p);
     
-    void setPersona (Persona p);
+    void setUtente(Utente u);
 }
