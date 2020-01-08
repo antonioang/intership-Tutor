@@ -9,11 +9,8 @@ import framework.data.DataLayer;
 import framework.data.DataLayerException;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import Model.Interfaces.Azienda;
-import Model.Interfaces.Persona;
-import Model.Interfaces.Studente;
+import Model.DAO.impl.TestDAO_Impl;
 import Model.Interfaces.Test;
-import Model.Interfaces.Tirocinio;
 import Model.Interfaces.Utente;
 
 /**
@@ -31,10 +28,6 @@ public class BaseDataLayer extends DataLayer {
     public void init() throws DataLayerException{
         registerDAO(Test.class, new TestDAO_Impl(this));
         registerDAO(Utente.class, new UtenteDAO_Impl(this));
-        registerDAO(Azienda.class, new AziendaDAO_imp(this));
-        registerDAO(Studente.class, new StudenteDAO_imp(this));
-        registerDAO(Persona.class, new PersonaDAO_imp(this));
-        registerDAO(Tirocinio.class, new TirocinioDAO_imp(this));
     }
     
     //metodo che restituisce il dao del testDAO
@@ -47,11 +40,4 @@ public class BaseDataLayer extends DataLayer {
         return (UtenteDAO_Impl) getDAO(Utente.class);
     }
     
-    public AziendaDAO_imp getAziendaDAO(){
-        return (AziendaDAO_imp) getDAO(Azienda.class);
-    }
-    
-    public StudenteDAO_imp getStudenteDAO(){
-        return (StudenteDAO_imp) getDAO(Studente.class);
-    }
 }
