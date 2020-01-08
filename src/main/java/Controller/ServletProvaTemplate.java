@@ -52,7 +52,7 @@ public class ServletProvaTemplate extends HttpServlet {
             String temporary="Test Template";
             request.setAttribute("Test", temporary);
         
-            temp.activate("profilo.ftl.html",request,response);
+            temp.activate("login.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         }
