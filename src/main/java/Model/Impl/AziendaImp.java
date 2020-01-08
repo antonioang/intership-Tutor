@@ -7,7 +7,9 @@ package Model.Impl;
 
 import Model.Interfaces.Azienda;
 import Model.Interfaces.Persona;
+import Model.Interfaces.Utente;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -26,8 +28,8 @@ public class AziendaImp implements Azienda {
     private String tematica;
     private boolean statoConv;
     private String corsoStudi;
-    private Date inizioConv;
-    private Date fineConv;
+    private LocalDate inizioConv;
+    private LocalDate fineConv;
     private Persona p;
     
     public AziendaImp(){
@@ -111,18 +113,13 @@ public class AziendaImp implements Azienda {
     }
 
     @Override
-    public Date getInizioConv() {
+    public LocalDate getInizioConv() {
         return inizioConv;
     }
 
     @Override
-    public Date getFineConv() {
+    public LocalDate getFineConv() {
         return fineConv;
-    }
-
-    @Override
-    public Persona getPersona() {
-        return p;
     }
 
     @Override
@@ -186,18 +183,33 @@ public class AziendaImp implements Azienda {
     }
 
     @Override
-    public void setInizioConv(Date dataI) {
+    public void setInizioConv(LocalDate dataI) {
         this.inizioConv = dataI;
     }
 
     @Override
-    public void setFineConv(Date dataF) {
+    public void setFineConv(LocalDate dataF) {
         this.fineConv = dataF;
     }
 
     @Override
-    public void setPersona(Persona p) {
-        this.p = p;
+    public Persona getRespTirocini() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Utente getUtente() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setRespTirocini(Persona p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setUtente(Utente u) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

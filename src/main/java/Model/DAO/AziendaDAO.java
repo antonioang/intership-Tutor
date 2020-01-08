@@ -6,6 +6,7 @@
 package Model.DAO;
 
 import Model.Interfaces.Azienda;
+import framework.data.DataLayerException;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -17,23 +18,24 @@ public interface AziendaDAO {
     
     Azienda createAzienda();
     
-    Azienda createAzienda(ResultSet rs);
+    Azienda createAzienda(ResultSet rs) throws DataLayerException;
     
-    Azienda getAzienda(int id);
+    Azienda getAzienda(int id) throws DataLayerException;
     
-    Azienda getAzienda(String ut_username);
+    Azienda getAzienda(String ut_username) throws DataLayerException;
     
-    List<Azienda> getAziendeByStato(int stato);
+    List<Azienda> getAziendeByStato(int stato) throws DataLayerException;
     
-    int updateAziendaStato(int id_az, int stato);
+    int updateAziendaStato(int id_az, int stato) throws DataLayerException;
     
-    int insertAzienda(Azienda az);
+    int insertAzienda(Azienda az) throws DataLayerException;
     
-    int deleteAzienda(int id_az);
+    int deleteAzienda(int id_az) throws DataLayerException;
     
-    int updateAziendaDocumento(int id_az, String src);
+    int updateAziendaDocumento(int id_az, String src) throws DataLayerException;
     
-    int getTirocinantiAttivi(Azienda az);
+    int getTirocinantiAttivi(Azienda az) throws DataLayerException;
     
-    int updateAzienda(Azienda az);
-    }
+    int updateAzienda(Azienda az) throws DataLayerException;
+    
+}

@@ -6,6 +6,7 @@
 package Model.Interfaces;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -18,7 +19,7 @@ public interface Studente {
     
     String getCodFiscale();
     
-    Date getDataNascita();
+    LocalDate getDataNascita();
     
     String getCittaNascita();
     
@@ -46,7 +47,7 @@ public interface Studente {
     
     void setCodFiscale(String cf);
     
-    void setDataNascita(Date d);
+    void setDataNascita(LocalDate d);
     
     void setCittaNascita(String cn);
     
@@ -67,4 +68,6 @@ public interface Studente {
     void setPersona(Persona p);
     
     void setTirocinio(Tirocinio t);
+    
+    void setUtente(Utente ut);
 }
