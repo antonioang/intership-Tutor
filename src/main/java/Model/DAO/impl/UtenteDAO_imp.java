@@ -24,9 +24,9 @@ import java.util.logging.Logger;
  */
 public class UtenteDAO_imp extends DAO implements UtenteDAO {
     
-    private PreparedStatement sUtenteById, sUtenteByLogin, sUtenteByUser;
-    private PreparedStatement iUtente, dUtente, uUtente;
-    private PreparedStatement sCheckUtenteExist;
+    private PreparedStatement UtenteById, UtenteByLogin, UtenteByUser;
+    private PreparedStatement addUtente, delUtente, updUtente;
+    private PreparedStatement CheckUtenteExist;
     
     public UtenteDAO_imp(DataLayer d){
         super(d);    
@@ -39,16 +39,17 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             
             //precompiliamo tutte le query utilizzate nella classe
             //precompile all the queries uses in this class
-            sUtenteById = connection.prepareStatement("SELECT * FROM utente WHERE id=?");
-            sUtenteByLogin = connection.prepareStatement("SELECT * FROM utente WHERE username=? AND password=?");
-            sUtenteByUser = connection.prepareStatement("SELECT * FROM utente WHERE username=?");
-            sCheckUtenteExist = connection.prepareStatement("SELECT * FROM utente WHERE (username=?) or (email=?)");
-            iUtente = connection.prepareStatement("INSERT INTO utente (email, username, pw, tipologia)"
+            UtenteById = connection.prepareStatement("SELECT * FROM utente WHERE id=?");
+            UtenteByLogin = connection.prepareStatement("SELECT * FROM utente WHERE username=? AND password=?");
+            UtenteByUser = connection.prepareStatement("SELECT * FROM utente WHERE username=?");
+            CheckUtenteExist = connection.prepareStatement("SELECT * FROM utente WHERE (username=?) or (email=?)");
+            addUtente = connection.prepareStatement("INSERT INTO utente (email, username, password, tipo)"
                     + "values(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            dUtente = connection.prepareStatement("DELETE FROM utente WHERE id=?");
-            uUtente = connection.prepareStatement("UPDATE utente SET email=?, username=?, pw=?, tipologia=? WHERE id=?");
+            delUtente = connection.prepareStatement("DELETE FROM utente\n" +
+                    "WHERE id_utente=?;");
+            updUtente = connection.prepareStatement("UPDATE utente SET email=?, username=?, pw=?, tipologia=? WHERE id=?");
         } catch (SQLException ex) {
-            Logger.getLogger(UtenteDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
         }
         
     }
@@ -82,10 +83,10 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     @Override
     public Utente getUtente(String username, String password) throws DataLayerException {
         try {
-            sUtenteByLogin.setString(1, username);
-            sUtenteByLogin.setString(2, password);
+            UtenteByLogin.setString(1, username);
+            UtenteByLogin.setString(2, password);
             
-            ResultSet rs = sUtenteByLogin.executeQuery();
+            ResultSet rs = UtenteByLogin.executeQuery();
             if(rs.next()){
                 return createUtente(rs);
             }
@@ -98,22 +99,84 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
 
     @Override
     public Utente getUtentebyUsername(String username) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            UtenteByUser.setString(1, username);
+            ResultSet rs = UtenteByUser.executeQuery();
+            if(rs.next()){
+                return createUtente(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to load Utente by username", ex);
+        }
+        return null;
     }
 
     @Override
     public boolean utenteExists(String username, String email) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            CheckUtenteExist.setString(1, username);
+            CheckUtenteExist.setString(2, email);
+            ResultSet rs = CheckUtenteExist.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Utente doesn't exists", ex);
+        }
+        return false;
     }
 
     @Override
     public int addUtente(Utente utente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            addUtente.setString(1, utente.getEmail());
+            addUtente.setString(2, utente.getUsername());
+            addUtente.setString(3, utente.getPassword());
+            addUtente.setInt(4, utente.getTipo());
+            if (addUtente.executeUpdate() == 1) {
+                //per leggere la chiave generata dal database
+                //per il record appena inserito, usiamo il metodo
+                //getGeneratedKeys sullo statement.
+                //to read the generated record key from the database
+                //we use the getGeneratedKeys method on the same statement
+                try (ResultSet keys = addUtente.getGeneratedKeys()) {
+                    //il valore restituito è un ResultSet con un record
+                    //per ciascuna chiave generata (uno solo nel nostro caso)
+                    //the returned value is a ResultSet with a distinct record for
+                    //each generated key (only one in our case)
+                    if (keys.next()) {
+                        //i campi del record sono le componenti della chiave
+                        //(nel nostro caso, un solo intero)
+                        //the record fields are the key componenets
+                        //(a single integer in our case)
+                        utente.setId(keys.getInt(1));
+                        //aggiornaimo la chiave in caso di inserimento
+                        //after an insert, uopdate the object key
+                    }
+                }
+                return 1;
+            } else { 
+                return 0;
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Unable to add new utente", ex);
+        }
     }
 
     @Override
     public int delUtente(Utente utente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            delUtente.setInt(1, utente.getId());
+            
+            if (delUtente.executeUpdate() == 1) {
+                              
+                return 1;
+            } else { 
+                return 0;
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore nella cancellazione dell'utente", ex);
+        }
     }
 
     @Override
@@ -121,4 +184,23 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public void destroy() throws DataLayerException{
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            addUtente.close();
+            delUtente.close();
+            updUtente.close();
+            UtenteById.close();
+            UtenteByLogin.close();
+            UtenteByLogin.close();
+            UtenteByUser.close();
+            CheckUtenteExist.close();
+            
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
 }

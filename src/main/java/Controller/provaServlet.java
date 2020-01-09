@@ -47,9 +47,9 @@ public class provaServlet extends HttpServlet {
         try{
             BaseDataLayer dl= new BaseDataLayer(ds);
             dl.init();
-            Utente ut = dl.getUtenteDAO().getUtente("mariogang", "marioflex");
+            //Utente ut = dl.getUtenteDAO().getUtente("mariogang", "marioflex");
             //commentino
-            w.println(ut.getEmail());
+            //w.println(ut.getEmail());
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -81,7 +81,15 @@ public class provaServlet extends HttpServlet {
                 //incremento il numero di pagine visualizzate
                 sessione.setAttribute("pagine", a+1);
             }
-            
+            if(sessione.getAttribute("username") !=null){
+                w.println(sessione.getAttribute("username"));
+                w.println(request.getAttribute("referrer"));
+                w.println("<br>");
+            }
+            else{
+                w.println("username non presente");
+                w.println("<br>");
+            }
         }
         
         //Se hai visualizzato dieci o più pagine invalida la sessione

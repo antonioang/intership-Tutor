@@ -52,6 +52,7 @@ public class Login extends BaseController {
     }
     
     private void action_default (HttpServletRequest request, HttpServletResponse response) throws TemplateManagerException{
+        System.out.println("action_default");
         TemplateResult res = new TemplateResult(getServletContext());
         request.setAttribute("pagina", "login");
         
@@ -70,11 +71,12 @@ public class Login extends BaseController {
                 Utente utente = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername(request.getParameter("username"));
 
                 //Se l'utente è valido e la password è corretta creo una nuova Sessione
+                
                 if(utente != null && encryptor.checkPassword(request.getParameter("password"), utente.getPassword())){
                     SecurityLayer.createSession(request, utente.getUsername(), utente.getId(), utente.getTipo());
                    
                     //controllo se il referrer è definito
-                    if(request.getParameter("referrer") !=null){
+                    if(request.getParameter("referrer") == null){
                         //0 = admin, 1 = studente, 2 = azienda
                         int tipo = utente.getTipo();
                         switch(tipo){
@@ -83,7 +85,7 @@ public class Login extends BaseController {
                                 break;
                             case 1:
                                 //studente
-                                response.sendRedirect(request.getParameter("referrer"));
+                                response.sendRedirect("prova");
                                 break;
                             case 2:
                                 //azienda
@@ -93,7 +95,7 @@ public class Login extends BaseController {
                                 //default code
                         }                        
                     } else{ //altrimenti rimando alla home page
-                        response.sendRedirect("home");
+                        response.sendRedirect(request.getParameter("referrer"));
                     }
                 } else{
                     //errore credenziali di accesso

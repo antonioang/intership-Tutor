@@ -15,7 +15,7 @@ import java.time.LocalDate;
  *
  * @author jacopo
  */
-public class AziendaImp implements Azienda {
+public class Azienda_imp implements Azienda {
     private String ragioneSociale;
     private String indirizzo;
     private String citta;
@@ -32,7 +32,7 @@ public class AziendaImp implements Azienda {
     private LocalDate fineConv;
     private Persona p;
     
-    public AziendaImp(){
+    public Azienda_imp(){
     this.ragioneSociale = "";
     this.indirizzo = "";
     this.citta = "";
