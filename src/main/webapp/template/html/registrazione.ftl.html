@@ -5,7 +5,7 @@
             <p><a href=""><u>Non sei uno studente? registrati come azienda</u></a></p>
             <div class="form-panel">
                 <div class="form">
-                    <form class="cmxform form-horizontal style-form">
+                    <form class="cmxform form-horizontal style-form" method="POST">
                         <div class="form-group">
                             <label for="nome" class="control-label col-lg-2">Nome</label>
                             <div class="col-sm-10">
@@ -19,51 +19,57 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="CF" class="control-label col-lg-2">Codice Fiscale</label>
+                            <label for="codice_fiscale" class="control-label col-lg-2">Codice Fiscale</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="CF" name="CF" type="text" required/>
+                              <input class=" form-control" id="codice_fiscale" name="codice_fiscale" type="text" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="data_nascita" >Data di Nascita</label>
+                            <div class="col-sm-10">
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_nascita" name="data_nascita" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="cittaNascita" class="control-label col-lg-2">Citt&agrave di nascita</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="CittaNascita" name="CittaNascita" type="text" required/>
+                              <input class=" form-control" id="citta_nascita" name="citta_nascita" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="provNascita" class="control-label col-lg-2">Provincia di nascita</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="provNascita" name="provNascita" type="text" required/>
+                              <input class=" form-control" id="provincia_nascita" name="provincia_nascita" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tel" class="control-label col-lg-2">Telefono</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="tel" name="tel" type="text" required/>
+                              <input class=" form-control" id="telefono" name="telefono" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="laurea" class="control-label col-lg-2">Corso di laurea</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="laurea" name="laurea" type="text" required/>
+                              <input class=" form-control" id="corso_laurea" name="corso_laurea" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="cittaRes" class="control-label col-lg-2">Citt&agrave di residenza</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="cittaRes" name="cittaRes" type="text" required/>
+                              <input class=" form-control" id="citta_residenza" name="citta_residenza" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="provRes" class="control-label col-lg-2">Provincia di residenza</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="provRes" name="provRes" type="text" required/>
+                              <input class=" form-control" id="provincia_residenza" name="provincia_residenza" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="cap" class="control-label col-lg-2">CAP</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="cap" name="cap" type="text" required/>
+                              <input class=" form-control" id="cap_residenza" name="cap_residenza" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -75,7 +81,7 @@
                         <div class="form-group">
                             <label for="pass" class="control-label col-lg-2">Password</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="pass" name="pass" type="password" required/>
+                              <input class=" form-control" id="password" name="password" type="password" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -89,17 +95,18 @@
                         <div class="col-sm-10">
                         <div class="radio">
                             <label>
-                              <input type="radio" name="optionsRadios" id="optionsRadios1" value="si" checked>
+                              <input type="radio" name="handicap" id="optionsRadios1" value="true">
                               SI
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="no">
+                              <input type="radio" name="handicap" id="optionsRadios2" value="false" checked>
                               NO
                             </label>
                         </div>
                         </div>
+                            <button class="btn btn-theme centered" name="register_studente" value="register" type="submit"><i class="fa fa-lock"></i>Registrati</button>
                         </div>
                     </form>
                 </div>
