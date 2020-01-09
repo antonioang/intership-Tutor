@@ -5,7 +5,6 @@
  */
 package Model.Interfaces;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -13,6 +12,9 @@ import java.time.LocalDate;
  * @author jacopo
  */
 public interface Studente {
+    
+    int getId();
+            
     String getNome();
     
     String getCognome();
@@ -31,15 +33,15 @@ public interface Studente {
     
     int getCapResidenza();
     
-    int getTelefono();
+    String getTelefono();
     
     String getCorsoLaurea();
     
     boolean getHandicap();
+            
+    Utente getUtente();
     
-    Persona getPersona();
-    
-    Tirocinio getTirocinio();
+    void setId(int id);
     
     void setNome(String n);
     
@@ -59,15 +61,11 @@ public interface Studente {
     
     void setCapResidenza(int cap);
     
-    void setTelefono(int t);
+    void setTelefono(String t);
     
     void setCorsoLaurea(String cl);
     
     void setHandicap(boolean handicap);
-    
-    void setPersona(Persona p);
-    
-    void setTirocinio(Tirocinio t);
-    
+            
     void setUtente(Utente ut);
 }

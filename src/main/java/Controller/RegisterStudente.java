@@ -14,6 +14,8 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,42 +31,48 @@ public class RegisterStudente extends BaseController{
     
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        HttpSession s = SecurityLayer.checkSession(request);
-        if (s!= null) {
-            request.setAttribute("nome_utente", (String)s.getAttribute("username"));
-            request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
-        }
-        
-        if (request.getParameter("register_studente") != null) {
-            try {
-                action_registrazione_studente(request, response);
-            } catch (TemplateManagerException ex) {
-                request.setAttribute("eccezione", ex);
-                action_error(request, response);
+        try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            if (s!= null) {
+                request.setAttribute("nome_utente", (String)s.getAttribute("username"));
+                request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
-        } 
-        
+
+            if (request.getParameter("register_studente") != null) {
+
+                action_registrazione_studente(request, response);
+
+            }
+            else{
+                TemplateResult res = new TemplateResult(getServletContext());
+                request.setAttribute("page_title", "Registrazione");
+                res.activate("registrazione.ftl.html", request, response);
+            }
+        } catch (TemplateManagerException ex){
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        }
     }
     
     private void action_registrazione_studente(HttpServletRequest request, HttpServletResponse response) 
             throws IOException, ServletException, TemplateManagerException {
         try {
+            //CREO L'UTENTE
             Utente ut = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().createUtente();
-                // validazione input dati dell'utente
-            if (SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkString(request.getParameter("pw")) &&
+            // validazione input dati dell'utente
+            if (SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkString(request.getParameter("password")) &&
                     SecurityLayer.checkEmail(request.getParameter("email"))) {
 
                 //Controllo se l'utente esiste già
                 if (((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().utenteExists(request.getParameter("username"), request.getParameter("email"))){
                     request.setAttribute("errore", "errore_validazione");
-                    request.setAttribute("messaggio", "Email gi&agrave; esistente. Riprova con un altro indirizzo email!");
+                    request.setAttribute("messaggio", "Email già esistente. Riprova con un altro indirizzo email!");
                     action_error(request, response);
                     return;
                 }
 
                 /* encrypt password */
-                String password = request.getParameter("pw");
+                String password = request.getParameter("password");
                 String encryptedPassword = passwordEncryptor.encryptPassword(password);
                 //setto i valori nell'oggetto utente
                 ut.setUsername(request.getParameter("username"));
@@ -74,8 +82,8 @@ public class RegisterStudente extends BaseController{
                 //Inserisco l'utente nel DB
                 int insert = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().addUtente(ut);
                 if (insert != 1) {
-                    request.setAttribute("errore", "errore_validazione");
-                    request.setAttribute("messaggio", "I campi inseriti non sono corretti. Riprova!");
+                    request.setAttribute("errore", "errore_inserimento");
+                    request.setAttribute("messaggio", "Errore inserimento studente. Riprova!");
                     action_error(request, response);
                     return;
                 }
@@ -104,16 +112,18 @@ public class RegisterStudente extends BaseController{
                 st.setCittaResidenza(request.getParameter("citta_residenza"));
                 st.setCapResidenza(Integer.parseInt(request.getParameter("cap_residenza")));
                 st.setProvinciaResidenza(request.getParameter("provincia_residenza"));
-                st.setTelefono(Integer.parseInt(request.getParameter("telefono")));
+                st.setTelefono(request.getParameter("telefono"));
                 st.setCorsoLaurea(request.getParameter("corso_laurea"));
                 st.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
                 st.setUtente(ut);
                 
                 //Inserisco lo studente nel DB
-                int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().insertStudente(st);
+                int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().addStudente(st);
                 if (insert != 1){
-                    request.setAttribute("errore", "errore_validazione");
-                    request.setAttribute("messaggio", "I campi inseriti non sono corretti. Riprova!");
+                    request.setAttribute("errore", "errore_inserimento");
+                    request.setAttribute("messaggio", "Ipossibile inserire lo studente nel DB. Riprova!");
+                    //Cancello l'utente creato in precedenza
+                    action_delete_ut(request, response, ut);
                     action_error(request, response);
                 }
                 
@@ -129,12 +139,13 @@ public class RegisterStudente extends BaseController{
                 //campi in input non validi
                 request.setAttribute("errore", "errore_validazione");
                 request.setAttribute("messaggio", "I campi inseriti non sono corretti. Riprova!");
+                //Cancello l'utente creato in precedenza
+                action_delete_ut(request, response, ut);
                 action_error(request, response);
             }
 
 
         } catch (DataLayerException ex) {
-            //request.setAttribute("exception", ex);
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }
@@ -151,4 +162,13 @@ public class RegisterStudente extends BaseController{
             (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
         }
     }    
+    
+    private void action_delete_ut(HttpServletRequest request, HttpServletResponse response, Utente ut){
+        try {
+            ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().delUtente(ut);
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", "Errore durante la cancellazione dell'utente: "+ex);
+            action_error(request, response);
+        }
+    }
 }
