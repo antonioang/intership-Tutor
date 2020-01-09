@@ -5,23 +5,32 @@
  */
 package Controller;
 
+import Model.DAO.impl.BaseDataLayer;
+import Model.Interfaces.Studente;
+import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateResult;
 import framework.result.TemplateManagerException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  *
  * @author Antonio
  */
 public class ServletProvaTemplate extends HttpServlet {
+    
+    @Resource(name = "jdbc/herokuDB")
+    private DataSource ds;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +43,7 @@ public class ServletProvaTemplate extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         
         TemplateResult temp= new TemplateResult(getServletContext());
@@ -51,10 +61,20 @@ public class ServletProvaTemplate extends HttpServlet {
 //            out.println("</html>");
             String temporary="Test Template";
             request.setAttribute("Test", temporary);
-        
-            temp.activate("registrazione.ftl.html",request,response);
+            BaseDataLayer dl= new BaseDataLayer(ds);
+            try {
+                dl.init();
+                Studente st = dl.getStudenteDAO().getStudente(1);
+                request.setAttribute("studente", st);
+            } catch (DataLayerException ex) {
+                Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            temp.activate("profilo.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

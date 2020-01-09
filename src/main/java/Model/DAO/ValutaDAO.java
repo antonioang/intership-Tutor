@@ -13,21 +13,21 @@ import java.util.List;
 
 /**
  *
- * @author jacopo
+ * @author matti
  */
-public interface ValutaDao {
-    
-    int insertValuta(Valuta v);
-    
-    List<Valuta> getValutazioni(Azienda az);
-     
-    List<Valuta> getValutazioni(Studente st);
+public interface ValutaDAO {
     
     Valuta createValuta();
     
     Valuta createValuta(ResultSet rs);
     
+    List<Valuta> getValutazioni(Azienda az);
+    
+    List<Valuta> getValutazioni(Studente st);
+    
     Valuta getValuta(int id_az, int id_st);
     
     int deleteValuta(int id_az, int id_st);
+    
+    int insertValuta(Valuta v);
 }
