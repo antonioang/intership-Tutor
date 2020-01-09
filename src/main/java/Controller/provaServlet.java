@@ -9,7 +9,6 @@ import Model.DAO.TestDAO;
 import Model.DAO.impl.BaseDataLayer;
 import Model.DAO.impl.TestDAO_imp;
 import Model.Interfaces.Test;
-import Model.Interfaces.Utente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
@@ -47,9 +46,10 @@ public class provaServlet extends HttpServlet {
         try{
             BaseDataLayer dl= new BaseDataLayer(ds);
             dl.init();
-            //Utente ut = dl.getUtenteDAO().getUtente("mariogang", "marioflex");
+            TestDAO prova= dl.getTestDAO();
+            Test test = prova.getTest();
             //commentino
-            //w.println(ut.getEmail());
+            w.println(test.getTestString());
         } catch(Exception ex){
             ex.printStackTrace();
         }
@@ -81,15 +81,7 @@ public class provaServlet extends HttpServlet {
                 //incremento il numero di pagine visualizzate
                 sessione.setAttribute("pagine", a+1);
             }
-            if(sessione.getAttribute("username") !=null){
-                w.println(sessione.getAttribute("username"));
-                w.println(request.getAttribute("referrer"));
-                w.println("<br>");
-            }
-            else{
-                w.println("username non presente");
-                w.println("<br>");
-            }
+            
         }
         
         //Se hai visualizzato dieci o più pagine invalida la sessione

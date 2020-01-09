@@ -207,7 +207,6 @@ public class SecurityLayer {
         //convertiamo la stringa in numero, ma assicuriamoci prima che sia valida
         //convert the string to a number, ensuring its validity
         if (s != null) {
-            System.out.println("Stringa: "+ s+ " vera");
             //se la conversione fallisce, viene generata un'eccezione
             //if the conversion fails, an exception is raised
             return true;
@@ -324,9 +323,8 @@ public class SecurityLayer {
     public static boolean checkBoolean(String b) throws IllegalArgumentException {
         //controllo che la stringa contenga solo "true" o "false" per essere un booleano corretto
         if (b != null) {
-            if (b.equals("true") || b.equals("false")){
+            if (b.equals("true") || b.equals("false"))
                 return true;
-            }
         }
         else{
             throw new IllegalArgumentException("boolean argument isn't valid");

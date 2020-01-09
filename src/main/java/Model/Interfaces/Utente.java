@@ -28,6 +28,4 @@ public interface Utente {
     
     void setTipo(int tipo);
     
-    void setId(int id);
-    
 }

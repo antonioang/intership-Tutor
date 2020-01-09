@@ -26,7 +26,6 @@ import javax.sql.DataSource;
  * @author matti
  */
 public abstract class BaseController extends HttpServlet {
-    
     @Resource(name = "jdbc/herokuDB")
     private DataSource ds;
     

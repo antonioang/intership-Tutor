@@ -21,9 +21,7 @@ public interface StudenteDAO {
 
     Studente getStudente(int id) throws DataLayerException;
 
-    int addStudente(Studente st) throws DataLayerException;
+    int insertStudente(Studente st) throws DataLayerException;
 
     int updateStudente(Studente st) throws DataLayerException;
-    
-    int delStudente(Studente st) throws DataLayerException;
 }
