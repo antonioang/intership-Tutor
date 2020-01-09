@@ -36,3 +36,15 @@
 	text-transform: uppercase;
 	font-weight: 300;
 }
+
+.overview-profile-text h5{
+    font-weight:700;
+    color:#b51e0b;
+}
+
+.edit-profile-form-panel {
+    background: #ffffff;
+    margin: 10px;
+    padding: 10px;
+    text-align: left;
+}
