@@ -17,7 +17,7 @@
         <servlet-class>Controller.RegisterStudente</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RefisterAzienda</servlet-name>
+        <servlet-name>RegisterAzienda</servlet-name>
         <servlet-class>Controller.RegisterAzienda</servlet-class>
     </servlet>
     <servlet-mapping>
@@ -45,8 +45,8 @@
         <url-pattern>/RegisterStudente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RefisterAzienda</servlet-name>
-        <url-pattern>/RefisterAzienda</url-pattern>
+        <servlet-name>RegisterAzienda</servlet-name>
+        <url-pattern>/RegisterAzienda</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

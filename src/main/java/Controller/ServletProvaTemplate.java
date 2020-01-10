@@ -65,6 +65,7 @@ public class ServletProvaTemplate extends HttpServlet {
             try {
                 dl.init();
                 Studente st = dl.getStudenteDAO().getStudente(1);
+                System.out.println(st.getProvinciaResidenza());
                 request.setAttribute("studente", st);
             } catch (DataLayerException ex) {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);

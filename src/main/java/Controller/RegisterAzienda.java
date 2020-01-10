@@ -15,9 +15,7 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -43,20 +41,24 @@ public class RegisterAzienda extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        HttpSession s = SecurityLayer.checkSession(request);
-        if (s!= null) {
-            request.setAttribute("nome_utente", (String)s.getAttribute("username"));
-            request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
-        }
-        
-        if (request.getParameter("register_studente") != null) {
-            try {
-                action_registrazione_azienda(request, response);
-            } catch (TemplateManagerException ex) {
-                request.setAttribute("eccezione", ex);
-                action_error(request, response);
+         try{
+            HttpSession s = SecurityLayer.checkSession(request);
+            if (s!= null) {
+                request.setAttribute("nome_utente", (String)s.getAttribute("username"));
+                request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
-        } 
+            if (request.getParameter("register_azienda") != null) {
+                action_registrazione_azienda(request, response);
+            }
+            else{
+                TemplateResult res = new TemplateResult(getServletContext());
+                request.setAttribute("page_title", "Registrazione Azienda");
+                res.activate("registrazione_azienda.ftl.html", request, response);
+            }
+        } catch (TemplateManagerException ex){
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        }
         
     }
     
@@ -74,7 +76,7 @@ public class RegisterAzienda extends BaseController {
                     responsabile_tirocini.setCognome(request.getParameter("cognome_rt"));
                     responsabile_tirocini.setEmail(request.getParameter("email_rt"));
                     responsabile_tirocini.setTelefono(SecurityLayer.checkNumeric(request.getParameter("telefono_rt")));
-                    int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().insertPersona(responsabile_tirocini);
+                    int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().addPersona(responsabile_tirocini);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
                         request.setAttribute("messaggio", "Il responsabile tirocini già esistente. Riprova!");
@@ -87,27 +89,31 @@ public class RegisterAzienda extends BaseController {
                 }
                 //CREO L'UTENTE 
                 Utente ut = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().createUtente();
-                // controlli sull'utente
-                if (SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkString(request.getParameter("pw")) &&
+                // validazione input utente
+                if (SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkString(request.getParameter("password")) &&
                         SecurityLayer.checkEmail(request.getParameter("email"))) {
 
                     /* encrypt pass */
                     String password = request.getParameter("password");
-                    String encryptedPassword = passwordEncryptor.encryptPassword(password);
+                    String passwordCriptata = passwordEncryptor.encryptPassword(password);
 
                     ut.setUsername(request.getParameter("username"));
-                    ut.setPassword(encryptedPassword);
+                    ut.setPassword(passwordCriptata);
                     ut.setEmail(request.getParameter("email"));
                     ut.setTipo(2);
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().addUtente(ut);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
                         request.setAttribute("messaggio", "L'utente già esistente. Riprova!");
+                        //Se l'inserimento dell'utente fallisce elimino la persona creata in precedenza
+                        action_delete_rt(request, response, responsabile_tirocini);
                         action_error(request, response);
                     }
                 } else {
                     request.setAttribute("errore", "errore_convalida");
                     request.setAttribute("messaggio", "I campi utente inseriti non sono validi. Riprova!");
+                    //Se l'inserimento dell'utente fallisce elimino la persona creata in precedenza
+                    action_delete_rt(request, response, responsabile_tirocini);
                     action_error(request, response);
                 }
 
@@ -131,25 +137,32 @@ public class RegisterAzienda extends BaseController {
                     az.setForoCompetente(request.getParameter("foro_competente"));
                     az.setTematica(request.getParameter("tematica"));
                     az.setCorsoStudi(request.getParameter("corso_studio"));
-                    az.setRespTirocini(responsabile_tirocini);
-                    az.setUtente(ut);
                     az.setInizioConv(SecurityLayer.checkDate(request.getParameter("inizio_conv")));
                     az.setFineConv(SecurityLayer.checkDate(request.getParameter("fine_conv")));
+                    az.setRespTirocini(responsabile_tirocini);
+                    az.setUtente(ut);
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().insertAzienda(az);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
                         request.setAttribute("messaggio", "Azienda già esistente!");
+                        //Se l'inserimento dell'azienda fallisce cancello sia l'utente che il responsabile tirocini
+                        action_delete_ut(request, response, ut);
+                        action_delete_rt(request, response, responsabile_tirocini);
+                        
                         action_error(request, response);
                     }
                     //registrazione avvenuta con successo
                     request.setAttribute("MSG", "Grazie per la registrazione. \nPotrai eseguire l'accesso non appena l'admin confermerà la vostra richiesta di convenzionamento");
                     request.setAttribute("ICON", "fas fa-check");
                     request.setAttribute("alert", "success");
-                    TemplateResult res = new TemplateResult(getServletContext());
-                    res.activate("home_anonimo.ftl.html", request, response);
+                    response.sendRedirect("prova");
                 }  else {
                     request.setAttribute("errore", "errore_validazione");
                     request.setAttribute("messaggio", "I dati aziendali inseriti non sono validi. Riprova!");
+                    //Se l'inserimento dell'azienda fallisce cancello sia l'utente che il responsabile tirocini
+                    action_delete_ut(request, response, ut);
+                    action_delete_rt(request, response, responsabile_tirocini);
+                        
                     action_error(request, response);
                 }
             } catch (DataLayerException ex){
@@ -164,12 +177,30 @@ public class RegisterAzienda extends BaseController {
         if (request.getAttribute("eccezione") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
         } else {
-            request.setAttribute("referrer", "registrazione.ftl.html");
+            request.setAttribute("referrer", "registrazione_azienda.ftl.html");
 
             (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
         }
     }  
-
+    
+    private void action_delete_ut(HttpServletRequest request, HttpServletResponse response, Utente ut){
+        try {
+            ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().delUtente(ut);
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", "Errore durante la cancellazione dell'utente: "+ex);
+            action_error(request, response);
+        }
+    }
+    
+    public void action_delete_rt(HttpServletRequest request, HttpServletResponse response, Persona rt){
+        try {
+            ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().delPersona(rt.getId());
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", "Errore durante la cancellazione dell'utente: "+ex);
+            action_error(request, response);
+        }
+    }
+    
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -37,16 +37,13 @@ public class RegisterStudente extends BaseController{
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
                 request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
-
             if (request.getParameter("register_studente") != null) {
-
                 action_registrazione_studente(request, response);
-
             }
             else{
                 TemplateResult res = new TemplateResult(getServletContext());
-                request.setAttribute("page_title", "Registrazione");
-                res.activate("registrazione.ftl.html", request, response);
+                request.setAttribute("page_title", "Registrazione Studente");
+                res.activate("registrazione_studente.ftl.html", request, response);
             }
         } catch (TemplateManagerException ex){
             request.setAttribute("eccezione", ex);
@@ -157,7 +154,7 @@ public class RegisterStudente extends BaseController{
         if (request.getAttribute("eccezione") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
         } else {
-            request.setAttribute("referrer", "registrazione.ftl.html");
+            request.setAttribute("referrer", "registrazione_studente.ftl.html");
 
             (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
         }
