@@ -32,8 +32,8 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
     public void init() throws DataLayerException{
         try {
             addStudente = connection.prepareStatement("INSERT INTO heroku_fb8c344fac20fe1.studente"
-                    + "(nome, cognome, cod_fiscale, data_nascita, citta_nascita, provincia_nascita, citta_residenza, provincia_residenza, cap_residenza, telefono, corso_laurea, handicap)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                    + "(nome, cognome, cod_fiscale, data_nascita, citta_nascita, provincia_nascita, citta_residenza, provincia_residenza, cap_residenza, telefono, corso_laurea, handicap, utente)\n" +
+                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             getStudentebyID = connection.prepareStatement("SELECT * FROM studente WHERE id_studente = ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
@@ -96,6 +96,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             addStudente.setString(10, st.getTelefono());
             addStudente.setString(11, st.getCorsoLaurea());
             addStudente.setBoolean(12, st.getHandicap());
+            addStudente.setInt(13, st.getUtente().getId());
             if (addStudente.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
                 //per il record appena inserito, usiamo il metodo

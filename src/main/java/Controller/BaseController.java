@@ -44,12 +44,14 @@ public abstract class BaseController extends HttpServlet {
             dl = new BaseDataLayer(ds);
             dl.init();
             request.setAttribute("datalayer", dl);
+            if(request.getAttribute("datalayer") == null) System.out.println("BaseController non funziona");
             processRequest(request, response);
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
                 request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace(); //debug
             (new FailureResult(getServletContext())).activate(

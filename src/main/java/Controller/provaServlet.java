@@ -8,6 +8,7 @@ package Controller;
 import Model.DAO.TestDAO;
 import Model.DAO.impl.BaseDataLayer;
 import Model.DAO.impl.TestDAO_imp;
+import Model.Interfaces.Persona;
 import Model.Interfaces.Studente;
 import Model.Interfaces.Test;
 import Model.Interfaces.Utente;
@@ -25,7 +26,7 @@ import javax.sql.DataSource;
  *
  * @author matti
  */
-public class provaServlet extends HttpServlet {
+public class provaServlet extends BaseController {
     
     @Resource(name = "jdbc/herokuDB")
     private DataSource ds;
@@ -46,8 +47,10 @@ public class provaServlet extends HttpServlet {
         PrintWriter w = response.getWriter();
         String testDB="";
         try{
-            BaseDataLayer dl= new BaseDataLayer(ds);
-            dl.init();
+            BaseDataLayer dl= (BaseDataLayer)request.getAttribute("datalayer");
+            Persona responsabile_tirocini = dl.getPersonaDAO().createPersona();
+            responsabile_tirocini.setNome("nomeSettato");
+            w.println(responsabile_tirocini.getNome());
             //Utente ut = dl.getUtenteDAO().getUtente("mariogang", "marioflex");
             //commentino
             //w.println(ut.getEmail());

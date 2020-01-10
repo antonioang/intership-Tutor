@@ -64,7 +64,7 @@ public class BaseDataLayer extends DataLayer {
     }
     
     public PersonaDAO_imp getPersonaDAO(){
-        return (PersonaDAO_imp) getDAO(Azienda.class);
+        return (PersonaDAO_imp) getDAO(Persona.class);
     }
     
     public TirocinioDAO_imp getTirocinioDAO(){

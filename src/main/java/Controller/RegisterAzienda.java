@@ -48,6 +48,8 @@ public class RegisterAzienda extends BaseController {
                 request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
             if (request.getParameter("register_azienda") != null) {
+                BaseDataLayer dl = (BaseDataLayer)request.getAttribute("datalayer");
+                if(dl == null) System.out.println("DataLayer Non c'è");
                 action_registrazione_azienda(request, response);
             }
             else{
@@ -67,6 +69,8 @@ public class RegisterAzienda extends BaseController {
             
             try{
                 //Creo il RESPONSABILE DEI TIROCINI
+                BaseDataLayer dl = (BaseDataLayer)request.getAttribute("datalayer");
+                if(dl == null) System.out.println("DataLayer Non Presente");
                 Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().createPersona();
                 //validazione input responsabile tirocini
                 if (SecurityLayer.checkString(request.getParameter("nome_rt")) && SecurityLayer.checkString(request.getParameter("cognome_rt")) &&
@@ -139,9 +143,9 @@ public class RegisterAzienda extends BaseController {
                     az.setCorsoStudi(request.getParameter("corso_studio"));
                     az.setInizioConv(SecurityLayer.checkDate(request.getParameter("inizio_conv")));
                     az.setFineConv(SecurityLayer.checkDate(request.getParameter("fine_conv")));
-                    az.setRespTirocini(responsabile_tirocini);
+                    az.setRespTirocini(responsabile_tirocini.getId());
                     az.setUtente(ut);
-                    int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().insertAzienda(az);
+                    int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().addAzienda(az);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
                         request.setAttribute("messaggio", "Azienda già esistente!");

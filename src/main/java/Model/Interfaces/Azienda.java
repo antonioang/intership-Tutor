@@ -42,7 +42,7 @@ public interface Azienda {
     
     LocalDate getFineConv();
     
-    Persona getRespTirocini();
+    int getRespTirocini();
     
     Utente getUtente();
     
@@ -75,7 +75,7 @@ public interface Azienda {
     
     void setFineConv(LocalDate dataF);
         
-    void setRespTirocini (Persona p);
+    void setRespTirocini (int id);
     
     void setUtente(Utente u);
 }

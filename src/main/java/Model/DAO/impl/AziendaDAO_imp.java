@@ -17,7 +17,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -26,9 +25,9 @@ import java.util.ArrayList;
  */
 public class AziendaDAO_imp extends DAO implements AziendaDAO{
 
-    private PreparedStatement sAziendaById, sAziendaByUtenteUsername, sAziendaByStato, sTirocinantiAttivi;
-    private PreparedStatement uAziendaByStato, uAziendaDoc, uAziendaById;
-    private PreparedStatement iAziendaById, dAziendaById;
+    private PreparedStatement getAziendaById, getAziendaByUtenteUsername, getAziendaByStato, getTirocinantiAttivi;
+    private PreparedStatement uAziendaByStato, uAziendaDoc, updAzienda;
+    private PreparedStatement addAzienda, delAzienda;
     
     public AziendaDAO_imp(DataLayer d) {
         super(d);
@@ -40,25 +39,25 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         super.init();
         
         try {
-            sAziendaById = connection.prepareStatement("SELECT * FROM azienda WHERE id_azienda = ?");
-            sAziendaByUtenteUsername = connection.prepareStatement("SELECT * FROM azienda JOIN utente ON azienda.utente=id_utente WHERE username=?");
-            sAziendaByStato = connection.prepareStatement("SELECT * FROM azienda WHERE stato_conv = ?");
-            sTirocinantiAttivi = connection.prepareStatement("SELECT * FROM azienda WHERE responsabile_tirocinio = ?");
+            getAziendaById = connection.prepareStatement("SELECT * FROM azienda WHERE id_azienda = ?");
+            getAziendaByUtenteUsername = connection.prepareStatement("SELECT * FROM azienda JOIN utente ON azienda.utente=id_utente WHERE username=?");
+            getAziendaByStato = connection.prepareStatement("SELECT * FROM azienda WHERE stato_conv = ?");
+            getTirocinantiAttivi = connection.prepareStatement("SELECT * FROM azienda WHERE responsabile_tirocinio = ?");
             uAziendaByStato =  connection.prepareStatement("UPDATE aziendaSET stato_conv= ? WHERE id_azienda= ?");
             uAziendaDoc = connection.prepareStatement("UPDATE azienda SET src_doc_conv=? WHERE id_azienda=?");
-            uAziendaById = connection.prepareStatement("UPDATE azienda\n" +
+            updAzienda = connection.prepareStatement("UPDATE azienda\n" +
             "SET rag_sociale=?, indirizzo=?, citta=?, cap=?, provincia=?, rappr_leg=?, piva=?, "
             + "foro_competente=?, src_doc_conv=?, tematica=?, stato_conv=?, corso_studi=?, "
             + "inizio_conv=?, fine_conv=?, responsabile_tirocini=?\n" +
             "WHERE id_azienda=?;");
-            iAziendaById = connection.prepareStatement("INSERT INTO azienda\n" +
+            addAzienda = connection.prepareStatement("INSERT INTO azienda\n" +
             "(rag_sociale, indirizzo, citta, cap, provincia, rappr_leg, piva, foro_competente, "
             + "src_doc_conv, tematica, stato_conv, corso_studi, inizio_conv, fine_conv, "
             + "responsabile_tirocini)\n" +
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            dAziendaById = connection.prepareStatement("DELETE FROM azienda WHERE id_azienda=?");
+            delAzienda = connection.prepareStatement("DELETE FROM azienda WHERE id_azienda=?");
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore inizializzazione degli statement azienda", ex);
         }
     }
 
@@ -85,24 +84,23 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             az.setCorsoStudi(rs.getString("corso_studi"));
             az.setInizioConv(rs.getDate("inizio_conv").toLocalDate());
             az.setFineConv(rs.getDate("fine_conv").toLocalDate());
-            //az.setRespTirocini(rs.getInt("responsabile_tirocini"));
+            az.setRespTirocini(rs.getInt("responsabile_tirocini"));
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante creazione azienda", ex);
         }
-        return az;
-        
+        return az;        
     }
 
     @Override
     public Azienda getAzienda(int id) throws DataLayerException {
         try {
-            sAziendaById.setInt(1, id);
-            ResultSet rs = sAziendaById.executeQuery();
+            getAziendaById.setInt(1, id);
+            ResultSet rs = getAziendaById.executeQuery();
             if(rs.next()){
                 return createAzienda(rs);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
         }
         return null;
     }
@@ -110,28 +108,28 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     @Override
     public Azienda getAzienda(String ut_username) throws DataLayerException {
         try {
-            sAziendaByUtenteUsername.setString(1, ut_username);
-            ResultSet rs = sAziendaByUtenteUsername.executeQuery();
+            getAziendaByUtenteUsername.setString(1, ut_username);
+            ResultSet rs = getAziendaByUtenteUsername.executeQuery();
             if(rs.next()){
-            return createAzienda(rs);
+                return createAzienda(rs);
             }
+            return null;
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
         }
-        return null;
     }
 
     @Override
     public List<Azienda> getAziendeByStato(int stato) throws DataLayerException {
         List<Azienda> lista = new ArrayList();
         try {
-            sAziendaByStato.setInt(1, stato);
-            ResultSet rs = sAziendaByStato.executeQuery();
+            getAziendaByStato.setInt(1, stato);
+            ResultSet rs = getAziendaByStato.executeQuery();
             while (rs.next()){
                 lista.add((Azienda) getAzienda(rs.getInt("id_azienda"))); 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
         }
         return lista;
     }
@@ -143,50 +141,48 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             uAziendaByStato.setInt(2, stato);
             return uAziendaByStato.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
         }
-        return 0;
     }
 
     @Override
-    public int insertAzienda(Azienda az) throws DataLayerException {
+    public int addAzienda(Azienda az) throws DataLayerException {
         //java.sql.Date.valueOf();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int deleteAzienda(int id_az) throws DataLayerException {
+    public int delAzienda(int id_az) throws DataLayerException {
         try {
-            dAziendaById.setInt(1, id_az);
-            dAziendaById.executeUpdate();
+            delAzienda.setInt(1, id_az);
+            return delAzienda.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DataLayerException("Errore durante la cancellazione dell'azienda", ex);
         }
-        return 0;
     }
 
     @Override
-    public int updateAziendaDocumento(int id_az, String src) throws DataLayerException {
+    public int updAziendaDocumento(int id_az, String src) throws DataLayerException {
         try {
             uAziendaDoc.setInt(2, id_az);
             uAziendaDoc.setString(1, src);
             return uAziendaDoc.executeUpdate();
         } catch (SQLException ex) {
-           throw new DataLayerException("Update documento fallito",ex);
-        }
-        
+           throw new DataLayerException("Update documento azienda fallito",ex);
+        }    
     }
 
     @Override
     public int getTirocinantiAttivi(Azienda az) throws DataLayerException {
-        
-    }
-
-    @Override
-    public int updateAzienda(Azienda az) throws DataLayerException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public int updAzienda(Azienda az) throws DataLayerException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    
     
     
 }

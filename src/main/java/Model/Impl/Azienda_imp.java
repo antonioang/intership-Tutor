@@ -33,22 +33,22 @@ public class Azienda_imp implements Azienda {
     private Persona p;
     
     public Azienda_imp(){
-    this.ragioneSociale = "";
-    this.indirizzo = "";
-    this.citta = "";
-    this.cap = 0;
-    this.provincia = "";
-    this.rapprLeg = "";
-    this.piva = 0;
-    this.foroCompetente = "";
-    this.srcDocPath = "";
-    this.tematica = "";
-    this.statoConv = false;
-    this.corsoStudi = "";
-    this.inizioConv = null;
-    this.fineConv = null;
-    this.p = null;
-}
+        this.ragioneSociale = "";
+        this.indirizzo = "";
+        this.citta = "";
+        this.cap = 0;
+        this.provincia = "";
+        this.rapprLeg = "";
+        this.piva = 0;
+        this.foroCompetente = "";
+        this.srcDocPath = "";
+        this.tematica = "";
+        this.statoConv = false;
+        this.corsoStudi = "";
+        this.inizioConv = null;
+        this.fineConv = null;
+        this.p = null;
+    }
 
     @Override
     public String getRagioneSociale() {
@@ -193,7 +193,7 @@ public class Azienda_imp implements Azienda {
     }
 
     @Override
-    public Persona getRespTirocini() {
+    public int getRespTirocini() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -203,7 +203,7 @@ public class Azienda_imp implements Azienda {
     }
 
     @Override
-    public void setRespTirocini(Persona p) {
+    public void setRespTirocini(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

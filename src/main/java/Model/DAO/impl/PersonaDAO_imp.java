@@ -6,6 +6,7 @@
 package Model.DAO.impl;
 
 import Model.DAO.PersonaDAO;
+import Model.Impl.Persona_imp;
 import Model.Interfaces.Persona;
 import framework.data.DAO;
 import framework.data.DataLayer;
@@ -42,13 +43,23 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     }
     
     @Override
-    public Persona createPersona() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Persona createPersona(){
+        return new Persona_imp();
     }
 
     @Override
-    public Persona createPersona(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Persona createPersona(ResultSet rs) throws DataLayerException {
+        try {
+            Persona p = createPersona();
+            p.setNome(rs.getString("nome"));
+            p.setCognome(rs.getString("cognome"));
+            p.setEmail(rs.getString("email"));
+            p.setTelefono(rs.getInt("telefono"));
+            p.setTipo(rs.getInt("tipo"));
+            return p;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la creazione della persona", ex);
+        }
     }
 
     @Override
