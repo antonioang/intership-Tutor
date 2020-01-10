@@ -41,7 +41,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         
         try {
             sAziendaById = connection.prepareStatement("SELECT * FROM azienda WHERE id_azienda = ?");
-            sAziendaByUtenteUsername = connection.prepareStatement("");
+            sAziendaByUtenteUsername = connection.prepareStatement("SELECT * FROM azienda JOIN utente ON azienda.utente=id_utente WHERE username=?");
             sAziendaByStato = connection.prepareStatement("SELECT * FROM azienda WHERE stato_conv = ?");
             sTirocinantiAttivi = connection.prepareStatement("SELECT * FROM azienda WHERE responsabile_tirocinio = ?");
             uAziendaByStato =  connection.prepareStatement("UPDATE aziendaSET stato_conv= ? WHERE id_azienda= ?");
@@ -140,7 +140,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     public int updateAziendaStato(int id_az, int stato) throws DataLayerException {
         try {
             uAziendaByStato.setInt(1, id_az);
-            uAziendaByStato.setInt(12, stato);
+            uAziendaByStato.setInt(2, stato);
             return uAziendaByStato.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,22 +150,35 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
 
     @Override
     public int insertAzienda(Azienda az) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //java.sql.Date.valueOf();
     }
 
     @Override
     public int deleteAzienda(int id_az) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            dAziendaById.setInt(1, id_az);
+            dAziendaById.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AziendaDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 
     @Override
     public int updateAziendaDocumento(int id_az, String src) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            uAziendaDoc.setInt(2, id_az);
+            uAziendaDoc.setString(1, src);
+            return uAziendaDoc.executeUpdate();
+        } catch (SQLException ex) {
+           throw new DataLayerException("Update documento fallito",ex);
+        }
+        
     }
 
     @Override
     public int getTirocinantiAttivi(Azienda az) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
