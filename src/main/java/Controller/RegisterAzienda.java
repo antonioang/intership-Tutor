@@ -39,8 +39,6 @@ public class RegisterAzienda extends BaseController {
                 request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
             if (request.getParameter("register_azienda") != null) {
-                BaseDataLayer dl = (BaseDataLayer)request.getAttribute("datalayer");
-                if(dl == null) System.out.println("DataLayer Non c'è");
                 action_registrazione_azienda(request, response);
             }
             else{
@@ -60,8 +58,6 @@ public class RegisterAzienda extends BaseController {
             
             try{
                 //CREO IL RESPONSABILE DEI TIROCINI
-                BaseDataLayer dl = (BaseDataLayer)request.getAttribute("datalayer");
-                if(dl == null) System.out.println("DataLayer Non Presente");
                 Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().createPersona();
                 //validazione input responsabile tirocini
                 if (SecurityLayer.checkString(request.getParameter("nome_rt")) && SecurityLayer.checkString(request.getParameter("cognome_rt")) &&
