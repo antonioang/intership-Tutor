@@ -20,6 +20,10 @@
         <servlet-name>RegisterAzienda</servlet-name>
         <servlet-class>Controller.RegisterAzienda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Profilo</servlet-name>
+        <servlet-class>Controller.Profilo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>RegisterAzienda</servlet-name>
         <url-pattern>/RegisterAzienda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profilo</servlet-name>
+        <url-pattern>/Profilo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -33,14 +33,13 @@ public class RegisterStudente extends BaseController{
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
-                request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
+                request.setAttribute("tipo", (String)s.getAttribute("tipo"));
             }
             if (request.getParameter("register_studente") != null) {
                 action_registrazione_studente(request, response);
             }
             else{
                 TemplateResult res = new TemplateResult(getServletContext());
-                request.setAttribute("page_title", "Registrazione Studente");
                 res.activate("registrazione_studente.ftl.html", request, response);
             }
         } catch (TemplateManagerException ex){
@@ -89,7 +88,7 @@ public class RegisterStudente extends BaseController{
             }
             //Dopo aver creato l'oggetto utente creo un oggetto studente
             Studente st = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().createStudente();
-             // validazione input dati dello studente
+            // validazione input dati dello studente
             if (SecurityLayer.checkString(request.getParameter("nome")) && SecurityLayer.checkString(request.getParameter("cognome")) &&
                     SecurityLayer.checkString(request.getParameter("codice_fiscale")) && SecurityLayer.checkBoolean(request.getParameter("handicap")) &&
                     SecurityLayer.isDate(request.getParameter("data_nascita")) && SecurityLayer.checkString(request.getParameter("citta_nascita")) &&

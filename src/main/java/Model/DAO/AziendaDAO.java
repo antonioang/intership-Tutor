@@ -22,7 +22,7 @@ public interface AziendaDAO {
     
     Azienda getAzienda(int id) throws DataLayerException;
     
-    Azienda getAzienda(String ut_username) throws DataLayerException;
+    Azienda getAziendaByUtente(int id_utente) throws DataLayerException;
     
     List<Azienda> getAziendeByStato(int stato) throws DataLayerException;
         

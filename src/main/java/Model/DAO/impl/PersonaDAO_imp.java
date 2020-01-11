@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +25,7 @@ import java.util.List;
  */
 public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
-    private PreparedStatement addPersona, delPersona;
+    private PreparedStatement addPersona, delPersona, getPersona;
     
     public PersonaDAO_imp(DataLayer d) {
         super(d);
@@ -33,10 +35,10 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     public void init() throws DataLayerException{
         try {
             addPersona = connection.prepareStatement("INSERT INTO persona\n" +
-            "(nome, cognome, email, telefono, tipo)\n" +
-            "VALUES(?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
-            
+                "(nome, cognome, email, telefono, tipo)\n" +
+                "VALUES(?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             delPersona = connection.prepareStatement("DELETE FROM persona WHERE id_persona = ?");
+            getPersona = connection.prepareStatement("SELECT * FROM persona WHERE id_persona = ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzazione degli Statement", ex);
         }
@@ -63,13 +65,17 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     }
 
     @Override
-    public Persona getPersona(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Persona> getPersona() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Persona getPersona(int id) throws DataLayerException {
+        try {
+            getPersona.setInt(1, id);
+            ResultSet rs = getPersona.executeQuery();
+            if(rs.next()){
+                return createPersona(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero della persona", ex);
+        }
+        return null;
     }
 
     @Override

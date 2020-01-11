@@ -26,7 +26,7 @@ import java.util.ArrayList;
  */
 public class AziendaDAO_imp extends DAO implements AziendaDAO{
 
-    private PreparedStatement getAziendaById, getAziendaByUtenteUsername, getAziendaByStato, getTirocinantiAttivi;
+    private PreparedStatement getAziendaById, getAziendaByUtente, getAziendaByStato, getTirocinantiAttivi;
     private PreparedStatement uAziendaByStato, uAziendaDoc, updAzienda;
     private PreparedStatement addAzienda, delAzienda;
     
@@ -41,7 +41,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         
         try {
             getAziendaById = connection.prepareStatement("SELECT * FROM azienda WHERE id_azienda = ?");
-            getAziendaByUtenteUsername = connection.prepareStatement("SELECT * FROM azienda JOIN utente ON azienda.utente=id_utente WHERE username=?");
+            getAziendaByUtente = connection.prepareStatement("SELECT * FROM azienda WHERE utente = ?");
             getAziendaByStato = connection.prepareStatement("SELECT * FROM azienda WHERE stato_conv = ?");
             getTirocinantiAttivi = connection.prepareStatement("SELECT * FROM azienda WHERE responsabile_tirocinio = ?");
             uAziendaByStato =  connection.prepareStatement("UPDATE aziendaSET stato_conv= ? WHERE id_azienda= ?");
@@ -107,10 +107,10 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     }
 
     @Override
-    public Azienda getAzienda(String ut_username) throws DataLayerException {
+    public Azienda getAziendaByUtente(int id_utente) throws DataLayerException {
         try {
-            getAziendaByUtenteUsername.setString(1, ut_username);
-            ResultSet rs = getAziendaByUtenteUsername.executeQuery();
+            getAziendaByUtente.setInt(1, id_utente);
+            ResultSet rs = getAziendaByUtente.executeQuery();
             if(rs.next()){
                 return createAzienda(rs);
             }

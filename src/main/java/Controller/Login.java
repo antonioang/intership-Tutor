@@ -120,6 +120,7 @@ public class Login extends BaseController {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
         } else{
             request.setAttribute("referrer", "login.ftl.html");
+            System.out.println((String) request.getAttribute("errore"));
             (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
         }
     }

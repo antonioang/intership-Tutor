@@ -36,7 +36,7 @@ public class RegisterAzienda extends BaseController {
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
-                request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
+                request.setAttribute("tipo", (String)s.getAttribute("tipo"));
             }
             if (request.getParameter("register_azienda") != null) {
                 action_registrazione_azienda(request, response);
@@ -74,7 +74,7 @@ public class RegisterAzienda extends BaseController {
                         action_error(request, response);
                     }
                 } else {
-                    request.setAttribute("errore", "errore_convalida");
+                    request.setAttribute("errore", "errore_validazione");
                     request.setAttribute("messaggio", "I campi del responsabile tirocini non sono corretti. Riprova!");
                     action_error(request, response);
                 }

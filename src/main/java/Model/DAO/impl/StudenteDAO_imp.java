@@ -24,8 +24,9 @@ import java.util.logging.Logger;
  * @author jacopo
  */
 public class StudenteDAO_imp extends DAO implements StudenteDAO {
-    private PreparedStatement addStudente, getStudentebyID;
-            
+    private PreparedStatement addStudente, getStudentebyID, getStudenteByUtente;
+    private PreparedStatement updStudente;
+    
     public StudenteDAO_imp(DataLayer d) {
         super(d);
     }
@@ -35,6 +36,10 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
                     + "(nome, cognome, cod_fiscale, data_nascita, citta_nascita, provincia_nascita, citta_residenza, provincia_residenza, cap_residenza, telefono, corso_laurea, handicap, utente)\n" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             getStudentebyID = connection.prepareStatement("SELECT * FROM studente WHERE id_studente = ?");
+            getStudenteByUtente = connection.prepareStatement("SELECT * FROM studente WHERE utente = ?");
+            updStudente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.studente\n" +
+                "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n" +
+                "WHERE id_studente=?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
         }
@@ -128,13 +133,46 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
     }
 
     @Override
-    public int updateStudente(Studente st) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int updStudente(Studente st) throws DataLayerException {
+        try {
+            updStudente.setString(1, st.getNome());
+            updStudente.setString(2, st.getCognome());
+            updStudente.setString(3, st.getCodFiscale());
+            updStudente.setDate(4, java.sql.Date.valueOf(st.getDataNascita()));
+            updStudente.setString(5, st.getCittaNascita());
+            updStudente.setString(6, st.getProvinciaNascita());
+            updStudente.setString(7, st.getCittaResidenza());
+            updStudente.setString(8, st.getProvinciaResidenza());
+            updStudente.setInt(9, st.getCapResidenza());
+            updStudente.setString(10, st.getTelefono());
+            updStudente.setString(11, st.getCorsoLaurea());
+            updStudente.setBoolean(12, st.getHandicap());
+            updStudente.setInt(13, st.getUtente().getId());
+            updStudente.setInt(14, st.getId());           
+            return updStudente.executeUpdate(); 
+            
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante l'aggiornamento dati studente", ex);
+        }
     }
 
     @Override
     public int delStudente(Studente st) throws DataLayerException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Studente getStudenteByUtente(int id_utente) throws DataLayerException {
+        try {
+            getStudenteByUtente.setInt(1, id_utente);
+            ResultSet rs = getStudenteByUtente.executeQuery();
+            if(rs.next()){
+               return createStudente(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dello studente tramite l'utente", ex);
+        }
+        return null;
     }
 
     

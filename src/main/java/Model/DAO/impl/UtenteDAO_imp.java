@@ -47,7 +47,9 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
                     + "values(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             delUtente = connection.prepareStatement("DELETE FROM utente\n" +
                     "WHERE id_utente=?;");
-            updUtente = connection.prepareStatement("UPDATE utente SET email=?, username=?, pw=?, tipologia=? WHERE id=?");
+            updUtente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.utente\n" +
+                "SET username=?, password=?, email=?, tipo=?\n" +
+                "WHERE id_utente=?;");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
         }
@@ -180,8 +182,17 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     }
 
     @Override
-    public int updateUtente(Utente utente) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int updUtente(Utente utente) throws DataLayerException {
+        try {
+            updUtente.setString(1, utente.getUsername());
+            updUtente.setString(2, utente.getPassword());
+            updUtente.setString(3, utente.getEmail());
+            updUtente.setInt(4, utente.getTipo());
+            updUtente.setInt(5, utente.getId());
+            return updUtente.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante l'aggiornamento dati utente", ex);
+        }
     }
     
     @Override
