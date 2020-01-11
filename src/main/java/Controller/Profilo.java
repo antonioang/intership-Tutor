@@ -35,7 +35,7 @@ public class Profilo extends BaseController {
         HttpSession s = SecurityLayer.checkSession(request);
         if (s!= null) {
             request.setAttribute("nome_utente", (String) s.getAttribute("username"));
-            request.setAttribute("tipo", (String) s.getAttribute("tipo"));
+            request.setAttribute("tipo", s.getAttribute("tipo"));
             
             if (request.getParameter("modifica_profilo") != null) {
                 action_modifica_profilo(request, response);
