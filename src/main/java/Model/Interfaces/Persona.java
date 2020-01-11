@@ -17,7 +17,7 @@ public interface Persona {
     
     String getEmail();
     
-    int getTelefono();
+    String getTelefono();
     
     int getTipo();
     
@@ -30,7 +30,7 @@ public interface Persona {
     
     void setEmail(String email);
     
-    void setTelefono(int t);
+    void setTelefono(String t);
     
     void setTipo(int tipo);
     

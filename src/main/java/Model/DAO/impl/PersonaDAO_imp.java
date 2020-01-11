@@ -54,7 +54,7 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
             p.setNome(rs.getString("nome"));
             p.setCognome(rs.getString("cognome"));
             p.setEmail(rs.getString("email"));
-            p.setTelefono(rs.getInt("telefono"));
+            p.setTelefono(rs.getString("telefono"));
             p.setTipo(rs.getInt("tipo"));
             return p;
         } catch (SQLException ex) {
@@ -78,8 +78,8 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
             addPersona.setString(1, p.getNome());
             addPersona.setString(2, p.getCognome());
             addPersona.setString(3, p.getEmail());
-            addPersona.setInt(4, p.getTelefono());
-            addPersona.setInt(4, p.getTipo());
+            addPersona.setString(4, p.getTelefono());
+            addPersona.setInt(5, p.getTipo());
             if (addPersona.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
                 //per il record appena inserito, usiamo il metodo

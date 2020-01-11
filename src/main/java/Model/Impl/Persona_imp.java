@@ -13,14 +13,14 @@ import Model.Interfaces.Persona;
  */
 public class Persona_imp implements Persona{
     
-    private String nome, cognome, email;
-    private int telefono, tipo, id;
+    private String nome, cognome, email, telefono;
+    private int tipo, id;
     
     public Persona_imp(){
         this.nome = "";
         this.cognome = "";
         this.email = "";
-        this.telefono = 0;
+        this.telefono = "";
         this.tipo = 0;
         this.id = 0;
     }
@@ -41,7 +41,7 @@ public class Persona_imp implements Persona{
     }
 
     @Override
-    public int getTelefono() {
+    public String getTelefono() {
         return this.telefono;
     }
 
@@ -71,7 +71,7 @@ public class Persona_imp implements Persona{
     }
 
     @Override
-    public void setTelefono(int t) {
+    public void setTelefono(String t) {
         this.telefono = t;
     }
 

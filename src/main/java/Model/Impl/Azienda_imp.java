@@ -16,13 +16,15 @@ import java.time.LocalDate;
  * @author jacopo
  */
 public class Azienda_imp implements Azienda {
+    
+    private int id;
     private String ragioneSociale;
     private String indirizzo;
     private String citta;
     private int cap;
     private String provincia;
     private String rapprLeg;
-    private int piva;
+    private String piva;
     private String foroCompetente;
     private String srcDocPath;
     private String tematica;
@@ -30,16 +32,18 @@ public class Azienda_imp implements Azienda {
     private String corsoStudi;
     private LocalDate inizioConv;
     private LocalDate fineConv;
-    private Persona p;
+    private int rappresentante_tirocini;
+    private Utente u;
     
     public Azienda_imp(){
+        this.id = 0;
         this.ragioneSociale = "";
         this.indirizzo = "";
         this.citta = "";
         this.cap = 0;
         this.provincia = "";
         this.rapprLeg = "";
-        this.piva = 0;
+        this.piva = "";
         this.foroCompetente = "";
         this.srcDocPath = "";
         this.tematica = "";
@@ -47,7 +51,8 @@ public class Azienda_imp implements Azienda {
         this.corsoStudi = "";
         this.inizioConv = null;
         this.fineConv = null;
-        this.p = null;
+        this.rappresentante_tirocini = 0;
+        this.u = null;
     }
 
     @Override
@@ -83,7 +88,7 @@ public class Azienda_imp implements Azienda {
     }
 
     @Override
-    public int getPiva() {
+    public String getPiva() {
         return piva;
     }
 
@@ -153,7 +158,7 @@ public class Azienda_imp implements Azienda {
     }
 
     @Override
-    public void setPiva(int iva) {
+    public void setPiva(String iva) {
        this.piva = iva;
     }
 
@@ -194,22 +199,32 @@ public class Azienda_imp implements Azienda {
 
     @Override
     public int getRespTirocini() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.rappresentante_tirocini;
     }
 
     @Override
     public Utente getUtente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.u;
     }
 
     @Override
     public void setRespTirocini(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.rappresentante_tirocini = id;
     }
 
     @Override
     public void setUtente(Utente u) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.u = u;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

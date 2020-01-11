@@ -27,15 +27,6 @@ import org.jasypt.util.password.BasicPasswordEncryptor;
  */
 public class RegisterAzienda extends BaseController {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
    BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
     
     @Override
@@ -68,7 +59,7 @@ public class RegisterAzienda extends BaseController {
             throws IOException, ServletException, TemplateManagerException {
             
             try{
-                //Creo il RESPONSABILE DEI TIROCINI
+                //CREO IL RESPONSABILE DEI TIROCINI
                 BaseDataLayer dl = (BaseDataLayer)request.getAttribute("datalayer");
                 if(dl == null) System.out.println("DataLayer Non Presente");
                 Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().createPersona();
@@ -79,7 +70,7 @@ public class RegisterAzienda extends BaseController {
                     responsabile_tirocini.setNome(request.getParameter("nome_rt"));
                     responsabile_tirocini.setCognome(request.getParameter("cognome_rt"));
                     responsabile_tirocini.setEmail(request.getParameter("email_rt"));
-                    responsabile_tirocini.setTelefono(SecurityLayer.checkNumeric(request.getParameter("telefono_rt")));
+                    responsabile_tirocini.setTelefono(request.getParameter("telefono_rt"));
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().addPersona(responsabile_tirocini);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
@@ -128,7 +119,7 @@ public class RegisterAzienda extends BaseController {
                         SecurityLayer.checkString(request.getParameter("citta")) && SecurityLayer.checkCap(request.getParameter("cap")) &&
                         SecurityLayer.checkString(request.getParameter("provincia")) && SecurityLayer.checkString(request.getParameter("rappresentante_legale")) &&
                         SecurityLayer.checkString(request.getParameter("piva")) && SecurityLayer.checkString(request.getParameter("foro_competente")) &&
-                        SecurityLayer.checkString(request.getParameter("tematiche")) && SecurityLayer.checkString(request.getParameter("corso_studio")) &&
+                        SecurityLayer.checkString(request.getParameter("tematica")) && SecurityLayer.checkString(request.getParameter("corso_studio")) &&
                         SecurityLayer.isDate(request.getParameter("inizio_conv")) && SecurityLayer.isDate(request.getParameter("fine_conv"))) {
 
                     az.setRagioneSociale(request.getParameter("ragione_sociale"));
@@ -137,7 +128,7 @@ public class RegisterAzienda extends BaseController {
                     az.setCap(Integer.parseInt(request.getParameter("cap")));
                     az.setProvincia(request.getParameter("provincia"));
                     az.setRapprLeg(request.getParameter("rappresentante_legale"));
-                    az.setPiva(Integer.parseInt(request.getParameter("piva")));
+                    az.setPiva(request.getParameter("piva"));
                     az.setForoCompetente(request.getParameter("foro_competente"));
                     az.setTematica(request.getParameter("tematica"));
                     az.setCorsoStudi(request.getParameter("corso_studio"));
@@ -145,6 +136,7 @@ public class RegisterAzienda extends BaseController {
                     az.setFineConv(SecurityLayer.checkDate(request.getParameter("fine_conv")));
                     az.setRespTirocini(responsabile_tirocini.getId());
                     az.setUtente(ut);
+                    
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().addAzienda(az);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
@@ -155,7 +147,7 @@ public class RegisterAzienda extends BaseController {
                         
                         action_error(request, response);
                     }
-                    //registrazione avvenuta con successo
+                    //REGISTRAZIONE AVVENUTA CON SUCCESSO
                     request.setAttribute("MSG", "Grazie per la registrazione. \nPotrai eseguire l'accesso non appena l'admin confermerà la vostra richiesta di convenzionamento");
                     request.setAttribute("ICON", "fas fa-check");
                     request.setAttribute("alert", "success");
@@ -205,43 +197,4 @@ public class RegisterAzienda extends BaseController {
         }
     }
     
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
