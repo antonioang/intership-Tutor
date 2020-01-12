@@ -15,8 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -168,14 +166,8 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     @Override
     public int delUtente(Utente utente) throws DataLayerException {
         try {
-            delUtente.setInt(1, utente.getId());
-            
-            if (delUtente.executeUpdate() == 1) {
-                              
-                return 1;
-            } else { 
-                return 0;
-            }
+            delUtente.setInt(1, utente.getId());      
+            return delUtente.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore nella cancellazione dell'utente", ex);
         }

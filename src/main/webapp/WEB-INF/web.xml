@@ -24,6 +24,10 @@
         <servlet-name>Profilo</servlet-name>
         <servlet-class>Controller.Profilo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>Controller.Home</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>Profilo</servlet-name>
         <url-pattern>/Profilo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
