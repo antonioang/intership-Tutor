@@ -15,9 +15,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
-    private PreparedStatement addPersona, delPersona, getPersona;
+    private PreparedStatement addPersona, delPersona, updPersona, getPersona; 
     
     public PersonaDAO_imp(DataLayer d) {
         super(d);
@@ -38,6 +35,9 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
                 "(nome, cognome, email, telefono, tipo)\n" +
                 "VALUES(?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             delPersona = connection.prepareStatement("DELETE FROM persona WHERE id_persona = ?");
+            updPersona = connection.prepareStatement("UPDATE persona\n" +
+                "SET nome=?, cognome=?, email=?, telefono=?, tipo=?\n" +
+                "WHERE id_persona=?;");
             getPersona = connection.prepareStatement("SELECT * FROM persona WHERE id_persona = ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzazione degli Statement", ex);
@@ -131,8 +131,18 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     }
 
     @Override
-    public int updPersona(Persona p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int updPersona(Persona p) throws DataLayerException {
+        try {
+            updPersona.setString(1, p.getNome());
+            updPersona.setString(2, p.getCognome());
+            updPersona.setString(3, p.getEmail());
+            updPersona.setString(4, p.getTelefono());
+            updPersona.setInt(5, p.getTipo());
+            updPersona.setInt(6, p.getId());
+            return updPersona.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante l'aggiornamento della persona", ex);
+        }
     }
     
 }

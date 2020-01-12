@@ -149,7 +149,6 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     @Override
     public int addAzienda(Azienda az) throws DataLayerException {
         try {
-            //java.sql.Date.valueOf();
             addAzienda.setString(1, az.getRagioneSociale());
             addAzienda.setString(2, az.getIndirizzo());
             addAzienda.setString(3, az.getCitta());
@@ -224,7 +223,28 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
 
     @Override
     public int updAzienda(Azienda az) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            updAzienda.setString(1, az.getRagioneSociale());
+            updAzienda.setString(2, az.getIndirizzo());
+            updAzienda.setString(3, az.getCitta());
+            updAzienda.setInt(4, az.getCap());
+            updAzienda.setString(5, az.getProvincia());
+            updAzienda.setString(6, az.getRapprLeg());
+            updAzienda.setString(7, az.getPiva());
+            updAzienda.setString(8, az.getForoCompetente());
+            updAzienda.setString(9, az.getSrcDocPath());
+            updAzienda.setString(10, az.getTematica());
+            updAzienda.setBoolean(11, az.getStatoConv());
+            updAzienda.setString(12, az.getCorsoStudi());
+            updAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
+            updAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
+            updAzienda.setInt(15, az.getRespTirocini());
+            updAzienda.setInt(16, az.getUtente().getId());
+            updAzienda.setInt(17, az.getId());
+            return updAzienda.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante l'aggiornamento dell'azienda", ex);
+        }
     }
 
     

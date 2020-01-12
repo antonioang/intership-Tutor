@@ -16,8 +16,6 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author matti
+ * @author Mattia Lenza
  */
 public class Profilo extends BaseController {
 
@@ -101,7 +99,7 @@ public class Profilo extends BaseController {
                 //SE é UNO STUDENTE
                 Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("nome_utente"));
                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente((int) request.getAttribute("id_utente"));
-                // validazione input dati dell'utente
+                //validazione input dati dell'utente
                 if(SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkEmail(request.getParameter("email"))){
                     utente.setUsername(request.getParameter("username"));
                     utente.setEmail(request.getParameter("email"));
@@ -122,7 +120,7 @@ public class Profilo extends BaseController {
                     action_error(request, response);
                 }
                 
-                // validazione input dati dello studente
+                //validazione input dati dello studente
                 if (SecurityLayer.checkString(request.getParameter("nome")) && SecurityLayer.checkString(request.getParameter("cognome")) &&
                     SecurityLayer.checkString(request.getParameter("codice_fiscale")) && SecurityLayer.checkBoolean(request.getParameter("handicap")) &&
                     SecurityLayer.isDate(request.getParameter("data_nascita")) && SecurityLayer.checkString(request.getParameter("citta_nascita")) &&
@@ -171,7 +169,7 @@ public class Profilo extends BaseController {
                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
                 Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
                 
-                // validazione input dati dell'utente
+                //validazione input dati dell'utente
                 if(SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkEmail(request.getParameter("email"))){
                     utente.setUsername(request.getParameter("username"));
                     utente.setEmail(request.getParameter("email"));
