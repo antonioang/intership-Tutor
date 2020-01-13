@@ -34,6 +34,7 @@ public class RegisterStudente extends BaseController{
             if (s!= null) {
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
                 request.setAttribute("tipo", (String)s.getAttribute("tipo"));
+                response.sendRedirect("home");
             }
             if (request.getParameter("register_studente") != null) {
                 action_registrazione_studente(request, response);
@@ -126,8 +127,7 @@ public class RegisterStudente extends BaseController{
                 request.setAttribute("ICON", "fas fa-check");
                 request.setAttribute("alert", "success");
                 request.setAttribute("TITLE", "OK");
-                TemplateResult res = new TemplateResult(getServletContext());
-                res.activate("login.ftl.html", request, response);
+                response.sendRedirect("home");
 
             } else {
                 //campi in input non validi

@@ -149,7 +149,7 @@ public class RegisterAzienda extends BaseController {
                     request.setAttribute("MSG", "Grazie per la registrazione. \nPotrai eseguire l'accesso non appena l'admin confermerà la vostra richiesta di convenzionamento");
                     request.setAttribute("ICON", "fas fa-check");
                     request.setAttribute("alert", "success");
-                    response.sendRedirect("prova");
+                    response.sendRedirect("home");
                 }  else {
                     request.setAttribute("errore", "errore_validazione");
                     request.setAttribute("messaggio", "I dati aziendali inseriti non sono validi. Riprova!");
