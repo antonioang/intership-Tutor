@@ -50,23 +50,23 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterStudente</servlet-name>
-        <url-pattern>/RegisterStudente</url-pattern>
+        <url-pattern>/registrazioen_studente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterAzienda</servlet-name>
-        <url-pattern>/RegisterAzienda</url-pattern>
+        <url-pattern>/registrazione_azienda</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Profilo</servlet-name>
-        <url-pattern>/Profilo</url-pattern>
+        <url-pattern>/profilo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
-        <url-pattern>/Home</url-pattern>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VisualizzaAziende</servlet-name>

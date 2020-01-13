@@ -54,7 +54,6 @@ public class Login extends BaseController {
     private void action_default (HttpServletRequest request, HttpServletResponse response) throws TemplateManagerException{
         System.out.println("action_default");
         TemplateResult res = new TemplateResult(getServletContext());
-        request.setAttribute("pagina", "login");
         
         //passamano del referrer (prima a login html poi alla servlet che valida il login)
         if (request.getParameter("referrer") != null) {
@@ -77,7 +76,7 @@ public class Login extends BaseController {
                    
                     //controllo se il referrer è definito
                     if(request.getParameter("referrer") == null){
-                        response.sendRedirect("Home");
+                        response.sendRedirect("home");
                     } else{ //altrimenti rimando alla home page
                         response.sendRedirect(request.getParameter("referrer"));
                     }
