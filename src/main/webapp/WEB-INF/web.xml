@@ -39,6 +39,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Controller.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
