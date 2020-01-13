@@ -32,7 +32,7 @@ public class RegisterStudente extends BaseController{
         try{
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
-                request.setAttribute("nome_utente", (String)s.getAttribute("username"));
+                request.setAttribute("username", (String)s.getAttribute("username"));
                 request.setAttribute("tipo", (String)s.getAttribute("tipo"));
                 response.sendRedirect("home");
             }

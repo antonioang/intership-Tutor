@@ -29,7 +29,7 @@ public class Home extends BaseController {
         try {
             TemplateResult res;
             if (s!= null) {
-                request.setAttribute("nome_utente", (String) s.getAttribute("username"));
+                request.setAttribute("username", (String) s.getAttribute("username"));
                 request.setAttribute("tipo", s.getAttribute("tipo"));
                 switch((int) request.getAttribute("tipo")){
                     case 0:

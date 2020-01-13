@@ -10,6 +10,9 @@ package Model.Interfaces;
  * @author jacopo
  */
 public interface Tirocinio {
+    
+    int getId();
+    
     String getLuogo();
     
     String getSettore();
@@ -24,13 +27,15 @@ public interface Tirocinio {
     
     String getModalita();
     
-    String getFalicitazioni();
+    String getFacilitazioni();
     
-    boolean getAttivo();
+    boolean getApprovato();
     
-    Azienda getAzienda();
+    int getAzienda();
     
-    Persona getPersona();
+    int getTutoreTirocini();
+    
+    void setId(int id);
     
     void setLuogo(String l);
     
@@ -48,9 +53,10 @@ public interface Tirocinio {
     
     void setFacilitazioni(String f);
     
-    void setAttivo(boolean at);
+    void setApprovato(boolean at);
     
-    void setAzienda(Azienda a);
+    void setAzienda(int id_azienda);
     
-    void setPersona(Persona p);
+    void setTutoreTirocini(int id_tutore);
+    
 }

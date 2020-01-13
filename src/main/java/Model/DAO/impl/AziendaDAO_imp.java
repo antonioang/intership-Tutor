@@ -128,7 +128,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             getAziendaByStato.setInt(1, stato);
             ResultSet rs = getAziendaByStato.executeQuery();
             while (rs.next()){
-                lista.add((Azienda) getAzienda(rs.getInt("id_azienda"))); 
+                lista.add(createAzienda(rs)); 
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
