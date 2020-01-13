@@ -5,12 +5,18 @@
             <p><a href=""><u>Non sei un'azienda? registrati come studente</u></a></p>
             <div class="form-panel">
                 <div class="form">
-                    <form class="cmxform form-horizontal style-form">
+                    <form class="cmxform form-horizontal style-form" method="POST">
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Azienda</h4>
                         <div class="form-group">
-                            <label for="ragSoc" class="control-label col-lg-2">Ragione Sociale</label>
+                            <label for="nome" class="control-label col-lg-2">Nome</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="ragSoc" name="ragSoc" type="text" required/>
+                              <input class=" form-control" id="nome" name="nome" type="text" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ragione_sociale" class="control-label col-lg-2">Ragione Sociale</label>
+                            <div class="col-sm-10">
+                              <input class=" form-control" id="ragione_sociale" name="ragione_sociale" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -32,9 +38,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="CAP" class="control-label col-lg-2">CAP</label>
+                            <label for="cap" class="control-label col-lg-2">CAP</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="CAP" name="CAP" type="text" required/>
+                              <input class=" form-control" id="cap" name="cap" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,58 +51,64 @@
                         </div>
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Dati legali</h4>
                         <div class="form-group">
-                            <label for="rapprLeg" class="control-label col-lg-2">Rappresentante legale</label>
+                            <label for="rappresentante_legale" class="control-label col-lg-2">Rappresentante legale</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="rapprLeg" name="rapprLeg" type="text" required/>
+                              <input class=" form-control" id="rappresentante_legale" name="rappresentante_legale" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="foroComp" class="control-label col-lg-2">Foro competente</label>
+                            <label for="foro_competente" class="control-label col-lg-2">Foro competente</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="foroComp" name="foroComp" type="text" required/>
+                              <input class=" form-control" id="foro_competente" name="foro_competente" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="durata" class="control-label col-lg-2">Durata convenzione</label>
+                            <label class="control-label col-lg-2" for="inizio_conv" >Data inizio Convenzione</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="durata" name="durata" type="text" required/>
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="inizio_conv" name="inizio_conv" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="corso" class="control-label col-lg-2">Corso di studio</label>
+                            <label class="control-label col-lg-2" for="fine_conv" >Data fine Convenzione</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="corso" name="corso" type="text" required/>
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="fine_conv" name="fine_conv" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tema" class="control-label col-lg-2">Tematiche</label>
+                            <label for="corso_studio" class="control-label col-lg-2">Corso di studio</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="tema" name="tema" type="text" required/>
+                              <input class=" form-control" id="corso_studio" name="corso_studio" type="text" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tematica" class="control-label col-lg-2">Tematiche</label>
+                            <div class="col-sm-10">
+                              <input class=" form-control" id="tematica" name="tematica" type="text" required/>
                             </div>
                         </div>
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Responsabile tirocinio</h4>
                         <div class="form-group">
-                            <label for="nome" class="control-label col-lg-2">Nome</label>
+                            <label for="nome_rt" class="control-label col-lg-2">Nome</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="nome" name="nome" type="password" required/>
+                              <input class=" form-control" id="nome_rt" name="nome_rt" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="cognome" class="control-label col-lg-2">Cognome</label>
+                            <label for="cognome_rt" class="control-label col-lg-2">Cognome</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="cognome" name="cognome" type="text" required/>
+                              <input class=" form-control" id="cognome_rt" name="cognome_rt" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="control-label col-lg-2">Email</label>
+                            <label for="email_rt" class="control-label col-lg-2">Email</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="email" name="email" type="text" required/>
+                              <input class=" form-control" id="email_rt" name="email_rt" type="text" required/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tel" class="control-label col-lg-2">Telefono</label>
+                            <label for="telefono_rt" class="control-label col-lg-2">Telefono</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="tel" name="tel" type="text" required/>
+                              <input class=" form-control" id="telefono_rt" name="telefono_rt" type="text" required/>
                             </div>
                         </div>
                         <h4 class="mb"><i class="fa fa-angle-right"></i> Utente</h4>
@@ -109,14 +121,17 @@
                         <div class="form-group">
                             <label for="email" class="control-label col-lg-2">Email</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="email" name="email" type="text" required/>
+                              <input class=" form-control" id="email" name="email" type="email" required/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pass" class="control-label col-lg-2">Password</label>
+                            <label for="password" class="control-label col-lg-2">Password</label>
                             <div class="col-sm-10">
-                              <input class=" form-control" id="pass" name="pass" type="password" required/>
+                              <input class=" form-control" id="password" name="password" type="password" required/>
                             </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-theme centered" name="register_azienda" value="register" type="submit"><i class="fa fa-lock"></i>Registrati</button>
                         </div>
                     </form>
                 </div>

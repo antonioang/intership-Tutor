@@ -17,9 +17,11 @@ public interface Persona {
     
     String getEmail();
     
-    int getTelefono();
+    String getTelefono();
     
-    boolean getTipo();
+    int getTipo();
+    
+    int getId();
     
     //setter
     void setNome(String n);
@@ -28,7 +30,10 @@ public interface Persona {
     
     void setEmail(String email);
     
-    void setTelefono(int t);
+    void setTelefono(String t);
     
-    void setTipo(boolean tipo);
+    void setTipo(int tipo);
+    
+    void setId(int id);
+    
 }

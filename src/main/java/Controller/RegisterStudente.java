@@ -14,8 +14,6 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,18 +33,14 @@ public class RegisterStudente extends BaseController{
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
-                request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
+                request.setAttribute("tipo", (String)s.getAttribute("tipo"));
             }
-
             if (request.getParameter("register_studente") != null) {
-
                 action_registrazione_studente(request, response);
-
             }
             else{
                 TemplateResult res = new TemplateResult(getServletContext());
-                request.setAttribute("page_title", "Registrazione");
-                res.activate("registrazione.ftl.html", request, response);
+                res.activate("registrazione_studente.ftl.html", request, response);
             }
         } catch (TemplateManagerException ex){
             request.setAttribute("eccezione", ex);
@@ -94,7 +88,7 @@ public class RegisterStudente extends BaseController{
             }
             //Dopo aver creato l'oggetto utente creo un oggetto studente
             Studente st = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().createStudente();
-             // validazione input dati dello studente
+            // validazione input dati dello studente
             if (SecurityLayer.checkString(request.getParameter("nome")) && SecurityLayer.checkString(request.getParameter("cognome")) &&
                     SecurityLayer.checkString(request.getParameter("codice_fiscale")) && SecurityLayer.checkBoolean(request.getParameter("handicap")) &&
                     SecurityLayer.isDate(request.getParameter("data_nascita")) && SecurityLayer.checkString(request.getParameter("citta_nascita")) &&
@@ -157,7 +151,7 @@ public class RegisterStudente extends BaseController{
         if (request.getAttribute("eccezione") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
         } else {
-            request.setAttribute("referrer", "registrazione.ftl.html");
+            request.setAttribute("referrer", "registrazione_studente.ftl.html");
 
             (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
         }

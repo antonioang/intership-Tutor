@@ -50,6 +50,7 @@ public abstract class BaseController extends HttpServlet {
                 request.setAttribute("nome_utente", (String)s.getAttribute("username"));
                 request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace(); //debug
             (new FailureResult(getServletContext())).activate(

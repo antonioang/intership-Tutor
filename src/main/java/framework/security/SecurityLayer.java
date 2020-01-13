@@ -363,5 +363,11 @@ public class SecurityLayer {
             throw new IllegalArgumentException("Cap argument isn't valid");
         }
     }
-            
+    
+    public static long telToLong(String tel){
+        if(tel != null){
+            return Long.parseLong(tel);
+        }
+        return 0;
+    }
 }

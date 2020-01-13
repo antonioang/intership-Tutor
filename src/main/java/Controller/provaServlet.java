@@ -8,6 +8,8 @@ package Controller;
 import Model.DAO.TestDAO;
 import Model.DAO.impl.BaseDataLayer;
 import Model.DAO.impl.TestDAO_imp;
+import Model.Interfaces.Persona;
+import Model.Interfaces.Studente;
 import Model.Interfaces.Test;
 import Model.Interfaces.Utente;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import javax.sql.DataSource;
  *
  * @author matti
  */
-public class provaServlet extends HttpServlet {
+public class provaServlet extends BaseController {
     
     @Resource(name = "jdbc/herokuDB")
     private DataSource ds;
@@ -45,8 +47,10 @@ public class provaServlet extends HttpServlet {
         PrintWriter w = response.getWriter();
         String testDB="";
         try{
-            BaseDataLayer dl= new BaseDataLayer(ds);
-            dl.init();
+            BaseDataLayer dl= (BaseDataLayer)request.getAttribute("datalayer");
+            Persona responsabile_tirocini = dl.getPersonaDAO().createPersona();
+            responsabile_tirocini.setNome("nomeSettato");
+            w.println(responsabile_tirocini.getNome());
             //Utente ut = dl.getUtenteDAO().getUtente("mariogang", "marioflex");
             //commentino
             //w.println(ut.getEmail());
@@ -103,45 +107,5 @@ public class provaServlet extends HttpServlet {
             w.println("</HTML>");
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-                        
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Servlet di prova";
-    }// </editor-fold>
 
 }

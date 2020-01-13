@@ -14,6 +14,8 @@ import java.time.LocalDate;
  */
 public interface Azienda {
     //getter
+    int getId();
+    
     String getRagioneSociale();
     
     String getIndirizzo();
@@ -26,7 +28,7 @@ public interface Azienda {
     
     String getRapprLeg();
     
-    int getPiva();
+    String getPiva();
     
     String getForoCompetente();
     
@@ -42,11 +44,13 @@ public interface Azienda {
     
     LocalDate getFineConv();
     
-    Persona getRespTirocini();
+    int getRespTirocini();
     
     Utente getUtente();
     
     //setter
+    void setId(int id);
+    
     void setRagioneSociale(String rs);
     
     void setIndirizzo(String i);
@@ -59,7 +63,7 @@ public interface Azienda {
     
     void setRapprLeg(String rl);
     
-    void setPiva(int iva);
+    void setPiva(String iva);
     
     void setForoCompetente(String fr);
     
@@ -75,7 +79,7 @@ public interface Azienda {
     
     void setFineConv(LocalDate dataF);
         
-    void setRespTirocini (Persona p);
+    void setRespTirocini (int id);
     
     void setUtente(Utente u);
 }

@@ -4,9 +4,9 @@
             <div class="row content-panel">
               <div class="col-md-8 profile-text mt mb centered">
                 <div class="right-divider hidden-sm hidden-xs">
-                <h3>${azienda.nome} ${azienda.cognome}</h3>
+                <h3>${azienda.nome}</h3>
                 <h6>Azienda</h6>
-                <p>Azienda/p>
+                <p>Operante in zona: ${azienda.foroCompetente}</p>
                 <br>
                 </div>
               </div>
@@ -16,7 +16,7 @@
                       <h3>Valutazione</h3>
                   </div>
                   <div>
-                      <h3>Tirocini conclusi: ${tirocini_conclusi}</h3>
+                      <h3>temp</h3>
                   </div>
               </div>
               <!-- /col-md-4 -->
@@ -48,7 +48,7 @@
                         </div>
                         <div class="centered overview-profile-text">
                           <h5>Rappresentante Legale</h5>
-                          <p>${studente.rapprLeg}</p>
+                          <p>${azienda.rapprLeg}</p>
                         </div>
                         <div class="centered overview-profile-text">
                           <h5>Partita iva</h5>
@@ -58,22 +58,18 @@
                           <h5>Foro Competente</h5>
                           <p>${azienda.foroCompetente}</p>
                         </div>
+                      <!-- prima colonna nella seconda riga -->
+                      </div>
+                      <!-- /col-md-6 -->
+                      <div class="col-md-6">
                         <div class="centered overview-profile-text">
-                          <h5>tematica</h5>
+                          <h5>Tematica</h5>
                           <p>${azienda.tematica}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Stato convenzione</h5>
-                          <p>${azienda.statoConv}</p>
                         </div>
                         <div class="centered overview-profile-text">
                           <h5>Corso di Studi</h5>
                           <p>${azienda.corsoStudi}</p>
                         </div>
-                      <!-- prima colonna nella seconda riga -->
-                      </div>
-                      <!-- /col-md-6 -->
-                      <div class="col-md-6">
                         <div class="centered overview-profile-text">
                           <h5>Durata convenzione</h5>
                           <p>${azienda.inizioConv} - ${azienda.fineConv}</p>

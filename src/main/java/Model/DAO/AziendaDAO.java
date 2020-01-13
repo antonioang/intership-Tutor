@@ -22,20 +22,20 @@ public interface AziendaDAO {
     
     Azienda getAzienda(int id) throws DataLayerException;
     
-    Azienda getAzienda(String ut_username) throws DataLayerException;
+    Azienda getAziendaByUtente(int id_utente) throws DataLayerException;
     
     List<Azienda> getAziendeByStato(int stato) throws DataLayerException;
-    
+        
     int updateAziendaStato(int id_az, int stato) throws DataLayerException;
     
-    int insertAzienda(Azienda az) throws DataLayerException;
+    int addAzienda(Azienda az) throws DataLayerException;
     
-    int deleteAzienda(int id_az) throws DataLayerException;
+    int delAzienda(int id_az) throws DataLayerException;
     
-    int updateAziendaDocumento(int id_az, String src) throws DataLayerException;
+    int updAziendaDocumento(int id_az, String src) throws DataLayerException;
     
     int getTirocinantiAttivi(Azienda az) throws DataLayerException;
     
-    int updateAzienda(Azienda az) throws DataLayerException;
+    int updAzienda(Azienda az) throws DataLayerException;
     
 }

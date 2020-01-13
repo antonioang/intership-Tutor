@@ -21,12 +21,11 @@ public interface PersonaDAO {
     Persona createPersona(ResultSet rs) throws DataLayerException;
     
     Persona getPersona(int id) throws DataLayerException;
+        
+    int addPersona(Persona p) throws DataLayerException;
     
-    List<Persona> getPersona() throws DataLayerException;
+    int delPersona(int id) throws DataLayerException;
     
-    int insertPersona(Persona p) throws DataLayerException;
+    int updPersona(Persona p) throws DataLayerException;
     
-    int deletePersona(int id) throws DataLayerException;
-    
-    int UpdatePersona(Persona p) throws DataLayerException;
 }
