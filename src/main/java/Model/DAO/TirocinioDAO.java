@@ -7,6 +7,7 @@ package Model.DAO;
 
 import Model.Interfaces.Azienda;
 import Model.Interfaces.Tirocinio;
+import framework.data.DataLayerException;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -18,17 +19,21 @@ public interface TirocinioDAO {
     
     Tirocinio createTirocinio();
     
-    Tirocinio createTirocinio(ResultSet rs);
+    Tirocinio createTirocinio(ResultSet rs) throws DataLayerException;
     
-    List<Tirocinio> getTirocinio(Azienda az, boolean attiva);
+    List<Tirocinio> getTirociniAttivi(int az, boolean attiva) throws DataLayerException;
     
-    List<Tirocinio> getTirocinio(Azienda az);
+    List<Tirocinio> getTirocini(int az) throws DataLayerException;
     
-    Tirocinio getTirocinio(int id);
+    Tirocinio getTirocinio(int id) throws DataLayerException;
     
-    int insertTirocinio(Tirocinio ot);
+    int addTirocinio(Tirocinio ot) throws DataLayerException;
     
-    int updateTirocinioAttiva(int id_ot, boolean attiva);
+    int updTirocinio(Tirocinio ot) throws DataLayerException;
     
-    List<Tirocinio> searchTirocinio(String durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio);
+    int delTirocinio(int id) throws DataLayerException;
+    
+    int updTirocinioApprovato(int id_ot, boolean attiva) throws DataLayerException;
+       
+    List<Tirocinio> searchTirocinio(String durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) throws DataLayerException;
 }
