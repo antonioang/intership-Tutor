@@ -10,6 +10,8 @@ package Model.Interfaces;
  * @author jacopo
  */
 public interface Tirocinio {
+    int getId();
+    
     String getLuogo();
     
     String getSettore();
@@ -31,6 +33,8 @@ public interface Tirocinio {
     Azienda getAzienda();
     
     Persona getPersona();
+    
+    void setId();
     
     void setLuogo(String l);
     

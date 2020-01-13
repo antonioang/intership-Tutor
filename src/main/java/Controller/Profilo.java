@@ -32,7 +32,7 @@ public class Profilo extends BaseController {
         
         HttpSession s = SecurityLayer.checkSession(request);
         if (s!= null) {
-            request.setAttribute("nome_utente", (String) s.getAttribute("username"));
+            request.setAttribute("username", (String) s.getAttribute("username"));
             request.setAttribute("tipo", s.getAttribute("tipo"));
             
             if (request.getParameter("modifica_profilo") != null) {
@@ -55,7 +55,7 @@ public class Profilo extends BaseController {
         try {
 
             //OTTENGO L'OGGETTO UTENTE
-            Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("nome_utente"));
+            Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
             if(utente == null){
                 request.setAttribute("errore", "errore_utente_non_presente");
                 request.setAttribute("messaggio", "Utente non presente, effettuare il Login");
@@ -99,7 +99,7 @@ public class Profilo extends BaseController {
         if((int) request.getAttribute("tipo") == 1){
             try {
                 //SE é UNO STUDENTE
-                Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("nome_utente"));
+                Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente((int) request.getAttribute("id_utente"));
                 //validazione input dati dell'utente
                 if(SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkEmail(request.getParameter("email"))){
@@ -167,7 +167,7 @@ public class Profilo extends BaseController {
         else if((int) request.getAttribute("tipo") == 2){
             try {
                 //SE é UN'AZIENDA
-                Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("nome_utente"));
+                Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
                 Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
                 

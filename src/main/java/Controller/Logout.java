@@ -5,15 +5,9 @@
  */
 package Controller;
 
-import Model.DAO.impl.BaseDataLayer;
-import Model.Interfaces.Azienda;
-import framework.data.DataLayerException;
 import framework.result.FailureResult;
-import framework.result.TemplateManagerException;
-import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,37 +17,32 @@ import javax.servlet.http.HttpSession;
  *
  * @author matti
  */
-public class VisualizzaAziende extends BaseController {
+public class Logout extends BaseController {
 
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try {
+        try{
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
-                request.setAttribute("username", (String) s.getAttribute("username"));
+                request.setAttribute("username", (String)s.getAttribute("username"));
                 request.setAttribute("tipo", s.getAttribute("tipo"));
             }
-            action_default(request, response);
-        } catch (TemplateManagerException ex) {
-            request.setAttribute("eccezione", ex);
-            action_error(request, response);
-        } catch (DataLayerException ex) {
+            action_logout(request, response);
+        } catch (IOException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }
-
     }
-
-    private void action_default(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException, TemplateManagerException, DataLayerException {
-        
-        TemplateResult res = new TemplateResult(getServletContext());
-        List<Azienda> aziende_convenzionate = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendeByStato(1);
-        request.setAttribute("aziende_convenzionate", aziende_convenzionate);
-        request.setAttribute("activeAziende","active");
-        res.activate("visualizza_aziende.ftl.html", request, response);
+    
+    private void action_logout(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        SecurityLayer.disposeSession(request);
+        //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo
+        if (request.getParameter("referrer") != null) {
+            response.sendRedirect(request.getParameter("referrer"));
+        } else {
+            response.sendRedirect("home");
+        }
     }
     
     private void action_error(HttpServletRequest request, HttpServletResponse response){
@@ -66,5 +55,4 @@ public class VisualizzaAziende extends BaseController {
         }
     }
 
-   
 }
