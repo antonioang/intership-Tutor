@@ -4,14 +4,31 @@
             <div class="row content-panel">
               <div class="col-md-8 profile-text mt mb centered">
                 <div class="right-divider hidden-sm hidden-xs">
+                <#if tipo==2>
+                <h3>${azienda.nome}</h3>
+                <h6>Azienda</h6>
+                <p>Operante in zona: ${azienda.foroCompetente}</p>
+                <br>
+                </#if>
+                <#if tipo==1>
                 <h3>${studente.nome} ${studente.cognome}</h3>
                 <h6>Studente</h6>
                 <p>Studente presso l'universit&agrave degli studi dell'Aquila</p>
                 <br>
+                </#if>
                 </div>
               </div>
               <!-- /col-md-4 -->
               <div class="col-md-4 profile-text mt mb">
+                  <#if tipo==2>
+                  <div>
+                      <h3>Valutazione</h3>
+                  </div>
+                  <div>
+                      <h3>temp</h3>
+                  </div>
+                  </#if>
+                  <#if tipo==1>
                   <div>
                       <h3>Tirocini attivi: ${tirocini_attivi}</h3>
                   </div>
@@ -21,6 +38,7 @@
                   <div>
                       <h3>Tirocini in sospeso: ${tirocini_sospesi}</h3>
                   </div>
+                  </#if>
               </div>
               <!-- /col-md-4 -->
             </div>
@@ -44,6 +62,7 @@
                 <div class="tab-content">
                   <div id="overview" class="tab-pane active">
                     <div class="row">
+                      <#if tipo==1>
                       <div class="col-md-6">
                         <div class="centered overview-profile-text">
                           <h5>Nome</h5>
@@ -108,6 +127,46 @@
                         <!-- seconda colonna nella seconda riga -->
                         <!-- /row -->
                       </div>
+                      </#if>
+                      <#if tipo==2>
+                      <div class="col-md-6">
+                        <div class="centered overview-profile-text">
+                          <h5>Indirizzo</h5>
+                          <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                          <h5>Rappresentante Legale</h5>
+                          <p>${azienda.rapprLeg}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                          <h5>Partita iva</h5>
+                          <p>${azienda.piva}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                          <h5>Foro Competente</h5>
+                          <p>${azienda.foroCompetente}</p>
+                        </div>
+                      <!-- prima colonna nella seconda riga -->
+                      </div>
+                      <!-- /col-md-6 -->
+                      <div class="col-md-6">
+                        <div class="centered overview-profile-text">
+                          <h5>Tematica</h5>
+                          <p>${azienda.tematica}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                          <h5>Corso di Studi</h5>
+                          <p>${azienda.corsoStudi}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                          <h5>Durata convenzione</h5>
+                          <p>${azienda.inizioConv} - ${azienda.fineConv}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                          <h5>Ragione sociale</h5>
+                          <p>${azienda.ragioneSociale}</p>
+                        </div>
+                      </#if>
                       <!-- /col-md-6 -->
                     </div>
                     <!-- /OVERVIEW -->
@@ -115,7 +174,102 @@
                   <!-- /tab-pane -->
                   <div id="edit" class="tab-pane">
                     <div class="row">
-                        <div class="edit-profile-form-panel">
+                        
+                          <div class="edit-profile-form-panel">
+                              <#if tipo==2>
+                            <form class="cmxform form-horizontal style-form" action="profilo">
+                                <div class="form-group">
+                                    <label for="nome" class="control-label col-lg-2">Nome</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="nome" name="nome" value="${azienda.getNome()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="indirizzo" class="control-label col-lg-2">Indirizzo</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="indirizzo" name="indirizzo" value="${azienda.getIndirizzo()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="citta" class="control-label col-lg-2">Citt&agrave;</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="citta" name="citta" value="${azienda.getCitta()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="provincia" class="control-label col-lg-2">Provincia</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="provincia" name="provincia" value="${azienda.getProvincia()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cap" class="control-label col-lg-2">Cap</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="cap" name="cap" value="${azienda.getCap()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rapprLeg" class="control-label col-lg-2">Rappresentante Legale</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="rapprLeg" name="rapprLeg" value="${azienda.getRapprLeg()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="piva" class="control-label col-lg-2">Partita IVA</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="piva" name="piva" value="${azienda.getPiva()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foroCompetente" class="control-label col-lg-2">Foro Competente</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="foroCompetente" name="foroCompetente" value="${azienda.getForoCompetente()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tematica" class="control-label col-lg-2">Tematica</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="tematica" name="tematica" value="${azienda.getTematica()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="statoConv" class="control-label col-lg-2">Stato Convenzione</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="statoConv" name="statoConv" value="${azienda.getStatoConv()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="corsoStudi" class="control-label col-lg-2">Corso di Studi</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="corsoStudi" name="corsoStudi" value="${azienda.getCorsoStudi()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inizioConv" class="control-label col-lg-2">Inizio Convenzione</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="inizioConv" name="inizioConv" value="${azienda.getInizioConv()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fineConv" class="control-label col-lg-2">Fine Convenzione</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="fineConv" name="fineConv" value="${azienda.getFineConv()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ragioneSociale" class="control-label col-lg-2">Ragione Sociale</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="ragioneSociale" name="ragioneSociale" value="${azienda.getRagioneSociale()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="centered">
+                                <button class="btn btn-theme centered" type="submit"><i class="fa fa-lock"></i>  Modifica</button>
+                                </div>
+                            </form>
+                        
+                        </#if>
+                        <#if tipo==1>
+                        
                             <form class="cmxform form-horizontal style-form" action="profilo">
                                 <div class="form-group">
                                     <label for="nome" class="control-label col-lg-2">Nome</label>
@@ -231,7 +385,9 @@
                                 <button class="btn btn-theme centered" type="submit"><i class="fa fa-lock"></i>  Modifica</button>
                                 </div>
                             </form>
+                        </#if>
                         </div>
+                        
                       <!-- /col-lg-8 colonna edit profile -->
                     </div>
                     <!-- /row -->
