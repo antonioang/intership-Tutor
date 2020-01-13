@@ -34,6 +34,18 @@
       <!--logo start-->
       <a href="index.ftl.html" class="logo"><b>Internship<span>Tutor</span></b></a>
       <!--logo end-->
+        <#if logged??>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="logout">Logout</a></li>
+        </ul>
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="profilo">Profilo</a></li>
+        </ul>
+      </div>
+        <#else>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
           <li><a class="logout" href="accedi">Accedi</a></li>
@@ -44,6 +56,7 @@
           <li><a class="logout" href="registrazione">Registrati</a></li>
         </ul>
       </div>
+        </#if>
     </header>
     <!--header end-->
     <!-- **********************************************************************************************************************************************************
@@ -62,26 +75,37 @@
               <span>Home</span>
               </a>
           </li>
+           <#if tipologia??>
+           <#if tipologia == 'azienda'>
           <li class="mt">
-            <a href="ProvaTemplate">
+            <a class="${activeStatistiche!}" href="ProvaTemplate">
               <i class="fa fa-industry"></i>
+              <span>Statistiche</span>
+              </a>
+          </li>
+          </#if>
+          <#else>
+          <li class="mt">
+            <a class="${activeAziende!}" href="ProvaTemplate">
+              <i class="fa fa-suitcase"></i>
               <span>Aziende</span>
               </a>
           </li>
+          </#if>
           <li class="mt">
-            <a href="javascript:;">
+            <a class="${activeTirocini!}" href="javascript:;">
               <i class="fa fa-calendar"></i>
               <span>Tirocini</span>
               </a>
           </li>
           <li class="mt">
-            <a href="faq">
+            <a class="${activeFaq!}" href="faq">
               <i class="fa fa-question"></i>
               <span>FAQ</span>
               </a>
           </li>
           <li class="mt">
-            <a href="contatti">
+            <a class="${activeContatti!}" href="contatti">
               <i class="fa fa-address-card"></i>
               <span>Contatti</span>
               </a>

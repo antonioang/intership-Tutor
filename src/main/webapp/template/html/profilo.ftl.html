@@ -4,7 +4,7 @@
             <div class="row content-panel">
               <div class="col-md-8 profile-text mt mb centered">
                 <div class="right-divider hidden-sm hidden-xs">
-                <h3>Sam Soffes</h3>
+                <h3>${studente.nome} ${studente.cognome}</h3>
                 <h6>Studente</h6>
                 <p>Studente presso l'universit&agrave degli studi dell'Aquila</p>
                 <br>
@@ -13,13 +13,13 @@
               <!-- /col-md-4 -->
               <div class="col-md-4 profile-text mt mb">
                   <div>
-                      <h3>Tirocini attivi: 3</h3>
+                      <h3>Tirocini attivi: ${tirocini_attivi}</h3>
                   </div>
                   <div>
-                      <h3>Tirocini conclusi: 3</h3>
+                      <h3>Tirocini conclusi: ${tirocini_conclusi}</h3>
                   </div>
                   <div>
-                      <h3>Tirocini in sospeso: 3</h3>
+                      <h3>Tirocini in sospeso: ${tirocini_sospesi}</h3>
                   </div>
               </div>
               <!-- /col-md-4 -->
@@ -46,68 +46,64 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="centered overview-profile-text">
-                          <h5>nome</h5>
+                          <h5>Nome</h5>
                           <p>${studente.nome}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>${studente.cognome}</h5>
-                          <p>titolo</p>
+                          <h5>Cognome</h5>
+                          <p>${studente.cognome}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>codice fiscale</h5>
+                          <h5>Codice Fiscale</h5>
                           <p>${studente.codFiscale}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>data di nascita</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Data Di Nascita</h5>
+                          <p>${studente.dataNascita}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>citt&agrave di nascita</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Citt&agrave Di Nascita</h5>
+                          <p>${studente.cittaNascita}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>provincia di nascita</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Provincia Di Nascita</h5>
+                          <p>${studente.getProvinciaNascita()}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>telefono</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Telefono</h5>
+                          <p>${studente.getTelefono()}</p>
                         </div>
                       <!-- prima colonna nella seconda riga -->
                       </div>
                       <!-- /col-md-6 -->
                       <div class="col-md-6">
                         <div class="centered overview-profile-text">
-                          <h5>corso di laurea</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Corso Di Laurea</h5>
+                          <p>${studente.corsoLaurea}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>citt&agrave di residenza</h5>
+                          <h5>Citt&agrave Di Residenza</h5>
                           <p>${studente.getCittaResidenza()}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>provincia di residenza</h5>
+                          <h5>Provincia Di Residenza</h5>
                           <p>${studente.getProvinciaResidenza()}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>cap</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Cap</h5>
+                          <p>${studente.capResidenza}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>username</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Username</h5>
+                          <p>${utente.username}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>password</h5>
-                          <p>${studente.codFiscale}</p>
+                          <h5>Email</h5>
+                          <p>${utente.email}</p>
                         </div>
                         <div class="centered overview-profile-text">
-                          <h5>email</h5>
-                          <p>${studente.codFiscale}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>handicap</h5>
-                          <p>${studente.handicap?c}</p>
+                          <h5>Handicap</h5>
+                          <p>${studente.getHandicap()?string('si', 'no')}</p>
                         </div>
                         <!-- seconda colonna nella seconda riga -->
                         <!-- /row -->
@@ -120,106 +116,115 @@
                   <div id="edit" class="tab-pane">
                     <div class="row">
                         <div class="edit-profile-form-panel">
-                            <form class="cmxform form-horizontal style-form">
+                            <form class="cmxform form-horizontal style-form" action="profilo">
                                 <div class="form-group">
                                     <label for="nome" class="control-label col-lg-2">Nome</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="nome" name="nome" type="text" required/>
+                                      <input class=" form-control" id="nome" name="nome" value="${studente.nome}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="cognome" class="control-label col-lg-2">Cognome</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cognome" name="cognome" type="text" required/>
+                                      <input class=" form-control" id="cognome" name="cognome" value="${studente.cognome}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="CF" class="control-label col-lg-2">Codice Fiscale</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="CF" name="CF" type="text" required/>
+                                      <input class=" form-control" id="CF" name="CF" value="${studente.codFiscale}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-2" for="data_nascita" >Data di Nascita</label>
                                     <div class="col-sm-10">
-                                      <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_nascita" name="data_nascita" >
+                                      <input class="form-control form-control-inline default-date-picker" value="${studente.dataNascita}" size="16" type="date" id="data_nascita" name="data_nascita" >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="cittaNascita" class="control-label col-lg-2">Citt&agrave di nascita</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="CittaNascita" name="CittaNascita" type="text" required/>
+                                      <input class=" form-control" id="CittaNascita" name="CittaNascita" value="${studente.cittaNascita}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="provNascita" class="control-label col-lg-2">Provincia di nascita</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="provNascita" name="provNascita" type="text" required/>
+                                      <input class=" form-control" id="provNascita" name="provNascita" value="${studente.getProvinciaNascita()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="tel" class="control-label col-lg-2">Telefono</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="tel" name="tel" type="text" required/>
+                                      <input class=" form-control" id="tel" name="tel" value="${studente.getTelefono()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="laurea" class="control-label col-lg-2">Corso di laurea</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="laurea" name="laurea" type="text" required/>
+                                      <input class=" form-control" id="laurea" name="laurea" value="${studente.corsoLaurea}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="cittaRes" class="control-label col-lg-2">Citt&agrave di residenza</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cittaRes" name="cittaRes" type="text" required/>
+                                      <input class=" form-control" id="cittaRes" name="cittaRes" value="${studente.getCittaResidenza()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="provRes" class="control-label col-lg-2">Provincia di residenza</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="provRes" name="provRes" type="text" required/>
+                                      <input class=" form-control" id="provRes" name="provRes" value="${studente.getProvinciaResidenza()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="cap" class="control-label col-lg-2">CAP</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cap" name="cap" type="text" required/>
+                                      <input class=" form-control" id="cap" name="cap" value="${studente.capResidenza}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="username" class="control-label col-lg-2">Username</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="username" name="username" type="text" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pass" class="control-label col-lg-2">Password</label>
-                                    <div class="col-sm-10">
-                                      <input class=" form-control" id="pass" name="pass" type="password" required/>
+                                      <input class=" form-control" id="username" name="username" value="${utente.username}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="control-label col-lg-2">Email</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="email" name="email" type="text" required/>
+                                      <input class=" form-control" id="email" name="email" value="${utente.email}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                 <h5 class="col-lg-2">Portatore di handicap?</h5>
                                 <div class="col-sm-10">
-                                <div class="radio">
-                                    <label>
-                                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="si">
-                                      SI
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="no" checked>
-                                      NO
-                                    </label>
-                                </div>
+                                <#if studente.handicap>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios1" checked value="si">
+                                          SI
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="no">
+                                          NO
+                                        </label>
+                                    </div>
+                                    <#else>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="si">
+                                          SI
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="no" checked>
+                                          NO
+                                        </label>
+                                    </div>
+                                </#if>
                                 </div>
                                 </div>
                                 <div class="centered">
