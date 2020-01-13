@@ -5,11 +5,19 @@
  */
 package Controller;
 
+import Model.DAO.impl.BaseDataLayer;
+import Model.Interfaces.Azienda;
+import Model.Interfaces.Tirocinio;
+import Model.Interfaces.Utente;
+import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +63,11 @@ public class Home extends BaseController {
                         //AZIENDA
 
                         //setto i dati necessari
-
+                        Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
+                        Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
+                        List<Tirocinio> tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocini(azienda.getId());
+                        request.setAttribute("tirocini", tirocini);
+                        
                         //mostro il template
                         res = new TemplateResult(getServletContext());
                         request.setAttribute("activeHome", "active");
@@ -74,6 +86,9 @@ public class Home extends BaseController {
         } catch (TemplateManagerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
         }
     }
     
