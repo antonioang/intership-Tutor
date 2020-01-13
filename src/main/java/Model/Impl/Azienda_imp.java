@@ -18,6 +18,7 @@ import java.time.LocalDate;
 public class Azienda_imp implements Azienda {
     
     private int id;
+    private String nome;
     private String ragioneSociale;
     private String indirizzo;
     private String citta;
@@ -37,6 +38,7 @@ public class Azienda_imp implements Azienda {
     
     public Azienda_imp(){
         this.id = 0;
+        this.nome = "";
         this.ragioneSociale = "";
         this.indirizzo = "";
         this.citta = "";
@@ -54,79 +56,92 @@ public class Azienda_imp implements Azienda {
         this.rappresentante_tirocini = 0;
         this.u = null;
     }
-
+    
+    @Override
+    public int getId() {
+        return this.id;
+    }
+    
+    @Override
+    public String getNome() {
+        return this.nome;
+    }
+    
     @Override
     public String getRagioneSociale() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return ragioneSociale;
+        return this.ragioneSociale;
     }
 
     @Override
     public String getIndirizzo() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return indirizzo;
+        return this.indirizzo;
     }
 
     @Override
     public String getCitta() {
-        return citta;
+        return this.citta;
     }
 
     @Override
     public int getCap() {
-        return cap;
+        return this.cap;
     }
 
     @Override
     public String getProvincia() {
-        return provincia;
+        return this.provincia;
     }
 
     @Override
     public String getRapprLeg() {
-        return rapprLeg;
+        return this.rapprLeg;
     }
 
     @Override
     public String getPiva() {
-        return piva;
+        return this.piva;
     }
 
     @Override
     public String getForoCompetente() {
-        return foroCompetente;
+        return this.foroCompetente;
     }
 
     @Override
     public String getSrcDocPath() {
-        return srcDocPath;
+        return this.srcDocPath;
     }
 
     @Override
     public String getTematica() {
-        return tematica;
+        return this.tematica;
     }
 
     @Override
     public boolean getStatoConv() {
-        return statoConv;
+        return this.statoConv;
     }
 
     @Override
     public String getCorsoStudi() {
-        return corsoStudi;
+        return this.corsoStudi;
     }
 
     @Override
     public LocalDate getInizioConv() {
-        return inizioConv;
+        return this.inizioConv;
     }
 
     @Override
     public LocalDate getFineConv() {
-        return fineConv;
+        return this.fineConv;
     }
-
+    
+    @Override
+    public void setNome(String n){
+        this.nome = n;
+    }
+    
     @Override
     public void setRagioneSociale(String rs) {
        this.ragioneSociale = rs;
@@ -215,11 +230,6 @@ public class Azienda_imp implements Azienda {
     @Override
     public void setUtente(Utente u) {
         this.u = u;
-    }
-
-    @Override
-    public int getId() {
-        return this.id;
     }
 
     @Override

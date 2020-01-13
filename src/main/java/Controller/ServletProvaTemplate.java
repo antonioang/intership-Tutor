@@ -64,14 +64,12 @@ public class ServletProvaTemplate extends HttpServlet {
             BaseDataLayer dl= new BaseDataLayer(ds);
             try {
                 dl.init();
-                Studente st = dl.getStudenteDAO().getStudente(1);
-                System.out.println(st.getProvinciaResidenza());
-                request.setAttribute("studente", st);
+                
             } catch (DataLayerException ex) {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            temp.activate("homepage_studente.ftl.html",request,response);
+            temp.activate("visualizza_aziende.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

@@ -16,6 +16,8 @@ public interface Azienda {
     //getter
     int getId();
     
+    String getNome();
+    
     String getRagioneSociale();
     
     String getIndirizzo();
@@ -49,6 +51,8 @@ public interface Azienda {
     Utente getUtente();
     
     //setter
+    void setNome(String n);
+    
     void setId(int id);
     
     void setRagioneSociale(String rs);

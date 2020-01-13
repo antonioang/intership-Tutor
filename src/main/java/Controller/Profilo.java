@@ -218,8 +218,10 @@ public class Profilo extends BaseController {
                         SecurityLayer.checkString(request.getParameter("provincia")) && SecurityLayer.checkString(request.getParameter("rappresentante_legale")) &&
                         SecurityLayer.checkString(request.getParameter("piva")) && SecurityLayer.checkString(request.getParameter("foro_competente")) &&
                         SecurityLayer.checkString(request.getParameter("tematica")) && SecurityLayer.checkString(request.getParameter("corso_studio")) &&
-                        SecurityLayer.isDate(request.getParameter("inizio_conv")) && SecurityLayer.isDate(request.getParameter("fine_conv"))) {
-
+                        SecurityLayer.isDate(request.getParameter("inizio_conv")) && SecurityLayer.isDate(request.getParameter("fine_conv")) && 
+                        SecurityLayer.checkString(request.getParameter("nome")) ){
+                        
+                    azienda.setNome(request.getParameter("nome"));
                     azienda.setRagioneSociale(request.getParameter("ragione_sociale"));
                     azienda.setIndirizzo(request.getParameter("indirizzo"));
                     azienda.setCitta(request.getParameter("citta"));

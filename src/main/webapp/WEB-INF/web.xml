@@ -28,6 +28,10 @@
         <servlet-name>Home</servlet-name>
         <servlet-class>Controller.Home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VisualizzaAziende</servlet-name>
+        <servlet-class>Controller.VisualizzaAziende</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisualizzaAziende</servlet-name>
+        <url-pattern>/aziende</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -49,13 +49,13 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda = connection.prepareStatement("UPDATE azienda\n" +
             "SET rag_sociale=?, indirizzo=?, citta=?, cap=?, provincia=?, rappr_leg=?, piva=?, "
             + "foro_competente=?, src_doc_conv=?, tematica=?, stato_conv=?, corso_studi=?, "
-            + "inizio_conv=?, fine_conv=?, responsabile_tirocini=?\n" +
+            + "inizio_conv=?, fine_conv=?, responsabile_tirocini=?, nome=?\n" +
             "WHERE id_azienda=?;");
             addAzienda = connection.prepareStatement("INSERT INTO azienda\n" +
             "(rag_sociale, indirizzo, citta, cap, provincia, rappr_leg, piva, foro_competente, "
             + "src_doc_conv, tematica, stato_conv, corso_studi, inizio_conv, fine_conv, "
-            + "responsabile_tirocini, utente)\n" +
-            "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            + "responsabile_tirocini, utente, nome)\n" +
+            "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             delAzienda = connection.prepareStatement("DELETE FROM azienda WHERE id_azienda=?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore inizializzazione degli statement azienda", ex);
@@ -165,6 +165,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             addAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
             addAzienda.setInt(15, az.getRespTirocini());
             addAzienda.setInt(16, az.getUtente().getId());
+            addAzienda.setString(17, az.getNome());
             if (addAzienda.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
                 //per il record appena inserito, usiamo il metodo
@@ -240,7 +241,8 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
             updAzienda.setInt(15, az.getRespTirocini());
             updAzienda.setInt(16, az.getUtente().getId());
-            updAzienda.setInt(17, az.getId());
+            updAzienda.setString(17, az.getNome());
+            updAzienda.setInt(18, az.getId());
             return updAzienda.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dell'azienda", ex);

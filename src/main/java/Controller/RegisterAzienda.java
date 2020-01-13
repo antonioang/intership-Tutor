@@ -111,13 +111,15 @@ public class RegisterAzienda extends BaseController {
                 //CREO L'AZIENDA
                 Azienda az = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().createAzienda();
                 //validazione input azienda
-                if (SecurityLayer.checkString(request.getParameter("ragione_sociale")) && SecurityLayer.checkString(request.getParameter("indirizzo")) &&
-                        SecurityLayer.checkString(request.getParameter("citta")) && SecurityLayer.checkCap(request.getParameter("cap")) &&
-                        SecurityLayer.checkString(request.getParameter("provincia")) && SecurityLayer.checkString(request.getParameter("rappresentante_legale")) &&
-                        SecurityLayer.checkString(request.getParameter("piva")) && SecurityLayer.checkString(request.getParameter("foro_competente")) &&
-                        SecurityLayer.checkString(request.getParameter("tematica")) && SecurityLayer.checkString(request.getParameter("corso_studio")) &&
-                        SecurityLayer.isDate(request.getParameter("inizio_conv")) && SecurityLayer.isDate(request.getParameter("fine_conv"))) {
-
+                if (SecurityLayer.checkString(request.getParameter("ragione_sociale")) && SecurityLayer.checkString(request.getParameter("nome")) && 
+                        SecurityLayer.checkString(request.getParameter("indirizzo")) && SecurityLayer.checkString(request.getParameter("citta")) && 
+                        SecurityLayer.checkCap(request.getParameter("cap")) && SecurityLayer.checkString(request.getParameter("provincia")) && 
+                        SecurityLayer.checkString(request.getParameter("rappresentante_legale")) && SecurityLayer.checkString(request.getParameter("piva")) && 
+                        SecurityLayer.checkString(request.getParameter("foro_competente")) && SecurityLayer.checkString(request.getParameter("tematica")) && 
+                        SecurityLayer.checkString(request.getParameter("corso_studio")) && SecurityLayer.isDate(request.getParameter("inizio_conv")) && 
+                        SecurityLayer.isDate(request.getParameter("fine_conv"))) {
+                    
+                    az.setNome(request.getParameter("nome"));
                     az.setRagioneSociale(request.getParameter("ragione_sociale"));
                     az.setIndirizzo(request.getParameter("indirizzo"));
                     az.setCitta(request.getParameter("citta"));
