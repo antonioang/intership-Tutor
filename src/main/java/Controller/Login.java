@@ -36,6 +36,7 @@ public class Login extends BaseController {
             if(sessione != null){
                 request.setAttribute("username", sessione.getAttribute("username"));
                 request.setAttribute("tipo", sessione.getAttribute("tipo"));
+                response.sendRedirect("home");
             }
             if(request.getParameter("login") !=null){
                 action_login(request, response);
