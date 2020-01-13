@@ -71,6 +71,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     public Azienda createAzienda(ResultSet rs) throws DataLayerException {
         Azienda az = createAzienda();
         try {
+            az.setNome(rs.getString("nome"));
             az.setRagioneSociale(rs.getString("rag_sociale"));
             az.setIndirizzo(rs.getString("indirizzo"));
             az.setCitta(rs.getString("citta"));
