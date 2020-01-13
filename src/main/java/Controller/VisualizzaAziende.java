@@ -52,6 +52,7 @@ public class VisualizzaAziende extends BaseController {
         TemplateResult res = new TemplateResult(getServletContext());
         List<Azienda> aziende_convenzionate = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendeByStato(1);
         request.setAttribute("aziende_convenzionate", aziende_convenzionate);
+        request.setAttribute("activeAziende","active");
         res.activate("visualizza_aziende.ftl.html", request, response);
     }
     
