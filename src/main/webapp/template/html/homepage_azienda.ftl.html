@@ -1,0 +1,42 @@
+<section class="wrapper">
+<div class="row">
+        <div class="col-md-12 mt">
+            <table class="table table-hover">
+            <h4><i class="fa fa-angle-right"></i> Riepilogo Tirocini <i class="fa fa-sort-amount-asc"></i></h4>
+            <hr>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Titolo</th>
+                <th>Stato</th>
+                <th>Luogo</th>
+                <th>Durata</th>
+                <th>Gestione</th>
+              </tr>
+            </thead>
+            <tbody>
+            <#if (tirocini_attivi?size>0)>
+              <#list tirocini_attivi as tirocinio>
+              <tr>
+                <td>1</td>
+                <td>${tirocinio.getTitolo()}</td>
+                <td>${tirocinio.getAttivo()}</td>
+                <td>${tirocinio.getLuogo()}</td>
+                <td>${tirocinio.getDurata()}</td>
+                <td>
+                    <a href="gestione_candidati">
+                    <button class="btn btn-theme centered"><i class="fa fa-lock"></i>  Accedi</button>
+                    </a>
+                </td>
+              </tr>
+              </#list>
+            <#else>
+                <tr>
+                    <td>La lista dei tirocini attivi &egrave; vuota</td>
+                </tr>
+            </#if>
+            </tbody>
+            </table>
+        </div>        
+    </div>
+</section>

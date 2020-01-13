@@ -7,92 +7,124 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Luogo</th>
+                <th>Durata</th>
+                <th>Attivo</th>
               </tr>
             </thead>
             <tbody>
+            <#if (tirocini_attivi?size>0)>
+              <#list tirocini_attivi as tirocinio>
               <tr>
                 <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>${tirocinio.getLuogo()}</td>
+                <td>${tirocinio.getDurata()}</td>
+                <td>${tirocinio.getAttivo()}</td>
               </tr>
+              </#list>
+            <#else>
+                <tr>
+                    <td>La lista dei tirocini attivi &egrave; vuota</td>
+                </tr>
+            </#if>
             </tbody>
             </table>
         </div>        
     </div>
     <div class="row">
         <div class="col-md-12 mt">
-          <table class="table table-hover">
+            <table class="table table-hover">
             <h4><i class="fa fa-angle-right"></i> Tirocini Conclusi <i class="fa fa-check"></i></h4>
             <hr>
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Luogo</th>
+                <th>Durata</th>
+                <th>Attivo</th>
               </tr>
             </thead>
             <tbody>
+            <#if (tirocini_conclusi?size>0)>
+              <#list tirocini_conclusi as tirocinio>
               <tr>
                 <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>${tirocinio.getLuogo()}</td>
+                <td>${tirocinio.getDurata()}</td>
+                <td>${tirocinio.getAttivo()}</td>
               </tr>
+              </#list>
+            <#else>
+                <tr>
+                    <td>La lista dei tirocini conclusi &egrave; vuota</td>
+                </tr>
+            </#if>
             </tbody>
-          </table>
-        </div>          
+            </table>
+        </div>         
     </div>
     <div class="row">
         <div class="col-md-12 mt">
-          <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Tirocini in Sospeso <i class="fa fa-gears"></i></h4>
+            <table class="table table-hover">
+            <h4><i class="fa fa-angle-right"></i> Tirocini In Sospeso <i class="fa fa-gears"></i></h4>
             <hr>
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Luogo</th>
+                <th>Durata</th>
+                <th>Attivo</th>
               </tr>
             </thead>
             <tbody>
+            <#if (tirocini_sospesi?size>0)>
+              <#list tirocini_sospesi as tirocinio>
               <tr>
                 <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>${tirocinio.getLuogo()}</td>
+                <td>${tirocinio.getDurata()}</td>
+                <td>${tirocinio.getAttivo()}</td>
               </tr>
+              </#list>
+            <#else>
+                <tr>
+                    <td>La lista dei tirocini in sospeso &egrave; vuota</td>
+                </tr>
+            </#if>
             </tbody>
-          </table>
+            </table>
         </div>          
     </div>
     <div class="row">
         <div class="col-md-12 mt">
-          <table class="table table-hover">
+            <table class="table table-hover">
             <h4><i class="fa fa-angle-right"></i> Tirocini Rifiutati <i class="fa fa-times"></i></h4>
             <hr>
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Luogo</th>
+                <th>Durata</th>
+                <th>Attivo</th>
               </tr>
             </thead>
             <tbody>
+            <#if (tirocini_rifiutati?size>0)>
+              <#list tirocini_rifiutati as tirocinio>
               <tr>
                 <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>${tirocinio.getLuogo()}</td>
+                <td>${tirocinio.getDurata()}</td>
+                <td>${tirocinio.getAttivo()}</td>
               </tr>
+              </#list>
+            <#else>
+                <tr>
+                    <td>La lista dei tirocini rifiutati &egrave; vuota</td>
+                </tr>
+            </#if>
             </tbody>
-          </table>
-        </div>          
+            </table>
+        </div>         
     </div>
 </section>

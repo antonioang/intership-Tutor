@@ -54,7 +54,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterStudente</servlet-name>
-        <url-pattern>/registrazioen_studente</url-pattern>
+        <url-pattern>/registrazione_studente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterAzienda</servlet-name>

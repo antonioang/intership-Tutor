@@ -6,7 +6,7 @@
                     LOGIN
                 </div>
                 <div class="form">
-                    <form class="cmxform form-horizontal style-form" action="Login">
+                    <form class="cmxform form-horizontal style-form" action="login">
                         <div class="form-group">
                             <label for="user" class="control-label col-lg-2">Username</label>
                             <div class="col-sm-10">
@@ -24,7 +24,7 @@
                             <#if referrer?has_content> <!-- Se c'è un referrer lo passa -->
                                 <input type="hidden" name="referrer" value="${referrer}">
                             </#if>
-                            <button class="btn btn-theme centered" name="login" value="Login" type="submit"><i class="fa fa-lock"></i>  Accedi</button>
+                            <button class="btn btn-theme centered" name="login" value="login" type="submit"><i class="fa fa-lock"></i>  Accedi</button>
                         </div>
                     </form>
                 </div>
