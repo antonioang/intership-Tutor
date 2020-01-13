@@ -4,35 +4,31 @@
         <div class="col-md-12 mt">
         <div class="content-panel">
           <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i>Aziende Disponibili</h4>
+            <h4><i class="fa fa-angle-right"></i> Aziende Disponibili</h4>
             <hr>
             <thead>
               <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Nome</th>
+                <th>Citt&agrave;</th>
+                <th>Corso di Studi</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Simon</td>
-                <td>Mosa</td>
-                <td>@twitter</td>
-              </tr>
+              <#if (aziende_convenzionate?size>0)>
+                <#list aziende_convenzionate as azienda>
+                <tr>
+                  <td>1</td>
+                  <td><a href="provaServlet?&{azienda.getId()}">${azienda.getNome()}</a></td>
+                  <td>${azienda.getCitta()}</td>
+                  <td>${azienda.getCorsoStudi()}</td>
+                </tr>
+                </#list>
+              <#else>
+                <tr>
+                    <td>La lista delle aziende convenzionate &egrave; vuota</td>
+                </tr>
+              </#if>
             </tbody>
           </table>
         </div>

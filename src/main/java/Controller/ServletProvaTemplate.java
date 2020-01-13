@@ -15,6 +15,8 @@ import framework.result.TemplateManagerException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -73,11 +75,13 @@ public class ServletProvaTemplate extends HttpServlet {
                 //request.setAttribute("studente", st);
                 Azienda az=dl.getAziendaDAO().getAzienda(1);
                 request.setAttribute("azienda", az);
+                List aziende_convenzionate=new ArrayList();
+                request.setAttribute("aziende_convenzionate",aziende_convenzionate);
             } catch (DataLayerException ex) {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            temp.activate("dettaglio_azienda.ftl.html",request,response);
+            temp.activate("visualizza_aziende.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

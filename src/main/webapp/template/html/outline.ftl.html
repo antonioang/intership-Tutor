@@ -48,12 +48,12 @@
         <#else>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="accedi">Accedi</a></li>
+          <li><a class="logout" href="login">Accedi</a></li>
         </ul>
       </div>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="registrazione">Registrati</a></li>
+          <li><a class="logout" href="RegisterStudente">Registrati</a></li>
         </ul>
       </div>
         </#if>
@@ -70,15 +70,15 @@
           <div class="centered"><img src="template/img/Logounivaq.jpg" class="img-circle" width="80"></div>
           <h5 class="centered">UNIVAQ</h5>
           <li class="mt">
-            <a class="active" href="ProvaTemplate">
+            <a class="${activeHome!}" href="Home">
               <i class="fa fa-dashboard"></i>
               <span>Home</span>
               </a>
           </li>
            <#if tipologia??>
-           <#if tipologia == 'azienda'>
+           <#if tipo == '2'>
           <li class="mt">
-            <a class="${activeStatistiche!}" href="ProvaTemplate">
+            <a class="${activeStatistiche!}" href="statistiche">
               <i class="fa fa-industry"></i>
               <span>Statistiche</span>
               </a>
@@ -86,14 +86,14 @@
           </#if>
           <#else>
           <li class="mt">
-            <a class="${activeAziende!}" href="ProvaTemplate">
+            <a class="${activeAziende!}" href="aziende">
               <i class="fa fa-suitcase"></i>
               <span>Aziende</span>
               </a>
           </li>
           </#if>
           <li class="mt">
-            <a class="${activeTirocini!}" href="javascript:;">
+            <a class="${activeTirocini!}" href="tirocini">
               <i class="fa fa-calendar"></i>
               <span>Tirocini</span>
               </a>
