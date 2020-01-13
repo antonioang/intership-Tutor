@@ -77,23 +77,7 @@ public class Login extends BaseController {
                    
                     //controllo se il referrer è definito
                     if(request.getParameter("referrer") == null){
-                        //0 = admin, 1 = studente, 2 = azienda
-                        int tipo = utente.getTipo();
-                        switch(tipo){
-                            case 0:
-                                //admin
-                                break;
-                            case 1:
-                                //studente
-                                response.sendRedirect("prova");
-                                break;
-                            case 2:
-                                //azienda
-                                response.sendRedirect("home-azienda");
-                                break;
-                            default:
-                                //default code
-                        }                        
+                        response.sendRedirect("Home");
                     } else{ //altrimenti rimando alla home page
                         response.sendRedirect(request.getParameter("referrer"));
                     }

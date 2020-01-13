@@ -66,10 +66,12 @@ public class Profilo extends BaseController {
             if((int) request.getAttribute("tipo") == 2){
                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
                 request.setAttribute("azienda", azienda);
+                request.setAttribute("utente", utente);
             }
             else if((int) request.getAttribute("tipo") == 1){
                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
                 request.setAttribute("studente", studente);
+                request.setAttribute("utente", utente);
             }
             else if((int) request.getAttribute("tipo") == 0){
                 //ADMIN
