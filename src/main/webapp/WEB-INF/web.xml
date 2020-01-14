@@ -47,6 +47,10 @@
         <servlet-name>CreaTirocinio</servlet-name>
         <servlet-class>Controller.CreaTirocinio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DettaglioTirocinio</servlet-name>
+        <servlet-class>Controller.DettaglioTirocinio</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -94,6 +98,10 @@
     <servlet-mapping>
         <servlet-name>CreaTirocinio</servlet-name>
         <url-pattern>/creazione_tirocinio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DettaglioTirocinio</servlet-name>
+        <url-pattern>/tirocinio</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

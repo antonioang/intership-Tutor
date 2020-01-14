@@ -21,6 +21,8 @@ public interface PersonaDAO {
     Persona createPersona(ResultSet rs) throws DataLayerException;
     
     Persona getPersona(int id) throws DataLayerException;
+    
+    List<Persona> getTutoriTirocinio() throws DataLayerException;
         
     int addPersona(Persona p) throws DataLayerException;
     
