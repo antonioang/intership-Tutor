@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 public class StudenteDAO_imp extends DAO implements StudenteDAO {
     private PreparedStatement addStudente, getStudentebyID, getStudenteByUtente;
     private PreparedStatement updStudente;
+    private PreparedStatement delStudente;
     
     public StudenteDAO_imp(DataLayer d) {
         super(d);
@@ -159,7 +160,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
 
     @Override
     public int delStudente(Studente st) throws DataLayerException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            delStudente.setInt(1,st.getId());
+            return delStudente.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la cancellazione dello studente", ex);
+        }
     }
 
     @Override
