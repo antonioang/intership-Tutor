@@ -39,10 +39,10 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             getTirocini = connection.prepareStatement("SELECT * FROM tirocinio WHERE azienda = ?");
             getTirocinio = connection.prepareStatement("SELECT * FROM tirocinio WHERE id_tirocinio = ?");
             addTirocinio = connection.prepareStatement("INSERT INTO tirocinio\n" +
-                "(luogo, settore, orari, durata, titolo, obiettivo, modalita, facilitazioni, azienda, tutore_tirocini, approvato)\n" +
+                "(luogo, settore, orari, durata, titolo, obiettivo, modalita, facilitazioni, azienda, tutore_tirocinio, approvato)\n" +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             updTirocinio = connection.prepareStatement("UPDATE tirocinio\n" +
-                "SET luogo=?, settore=?, orari=?, durata=?, titolo=?, obiettivo=?, modalita=?, facilitazioni=?, azienda=?, tutore_tirocini=?, approvato=?\n" +
+                "SET luogo=?, settore=?, orari=?, durata=?, titolo=?, obiettivo=?, modalita=?, facilitazioni=?, azienda=?, tutore_tirocinio=?, approvato=?\n" +
                 "WHERE id_tirocinio=?");   
             delTirocinio = connection.prepareStatement("DELETE FROM tirocinio WHERE id_tirocinio=0;");
             updTirocinioApprovato = connection.prepareStatement("UPDATE tirocinio SET approvato=? WHERE id_tirocinio=?");
@@ -72,7 +72,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             t.setFacilitazioni(rs.getString("facilitazioni"));
             t.setApprovato(rs.getBoolean("approvato"));
             t.setAzienda(rs.getInt("azienda"));
-            t.setTutoreTirocini(rs.getInt("tutore_tirocini"));
+            t.setTutoreTirocinio(rs.getInt("tutore_tirocinio"));
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la creazione del tirocinio", ex);
         }
@@ -137,7 +137,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             addTirocinio.setString(7, t.getModalita());
             addTirocinio.setString(8, t.getFacilitazioni());
             addTirocinio.setInt(9, t.getAzienda());
-            addTirocinio.setInt(10, t.getTutoreTirocini());
+            addTirocinio.setInt(10, t.getTutoreTirocinio());
             addTirocinio.setBoolean(11, t.getApprovato());
             
             if (addTirocinio.executeUpdate() == 1) {
@@ -182,7 +182,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             updTirocinio.setString(7, t.getModalita());
             updTirocinio.setString(8, t.getFacilitazioni());
             updTirocinio.setInt(9, t.getAzienda());
-            updTirocinio.setInt(10, t.getTutoreTirocini());
+            updTirocinio.setInt(10, t.getTutoreTirocinio());
             updTirocinio.setBoolean(11, t.getApprovato());
             updTirocinio.setInt(12, t.getId());
             return updTirocinio.executeUpdate();

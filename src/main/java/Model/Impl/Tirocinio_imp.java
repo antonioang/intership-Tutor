@@ -90,7 +90,7 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public int getTutoreTirocini() {
+    public int getTutoreTirocinio() {
         return this.tutore_tirocini;
     }
 
@@ -150,7 +150,7 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public void setTutoreTirocini(int id_tutore) {
+    public void setTutoreTirocinio(int id_tutore) {
         this.tutore_tirocini = id_tutore;
     }
     

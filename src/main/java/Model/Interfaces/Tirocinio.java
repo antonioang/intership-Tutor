@@ -33,7 +33,7 @@ public interface Tirocinio {
     
     int getAzienda();
     
-    int getTutoreTirocini();
+    int getTutoreTirocinio();
     
     void setId(int id);
     
@@ -57,6 +57,6 @@ public interface Tirocinio {
     
     void setAzienda(int id_azienda);
     
-    void setTutoreTirocini(int id_tutore);
+    void setTutoreTirocinio(int id_tutore);
     
 }
