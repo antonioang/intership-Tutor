@@ -87,6 +87,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             az.setInizioConv(rs.getDate("inizio_conv").toLocalDate());
             az.setFineConv(rs.getDate("fine_conv").toLocalDate());
             az.setRespTirocini(rs.getInt("responsabile_tirocini"));
+            az.setId(rs.getInt("id_azienda"));
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante creazione azienda", ex);
         }

@@ -66,6 +66,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             st.setProvinciaNascita(rs.getString("provincia_nascita"));
             st.setProvinciaResidenza(rs.getString("provincia_residenza"));
             st.setTelefono(rs.getString("telefono"));
+            st.setId(rs.getInt("id_studente"));
             return st;
         } catch (SQLException ex) {
             throw new DataLayerException("Impossibile creare oggetto Studente dal ResultSet", ex);

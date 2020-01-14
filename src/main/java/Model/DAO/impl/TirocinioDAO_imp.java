@@ -73,6 +73,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             t.setApprovato(rs.getBoolean("approvato"));
             t.setAzienda(rs.getInt("azienda"));
             t.setTutoreTirocinio(rs.getInt("tutore_tirocinio"));
+            t.setId(rs.getInt("id_tirocinio"));
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la creazione del tirocinio", ex);
         }

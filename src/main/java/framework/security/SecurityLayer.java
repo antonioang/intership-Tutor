@@ -364,10 +364,13 @@ public class SecurityLayer {
         }
     }
     
-    public static long telToLong(String tel){
-        if(tel != null){
-            return Long.parseLong(tel);
+    public static boolean checkNumber(String n){
+        if(n != null && n.length() !=0){
+            return true;
         }
-        return 0;
+        else{
+            throw new IllegalArgumentException("Is not a number");
+        }
+                
     }
 }

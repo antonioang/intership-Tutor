@@ -15,6 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +26,8 @@ import java.sql.Statement;
  */
 public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
-    private PreparedStatement addPersona, delPersona, updPersona, getPersona; 
-    
+    private PreparedStatement addPersona, delPersona, updPersona; 
+    private PreparedStatement getPersona, getTutoriTirocinio;
     public PersonaDAO_imp(DataLayer d) {
         super(d);
     }
@@ -39,6 +43,7 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
                 "SET nome=?, cognome=?, email=?, telefono=?, tipo=?\n" +
                 "WHERE id_persona=?;");
             getPersona = connection.prepareStatement("SELECT * FROM persona WHERE id_persona = ?");
+            getTutoriTirocinio = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 2");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzazione degli Statement", ex);
         }
@@ -58,6 +63,7 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
             p.setEmail(rs.getString("email"));
             p.setTelefono(rs.getString("telefono"));
             p.setTipo(rs.getInt("tipo"));
+            p.setId(rs.getInt("id_persona"));
             return p;
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la creazione della persona", ex);
@@ -143,6 +149,20 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento della persona", ex);
         }
+    }
+
+    @Override
+    public List<Persona> getTutoriTirocinio() throws DataLayerException {
+        List<Persona> lista = new ArrayList();
+        try {
+            ResultSet rs = getTutoriTirocinio.executeQuery();
+            while(rs.next()){
+                lista.add(createPersona(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dei tutori", ex);
+        }
+        return lista;
     }
     
 }
