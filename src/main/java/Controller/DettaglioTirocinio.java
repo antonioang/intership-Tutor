@@ -34,6 +34,9 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("nome_utente", s.getAttribute("username"));
                 request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
             }
+            if(request.getParameter("id_studente") != null && request.getParameter("action") != null){
+                action_gestisci_candidato(request, response);
+            }
             action_default(request, response);
         }
         else{
@@ -62,6 +65,20 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
+        }
+        
+    }
+    
+    private void action_gestisci_candidato(HttpServletRequest request, HttpServletResponse response){
+        int id_studente = SecurityLayer.checkNumeric(request.getParameter("id_studente"));
+        boolean action = SecurityLayer.checkBoolean(request.getParameter("action"));
+        
+        if(action){
+            //Approva candidato
+            
+        }
+        else{
+            //Rifiuta candidato
         }
         
     }
