@@ -1,13 +1,74 @@
 <section class="wrapper">
     <div class="row">
-        
+        <div class="card">
+            <div class="card-header">
+                <h4>Ricerca Tirocinio</h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="titolo" class="control-label col-lg-10">Ricerca per titolo tirocinio</label>
+                            <div class="col-sm-12">
+                              <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt">
+                        <div class="col-md-4">
+                            <div class="row mt">
+                                <div class="form-group">
+                                    <label for="titolo" class="control-label col-lg-10">Corso di studi</label>
+                                    <div class="col-sm-12">
+                                      <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt">
+                            <div class="form-group">
+                                <label for="titolo" class="control-label col-lg-10">Obiettivi</label>
+                                <div class="col-sm-12">
+                                  <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="titolo" class="control-label col-lg-10">Durata</label>
+                                <div class="col-sm-12">
+                                  <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="titolo" class="control-label col-lg-10">Facilitazioni</label>
+                                <div class="col-sm-12">
+                                  <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="titolo" class="control-label col-lg-10">Settore</label>
+                                <div class="col-sm-12">
+                                  <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="titolo" class="control-label col-lg-10">Luogo</label>
+                                <div class="col-sm-12">
+                                  <input class=" form-control" id="titolo" name="titolo" type="text"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="row">
         <!-- /col-md-12 -->
         <div class="col-md-12 mt">
-            <div class="border-head">
-              <h3>${Test}</h3>
-            </div>
             <#if (tirocini??)>
                 <#if (tirocini?size>0)>
                     <div class="content-panel">
