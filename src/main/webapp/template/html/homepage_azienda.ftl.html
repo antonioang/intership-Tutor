@@ -15,8 +15,8 @@
               </tr>
             </thead>
             <tbody>
-            <#if (tirocini_attivi?size>0)>
-              <#list tirocini_attivi as tirocinio>
+            <#if (tirocini?size>0)>
+              <#list tirocini as tirocinio>
               <tr>
                 <td>1</td>
                 <td>${tirocinio.getTitolo()}</td>
@@ -28,7 +28,7 @@
                     </#if>
                 </td>
                 <td>${tirocinio.getLuogo()}</td>
-                <td>${tirocinio.getDurata()}</td>
+                <td>${tirocinio.getDurata()} Ore</td>
                 <td>
                     <a href="tirocinio?id=${tirocinio.getId()}">
                     <button class="btn btn-theme centered"><i class="fa fa-lock"></i> Gestisci</button>

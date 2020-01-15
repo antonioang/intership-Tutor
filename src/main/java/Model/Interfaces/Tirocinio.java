@@ -19,7 +19,7 @@ public interface Tirocinio {
     
     String getOrari();
     
-    String getDurata();
+    int getDurata();
     
     String getTitolo();
     
@@ -27,9 +27,9 @@ public interface Tirocinio {
     
     String getModalita();
     
-    String getFacilitazioni();
+    boolean getFacilitazioni();
     
-    boolean getApprovato();
+    boolean getVisibile();
     
     int getAzienda();
     
@@ -43,7 +43,7 @@ public interface Tirocinio {
     
     void setOrari(String o);
     
-    void setDurata(String d);
+    void setDurata(int d);
     
     void setTitolo(String t);
     
@@ -51,9 +51,9 @@ public interface Tirocinio {
     
     void setModalita(String m);
     
-    void setFacilitazioni(String f);
+    void setFacilitazioni(boolean f);
     
-    void setApprovato(boolean at);
+    void setVisibile(boolean vb);
     
     void setAzienda(int id_azienda);
     

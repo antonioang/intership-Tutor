@@ -15,23 +15,23 @@ import Model.Interfaces.Tirocinio;
  */
 public class Tirocinio_imp implements Tirocinio{
     
-    private String luogo, settore, orari, durata, titolo, obiettivo, modalita, facilitazioni;
-    private int id, tutore_tirocini, azienda;
-    public boolean approvato;
+    private String luogo, settore, orari, titolo, obiettivo, modalita;
+    private int id, durata, tutore_tirocini, azienda;
+    public boolean visibile, facilitazioni;
     
     public Tirocinio_imp (){
         this.luogo = "";
         this.settore = "";
         this.orari = "";
-        this.durata = "";
         this.titolo = "";
         this.obiettivo = "";
         this.modalita = "";
-        this.facilitazioni = "";
+        this.durata = 0;
         this.id = 0;
         this.azienda = 0;
         this.tutore_tirocini = 0;
-        this.approvato = false;
+        this.visibile = false;
+        this.facilitazioni = false;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public String getDurata() {
+    public int getDurata() {
         return this.durata;
     }
 
@@ -75,13 +75,13 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public String getFacilitazioni() {
+    public boolean getFacilitazioni() {
         return this.facilitazioni;
     }
 
     @Override
-    public boolean getApprovato() {
-        return this.approvato;
+    public boolean getVisibile() {
+        return this.visibile;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public void setDurata(String d) {
+    public void setDurata(int d) {
         this.durata = d;
     }
 
@@ -135,13 +135,13 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public void setFacilitazioni(String f) {
+    public void setFacilitazioni(boolean f) {
         this.facilitazioni = f;
     }
 
     @Override
-    public void setApprovato(boolean at) {
-        this.approvato = at;
+    public void setVisibile(boolean vb) {
+        this.visibile = vb;
     }
 
     @Override
