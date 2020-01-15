@@ -57,7 +57,6 @@
                             <th>Nome</th>
                             <th>Telefono</th>
                             <th>Corso di Laurea</th>
-                            <th>Approva/ammetti</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -68,9 +67,85 @@
                             <td>${studente.getNome()} ${studente.getCognome()}</td>
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
+                          </tr>
+                          </#list>
+                        <#else>
+                            <tr>
+                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                            </tr>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Studenti Rifiutati</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table table-hover">
+                        <hr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefono</th>
+                            <th>Corso di Laurea</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <#if (studenti_rifiutati?size>0)>
+                          <#list studenti_rifiutati as studente>
+                          <tr>
+                            <td>1</td>
+                            <td>${studente.getNome()} ${studente.getCognome()}</td>
+                            <td>${studente.getTelefono()}</td>
+                            <td>${studente.getCorsoLaurea()}</td>
+                          </tr>
+                          </#list>
+                        <#else>
+                            <tr>
+                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                            </tr>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Studenti In Sospeso</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table table-hover">
+                        <hr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefono</th>
+                            <th>Corso di Laurea</th>
+                            <th>Approva/Rifiuta</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <#if (studenti_sospeso?size>0)>
+                          <#list studenti_sospeso as studente>
+                          <tr>
+                            <td>1</td>
+                            <td>${studente.getNome()} ${studente.getCognome()}</td>
+                            <td>${studente.getTelefono()}</td>
+                            <td>${studente.getCorsoLaurea()}</td>
                             <td>
-                                <a href="gestione_candidati">
-                                <button class="btn btn-theme centered"><i class="fa fa-lock"></i> Approva</button>
+                                <a href="tirocinio?id=${tirocinio.getId()}&id_studente=${studente.getId()}&action=true">
+                                <button><i class="fa fa-check"></i></button>
+                                </a>
+                                <a href="tirocinio?id=${tirocinio.getId()}&id_studente=${studente.getId()}&action=false">
+                                <button><i class="fa fa-times"></i></button>
                                 </a>
                             </td>
                           </tr>

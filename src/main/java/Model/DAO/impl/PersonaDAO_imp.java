@@ -17,8 +17,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,6 +26,7 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
     private PreparedStatement addPersona, delPersona, updPersona; 
     private PreparedStatement getPersona, getTutoriTirocinio;
+    
     public PersonaDAO_imp(DataLayer d) {
         super(d);
     }
