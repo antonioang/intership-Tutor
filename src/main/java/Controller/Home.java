@@ -38,15 +38,6 @@ public class Home extends BaseController {
                 request.setAttribute("username", (String) s.getAttribute("username"));
                 request.setAttribute("tipo", s.getAttribute("tipo"));
                 switch((int) request.getAttribute("tipo")){
-                    case 0:
-                        //ADMIN
-
-                        //setto i dati necessari
-
-                        //mostro il template
-                        res = new TemplateResult(getServletContext());
-                        res.activate("homepage_admin.ftl.html", request, response);
-                        break;
                     case 1:
                         //STUDENTE
 
@@ -71,6 +62,15 @@ public class Home extends BaseController {
                         request.setAttribute("activeHome", "active");
                         res.activate("homepage_azienda.ftl.html", request, response);
                         break;
+                    case 3:
+                        //ADMIN
+
+                        //setto i dati necessari
+
+                        //mostro il template
+                        res = new TemplateResult(getServletContext());
+                        res.activate("homepage_admin.ftl.html", request, response);
+                        break;    
                     default:
                         //default-code
                 }

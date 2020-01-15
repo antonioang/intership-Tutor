@@ -15,11 +15,7 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,8 +34,8 @@ public class DettaglioTirocinio extends BaseController {
         if(request.getParameter("id") != null && !request.getParameter("id").equals("0")){
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
-                request.setAttribute("nome_utente", s.getAttribute("username"));
-                request.setAttribute("tipologia", (String)s.getAttribute("tipologia"));
+                request.setAttribute("username", s.getAttribute("username"));
+                request.setAttribute("tipo", (String)s.getAttribute("tipo"));
             }
             if(request.getParameter("id_studente") != null && request.getParameter("action") != null){
                 action_gestisci_candidato(request, response);
@@ -61,13 +57,19 @@ public class DettaglioTirocinio extends BaseController {
                 //ottengo il tirocinio dall'id e la lista degli studenti
                 int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
-                List<Studente> accettati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioAccettato(id_tirocinio);
-                List<Studente> rifiutati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioRifiutato(id_tirocinio);
-                List<Studente> sospeso = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioSospeso(id_tirocinio);
                 request.setAttribute("tirocinio", tirocinio);
-                request.setAttribute("studenti_candidati", accettati);
-                request.setAttribute("studenti_rifiutati", rifiutati);
-                request.setAttribute("studenti_sospeso", sospeso);
+                
+                //mostro la lista degli studenti candidati, rifiutati o in sospeso solo se l'utente è un'azienda o un amministratore
+                if(request.getAttribute("tipo") !=null){
+                    if((int) request.getAttribute("tipo") == 2 || (int) request.getAttribute("tipo") == 3){
+                        List<Studente> accettati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioAccettato(id_tirocinio);
+                        List<Studente> rifiutati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioRifiutato(id_tirocinio);
+                        List<Studente> sospeso = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioSospeso(id_tirocinio);
+                        request.setAttribute("studenti_candidati", accettati);
+                        request.setAttribute("studenti_rifiutati", rifiutati);
+                        request.setAttribute("studenti_sospeso", sospeso);
+                    }
+                }
                 
                 //MOSTRO IL TEMPLATE
                 TemplateResult res = new TemplateResult(getServletContext());
@@ -127,7 +129,7 @@ public class DettaglioTirocinio extends BaseController {
         }
         
     }
-    
+        
     private void action_error(HttpServletRequest request, HttpServletResponse response){
         if(request.getAttribute("eccezione") != null){
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
