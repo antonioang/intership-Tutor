@@ -54,7 +54,7 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("tirocinio", tirocinio);
                 //MOSTRO IL TEMPLATE
                 TemplateResult res = new TemplateResult(getServletContext());
-                res.activate("homepage_azienda.ftl.html", request, response);
+                res.activate("dettaglio_tirocinio.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
