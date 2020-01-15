@@ -8,6 +8,7 @@ package Model.DAO;
 import Model.Interfaces.Studente;
 import framework.data.DataLayerException;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -22,6 +23,12 @@ public interface StudenteDAO {
     Studente getStudente(int id) throws DataLayerException;
     
     Studente getStudenteByUtente(int id_utente) throws DataLayerException;
+    
+    List<Studente> getStudentiByTirocinioAccettato(int id_tirocinio) throws DataLayerException;
+    
+    List<Studente> getStudentiByTirocinioSospeso(int id_tirocinio) throws DataLayerException;
+    
+    List<Studente> getStudentiByTirocinioRifiutato(int id_tirocinio) throws DataLayerException;
 
     int addStudente(Studente st) throws DataLayerException;
 

@@ -6,12 +6,16 @@
 package Model.Interfaces;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author jacopo
  */
-public interface Richiede {
+public interface RichiestaTirocinio {
+    
+    int getId();
+    
     String getSrcDocCandid();
     
     String getDottorato();
@@ -22,13 +26,21 @@ public interface Richiede {
     
     String getDiploma();
     
-    Date getDataInizio();
+    LocalDate getDataInizio();
     
-    Date getDataFine();
+    LocalDate getDataFine();
     
-    boolean getStatoCandidatura();
+    int getStudente();
+    
+    int getTirocinio();
+    
+    int getTutoreUniversitario();
+    
+    int getStatoCandidatura();
     
     int getCfu();
+    
+    void setId(int id);
     
     void setSrcDocCandid(String src);
     
@@ -40,11 +52,17 @@ public interface Richiede {
     
     void setDiploma(String d);
     
-    void setDataInizio(Date di);
+    void setDataInizio(LocalDate di);
     
-    void setDataFine(Date df);
+    void setDataFine(LocalDate df);
     
-    void setStatoCandidatura(boolean sc);
+    void setStatoCandidatura(int sc);
     
     void setCfu(int cfu);
+    
+    void setStudente(int st);
+    
+    void setTirocinio(int tr);
+    
+    void setTutoreUniversitario(int tu);
 }
