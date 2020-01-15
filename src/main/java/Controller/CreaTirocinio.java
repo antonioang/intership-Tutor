@@ -95,6 +95,7 @@ public class CreaTirocinio extends BaseController {
                 tirocinio.setFacilitazioni(request.getParameter("facilitazioni"));
                 tirocinio.setAzienda(azienda.getId());
                 tirocinio.setTutoreTirocinio(Integer.parseInt(request.getParameter("tutore")));
+                System.out.println(request.getParameter("tutore"));
                 
                 int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().addTirocinio(tirocinio);
                 if(insert != 1){

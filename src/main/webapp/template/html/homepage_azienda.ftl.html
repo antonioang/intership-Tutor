@@ -20,12 +20,18 @@
               <tr>
                 <td>1</td>
                 <td>${tirocinio.getTitolo()}</td>
-                <td>${tirocinio.getAttivo()}</td>
+                <td>
+                    <#if tirocinio.getApprovato()>
+                    Approvato
+                    <#else>
+                    In sospeso
+                    </#if>
+                </td>
                 <td>${tirocinio.getLuogo()}</td>
                 <td>${tirocinio.getDurata()}</td>
                 <td>
-                    <a href="gestione_candidati">
-                    <button class="btn btn-theme centered"><i class="fa fa-lock"></i>  Accedi</button>
+                    <a href="tirocinio?id=${tirocinio.getId()}">
+                    <button class="btn btn-theme centered"><i class="fa fa-lock"></i> Gestisci</button>
                     </a>
                 </td>
               </tr>
@@ -41,11 +47,14 @@
     </div>
     <div class="row">
         <div class="col-md-12 mt">
-            <h4><i class="fa fa-angle-right"></i> Crea tirocinio</h4>
-            <div class="alert alert-success ">
-                <b>Crea subito una nuova offerta di tirocinio!</b>
-                <div class="pull-right">
-                <a href="creazione_tirocinio"><p><button type="button" class="btn btn-default">Vai a crea tirocinio</button></p></a>
+            <div>
+                <div class="panel text-center maincard">
+                    <h5 class="card-header"><b>Crea una nuova offerta di tirocinio</b></h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Una volta creato il tirocinio dovr&agrave; essere approvato dall'amministratore di sistema</h5>
+                      <p class="card-text mainparagraph">Puoi sempre visualizzare lo stato dei tirocini nell'homepage</p>
+                      <a href="creazione_tirocinio" name='submit_tirocinio' value='submit' class="mainbtn"> <i class="fa fa-mortar-board"></i> Crea Tirocinio</a>
+                    </div>
                 </div>
             </div>
         </div>

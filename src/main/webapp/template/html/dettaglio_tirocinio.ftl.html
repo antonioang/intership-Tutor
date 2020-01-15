@@ -1,0 +1,89 @@
+<section class="wrapper">
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Dettaglio Tirocinio</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="centered overview-profile-text">
+                            <h5>Titolo</h5>
+                            <p>${tirocinio.getTitolo()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Luogo</h5>
+                            <p>${tirocinio.getLuogo()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Settore</h5>
+                            <p>${tirocinio.getSettore()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Orari</h5>
+                            <p>${tirocinio.getOrari()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="centered overview-profile-text">
+                            <h5>Durata</h5>
+                            <p>${tirocinio.getDurata()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Obiettivo</h5>
+                            <p>${tirocinio.getObiettivo()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>modalit&agrave;</h5>
+                            <p>${tirocinio.getModalita()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Facilitazioni</h5>
+                            <p>${tirocinio.getFacilitazioni()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Studenti Candidati</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table table-hover">
+                        <hr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefono</th>
+                            <th>Corso di Laurea</th>
+                            <th>Approva/ammetti</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <#if (studenti_candidati?size>0)>
+                          <#list studenti_candidati as studente>
+                          <tr>
+                            <td>1</td>
+                            <td>${studente.getNome()} ${studente.getCognome()}</td>
+                            <td>${studente.getTelefono()}</td>
+                            <td>${studente.getCorsoLaurea()}</td>
+                            <td>
+                                <a href="gestione_candidati">
+                                <button class="btn btn-theme centered"><i class="fa fa-lock"></i> Approva</button>
+                                </a>
+                            </td>
+                          </tr>
+                          </#list>
+                        <#else>
+                            <tr>
+                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                            </tr>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

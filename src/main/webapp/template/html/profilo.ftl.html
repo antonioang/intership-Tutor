@@ -62,111 +62,112 @@
                 <div class="tab-content">
                   <div id="overview" class="tab-pane active">
                     <div class="row">
-                      <#if tipo==1>
-                      <div class="col-md-6">
-                        <div class="centered overview-profile-text">
-                          <h5>Nome</h5>
-                          <p>${studente.nome}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Cognome</h5>
-                          <p>${studente.cognome}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Codice Fiscale</h5>
-                          <p>${studente.codFiscale}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Data Di Nascita</h5>
-                          <p>${studente.dataNascita}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Citt&agrave Di Nascita</h5>
-                          <p>${studente.cittaNascita}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Provincia Di Nascita</h5>
-                          <p>${studente.getProvinciaNascita()}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Telefono</h5>
-                          <p>${studente.getTelefono()}</p>
-                        </div>
-                      <!-- prima colonna nella seconda riga -->
-                      </div>
-                      <!-- /col-md-6 -->
-                      <div class="col-md-6">
-                        <div class="centered overview-profile-text">
-                          <h5>Corso Di Laurea</h5>
-                          <p>${studente.corsoLaurea}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Citt&agrave Di Residenza</h5>
-                          <p>${studente.getCittaResidenza()}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Provincia Di Residenza</h5>
-                          <p>${studente.getProvinciaResidenza()}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Cap</h5>
-                          <p>${studente.capResidenza}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Username</h5>
-                          <p>${utente.username}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Email</h5>
-                          <p>${utente.email}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Handicap</h5>
-                          <p>${studente.getHandicap()?string('si', 'no')}</p>
-                        </div>
-                        <!-- seconda colonna nella seconda riga -->
-                        <!-- /row -->
-                      </div>
-                      </#if>
-                      <#if tipo==2>
-                      <div class="col-md-6">
-                        <div class="centered overview-profile-text">
-                          <h5>Indirizzo</h5>
-                          <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Rappresentante Legale</h5>
-                          <p>${azienda.rapprLeg}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Partita iva</h5>
-                          <p>${azienda.piva}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Foro Competente</h5>
-                          <p>${azienda.foroCompetente}</p>
-                        </div>
-                      <!-- prima colonna nella seconda riga -->
-                      </div>
-                      <!-- /col-md-6 -->
-                      <div class="col-md-6">
-                        <div class="centered overview-profile-text">
-                          <h5>Tematica</h5>
-                          <p>${azienda.tematica}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Corso di Studi</h5>
-                          <p>${azienda.corsoStudi}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Durata convenzione</h5>
-                          <p>${azienda.inizioConv} - ${azienda.fineConv}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Ragione sociale</h5>
-                          <p>${azienda.ragioneSociale}</p>
-                        </div>
-                      </#if>
+                            <#if tipo==1>
+                            <div class="col-md-6">
+                              <div class="centered overview-profile-text">
+                                <h5>Nome</h5>
+                                <p>${studente.nome}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Cognome</h5>
+                                <p>${studente.cognome}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Codice Fiscale</h5>
+                                <p>${studente.codFiscale}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Data Di Nascita</h5>
+                                <p>${studente.dataNascita}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Citt&agrave Di Nascita</h5>
+                                <p>${studente.cittaNascita}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Provincia Di Nascita</h5>
+                                <p>${studente.getProvinciaNascita()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Telefono</h5>
+                                <p>${studente.getTelefono()}</p>
+                              </div>
+                            <!-- prima colonna nella seconda riga -->
+                            </div>
+                            <!-- /col-md-6 -->
+                            <div class="col-md-6">
+                              <div class="centered overview-profile-text">
+                                <h5>Corso Di Laurea</h5>
+                                <p>${studente.corsoLaurea}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Citt&agrave Di Residenza</h5>
+                                <p>${studente.getCittaResidenza()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Provincia Di Residenza</h5>
+                                <p>${studente.getProvinciaResidenza()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Cap</h5>
+                                <p>${studente.capResidenza}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Username</h5>
+                                <p>${utente.username}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Email</h5>
+                                <p>${utente.email}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Handicap</h5>
+                                <p>${studente.getHandicap()?string('si', 'no')}</p>
+                              </div>
+                              <!-- seconda colonna nella seconda riga -->
+                              <!-- /row -->
+                            </div>
+                            </#if>
+                            <#if tipo==2>
+                            <div class="col-md-6">
+                              <div class="centered overview-profile-text">
+                                <h5>Indirizzo</h5>
+                                <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Rappresentante Legale</h5>
+                                <p>${azienda.rapprLeg}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Partita iva</h5>
+                                <p>${azienda.piva}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Foro Competente</h5>
+                                <p>${azienda.foroCompetente}</p>
+                              </div>
+                            <!-- prima colonna nella seconda riga -->
+                            </div>
+                            <!-- /col-md-6 -->
+                            <div class="col-md-6">
+                              <div class="centered overview-profile-text">
+                                <h5>Tematica</h5>
+                                <p>${azienda.tematica}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Corso di Studi</h5>
+                                <p>${azienda.corsoStudi}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Durata convenzione</h5>
+                                <p>${azienda.inizioConv} - ${azienda.fineConv}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Ragione sociale</h5>
+                                <p>${azienda.ragioneSociale}</p>
+                              </div>
+                            </div>
+                            </#if>
                       <!-- /col-md-6 -->
                     </div>
                     <!-- /OVERVIEW -->
@@ -174,9 +175,9 @@
                   <!-- /tab-pane -->
                   <div id="edit" class="tab-pane">
                     <div class="row">
-                        
-                          <div class="edit-profile-form-panel">
-                              <#if tipo==2>
+                       <div class="edit-profile-form-panel">
+                        <#if tipo==2>
+                              
                             <form class="cmxform form-horizontal style-form" action="profilo">
                                 <div class="form-group">
                                     <label for="nome" class="control-label col-lg-2">Nome</label>

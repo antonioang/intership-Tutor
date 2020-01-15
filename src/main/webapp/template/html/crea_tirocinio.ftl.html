@@ -1,7 +1,7 @@
 <section class="wrapper">
     <div class="row mt">
         <div class="col-lg-12">
-            <h3><i class="fa fa-angle-right"></i>Nuovo Tirocinio</h3>
+            <h3><i class="fa fa-angle-right"></i> Nuovo Tirocinio</h3>
             <div class="form-panel">
                 <div class="form">
                     <form class="cmxform form-horizontal style-form" action="creazione_tirocinio" method="POST">
@@ -54,7 +54,29 @@
                               <input class=" form-control" id="facilitazioni" name="facilitazioni" type="text" required/>
                             </div>
                         </div>
-                        <h4 class="mb"><i class="fa fa-angle-right"></i> Tutore Tirocinio</h4>
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Seleziona Tutore Tirocinio</h4>
+                        <p><u>Se non vedi il tuo tutore puoi crearne uno nuovo nella sezione "crea tutore tirocinio"</u></p>
+                        <div class='form-group'>
+                            <label class="control-label col-lg-2">Tutore</label>
+                            <div class="col-sm-10">
+                                <select name='tutore' class="form-control">
+                                    <#list tutori_tirocinio as tutore>
+                                        <option value='${tutore.getId()}'>${tutore.getNome()}</option>
+                                    </#list>
+                                </select>
+                            </div>
+                        </div>
+                        <input value="submit_tirocinio" name="submit_tirocinio" type="hidden"/>
+                        <div class="centered">
+                            <button class="btn btn-theme centered"  type="submit"><i class="fa fa-lock"></i> Invia Tirocinio</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="form-panel">
+                <div class="form">
+                    <form class="cmxform form-horizontal style-form" action="creazione_tirocinio" method="POST">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Crea Tutore Tirocinio</h4>
                         <div class="form-group">
                             <label for="nome_tt" class="control-label col-lg-2">Nome</label>
                             <div class="col-sm-10">
@@ -79,9 +101,9 @@
                               <input class=" form-control" id="telefono_tt" name="telefono_tt" type="text" required/>
                             </div>
                         </div>
-                        <input value="submit_tirocinio" name="submit_tirocinio" type="hidden"/>
+                        <input value="submit_tutore" name="submit_tutore" type="hidden"/>
                         <div class="centered">
-                            <button class="btn btn-theme centered"  type="submit"><i class="fa fa-lock"></i>Invia Tirocinio</button>
+                            <button class="btn btn-theme centered"  type="submit"><i class="fa fa-lock"></i> Crea Nuovo Tutore</button>
                         </div>
                     </form>
                 </div>
