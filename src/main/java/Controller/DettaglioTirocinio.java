@@ -35,7 +35,7 @@ public class DettaglioTirocinio extends BaseController {
             HttpSession s = SecurityLayer.checkSession(request);
             if (s!= null) {
                 request.setAttribute("username", s.getAttribute("username"));
-                request.setAttribute("tipo", (String)s.getAttribute("tipo"));
+                request.setAttribute("tipo", (int)s.getAttribute("tipo"));
             }
             if(request.getParameter("id_studente") != null && request.getParameter("action") != null){
                 action_gestisci_candidato(request, response);

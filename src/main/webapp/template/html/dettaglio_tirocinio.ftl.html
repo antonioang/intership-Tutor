@@ -40,7 +40,8 @@
                             <p>${tirocinio.getFacilitazioni()}</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <#if tipo==2 || tipo==3>
+                    <div class="col-md-4">                        
                         <div class="centered overview-profile-text">
                             <h5>Visibile agli studenti</h5>
                             <p>
@@ -59,12 +60,15 @@
                                 </#if>
                                 </button>
                             </a>
-                        </div>
+                        </div>                        
                     </div>
+                    </#if>
                 </div>
             </div>
         </div>
     </div>
+    <#if (tipo??)>
+    <#if tipo==2 || tipo==3>
     <div class="row mt content-panel">
         <div class="col-lg-12">
             <h3><i class="fa fa-angle-right"></i>Studenti Candidati</h3>
@@ -182,4 +186,28 @@
             </div>
         </div>
     </div>
+    <#else>
+        <div>
+            <div class="panel text-center maincard">
+                <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
+                <div class="card-body">
+                  <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
+                  <p class="card-text mainparagraph">Specifica i dati della richiesta e concludi la richiesta</p>
+                  <a href="richiedi_tirocinio" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
+                </div>
+            </div>
+        </div>
+    </#if>
+    <#else>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
+            <div class="card-body">
+              <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
+              <p class="card-text mainparagraph">Accedi o Registrati, specifica i dati della richiesta e concludi la richiesta</p>
+              <a href="richiedi_tirocinio" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
+            </div>
+        </div>
+    </div>
+    </#if>
 </section>
