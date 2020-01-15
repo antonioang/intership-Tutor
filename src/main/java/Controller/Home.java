@@ -55,7 +55,7 @@ public class Home extends BaseController {
                         Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
                         Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
                         List<Tirocinio> tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocini(azienda.getId());
-                        request.setAttribute("tirocini_attivi", tirocini);
+                        request.setAttribute("tirocini", tirocini);
                         
                         //mostro il template
                         res = new TemplateResult(getServletContext());

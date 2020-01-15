@@ -59,6 +59,10 @@
         <servlet-name>RichiediTirocinio</servlet-name>
         <servlet-class>Controller.RichiediTirocinio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VisualizzaTirocini</servlet-name>
+        <servlet-class>Controller.VisualizzaTirocini</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -114,6 +118,10 @@
     <servlet-mapping>
         <servlet-name>RichiediTirocinio</servlet-name>
         <url-pattern>/richiedi_tirocinio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisualizzaTirocini</servlet-name>
+        <url-pattern>/tirocini</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
