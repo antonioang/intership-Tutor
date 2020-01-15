@@ -40,10 +40,6 @@
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>Controller.Logout</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CreaTirocinio</servlet-name>
         <servlet-class>Controller.CreaTirocinio</servlet-class>
     </servlet>

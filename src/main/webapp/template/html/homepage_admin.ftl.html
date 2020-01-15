@@ -1,0 +1,36 @@
+<section class="wrapper">
+    <div class="row">
+        <div class="col-md-12 mt">
+            <table class="table table-hover">
+            <h4><i class="fa fa-angle-right"></i> Aziende da approvare <i class="fa fa-caret-square-o-right"></i></h4>
+            <hr>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Inizio/Fine Convenzione</th>
+                <th>Indirizzo</th>
+                <th>Ragione Sociale</th>
+              </tr>
+            </thead>
+            <tbody>
+            <#if (aziende_da_approvare?size>0)>
+              <#list aziende_da_approvare as azienda>
+              <tr>
+                <td>1</td>
+                <td>${azieda.getNome()}</td>
+                <td>${azienda.getInizioConv()} - ${azienda.getFineConv()}</td>
+                <td>${azienda.getIndirizzo()}</td>
+                <td>${azienda.getRagioneSociale()}</td>
+              </tr>
+              </#list>
+            <#else>
+                <tr>
+                    <td>La lista delle aziende da approvare &egrave; vuota</td>
+                </tr>
+            </#if>
+            </tbody>
+            </table>
+        </div>        
+    </div>
+</section>

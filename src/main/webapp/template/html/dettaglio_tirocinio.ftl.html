@@ -4,7 +4,7 @@
             <h3><i class="fa fa-angle-right"></i>Dettaglio Tirocinio</h3>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="centered overview-profile-text">
                             <h5>Titolo</h5>
                             <p>${tirocinio.getTitolo()}</p>
@@ -22,7 +22,7 @@
                             <p>${tirocinio.getOrari()}</p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="centered overview-profile-text">
                             <h5>Durata</h5>
                             <p>${tirocinio.getDurata()}</p>
@@ -38,6 +38,27 @@
                         <div class="centered overview-profile-text">
                             <h5>Facilitazioni</h5>
                             <p>${tirocinio.getFacilitazioni()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Visibile agli studenti</h5>
+                            <p>
+                                <#if tirocinio.getApprovato()>
+                                si
+                                <#else>
+                                no
+                                </#if>
+                            </p>
+                            <a href="tirocinio?id=${tirocinio.getId()}&visible=change">
+                                <button class="btn btn-theme centered"><i class="fa fa-lock"></i> 
+                                <#if tirocinio.getApprovato()>
+                                Rendi invisibile
+                                <#else>
+                                Rendi visibile
+                                </#if>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
