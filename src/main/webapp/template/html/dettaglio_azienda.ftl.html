@@ -88,40 +88,53 @@
                   <!-- /tab-pane -->
                   <div id="edit" class="tab-pane">
                     <div class="row">
-                        
-                            <table class="table table-hover">
-                              <h4><i class="fa fa-angle-right"></i>Tirocini Disponibili</h4>
-                              <hr>
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>First Name</th>
-                                  <th>Last Name</th>
-                                  <th>Username</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Mark</td>
-                                  <td>Otto</td>
-                                  <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Jacob</td>
-                                  <td>Thornton</td>
-                                  <td>@fat</td>
-                                </tr>
-                                <tr>
-                                  <td>3</td>
-                                  <td>Simon</td>
-                                  <td>Mosa</td>
-                                  <td>@twitter</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                        
+                        <#if (tirocini??)>
+                            <#if (tirocini?size>0)>
+                                <div class="content-panel">
+                                  <table class="table table-hover">
+                                    <h4><i class="fa fa-angle-right"></i>Tirocini Disponibili</h4>
+                                    <hr>
+                                    <thead>
+                                      <tr>
+                                        <th>#</th>
+                                        <th>Titolo</th>
+                                        <th>Modalit&agrave;</th>
+                                        <th>Luogo</th>
+                                        <th>Durata</th>
+                                        <th>Orari</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                     <#assign count=1>
+                                     <#list tirocini as tirocinio>
+                                      <tr>
+                                        <td>${count} <#assign count++></td>
+                                        <td>
+                                            <a href="tirocinio?id=${tirocinio.getId()}">
+                                                ${tirocinio.getTitolo()}
+                                            </a>
+                                        </td>
+                                        <td>${tirocinio.getModalita()}</td>
+                                        <td>${tirocinio.getLuogo()}</td>
+                                        <td>${tirocinio.getDurata()}</td>
+                                        <td>${tirocinio.getOrari()}</td>
+                                      </tr>
+                                     </#list>
+                                    </tbody>
+                                  </table>
+                                </div>
+                            <#else>
+                                <div>
+                                    <div class="panel text-center maincard">
+                                        <h5 class="card-header"><b>Non sono presenti tirocini</b></h5>
+                                        <div class="card-body">
+                                            <h5 class="card-title">L'azienda non ha ancora pubblicato offerte di tirocinio</h5>
+                                          <p class="card-text mainparagraph">Non appena verranno pubblicate nuove offerte saranno visibili in questa sezione.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </#if>
+                        </#if>
                       <!-- /col-lg-8 colonna edit profile -->
                     </div>
                     <!-- /row -->

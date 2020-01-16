@@ -5,7 +5,7 @@
                 <h4>Ricerca Tirocinio</h4>
             </div>
             <div class="card-body">
-                <form action="tirocini">
+                <form action="tirocini" method='POST'>
                     <div class="row">
                         <div class="form-group">
                             <label for="titolo" class="control-label col-lg-10">Ricerca per titolo tirocinio</label>
@@ -93,24 +93,23 @@
                           <tr>
                             <th>#</th>
                             <th>Titolo</th>
-                            <th>Stato</th>
+                            <th>Modalit&agrave;</th>
                             <th>Luogo</th>
                             <th>Durata</th>
                             <th>Orari</th>
                           </tr>
                         </thead>
                         <tbody>
+                         <#assign count=1>
                          <#list tirocini as tirocinio>
                           <tr>
-                            <td>1</td>
-                            <td>${tirocinio.getTitolo()}</td>
+                            <td>${count} <#assign count++></td>
                             <td>
-                                <#if tirocinio.getVisibile()>
-                                Visibile
-                                <#else>
-                                Non visibile
-                                </#if>
+                                <a href="tirocinio?id=${tirocinio.getId()}">
+                                    ${tirocinio.getTitolo()}
+                                </a>
                             </td>
+                            <td>${tirocinio.getModalita()}</td>
                             <td>${tirocinio.getLuogo()}</td>
                             <td>${tirocinio.getDurata()}</td>
                             <td>${tirocinio.getOrari()}</td>
