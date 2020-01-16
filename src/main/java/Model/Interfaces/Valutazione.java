@@ -9,16 +9,16 @@ package Model.Interfaces;
  *
  * @author jacopo
  */
-public interface Valuta {
+public interface Valutazione {
     int getPunteggio();
     
-    Azienda getAzienda();
+    int getAzienda();
     
-    Studente getStudente();
+    int getStudente();
     
     void setPunteggio(int p);
     
-    void setAzienda(Azienda a);
+    void setAzienda(int a);
     
-    void setStudente(Studente s);
+    void setStudente(int s);
 }

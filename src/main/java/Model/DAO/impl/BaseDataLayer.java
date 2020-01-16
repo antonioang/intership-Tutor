@@ -17,7 +17,7 @@ import Model.Interfaces.Studente;
 import Model.Interfaces.Test;
 import Model.Interfaces.Tirocinio;
 import Model.Interfaces.Utente;
-import Model.Interfaces.Valuta;
+import Model.Interfaces.Valutazione;
 
 /**
  *
@@ -40,7 +40,7 @@ public class BaseDataLayer extends DataLayer {
         registerDAO(Tirocinio.class, new TirocinioDAO_imp(this));
         registerDAO(Rapporto.class, new RapportoDAO_imp(this));
         registerDAO(Richiede.class, new RichiedeDAO_imp(this));
-        registerDAO(Valuta.class, new ValutaDAO_imp(this));
+        registerDAO(Valutazione.class, new ValutazioneDAO_imp(this));
     }
     
     //metodo che restituisce il dao del test
@@ -78,7 +78,7 @@ public class BaseDataLayer extends DataLayer {
         return (RichiedeDAO_imp) getDAO(Richiede.class);
     }
     
-    public ValutaDAO_imp getValutaDAO(){
-        return (ValutaDAO_imp) getDAO(Valuta.class);
+    public ValutazioneDAO_imp getValutaDAO(){
+        return (ValutazioneDAO_imp) getDAO(Valutazione.class);
     }
 }
