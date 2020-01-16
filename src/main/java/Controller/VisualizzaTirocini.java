@@ -46,8 +46,7 @@ public class VisualizzaTirocini extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response){
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Registrazione Azienda");
-            res.activate("registrazione_azienda.ftl.html", request, response);
+            res.activate("visualizza_tirocini.ftl.html", request, response);
         } catch (TemplateManagerException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
@@ -69,8 +68,19 @@ public class VisualizzaTirocini extends BaseController {
                 String corso = request.getParameter("corsoStudio");
                 
                 List<Tirocinio> risultato = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().searchTirocinio(durata, titolo, facilitazioni, luogo, settore, obiettivi, corso);
+                request.setAttribute("tirocini", risultato);
+                //restituisco tutti i parametri della ricerca per precompilare la form
+//                request.setAttribute("durata", durata);
+//                request.setAttribute("titolo", titolo);
+//                request.setAttribute("facilitazioni", facilitazioni);
+//                request.setAttribute("luogo", luogo);
+                //aggiorno la pagina        
+                response.sendRedirect("tirocini");
                 
             } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
