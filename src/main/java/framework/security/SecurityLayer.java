@@ -373,4 +373,17 @@ public class SecurityLayer {
         }
                 
     }
+    
+    public static boolean stringToBoolean(String b){
+        if (b != null) {
+            if (b.equals("true")){
+                return true;
+            }
+
+        }
+        else{
+            throw new IllegalArgumentException("boolean argument isn't valid");
+        }
+        return false;
+    }
 }

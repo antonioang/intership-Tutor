@@ -4,7 +4,7 @@
             <h3><i class="fa fa-angle-right"></i>Dettaglio Tirocinio</h3>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="centered overview-profile-text">
                             <h5>Titolo</h5>
                             <p>${tirocinio.getTitolo()}</p>
@@ -22,10 +22,10 @@
                             <p>${tirocinio.getOrari()}</p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="centered overview-profile-text">
                             <h5>Durata</h5>
-                            <p>${tirocinio.getDurata()}</p>
+                            <p>${tirocinio.getDurata()} Ore</p>
                         </div>
                         <div class="centered overview-profile-text">
                             <h5>Obiettivo</h5>
@@ -40,10 +40,35 @@
                             <p>${tirocinio.getFacilitazioni()}</p>
                         </div>
                     </div>
+                    <#if tipo==2 || tipo==3>
+                    <div class="col-md-4">                        
+                        <div class="centered overview-profile-text">
+                            <h5>Visibile agli studenti</h5>
+                            <p>
+                                <#if tirocinio.getVisibile()>
+                                si
+                                <#else>
+                                no
+                                </#if>
+                            </p>
+                            <a href="tirocinio?id=${tirocinio.getId()}&visibile=change">
+                                <button class="btn btn-theme centered"><i class="fa fa-lock"></i> 
+                                <#if tirocinio.getVisibile()>
+                                Rendi invisibile
+                                <#else>
+                                Rendi visibile
+                                </#if>
+                                </button>
+                            </a>
+                        </div>                        
+                    </div>
+                    </#if>
                 </div>
             </div>
         </div>
     </div>
+    <#if (tipo??)>
+    <#if tipo==2 || tipo==3>
     <div class="row mt content-panel">
         <div class="col-lg-12">
             <h3><i class="fa fa-angle-right"></i>Studenti Candidati</h3>
@@ -57,7 +82,6 @@
                             <th>Nome</th>
                             <th>Telefono</th>
                             <th>Corso di Laurea</th>
-                            <th>Approva/ammetti</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -68,9 +92,85 @@
                             <td>${studente.getNome()} ${studente.getCognome()}</td>
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
+                          </tr>
+                          </#list>
+                        <#else>
+                            <tr>
+                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                            </tr>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Studenti Rifiutati</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table table-hover">
+                        <hr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefono</th>
+                            <th>Corso di Laurea</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <#if (studenti_rifiutati?size>0)>
+                          <#list studenti_rifiutati as studente>
+                          <tr>
+                            <td>1</td>
+                            <td>${studente.getNome()} ${studente.getCognome()}</td>
+                            <td>${studente.getTelefono()}</td>
+                            <td>${studente.getCorsoLaurea()}</td>
+                          </tr>
+                          </#list>
+                        <#else>
+                            <tr>
+                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                            </tr>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Studenti In Sospeso</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table table-hover">
+                        <hr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Telefono</th>
+                            <th>Corso di Laurea</th>
+                            <th>Approva/Rifiuta</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <#if (studenti_sospeso?size>0)>
+                          <#list studenti_sospeso as studente>
+                          <tr>
+                            <td>1</td>
+                            <td>${studente.getNome()} ${studente.getCognome()}</td>
+                            <td>${studente.getTelefono()}</td>
+                            <td>${studente.getCorsoLaurea()}</td>
                             <td>
-                                <a href="gestione_candidati">
-                                <button class="btn btn-theme centered"><i class="fa fa-lock"></i> Approva</button>
+                                <a href="tirocinio?id=${tirocinio.getId()}&id_studente=${studente.getId()}&action=true">
+                                <button><i class="fa fa-check"></i></button>
+                                </a>
+                                <a href="tirocinio?id=${tirocinio.getId()}&id_studente=${studente.getId()}&action=false">
+                                <button><i class="fa fa-times"></i></button>
                                 </a>
                             </td>
                           </tr>
@@ -86,4 +186,28 @@
             </div>
         </div>
     </div>
+    <#else>
+        <div>
+            <div class="panel text-center maincard">
+                <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
+                <div class="card-body">
+                  <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
+                  <p class="card-text mainparagraph">Specifica i dati del tirocinio e concludi la richiesta</p>
+                  <a href="richiedi_tirocinio?id_tirocinio=${tirocinio.getId()}" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
+                </div>
+            </div>
+        </div>
+    </#if>
+    <#else>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
+            <div class="card-body">
+              <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
+              <p class="card-text mainparagraph">Accedi o Registrati, specifica i dati del tirocinio e concludi la richiesta</p>
+              <a href="richiedi_tirocinio?id_tirocinio=${tirocinio.getId()}" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
+            </div>
+        </div>
+    </div>
+    </#if>
 </section>

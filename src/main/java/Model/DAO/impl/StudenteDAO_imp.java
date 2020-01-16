@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +26,8 @@ import java.util.logging.Logger;
  * @author jacopo
  */
 public class StudenteDAO_imp extends DAO implements StudenteDAO {
-    private PreparedStatement addStudente, getStudentebyID, getStudenteByUtente;
-    private PreparedStatement updStudente;
-    private PreparedStatement delStudente;
+    private PreparedStatement getStudentebyID, getStudenteByUtente, getStudentiByTirocinioAccettato, getStudentiByTirocinioSospeso, getStudentiByTirocinioRifiutato;
+    private PreparedStatement addStudente, updStudente, delStudente;
     
     public StudenteDAO_imp(DataLayer d) {
         super(d);
@@ -41,6 +42,9 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             updStudente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.studente\n" +
                 "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n" +
                 "WHERE id_studente=?");
+            getStudentiByTirocinioAccettato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 1");
+            getStudentiByTirocinioSospeso = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 0");
+            getStudentiByTirocinioRifiutato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 2");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
         }
@@ -180,6 +184,51 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             throw new DataLayerException("Errore durante il recupero dello studente tramite l'utente", ex);
         }
         return null;
+    }
+
+    @Override
+    public List<Studente> getStudentiByTirocinioAccettato(int id_tirocinio) throws DataLayerException {
+        List<Studente> lista = new ArrayList();
+        try {
+            getStudentiByTirocinioAccettato.setInt(1, id_tirocinio);
+            ResultSet rs = getStudentiByTirocinioAccettato.executeQuery();
+            while(rs.next()){
+                lista.add(createStudente(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero degli studenti associati al tirocinio");
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Studente> getStudentiByTirocinioSospeso(int id_tirocinio) throws DataLayerException {
+        List<Studente> lista = new ArrayList();
+        try {
+            getStudentiByTirocinioSospeso.setInt(1, id_tirocinio);
+            ResultSet rs = getStudentiByTirocinioSospeso.executeQuery();
+            while(rs.next()){
+                lista.add(createStudente(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero degli studenti associati al tirocinio");
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Studente> getStudentiByTirocinioRifiutato(int id_tirocinio) throws DataLayerException {
+        List<Studente> lista = new ArrayList();
+        try {
+            getStudentiByTirocinioRifiutato.setInt(1, id_tirocinio);
+            ResultSet rs = getStudentiByTirocinioRifiutato.executeQuery();
+            while(rs.next()){
+                lista.add(createStudente(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero degli studenti associati al tirocinio");
+        }
+        return lista;
     }
 
     

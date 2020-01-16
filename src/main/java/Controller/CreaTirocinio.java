@@ -82,19 +82,21 @@ public class CreaTirocinio extends BaseController {
             
             //validazione input tirocinio
             if(SecurityLayer.checkString(request.getParameter("luogo")) && SecurityLayer.checkString(request.getParameter("settore")) && SecurityLayer.checkString(request.getParameter("orari")) &&
-                    SecurityLayer.checkString(request.getParameter("durata")) && SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("obiettivo")) &&
+                    SecurityLayer.checkNumber(request.getParameter("durata")) && SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("obiettivo")) &&
                     SecurityLayer.checkString(request.getParameter("modalita")) && SecurityLayer.checkString(request.getParameter("facilitazioni"))){
                 
                 tirocinio.setLuogo(request.getParameter("luogo"));
                 tirocinio.setSettore(request.getParameter("settore"));
                 tirocinio.setOrari(request.getParameter("orari"));
-                tirocinio.setDurata(request.getParameter("durata"));
+                tirocinio.setDurata(Integer.parseInt(request.getParameter("durata")));
                 tirocinio.setTitolo(request.getParameter("titolo"));
                 tirocinio.setObiettivo(request.getParameter("obiettivo"));
                 tirocinio.setModalita(request.getParameter("modalita"));
                 tirocinio.setFacilitazioni(request.getParameter("facilitazioni"));
                 tirocinio.setAzienda(azienda.getId());
                 tirocinio.setTutoreTirocinio(Integer.parseInt(request.getParameter("tutore")));
+                tirocinio.setVisibile(true);
+                System.out.println(request.getParameter("tutore"));
                 
                 int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().addTirocinio(tirocinio);
                 if(insert != 1){

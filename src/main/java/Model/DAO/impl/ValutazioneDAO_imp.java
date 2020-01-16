@@ -82,7 +82,7 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
             getValutazioneSt.setInt(1, st);
             ResultSet rs = getValutazioneSt.executeQuery();
             while(rs.next()){
-                l.add(createValuta(rs));
+                l.add(createValutazione(rs));
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della valutazione studente", ex);

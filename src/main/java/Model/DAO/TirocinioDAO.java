@@ -21,7 +21,7 @@ public interface TirocinioDAO {
     
     Tirocinio createTirocinio(ResultSet rs) throws DataLayerException;
     
-    List<Tirocinio> getTirociniAttivi(int az, boolean attiva) throws DataLayerException;
+    List<Tirocinio> getTirociniVisibili (int az, boolean visibile) throws DataLayerException;
     
     List<Tirocinio> getTirocini(int az) throws DataLayerException;
     
@@ -33,7 +33,7 @@ public interface TirocinioDAO {
     
     int delTirocinio(int id) throws DataLayerException;
     
-    int updTirocinioApprovato(int id_ot, boolean attiva) throws DataLayerException;
+    int updTirocinioVisibile(int id_ot, boolean visibile) throws DataLayerException;
        
-    List<Tirocinio> searchTirocinio(String durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) throws DataLayerException;
+    List<Tirocinio> searchTirocinio(int durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) throws DataLayerException;
 }

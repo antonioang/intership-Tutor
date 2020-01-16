@@ -12,12 +12,12 @@ import javax.sql.DataSource;
 import Model.Interfaces.Azienda;
 import Model.Interfaces.Persona;
 import Model.Interfaces.Rapporto;
-import Model.Interfaces.Richiede;
 import Model.Interfaces.Studente;
 import Model.Interfaces.Test;
 import Model.Interfaces.Tirocinio;
 import Model.Interfaces.Utente;
 import Model.Interfaces.Valutazione;
+import Model.Interfaces.RichiestaTirocinio;
 
 /**
  *
@@ -39,7 +39,7 @@ public class BaseDataLayer extends DataLayer {
         registerDAO(Persona.class, new PersonaDAO_imp(this));
         registerDAO(Tirocinio.class, new TirocinioDAO_imp(this));
         registerDAO(Rapporto.class, new RapportoDAO_imp(this));
-        registerDAO(Richiede.class, new RichiedeDAO_imp(this));
+        registerDAO(RichiestaTirocinio.class, new RichiestaTirocinioDAO_imp(this));
         registerDAO(Valutazione.class, new ValutazioneDAO_imp(this));
     }
     
@@ -74,11 +74,11 @@ public class BaseDataLayer extends DataLayer {
         return (RapportoDAO_imp) getDAO(Rapporto.class);
     }
     
-    public RichiedeDAO_imp getRichiedeDAO(){
-        return (RichiedeDAO_imp) getDAO(Richiede.class);
+    public RichiestaTirocinioDAO_imp getRichiestaTirocinioDAO(){
+        return (RichiestaTirocinioDAO_imp) getDAO(RichiestaTirocinio.class);
     }
     
-    public ValutazioneDAO_imp getValutaDAO(){
+    public ValutazioneDAO_imp getValutazioneDAO(){
         return (ValutazioneDAO_imp) getDAO(Valutazione.class);
     }
 }

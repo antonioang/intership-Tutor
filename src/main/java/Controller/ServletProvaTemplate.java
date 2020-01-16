@@ -77,11 +77,13 @@ public class ServletProvaTemplate extends HttpServlet {
                 request.setAttribute("azienda", az);
                 List aziende_convenzionate=new ArrayList();
                 request.setAttribute("aziende_convenzionate",aziende_convenzionate);
+                List tirocini=new ArrayList();
+                request.setAttribute("tirocini",tirocini);
             } catch (DataLayerException ex) {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            temp.activate("dettaglio_tirocinio.ftl.html",request,response);
+            temp.activate("dettaglio_azienda.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
