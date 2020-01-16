@@ -47,7 +47,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             delTirocinio = connection.prepareStatement("DELETE FROM tirocinio WHERE id_tirocinio=0;");
             updTirocinioApprovato = connection.prepareStatement("UPDATE tirocinio SET approvato=? WHERE id_tirocinio=?");
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
-                    + "AND tirocinio.settore like ? AND tirocinio.titolo like ? AND tirocinio.obiettivi like ? AND tirocinio.durata like ? AND azienda.corso_studio like ?");
+                    + "OR tirocinio.settore like ? OR tirocinio.titolo like ? OR tirocinio.obiettivo like ? OR tirocinio.durata like ? OR azienda.corso_studi like ? OR facilitazioni like ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }
@@ -69,7 +69,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             t.setTitolo(rs.getString("titolo"));
             t.setObiettivo(rs.getString("obiettivo"));
             t.setModalita(rs.getString("modalita"));
-            t.setFacilitazioni(rs.getBoolean("facilitazioni"));
+            t.setFacilitazioni(rs.getString("facilitazioni"));
             t.setVisibile(rs.getBoolean("visibile"));
             t.setAzienda(rs.getInt("azienda"));
             t.setTutoreTirocinio(rs.getInt("tutore_tirocinio"));
@@ -135,11 +135,11 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             addTirocinio.setString(5, t.getTitolo());
             addTirocinio.setString(6, t.getObiettivo());
             addTirocinio.setString(7, t.getModalita());
+            addTirocinio.setString(8, t.getFacilitazioni());
             addTirocinio.setInt(4, t.getDurata());
             addTirocinio.setInt(9, t.getAzienda());
             addTirocinio.setInt(10, t.getTutoreTirocinio());
             addTirocinio.setBoolean(11, t.getVisibile());
-            addTirocinio.setBoolean(8, t.getFacilitazioni());
             
             if (addTirocinio.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
@@ -180,11 +180,11 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             updTirocinio.setString(5, t.getTitolo());
             updTirocinio.setString(6, t.getObiettivo());
             updTirocinio.setString(7, t.getModalita());
+            updTirocinio.setString(8, t.getFacilitazioni());
             updTirocinio.setInt(4, t.getDurata());
             updTirocinio.setInt(9, t.getAzienda());
             updTirocinio.setInt(10, t.getTutoreTirocinio());
             updTirocinio.setBoolean(11, t.getVisibile());
-            updTirocinio.setBoolean(8, t.getFacilitazioni());
             updTirocinio.setInt(12, t.getId());
             return updTirocinio.executeUpdate();
         } catch (SQLException ex) {
@@ -214,7 +214,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     }
 
     @Override
-    public List<Tirocinio> searchTirocinio(int durata, String titolo, boolean facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) throws DataLayerException {
+    public List<Tirocinio> searchTirocinio(int durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) throws DataLayerException {
         List<Tirocinio> lista = new ArrayList();
         try {
             searchTirocinio.setString(1, luogo);
@@ -223,7 +223,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             searchTirocinio.setString(4, obiettivi);
             searchTirocinio.setInt(5, durata);
             searchTirocinio.setString(6, corsoStudio);
-            
+            searchTirocinio.setString(7, facilitazioni);
             ResultSet rs = searchTirocinio.executeQuery();
             while(rs.next()){
                 lista.add(createTirocinio(rs));

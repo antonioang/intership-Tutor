@@ -5,11 +5,17 @@
  */
 package Controller;
 
+import Model.DAO.impl.BaseDataLayer;
+import Model.Interfaces.Tirocinio;
+import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +46,6 @@ public class VisualizzaTirocini extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response){
         try {
             TemplateResult res = new TemplateResult(getServletContext());
-            request.setAttribute("page_title", "Registrazione Azienda");
             res.activate("visualizza_tirocini.ftl.html", request, response);
         } catch (TemplateManagerException ex) {
             request.setAttribute("eccezione", ex);
@@ -49,10 +54,33 @@ public class VisualizzaTirocini extends BaseController {
     }
 
     private void action_search(HttpServletRequest request, HttpServletResponse response){
-        //durata, titolo,  facilitazioni, luogo, settore, obiettivi, corsoStudio
         if(SecurityLayer.checkNumber(request.getParameter("durata")) && SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("facilitazioni")) &&
                 SecurityLayer.checkString(request.getParameter("luogo")) && SecurityLayer.checkString(request.getParameter("settore")) && SecurityLayer.checkString(request.getParameter("obiettivi")) &&
                 SecurityLayer.checkString(request.getParameter("corsoStudio"))){
+            
+            try {
+                int durata = SecurityLayer.checkNumeric(request.getParameter("durata"));
+                String titolo = request.getParameter("titolo");
+                String facilitazioni = request.getParameter("facilitazioni");
+                String luogo = request.getParameter("luogo");
+                String settore = request.getParameter("settore");
+                String obiettivi = request.getParameter("obiettivi");
+                String corso = request.getParameter("corsoStudio");
+                
+                List<Tirocinio> risultato = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().searchTirocinio(durata, titolo, facilitazioni, luogo, settore, obiettivi, corso);
+                request.setAttribute("tirocini", risultato);
+                //restituisco tutti i parametri della ricerca per precompilare la form
+//                request.setAttribute("durata", durata);
+//                request.setAttribute("titolo", titolo);
+//                request.setAttribute("facilitazioni", facilitazioni);
+//                request.setAttribute("luogo", luogo);
+                //aggiorno la pagina        
+                //response.sendRedirect("tirocini");
+                
+            } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } 
             
         }
     }

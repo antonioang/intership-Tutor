@@ -45,7 +45,7 @@
                         <div class="centered overview-profile-text">
                             <h5>Visibile agli studenti</h5>
                             <p>
-                                <#if tirocinio.getApprovato()>
+                                <#if tirocinio.getVisibile()>
                                 si
                                 <#else>
                                 no
@@ -53,7 +53,7 @@
                             </p>
                             <a href="tirocinio?id=${tirocinio.getId()}&visible=change">
                                 <button class="btn btn-theme centered"><i class="fa fa-lock"></i> 
-                                <#if tirocinio.getApprovato()>
+                                <#if tirocinio.getVisibile()>
                                 Rendi invisibile
                                 <#else>
                                 Rendi visibile
