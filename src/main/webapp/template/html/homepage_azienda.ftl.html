@@ -21,10 +21,10 @@
                 <td>1</td>
                 <td>${tirocinio.getTitolo()}</td>
                 <td>
-                    <#if tirocinio.getApprovato()>
-                    Approvato
+                    <#if tirocinio.getVisibile()>
+                    Visibile
                     <#else>
-                    In sospeso
+                    Non visibile
                     </#if>
                 </td>
                 <td>${tirocinio.getLuogo()}</td>

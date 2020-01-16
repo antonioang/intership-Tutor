@@ -47,7 +47,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             delTirocinio = connection.prepareStatement("DELETE FROM tirocinio WHERE id_tirocinio=0;");
             updTirocinioVisibile = connection.prepareStatement("UPDATE tirocinio SET visibile=? WHERE id_tirocinio=?");
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
-                    + "AND tirocinio.settore like ? AND tirocinio.titolo like ? AND tirocinio.obiettivo like ? AND tirocinio.durata like ? AND azienda.corso_studi like ? AND facilitazioni like ?");
+                    + "OR tirocinio.settore like ? OR tirocinio.titolo like ? OR tirocinio.obiettivo like ? OR tirocinio.durata like ? OR azienda.corso_studi like ? OR facilitazioni like ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }
