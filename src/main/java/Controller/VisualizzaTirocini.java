@@ -59,7 +59,13 @@ public class VisualizzaTirocini extends BaseController {
                 SecurityLayer.checkString(request.getParameter("corsoStudio"))){
             
             try {
-                int durata = SecurityLayer.checkNumeric(request.getParameter("durata"));
+                int durata;
+                if(request.getParameter("durata") == null){
+                    durata = 0;
+                }
+                else{
+                    durata = SecurityLayer.checkNumeric(request.getParameter("durata"));
+                }
                 String titolo = request.getParameter("titolo");
                 String facilitazioni = request.getParameter("facilitazioni");
                 String luogo = request.getParameter("luogo");
@@ -67,8 +73,10 @@ public class VisualizzaTirocini extends BaseController {
                 String obiettivi = request.getParameter("obiettivi");
                 String corso = request.getParameter("corsoStudio");
                 
+                //restituisco i risultati della ricerca
                 List<Tirocinio> risultato = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().searchTirocinio(durata, titolo, facilitazioni, luogo, settore, obiettivi, corso);
                 request.setAttribute("tirocini", risultato);
+                
                 //restituisco tutti i parametri della ricerca per precompilare la form
                 request.setAttribute("durata", durata);
                 request.setAttribute("titolo", titolo);
