@@ -70,18 +70,18 @@ public class VisualizzaTirocini extends BaseController {
                 List<Tirocinio> risultato = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().searchTirocinio(durata, titolo, facilitazioni, luogo, settore, obiettivi, corso);
                 request.setAttribute("tirocini", risultato);
                 //restituisco tutti i parametri della ricerca per precompilare la form
-//                request.setAttribute("durata", durata);
-//                request.setAttribute("titolo", titolo);
-//                request.setAttribute("facilitazioni", facilitazioni);
-//                request.setAttribute("luogo", luogo);
-                //aggiorno la pagina        
-                //response.sendRedirect("tirocini");
+                request.setAttribute("durata", durata);
+                request.setAttribute("titolo", titolo);
+                request.setAttribute("facilitazioni", facilitazioni);
+                request.setAttribute("luogo", luogo);
+                request.setAttribute("settore", settore);
+                request.setAttribute("obiettivi", obiettivi);
+                request.setAttribute("corsoStudio", corso);
                 
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
-            } 
-            
+            }             
         }
     }
     

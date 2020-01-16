@@ -10,7 +10,7 @@
                         <div class="form-group">
                             <label for="titolo" class="control-label col-lg-10">Ricerca per titolo tirocinio</label>
                             <div class="col-sm-12">
-                              <input class=" form-control" value="" id="titolo" name="titolo" type="text"/>
+                              <input class=" form-control" value="${titolo!''}" id="titolo" name="titolo" type="text"/>
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                                 <div class="form-group">    
                                     <label for="corsoStudio" class="control-label col-lg-10">Corso di studi</label>
                                     <div class="col-sm-12">
-                                      <input class=" form-control" value="" id="corsoStudio" name="corsoStudio" type="text"/>
+                                      <input class=" form-control" value="${corsoStudi!''}" id="corsoStudio" name="corsoStudio" type="text"/>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label for="obiettivi" class="control-label col-lg-10">Obiettivi</label>
                                 <div class="col-sm-12">
-                                  <input class=" form-control" value="" id="obiettivi" name="obiettivi" type="text"/>
+                                  <input class=" form-control" value="${obiettivi!''}" id="obiettivi" name="obiettivi" type="text"/>
                                 </div>
                             </div>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <label for="durata" class="control-label col-lg-10">Durata</label>
                                 <div class="col-sm-12">
-                                  <input class=" form-control" value="0" id="durata" name="durata" type="text"/>
+                                  <input class=" form-control" value="${durata!'0'}" id="durata" name="durata" type="text"/>
                                 </div>
                             </div>
                             </div>
@@ -46,13 +46,13 @@
                             <div class="form-group">
                                 <label for="facilitazioni" class="control-label col-lg-10">Facilitazioni</label>
                                 <div class="col-sm-12">
-                                  <input class=" form-control" value="" id="facilitazioni" name="facilitazioni" type="text"/>
+                                  <input class=" form-control" value="${facilitazioni!''}" id="facilitazioni" name="facilitazioni" type="text"/>
                                 </div>
                             </div>
                             </div>
                             <div class="row mt">
                                  <div class="centered">
-                                    <button class="btn btn-theme centered" value=""  type="submit"><i class="fa fa-search"></i> Ricerca Tirocinio</button>
+                                    <button class="btn btn-theme centered"  type="submit"><i class="fa fa-search"></i> Ricerca Tirocinio</button>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             <div class="form-group">
                                 <label for="settore" class="control-label col-lg-10">Settore</label>
                                 <div class="col-sm-12">
-                                  <input class=" form-control" value="" id="settore" name="settore" type="text"/>
+                                  <input class=" form-control" value="${settore!''}" id="settore" name="settore" type="text"/>
                                 </div>
                             </div>
                             </div>
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="luogo" class="control-label col-lg-10">Luogo</label>
                                 <div class="col-sm-12">
-                                  <input class=" form-control" value="" id="luogo" name="luogo" type="text"/>
+                                  <input class=" form-control" value="${luogo!''}" id="luogo" name="luogo" type="text"/>
                                 </div>
                             </div>
                             <input value="search" name="search" type="hidden"/>
