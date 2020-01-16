@@ -46,7 +46,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             getRichiesteTirocinioByTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio=?");
             getRicTirByTirocinioStudente = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio = ? AND studente = ?");
         } catch (SQLException ex) {
-            throw new DataLayerException("Errore durante l'inizializzazione degli statements");
+            throw new DataLayerException("Errore durante l'inizializzazione degli statements",ex);
         }
     }
 

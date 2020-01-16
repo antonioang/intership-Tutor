@@ -18,9 +18,9 @@ public interface Rapporto {
     
     String getSrcDocResoconto();
     
-    Studente getStudente();
+    int getStudente();
     
-    Tirocinio getTirocinio();
+    int getTirocinio();
     
     void setOre(String ore);
     
@@ -30,7 +30,7 @@ public interface Rapporto {
     
     void setSrcDocResoconto(String src);
     
-    void setStudente(Studente s);
+    void setStudente(int s);
     
-    void setTirocinio(Tirocinio t);
+    void setTirocinio(int t);
 }
