@@ -15,9 +15,9 @@ import Model.Interfaces.Tirocinio;
  */
 public class Tirocinio_imp implements Tirocinio{
     
-    private String luogo, settore, orari, titolo, obiettivo, modalita;
+    private String luogo, settore, orari, titolo, obiettivo, modalita, facilitazioni;
     private int id, durata, tutore_tirocini, azienda;
-    public boolean visibile, facilitazioni;
+    public boolean visibile;
     
     public Tirocinio_imp (){
         this.luogo = "";
@@ -26,12 +26,12 @@ public class Tirocinio_imp implements Tirocinio{
         this.titolo = "";
         this.obiettivo = "";
         this.modalita = "";
+        this.facilitazioni = "";
         this.durata = 0;
         this.id = 0;
         this.azienda = 0;
         this.tutore_tirocini = 0;
         this.visibile = false;
-        this.facilitazioni = false;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public boolean getFacilitazioni() {
+    public String getFacilitazioni() {
         return this.facilitazioni;
     }
 
@@ -135,7 +135,7 @@ public class Tirocinio_imp implements Tirocinio{
     }
 
     @Override
-    public void setFacilitazioni(boolean f) {
+    public void setFacilitazioni(String f) {
         this.facilitazioni = f;
     }
 

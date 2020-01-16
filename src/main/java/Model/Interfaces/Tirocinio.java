@@ -27,7 +27,7 @@ public interface Tirocinio {
     
     String getModalita();
     
-    boolean getFacilitazioni();
+    String getFacilitazioni();
     
     boolean getVisibile();
     
@@ -51,7 +51,7 @@ public interface Tirocinio {
     
     void setModalita(String m);
     
-    void setFacilitazioni(boolean f);
+    void setFacilitazioni(String f);
     
     void setVisibile(boolean vb);
     

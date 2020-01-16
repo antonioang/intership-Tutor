@@ -92,7 +92,7 @@ public class CreaTirocinio extends BaseController {
                 tirocinio.setTitolo(request.getParameter("titolo"));
                 tirocinio.setObiettivo(request.getParameter("obiettivo"));
                 tirocinio.setModalita(request.getParameter("modalita"));
-                tirocinio.setFacilitazioni(SecurityLayer.stringToBoolean(request.getParameter("facilitazioni")));
+                tirocinio.setFacilitazioni(request.getParameter("facilitazioni"));
                 tirocinio.setAzienda(azienda.getId());
                 tirocinio.setTutoreTirocinio(Integer.parseInt(request.getParameter("tutore")));
                 System.out.println(request.getParameter("tutore"));
