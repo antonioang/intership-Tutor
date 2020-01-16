@@ -14,8 +14,6 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,12 +52,18 @@ public class VisualizzaTirocini extends BaseController {
     }
 
     private void action_search(HttpServletRequest request, HttpServletResponse response){
-        if(SecurityLayer.checkNumber(request.getParameter("durata")) && SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("facilitazioni")) &&
+        if(SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("facilitazioni")) &&
                 SecurityLayer.checkString(request.getParameter("luogo")) && SecurityLayer.checkString(request.getParameter("settore")) && SecurityLayer.checkString(request.getParameter("obiettivi")) &&
                 SecurityLayer.checkString(request.getParameter("corsoStudio"))){
             
             try {
-                int durata = SecurityLayer.checkNumeric(request.getParameter("durata"));
+                int durata;
+                if(request.getParameter("durata") == null || request.getParameter("durata").equals("")){
+                    durata = 0;
+                }
+                else{
+                    durata = SecurityLayer.checkNumeric(request.getParameter("durata"));
+                }
                 String titolo = request.getParameter("titolo");
                 String facilitazioni = request.getParameter("facilitazioni");
                 String luogo = request.getParameter("luogo");
@@ -67,8 +71,10 @@ public class VisualizzaTirocini extends BaseController {
                 String obiettivi = request.getParameter("obiettivi");
                 String corso = request.getParameter("corsoStudio");
                 
+                //restituisco i risultati della ricerca
                 List<Tirocinio> risultato = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().searchTirocinio(durata, titolo, facilitazioni, luogo, settore, obiettivi, corso);
                 request.setAttribute("tirocini", risultato);
+                
                 //restituisco tutti i parametri della ricerca per precompilare la form
                 request.setAttribute("durata", durata);
                 request.setAttribute("titolo", titolo);
