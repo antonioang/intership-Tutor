@@ -14,8 +14,6 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,13 +52,13 @@ public class VisualizzaTirocini extends BaseController {
     }
 
     private void action_search(HttpServletRequest request, HttpServletResponse response){
-        if(SecurityLayer.checkNumber(request.getParameter("durata")) && SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("facilitazioni")) &&
+        if(SecurityLayer.checkString(request.getParameter("titolo")) && SecurityLayer.checkString(request.getParameter("facilitazioni")) &&
                 SecurityLayer.checkString(request.getParameter("luogo")) && SecurityLayer.checkString(request.getParameter("settore")) && SecurityLayer.checkString(request.getParameter("obiettivi")) &&
                 SecurityLayer.checkString(request.getParameter("corsoStudio"))){
             
             try {
                 int durata;
-                if(request.getParameter("durata") == null){
+                if(request.getParameter("durata") == null || request.getParameter("durata").equals("")){
                     durata = 0;
                 }
                 else{

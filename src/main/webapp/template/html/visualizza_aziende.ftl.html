@@ -19,7 +19,7 @@
                 <#list aziende_convenzionate as azienda>
                 <tr>
                   <td>1</td>
-                  <td><a href="provaServlet?&{azienda.getId()}">${azienda.getNome()}</a></td>
+                  <td><a href="azienda?id=${azienda.getId()}">${azienda.getNome()}</a></td>
                   <td>${azienda.getCitta()}</td>
                   <td>${azienda.getCorsoStudi()}</td>
                 </tr>
