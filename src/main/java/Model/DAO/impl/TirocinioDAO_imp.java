@@ -26,7 +26,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     
     PreparedStatement getTirociniVisibili, getTirocini, getTirocinio;
     PreparedStatement addTirocinio, updTirocinio, delTirocinio;
-    PreparedStatement updTirocinioApprovato, searchTirocinio;
+    PreparedStatement updTirocinioVisibile, searchTirocinio;
     
     public TirocinioDAO_imp(DataLayer d) {
         super(d);
@@ -45,9 +45,9 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
                 "SET luogo=?, settore=?, orari=?, durata=?, titolo=?, obiettivo=?, modalita=?, facilitazioni=?, azienda=?, tutore_tirocinio=?, visibile=?\n" +
                 "WHERE id_tirocinio=?");   
             delTirocinio = connection.prepareStatement("DELETE FROM tirocinio WHERE id_tirocinio=0;");
-            updTirocinioApprovato = connection.prepareStatement("UPDATE tirocinio SET approvato=? WHERE id_tirocinio=?");
+            updTirocinioVisibile = connection.prepareStatement("UPDATE tirocinio SET visibile=? WHERE id_tirocinio=?");
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
-                    + "AND tirocinio.settore like ? AND tirocinio.titolo like ? AND tirocinio.obiettivi like ? AND tirocinio.durata like ? AND azienda.corso_studio like ? AND facilitazioni like ?");
+                    + "AND tirocinio.settore like ? AND tirocinio.titolo like ? AND tirocinio.obiettivo like ? AND tirocinio.durata like ? AND azienda.corso_studi like ? AND facilitazioni like ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }
@@ -205,9 +205,9 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     @Override
     public int updTirocinioVisibile(int i, boolean bln) throws DataLayerException {
         try {
-            updTirocinioApprovato.setBoolean(1, bln);
-            updTirocinioApprovato.setInt(2, i);
-            return updTirocinioApprovato.executeUpdate();
+            updTirocinioVisibile.setBoolean(1, bln);
+            updTirocinioVisibile.setInt(2, i);
+            return updTirocinioVisibile.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dello stato del tirocinio", ex);
         }

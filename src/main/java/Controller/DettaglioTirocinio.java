@@ -16,6 +16,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +41,9 @@ public class DettaglioTirocinio extends BaseController {
             }
             if(request.getParameter("id_studente") != null && request.getParameter("action") != null){
                 action_gestisci_candidato(request, response);
+            }
+            else if(request.getParameter("visibile") != null){
+                action_change_visibile(request, response);
             }
             action_default(request, response);
         }
@@ -128,6 +133,25 @@ public class DettaglioTirocinio extends BaseController {
             action_error(request, response);
         }
         
+    }
+    
+    private void action_change_visibile(HttpServletRequest request, HttpServletResponse response){
+        
+        if(SecurityLayer.checkString(request.getParameter("visibile")) && SecurityLayer.checkNumber(request.getParameter("id")) ){
+            try {
+                int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
+                Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
+                ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().updTirocinioVisibile(id_tirocinio, !tirocinio.getVisibile());
+                response.sendRedirect("tirocinio?id="+id_tirocinio);
+                
+            } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            }
+        }
     }
         
     private void action_error(HttpServletRequest request, HttpServletResponse response){
