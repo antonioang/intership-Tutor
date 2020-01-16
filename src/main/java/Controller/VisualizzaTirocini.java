@@ -41,7 +41,7 @@ public class VisualizzaTirocini extends BaseController {
         try {
             TemplateResult res = new TemplateResult(getServletContext());
             request.setAttribute("page_title", "Registrazione Azienda");
-            res.activate("registrazione_azienda.ftl.html", request, response);
+            res.activate("visualizza_tirocini.ftl.html", request, response);
         } catch (TemplateManagerException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
