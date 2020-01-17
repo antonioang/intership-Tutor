@@ -8,8 +8,6 @@ package Model.DAO.impl;
 import Model.DAO.RapportoDAO;
 import Model.Impl.Rapporto_imp;
 import Model.Interfaces.Rapporto;
-import Model.Interfaces.Studente;
-import Model.Interfaces.Tirocinio;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
@@ -18,8 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
