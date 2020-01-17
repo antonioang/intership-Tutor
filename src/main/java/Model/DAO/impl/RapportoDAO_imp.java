@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 public class RapportoDAO_imp extends DAO implements RapportoDAO {
     
      private PreparedStatement getRapporto, getRapportoByStudente, getRapportoByTirocinio;
-     private PreparedStatement insSrcDoc;
+     private PreparedStatement updateSrcDoc;
     
     public RapportoDAO_imp(DataLayer d) {
         super(d);
@@ -41,8 +41,7 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
              getRapporto = connection.prepareStatement("SELECT * FROM rapporto_tirocinio WHERE studente=? AND tirocinio=?");
              getRapportoByStudente = connection.prepareStatement("SELECT * FROM rapporto_tirocinio WHERE studente=?");
              getRapportoByTirocinio = connection.prepareStatement("SELECT * FROM rapporto_tirocinio WHERE tirocinio=?");
-             insSrcDoc = connection.prepareStatement("INSERT INTO rapporto_tirocinio\n" +
-             "(src_doc_resoconto, studente, tirocinio) VALUES(?, ?, ?)");
+             updateSrcDoc = connection.prepareStatement("UPDATE rapporto_tirocinio SET src_doc_resoconto WHERE studente=? AND tirocinio=?");
          } catch (SQLException ex) {
               throw new DataLayerException("Errore durante l'inizializzazione degli statements",ex);
          }
@@ -116,12 +115,12 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
     }
 
     @Override
-    public int insertDocumentoRapporto(int st, int t, String src) throws DataLayerException {
+    public int updateDocumentoRapporto(int st, int t, String src) throws DataLayerException {
          try {
-             insSrcDoc.setInt(1, st);
-             insSrcDoc.setInt(2, t);
-             insSrcDoc.setString(3, src);
-             insSrcDoc.executeUpdate();
+             updateSrcDoc.setInt(1, st);
+             updateSrcDoc.setInt(2, t);
+             updateSrcDoc.setString(3, src);
+             updateSrcDoc.executeUpdate();
          } catch (SQLException ex) {
              throw new DataLayerException("Errore durante l'inserimento del rapporto", ex);
          }

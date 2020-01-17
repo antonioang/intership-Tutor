@@ -28,7 +28,7 @@ public interface RapportoDAO {
     
     Rapporto getRapporto(int id)throws DataLayerException;
     
-    int insertDocumentoRapporto(int st, int t, String src)throws DataLayerException;
+    int updateDocumentoRapporto(int st, int t, String src)throws DataLayerException;
     
     
 }
