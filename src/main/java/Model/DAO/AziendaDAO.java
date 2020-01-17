@@ -33,9 +33,7 @@ public interface AziendaDAO {
     int delAzienda(int id_az) throws DataLayerException;
     
     int updAziendaDocumento(int id_az, String src) throws DataLayerException;
-    
-    int getTirocinantiAttivi(Azienda az) throws DataLayerException;
-    
+        
     int updAzienda(Azienda az) throws DataLayerException;
     
 }

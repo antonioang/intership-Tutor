@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -76,8 +78,16 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
 
     @Override
     public Utente getUtente(int id_utente) throws DataLayerException {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            UtenteById.setInt(1, id_utente);
+            ResultSet rs = UtenteById.executeQuery();
+            if(rs.next()){
+              return createUtente(rs);
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dello studente", ex);
+        }
+        return null;
     }
 
     @Override

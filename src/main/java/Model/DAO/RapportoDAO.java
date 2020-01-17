@@ -8,6 +8,7 @@ package Model.DAO;
 import Model.Interfaces.Rapporto;
 import Model.Interfaces.Studente;
 import Model.Interfaces.Tirocinio;
+import framework.data.DataLayerException;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -17,17 +18,17 @@ import java.util.List;
  */
 public interface RapportoDAO {
     
-    Rapporto createRapporto();
+    Rapporto createRapporto() ;
     
-    Rapporto createRapporto(ResultSet rs);
+    Rapporto createRapporto(ResultSet rs) throws DataLayerException;
     
-    List<Rapporto> getRapporti(Studente st);
+    List<Rapporto> getRapporti(int st) throws DataLayerException;
     
-    List<Rapporto> getRapporti(Tirocinio t);
+    List<Rapporto> getRapportiTirocini(int t) throws DataLayerException;
     
-    Rapporto getRapporto(int id);
+    Rapporto getRapporto(int id)throws DataLayerException;
     
-    int insertDocumentoRapporto(int st, int t, String src);
+    int updateDocumentoRapporto(int st, int t, String src)throws DataLayerException;
     
     
 }

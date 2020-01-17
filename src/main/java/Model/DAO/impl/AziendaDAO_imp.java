@@ -220,21 +220,6 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     }
 
     @Override
-    public int getTirocinantiAttivi(Azienda az) throws DataLayerException {
-        try {
-            getTirocinantiAttivi.setInt(1, az.getUtente().getId());
-            ResultSet rs = getTirocinantiAttivi.executeQuery();
-            if(rs.next()){
-                return rs.getInt("responsabile_tirocini");
-            }
-            
-        } catch (SQLException ex) {
-            throw new DataLayerException("Errore durante il recupero del responsabile tirocini",ex);
-        }
-        return 0;
-    }
-
-    @Override
     public int updAzienda(Azienda az) throws DataLayerException {
         try {
             updAzienda.setString(1, az.getRagioneSociale());
