@@ -75,6 +75,10 @@
         <servlet-name>UploadDocumenti</servlet-name>
         <servlet-class>Controller.UploadDocumenti</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadDocumenti</servlet-name>
+        <servlet-class>Controller.DownloadDocumenti</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -146,6 +150,10 @@
     <servlet-mapping>
         <servlet-name>UploadDocumenti</servlet-name>
         <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadDocumenti</servlet-name>
+        <url-pattern>/download</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
