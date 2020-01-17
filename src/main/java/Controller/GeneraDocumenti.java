@@ -37,24 +37,29 @@ public class GeneraDocumenti extends BaseController {
             request.setAttribute("username", (String)s.getAttribute("username"));
             request.setAttribute("tipo", (String)s.getAttribute("tipo"));
         }
-        
-         int tipo = SecurityLayer.checkNumeric(request.getParameter("doc"));
+        if(request.getParameter("tipo") != null && (request.getParameter("tipo").equals("1") || request.getParameter("tipo").equals("2") || request.getParameter("tipo").equals("3"))){
+         int tipo = SecurityLayer.checkNumeric(request.getParameter("tipo"));
             switch (tipo) {
                     //modulo di richiesta di convezione
-                    case 0:
+                    case 1:
                         action_genera_richiesta_convenzione(request, response);
                         break;
                         
                     //modulo di richiesta di tirocinio   
-                    case 1:
+                    case 2:
                         action_genera_richiesta_tirocinio(request, response);
                         break;
                         
                     //modulo resoconto tirocinio
-                    case 2:
+                    case 3:
                         action_genera_resoconto(request, response);
             }
-        
+        }
+        else{
+            request.setAttribute("errore", "errore_caricamento");
+            request.setAttribute("message", "Impossibile caricare la pagina! Riprova");
+            action_error(request, response);
+        }
         
     }
     
@@ -69,7 +74,7 @@ public class GeneraDocumenti extends BaseController {
                 request.setAttribute("azienda", azienda);
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
-                res.activateNoOutline("modulo_richiesta_convenzione.ftl.html", request, response);  
+                res.activateNoOutline("modulo_convenzione.ftl.html", request, response);  
              } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
