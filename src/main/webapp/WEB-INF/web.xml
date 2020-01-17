@@ -67,6 +67,10 @@
         <servlet-name>DettaglioAzienda</servlet-name>
         <servlet-class>Controller.DettaglioAzienda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GeneraDocumenti</servlet-name>
+        <servlet-class>Controller.GeneraDocumenti</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -130,6 +134,10 @@
     <servlet-mapping>
         <servlet-name>DettaglioAzienda</servlet-name>
         <url-pattern>/azienda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GeneraDocumenti</servlet-name>
+        <url-pattern>/documenti</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
