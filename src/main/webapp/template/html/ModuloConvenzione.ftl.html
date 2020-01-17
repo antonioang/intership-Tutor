@@ -7,6 +7,11 @@
 <META name="generator" content="BCL easyConverter SDK 5.0.210">
 <STYLE type="text/css">
 
+    
+    .field{
+        text-decoration: underline;
+    }
+    
 body {margin-top: 0px;margin-left: 0px;}
 
 #page_1 {position:relative; overflow: hidden;margin: 0 auto;padding: 0px;border: none;width: 727px; page-break-after: always;}
@@ -216,8 +221,8 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p6 ft8">tra:</P>
 <P class="p7 ft8">L'Universit&agrave; degli Studi di L'Aquila &#8211; Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica, con sede legale in L'Aquila, C.F./P.I. 01021630668, rappresentata per la stipula del presente atto convenzionale, dal Direttore del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica Prof. Guido Proietti, nato a Roma <SPAN class="ft9">il </SPAN>13.06.1966,domiciliato per il presente atto presso la sede legale del l'Universit&agrave;, e autorizzato e delegato alla stipula della presente Convenzione dal Rettore dell'Universit&agrave; con D.R n. <NOBR>522-2018,</NOBR> prot. n. 22151 del 17.05.2018</P>
 <P class="p8 ft8">e</P>
-<#if azienda.getNome()>
-<P class="p9 ft8">L'Ente/Azienda <span>${azienda.getNome()}</span>,</P>
+<#if azienda??>
+<P class="p9 ft8">L'Ente/Azienda <span class="field">${azienda.getNome()}</span>,</P>
 <#else>
 <P class="p9 ft8">L'Ente/Azienda___________________________________________,</P>
 </#if>
