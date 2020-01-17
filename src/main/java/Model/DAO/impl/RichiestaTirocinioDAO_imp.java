@@ -190,6 +190,19 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
         return null;
     }
 
-   
+    @Override
+    public void destroy()throws DataLayerException{
+        try {
+            addRichiestaTirocinio.close();
+            updRichiestaTirocinioStato.close();
+            updDocumentoRichiestaTirocinio.close();
+            getRichiestaTirocinio.close();
+            getRichiesteTirocinioByTirocinio.close();
+            getRicTirByTirocinioStudente.close();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
     
 }
