@@ -231,7 +231,22 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         return lista;
     }
 
-    
+     @Override
+    public void destroy()throws DataLayerException{
+        try {
+            getStudentiByTirocinioRifiutato.close();
+            getStudentebyID.close();
+            getStudenteByUtente.close();
+            getStudentiByTirocinioAccettato.close();
+            getStudentiByTirocinioSospeso.close();
+            addStudente.close();
+            delStudente.close();
+            updStudente.close();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
     
     
 }

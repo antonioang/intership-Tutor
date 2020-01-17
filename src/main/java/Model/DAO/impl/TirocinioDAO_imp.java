@@ -234,4 +234,20 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         return lista;
     }
 
+     @Override
+    public void destroy()throws DataLayerException{
+        try {
+            addTirocinio.close();
+            delTirocinio.close();
+            getTirocini.close();
+            getTirociniVisibili.close();
+            getTirocinio.close();
+            searchTirocinio.close();
+            updTirocinio.close();
+            updTirocinioVisibile.close();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
 }

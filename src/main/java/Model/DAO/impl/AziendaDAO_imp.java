@@ -246,7 +246,21 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         }
     }
 
-    
-    
+    @Override
+    public void destroy()throws DataLayerException{
+        try {
+            getAziendaById.close();
+            getAziendaByUtente.close();
+            getAziendaByStato.close();
+            uAziendaByStato.close();
+            uAziendaDoc.close();
+            updAzienda.close();
+            addAzienda.close();
+            delAzienda.close();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
     
 }

@@ -127,6 +127,19 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
          return 0;
     }
 
+     @Override
+    public void destroy()throws DataLayerException{
+        try {
+            getRapporto.close();
+            getRapportoByStudente.close();
+            getRapportoByTirocinio.close();
+            updateSrcDoc.close();
+            
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
    
     
 }

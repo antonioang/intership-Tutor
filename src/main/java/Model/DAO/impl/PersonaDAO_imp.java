@@ -164,4 +164,18 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         return lista;
     }
     
+    @Override
+    public void destroy()throws DataLayerException{
+        try {
+            addPersona.close();
+            delPersona.close();
+            updPersona.close();
+            getPersona.close();
+            getTutoriTirocinio.close();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
+    
 }

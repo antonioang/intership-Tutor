@@ -135,4 +135,16 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         return 0;
     }
     
+     @Override
+    public void destroy()throws DataLayerException{
+        try {
+            delValutazione.close();
+            getValutazione.close();
+            getValutazioneAz.close();
+            getValutazioneSt.close();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante la chiusura degli statement", ex);
+        }
+        super.destroy();
+    }
 }
