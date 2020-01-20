@@ -195,6 +195,15 @@ body {margin-top: 0px;margin-left: 0px;}
     border-bottom: 1px solid black;
     width: 350px;
 }
+.paragrafo1{
+    width: 80%;
+    border-bottom: 1px solid black;
+    margin-left:5%
+}
+.underlined{
+    text-decoration: underline;
+    font-weight: bold;
+}
 .image{
     width: 60px;
 }
@@ -241,23 +250,53 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p6 ft8">tra:</P>
 <P class="p7 ft8">L'Universit&agrave; degli Studi di L'Aquila &#8211; Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica, con sede legale in L'Aquila, C.F./P.I. 01021630668, rappresentata per la stipula del presente atto convenzionale, dal Direttore del Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica Prof. Guido Proietti, nato a Roma <SPAN class="ft9">il </SPAN>13.06.1966,domiciliato per il presente atto presso la sede legale del l'Universit&agrave;, e autorizzato e delegato alla stipula della presente Convenzione dal Rettore dell'Universit&agrave; con D.R n. <NOBR>522-2018,</NOBR> prot. n. 22151 del 17.05.2018</P>
 <P class="p8 ft8">e</P>
+
 <#if azienda??>
 <div class="contenitore p9 ft8"><span class="titolo">L'Ente/Azienda</span><p class="paragrafo"><span class="input">${azienda.getNome()}</span>&nbsp;</p>,</div>
 <#else>
 <P class="p9 ft8">L'Ente/Azienda___________________________________________,</P>
 </#if>
 
+<#if azienda??>
 <div class="contenitore p9 ft8"><span class="titolo">con sede legale in (indirizzo)</span><p class="paragrafo"><span class="input">${azienda.getIndirizzo()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p9 ft8">con sede legale in (indirizzo)___________________________________________,</P>
+</#if>
 
-<P class="p10 ft8">Codice Fiscale <SPAN class="ft10">(</SPAN>o Partita IVA<SPAN class="ft10">)</SPAN> ________________________________________________</P>
-<P class="p11 ft8">rappresentato da ________________________________________</P>
+<#if azienda??>
+<div class="contenitore p9 ft8"><span class="titolo">Codice Fiscale(o Partita IVA)</span><p class="paragrafo"><span class="input">${azienda.getPiva()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p9 ft8">Codice Fiscale(o Partita IVA)___________________________________________,</P>
+</#if>
+
+<#if azienda??>
+<div class="contenitore p9 ft8"><span class="titolo">rappresentato da</span><p class="paragrafo"><span class="input">${azienda.getRapprLeg()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p9 ft8">rappresentato da___________________________________________,</P>
+</#if>
+
 <P class="p12 ft8">Premesso:</P>
+
+<#if azienda??>
+<P class="p13 ft8"><SPAN class="ft9">&bull;</SPAN><SPAN class="ft11">che l'Ente/Azienda <SPAN class="underlined">${azienda.getNome()}</SPAN> intende avviare progetti di</SPAN></P>
+<#else>
 <P class="p13 ft8"><SPAN class="ft9">&bull;</SPAN><SPAN class="ft11">che l'Ente/Azienda _________________________ intende avviare progetti di</SPAN></P>
+</#if>
+
 <P class="p14 ft8">collaborazione con il DISIM finalizzati alla realizzazione di tirocini formativi e di orientamento curriculari rivolti agli studenti dell'Universit&agrave; degli Studi dell'Aquila, con particolare riguardo a tematiche inerenti<SPAN class="ft12">1</SPAN>:</P>
+
+<#if azienda??>
+<div class="contenitore p9 ft8"><p class="paragrafo1"><span class="input">${azienda.getTematica()}</span>&nbsp;</p></div>
+<#else>
 <P class="p15 ft8">_____________________________________________________________________</P>
-<P class="p16 ft8">_____________________________________________________________________</P>
-<P class="p17 ft8">_____________________________________________________________________</P>
+</#if>
+
+<#if azienda??>
+<P class="p18 ft8">che rientrano negli ambiti di interesse scientifico e didattico del DISIM, e in particolare del/i Corso/i di Studio <SPAN class="underlined">${azienda.getCorsoStudi()}</SPAN>;</P>
+<#else>
 <P class="p18 ft8">che rientrano negli ambiti di interesse scientifico e didattico del DISIM, e in particolare del/i Corso/i di Studio ____________________________;</P>
+</#if>
+
 <P class="p19 ft3"><SPAN class="ft13">1</SPAN><SPAN class="ft14">L'Ente/Azienda deve inserire una breve descrizione di alto livello dei progetti formativi di interesse, enfatizzandone il legame con il proprio profilo aziendale o istituzionale</SPAN></P>
 <P class="p20 ft9">1</P>
 </DIV>
@@ -357,7 +396,15 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p52 ft7">Art. 6 Risoluzione delle controversie</P>
 <P class="p55 ft8">Ogni attivit&agrave; prevista dalla presente Convenzione si svolger&agrave; nel rispetto dell'Ordinamento generale dello Stato e delle leggi che regolano l'attivit&agrave; di entrambi gli Enti.</P>
 <P class="p50 ft8">Le parti concordano di definire amichevolmente qualsiasi controversia dovesse insorgere dall'interpretazione o applicazione del presente Atto.</P>
-<P class="p50 ft8">Qualora non fosse possibile raggiungere tale accordo, il Foro competente a dirimere la controversia sar&agrave; quello di ..........</P>
+<P class="p50 ft8">Qualora non fosse possibile raggiungere tale accordo, il Foro competente a dirimere la controversia sar&agrave; quello di
+    
+<#if azienda??>
+<span class="underlined">${azienda.getForoCompetente()}</span>
+<#else>
+...............
+</#if>
+
+</P>
 <P class="p28 ft7">Art. 7 Trattamento dati</P>
 <P class="p56 ft8">Le parti dichiarano di essersi reciprocamente informate, di acconsentire che i dati personali raccolti per la formalizzazione del presente atto siano oggetto di trattamento per gli adempimenti di legge ai sensi del d. lgs. 196/03 e di essere a conoscenza di quanto previsto dall'art.13 dello stesso decreto.</P>
 <P class="p52 ft7">Art. 8 Richiami</P>
@@ -374,7 +421,16 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p60 ft9">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</P>
 <P class="p61 ft8">Per tutto quanto non previsto dalla presente Convenzione le parti fanno riferimento alla legislazione vigente in materia.</P>
 <P class="p62 ft7">Art. 9 Decorrenza della presente Convenzione</P>
-<P class="p63 ft8">La presente Convenzione decorre dalla data in calce, ha durata di .................... e si</P>
+<P class="p63 ft8">La presente Convenzione decorre dalla data in calce, ha durata di 
+    
+<#if azienda??>
+<span class="underlined">${azienda.getInizioConv()} - ${azienda.getFineConv()}</span>
+<#else>
+_____________________
+</#if>
+    
+    
+    e si</P>
 <P class="p64 ft8">intender&agrave; rinnovata tacitamente, a meno di disdetta da comunicarsi entro i tre mesi precedenti alla data di scadenza.</P>
 <P class="p62 ft7">Art. 10 Referenti per la Convenzione</P>
 <P class="p65 ft8">Referenti per la presente Convenzione e per i rapporti fra gli Enti Contraenti nell'ambito della Convenzione stessa sono:</P>
