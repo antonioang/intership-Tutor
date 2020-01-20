@@ -64,6 +64,7 @@ public class DettaglioTirocinio extends BaseController {
                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
                 request.setAttribute("tirocinio", tirocinio);
                 
+                
                 //mostro la lista degli studenti candidati, rifiutati o in sospeso solo se l'utente è un'azienda o un amministratore
                 if(request.getAttribute("tipo") !=null){
                     if((int) request.getAttribute("tipo") == 2 || (int) request.getAttribute("tipo") == 3){

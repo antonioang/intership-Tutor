@@ -17,6 +17,9 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,10 +56,17 @@ public class RichiediTirocinio extends BaseController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response){
         try {
+            List<Persona> tutori_universitari = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getTutoriUniversitari();
+            request.setAttribute("tutori_universitari", tutori_universitari);
+            Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(SecurityLayer.checkNumeric(request.getParameter("tirocinio")));
+            request.setAttribute("tirocinio", tirocinio);
             //MOSTRO IL TEMPLATE
             TemplateResult res = new TemplateResult(getServletContext());
             res.activate("richiesta_tirocinio.ftl.html", request, response);
         } catch (TemplateManagerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        } catch (DataLayerException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }
@@ -109,7 +119,7 @@ public class RichiediTirocinio extends BaseController {
     private void action_crea_tutore(HttpServletRequest request, HttpServletResponse response){
         //CREO IL TUTORE UNIVERSITARIO
         Persona tutore_uni = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().createPersona();
-
+        
         //validazione input responsabile tirocini
         if (SecurityLayer.checkString(request.getParameter("nome_tt")) && SecurityLayer.checkString(request.getParameter("cognome_tt")) &&
                     SecurityLayer.checkEmail(request.getParameter("email_tt")) && SecurityLayer.checkTelNum(request.getParameter("telefono_tt"))){
@@ -120,7 +130,7 @@ public class RichiediTirocinio extends BaseController {
                 tutore_uni.setEmail(request.getParameter("email_tt"));
                 tutore_uni.setTelefono(request.getParameter("telefono_tt"));
                 tutore_uni.setTipo(3);
-
+                
                 int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().addPersona(tutore_uni);
                 if(insert != 1){
                     request.setAttribute("errore", "errore_inserimento");
@@ -128,12 +138,15 @@ public class RichiediTirocinio extends BaseController {
                     action_error(request, response);
                 }
                 else{
-                    //tutore tirocinio creato con successo
+                    //tutore universitario creato con successo
                     request.setAttribute("new_tutore", 1);
                     request.setAttribute("messaggio", "Tutore universitario aggiunto con successo! Puoi scegliere adesso il tutore appena creato");
-                    action_default(request, response);
+                    response.sendRedirect("richiedi_tirocinio?tirocinio="+request.getParameter("tirocinio"));
                 }
             } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
