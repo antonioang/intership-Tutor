@@ -96,13 +96,10 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     @Override
     public int addRichiestaTirocinio(RichiestaTirocinio r) throws DataLayerException {
         try {
-            addRichiestaTirocinio.setString(1, r.getSrcDocCandid());
             addRichiestaTirocinio.setString(2, r.getDottorato());
             addRichiestaTirocinio.setString(3, r.getSpecializzazione());
             addRichiestaTirocinio.setString(4, r.getLaurea());
             addRichiestaTirocinio.setString(5, r.getDiploma());
-            addRichiestaTirocinio.setDate(6, java.sql.Date.valueOf(r.getDataInizio()));
-            addRichiestaTirocinio.setDate(7, java.sql.Date.valueOf(r.getDataFine()));
             addRichiestaTirocinio.setInt(8, r.getStatoCandidatura());
             addRichiestaTirocinio.setInt(9, r.getCfu());
             addRichiestaTirocinio.setInt(10, r.getTutoreUniversitario());

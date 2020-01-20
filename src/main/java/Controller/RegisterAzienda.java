@@ -66,6 +66,7 @@ public class RegisterAzienda extends BaseController {
                     responsabile_tirocini.setCognome(request.getParameter("cognome_rt"));
                     responsabile_tirocini.setEmail(request.getParameter("email_rt"));
                     responsabile_tirocini.setTelefono(request.getParameter("telefono_rt"));
+                    responsabile_tirocini.setTipo(1);
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().addPersona(responsabile_tirocini);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
