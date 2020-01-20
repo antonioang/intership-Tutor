@@ -17,6 +17,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -146,8 +148,14 @@ public class CreaTirocinio extends BaseController {
                     }
                     else{
                         //tutore tirocinio creato con successo
+                        request.setAttribute("new_tutore", 1);
+                        request.setAttribute("messaggio", "Tutore aggiunto con successo! Puoi scegliere adesso il tutore appena creato");
+                        action_default(request, response);
                     }
                 } catch (DataLayerException ex) {
+                    request.setAttribute("eccezione", ex);
+                    action_error(request, response);
+                } catch (TemplateManagerException ex) {
                     request.setAttribute("eccezione", ex);
                     action_error(request, response);
                 }

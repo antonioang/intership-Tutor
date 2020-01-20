@@ -43,7 +43,6 @@ public class RegisterAzienda extends BaseController {
             }
             else{
                 TemplateResult res = new TemplateResult(getServletContext());
-                request.setAttribute("page_title", "Registrazione Azienda");
                 res.activate("registrazione_azienda.ftl.html", request, response);
             }
         } catch (TemplateManagerException ex){
