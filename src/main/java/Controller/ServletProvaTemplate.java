@@ -6,8 +6,13 @@
 package Controller;
 
 import Model.DAO.impl.BaseDataLayer;
+import Model.Impl.Test_Impl;
+import Model.Impl.Utente_imp;
 import Model.Interfaces.Azienda;
 import Model.Interfaces.Studente;
+import Model.Interfaces.Test;
+import Model.Interfaces.Utente;
+import data.proxy.TestProxy;
 import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateResult;
@@ -70,7 +75,11 @@ public class ServletProvaTemplate extends HttpServlet {
 
             BaseDataLayer dl= new BaseDataLayer(ds);
             try {
+                
                 dl.init();
+                Test test = new TestProxy(dl);
+                test.setId(0);
+                test.setTestString("pask");
                 //Studente st = dl.getStudenteDAO().getStudente(1);
                 //request.setAttribute("studente", st);
                 Azienda az=dl.getAziendaDAO().getAzienda(1);
@@ -79,11 +88,15 @@ public class ServletProvaTemplate extends HttpServlet {
                 request.setAttribute("aziende_convenzionate",aziende_convenzionate);
                 List tirocini=new ArrayList();
                 request.setAttribute("tirocini",tirocini);
+               // dl.getUtenteDAO().storeUtente(utente);
+               dl.getTestDAO().storeTest(test);
+               
+                
             } catch (DataLayerException ex) {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            temp.activateNoOutline("modulo_richiesta_tirocinio.ftl.html",request,response);
+            temp.activate("login.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

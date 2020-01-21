@@ -15,4 +15,8 @@ public interface Test {
     
     void setTestString(String stringa);
     
+    int getId();
+    
+    void setId(int id);
+    
 }

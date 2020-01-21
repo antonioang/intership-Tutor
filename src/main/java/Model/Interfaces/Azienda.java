@@ -50,6 +50,8 @@ public interface Azienda {
     
     Utente getUtente();
     
+    Persona getPersona();
+    
     //setter
     void setNome(String n);
     
@@ -86,4 +88,6 @@ public interface Azienda {
     void setRespTirocini (int id);
     
     void setUtente(Utente u);
+    
+    void setPersona(Persona p);
 }
