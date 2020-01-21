@@ -37,7 +37,7 @@ public class GeneraDocumenti extends BaseController {
         HttpSession s = SecurityLayer.checkSession(request);
         if (s!= null) {
             request.setAttribute("username", (String)s.getAttribute("username"));
-            request.setAttribute("tipo", (String)s.getAttribute("tipo"));
+            request.setAttribute("tipo", (int)s.getAttribute("tipo"));
         }
         if(request.getParameter("tipo") != null && (request.getParameter("tipo").equals("1") || request.getParameter("tipo").equals("2") || request.getParameter("tipo").equals("3"))){
          int tipo = SecurityLayer.checkNumeric(request.getParameter("tipo"));
@@ -76,6 +76,7 @@ public class GeneraDocumenti extends BaseController {
                 LocalDate inizio = azienda.getInizioConv();
                 LocalDate fine = azienda.getFineConv();
                 long durataInMesi = ChronoUnit.MONTHS.between(inizio, fine);
+                System.out.println(durataInMesi);
                 
                 //setto i dati necessari 
                 request.setAttribute("azienda", azienda);

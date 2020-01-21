@@ -71,8 +71,8 @@ public class ServletProvaTemplate extends HttpServlet {
             BaseDataLayer dl= new BaseDataLayer(ds);
             try {
                 dl.init();
-                //Studente st = dl.getStudenteDAO().getStudente(1);
-                //request.setAttribute("studente", st);
+                Studente st = dl.getStudenteDAO().getStudente(1);
+                request.setAttribute("studente", st);
                 Azienda az=dl.getAziendaDAO().getAzienda(1);
                 request.setAttribute("azienda", az);
                 List aziende_convenzionate=new ArrayList();
@@ -83,7 +83,7 @@ public class ServletProvaTemplate extends HttpServlet {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            temp.activate("richiesta_tirocinio.ftl.html",request,response);
+            temp.activateNoOutline("modulo_richiesta_tirocinio.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

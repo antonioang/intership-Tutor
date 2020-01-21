@@ -133,19 +133,56 @@ body {margin-top: 0px;margin-left: 0px;}
 .td4{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 318px;}
 .td5{border-left: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 334px;vertical-align: bottom;}
 
+.contenitore{
+    float:left;
+}
+.contenitore1{
+    float:left;
+    width:100%
+}
+
 .input{
     margin-left: 15px;
     margin-right: -118px;
     font-weight: bold;
 }
 .titolo{
-    width: 200px;
+    width: 150px;
     margin-right: 5px;
 }
 .paragrafo{
     display: inline-block;
     border-bottom: 1px solid black;
-    width: 350px;
+    width: 300px;
+}
+.paragrafo_cn{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 200px;
+}
+.paragrafo_dn{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 120px;
+}
+.paragrafo_provincia{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 90px;
+}
+.paragrafo1{
+    width: 80%;
+    border-bottom: 1px solid black;
+    margin-left:5%
+}
+.paragrafo_cr{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 370px;
+}
+.underlined{
+    text-decoration: underline;
+    font-weight: bold;
 }
 .image{
     width: 60px;
@@ -196,11 +233,44 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p5 ft7">ALLEGATO 1</P>
 <P class="p6 ft7">alla Convenzione per lo svolgimento di attivit&agrave; di tirocinio e di orientamento (ai sensi dell'art. 18 L.196/97 e dell'Art. 1 Decreto Ministero del Lavoro e Previdenza Sociale N. 142/98 e della Legge 148 del 14/09/2011) per studenti, laureati e diplomati del Dipartimento di Ingegneria, Scienze dell'Informazione e Matematica dell'Universit&agrave; degli Studi dell'Aquila.</P>
 <P class="p7 ft7">PROGETTO FORMATIVO E DI ORIENTAMENTO</P>
+
+<#if studente??>
+<div class=" p9 ft8"><span class="titolo ft7">Nominativo del tirocinante</span><p class="paragrafo"><span class="input">${studente.getNome()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p8 ft8"><SPAN class="ft7">Nominativo del tirocinante </SPAN>_________________________________________________</P>
+</#if>
+
+<#if studente??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">Nato a</span><p class="paragrafo_cn"><span class="input">${studente.getCittaNascita()}</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">Prov.</span><p class="paragrafo_provincia"><span class="input">(${studente.getProvinciaNascita()})</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">il</span><p class="paragrafo_dn"><span class="input">${studente.getDataNascita()}</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p9 ft8"><SPAN class="ft7">Nato a </SPAN>__________________________________________Prov._____ il ____/___/ ____</P>
+</#if>
+
+<#if studente??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">Residente in</span><p class="paragrafo_cr"><span class="input">${studente.getCittaResidenza()}</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">Prov.</span><p class="paragrafo_provincia"><span class="input">(${studente.getProvinciaResidenza()})</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p9 ft8"><SPAN class="ft7">Residente in </SPAN>____________________________________________Prov. (_______)</P>
+</#if>
+
+<#if studente??>
+<div class=" p9 ft8"><span class="titolo ft7">Codice fiscale</span><p class="paragrafo"><span class="input">${studente.getCodFiscale()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p10 ft8"><SPAN class="ft7">Codice fiscale</SPAN>____________________________________________________________</P>
+</#if>
+
+<#if studente??>
+<div class=" p9 ft8"><span class="titolo ft7">Telefono</span><p class="paragrafo"><span class="input">${studente.getTelefono()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p9 ft8"><SPAN class="ft7">Telefono </SPAN>________________________________________________________________</P>
+</#if>
+
 <P class="p11 ft9">Attuale condizione (barrare la casella &#8211; possibilit&agrave; di doppia scelta):</P>
 <P class="p12 ft8"><SPAN class="ft10">&#9745;</SPAN><SPAN class="ft11">Studente Corso di Laurea in: ______________________________________________</SPAN></P>
 <P class="p13 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Diplomato. Diploma universitario in: ________________________________________</SPAN></P>
