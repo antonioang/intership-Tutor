@@ -1,0 +1,133 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controller;
+
+import Model.DAO.impl.BaseDataLayer;
+import Model.Interfaces.Persona;
+import Model.Interfaces.RichiestaTirocinio;
+import Model.Interfaces.Studente;
+import framework.data.DataLayerException;
+import framework.result.FailureResult;
+import framework.result.TemplateManagerException;
+import framework.result.TemplateResult;
+import framework.security.SecurityLayer;
+import java.io.IOException;
+import java.time.LocalDate;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author matti
+ */
+public class GestioneRichiestaTirocinio extends BaseController {
+
+    @Override
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession s = SecurityLayer.checkSession(request);
+        if (s!= null) {
+            request.setAttribute("username", s.getAttribute("username"));
+            request.setAttribute("tipo", (int)s.getAttribute("tipo"));
+        }
+        if(request.getParameter("id") != null && !request.getParameter("id").equals("0")){
+            try {
+                if(request.getParameter("accetta") != null){
+                    action_accetta_richiesta(request, response);
+                }
+                else if(request.getParameter("rifiuta") != null){
+                    action_rifiuta_richiesta(request, response);
+                }
+                else if(request.getParameter("imposta_date") != null){
+                    action_imposta_date(request, response);
+                }
+                //action_default
+                action_default(request, response);
+                //mostro il template
+                TemplateResult res = new TemplateResult(getServletContext());
+                res.activate("gestione_richiesta.ftl.html", request, response);
+            } catch (TemplateManagerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            }
+        }
+        
+    }
+    
+    private void action_default(HttpServletRequest request, HttpServletResponse response){
+        try {
+            //ottengo i dati dello studente, i dati del tutore universitario, e i dati della richiesta
+            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(Integer.parseInt(request.getParameter("id")));
+            Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(richiesta.getStudente());
+            Persona tutore_uni = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(richiesta.getTutoreUniversitario());
+            
+            //setto i dati
+            request.setAttribute("richiesta_tirocinio", richiesta);
+            request.setAttribute("studente", studente);
+            request.setAttribute("tutore_uni", tutore_uni);
+            
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        }
+    }
+    
+    private void action_imposta_date(HttpServletRequest request, HttpServletResponse response){
+        if(request.getParameter("data_inizio") != null && request.getParameter("data_fine") != null){
+            try {
+                int id_richiesta = Integer.parseInt(request.getParameter("id"));
+                LocalDate data_inizio = SecurityLayer.checkDate(request.getParameter("data_inizio"));
+                LocalDate data_fine = SecurityLayer.checkDate(request.getParameter("data_fine"));
+                
+                int update = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDataInizioDataFine(data_inizio, data_fine, id_richiesta);
+                if(update != 1){
+                    request.setAttribute("errore", "errore_aggiornamento");
+                    request.setAttribute("messaggio", "L'inserimento delle date inizio e fine della richiesta di tirocinio non è andata a buon fine. Riprova!");
+                    action_error(request, response);
+                }
+                else{
+                    action_default(request, response);
+                }
+            } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            }
+        }
+    }
+    
+    private void action_accetta_richiesta(HttpServletRequest request, HttpServletResponse response){
+        try {
+            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(Integer.parseInt(request.getParameter("id")));
+            ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 2);
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        }
+    }
+    
+    private void action_rifiuta_richiesta(HttpServletRequest request, HttpServletResponse response){
+        try {
+            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(Integer.parseInt(request.getParameter("id")));
+            ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 4);
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        }
+    }
+
+    private void action_error(HttpServletRequest request, HttpServletResponse response){
+        if(request.getAttribute("eccezione") != null){
+            (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
+        }
+        else{
+            System.out.println((String) request.getAttribute("errore"));
+            (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
+        }
+    }
+}
