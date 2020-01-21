@@ -47,8 +47,9 @@ public class GestioneRichiestaTirocinio extends BaseController {
                 else if(request.getParameter("imposta_date") != null){
                     action_imposta_date(request, response);
                 }
-                //action_default
-                action_default(request, response);
+                else{
+                    action_default(request, response);
+                }                
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
                 res.activate("gestione_richiesta.ftl.html", request, response);

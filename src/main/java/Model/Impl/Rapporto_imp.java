@@ -15,7 +15,7 @@ import Model.Interfaces.Tirocinio;
  */
 public class Rapporto_imp implements Rapporto {
     
-    private String ore;
+    private int ore;
     private String descrizione_att;
     private String giudizio;
     private String scr_doc;
@@ -23,7 +23,7 @@ public class Rapporto_imp implements Rapporto {
     private int t;
     
     public Rapporto_imp(){
-        this.ore = "";
+        this.ore = 0;
         this.descrizione_att = "";
         this.giudizio = "";
         this.scr_doc = "";
@@ -32,7 +32,7 @@ public class Rapporto_imp implements Rapporto {
 }
 
     @Override
-    public String getOre() {
+    public int getOre() {
         return this.ore;
     }
 
@@ -62,7 +62,7 @@ public class Rapporto_imp implements Rapporto {
     }
 
     @Override
-    public void setOre(String ore) {
+    public void setOre(int ore) {
         this.ore = ore;
     }
 
