@@ -18,8 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -43,7 +42,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
                 "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n" +
                 "WHERE id_studente=?");
             getStudentiByTirocinioAccettato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 2");
-            getStudentiByTirocinioSospeso = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 0");
+            getStudentiByTirocinioSospeso = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 1");
             getStudentiByTirocinioRifiutato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 4");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
