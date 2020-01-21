@@ -36,114 +36,115 @@ public class AziendaProxy extends Azienda_imp {
     @Override
     public void setNome(String n){
         super.setNome(n);
-        this.dirty = false;
+        this.dirty = true;
     }
     
     @Override
     public void setRagioneSociale(String rs) {
        super.setRagioneSociale(rs);
-       this.dirty = false;
+       this.dirty = true;
     }
 
     @Override
     public void setIndirizzo(String i) {
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setCitta(String citta) {
         super.setCitta(citta);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setCap(int cap) {
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setProvincia(String pr) {
         super.setProvincia(pr);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setRapprLeg(String rl) {
         super.setRapprLeg(rl);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setPiva(String iva) {
        super.setPiva(iva);
-       this.dirty = false;
+       this.dirty = true;
     }
 
     @Override
     public void setForoCompetente(String fr) {
         super.setForoCompetente(fr);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setSrcDocPath(String src) {
         super.setSrcDocPath(src);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setTematica(String t) {
         super.setTematica(t);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setStatoConv(boolean st) {
         super.setStatoConv(st);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setCorsoStudi(String cs) {
         super.setCorsoStudi(cs);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setInizioConv(LocalDate dataI) {
         super.setInizioConv(dataI);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setFineConv(LocalDate dataF) {
         super.setFineConv(dataF);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setRespTirocini(int id) {
         super.setRespTirocini(id);
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setUtente(Utente u) {
         super.setUtente(u);
         this.utenteId = u.getId();
-        this.dirty = false;
+        this.dirty = true;
     }
     
     @Override
     public void setPersona(Persona p){
+        super.setPersona(p);
         this.responsabile_tirocinioId = p.getId();
-        this.dirty = false;
+        this.dirty = true;
     }
 
     @Override
     public void setId(int id) {
         super.setId(id);
-        this.dirty = false;
+        this.dirty = true;
     }
     
     //METODI DEL PROXY
@@ -155,15 +156,15 @@ public class AziendaProxy extends Azienda_imp {
         return dirty;
     }
     
-    public void setUtenteId(int id_utente){
-        this.utenteId = id_utente;
-        //reset della cache utente
-        super.setPersona(null);
-    }
-    
-    public void setPersonaId(int id_persona){
-        this.responsabile_tirocinioId = id_persona;
-        //reset della cache persona
-        super.setPersona(null);
-    }
+//    public void setUtenteId(int id_utente){
+//        this.utenteId = id_utente;
+//        //reset della cache utente
+//        super.setPersona(null);
+//    }
+//    
+//    public void setPersonaId(int id_persona){
+//        this.responsabile_tirocinioId = id_persona;
+//        //reset della cache persona
+//        super.setPersona(null);
+//    }
 }
