@@ -36,4 +36,6 @@ public interface AziendaDAO {
         
     int updAzienda(Azienda az) throws DataLayerException;
     
+    void storeAzienda(Azienda az) throws DataLayerException;
+    
 }

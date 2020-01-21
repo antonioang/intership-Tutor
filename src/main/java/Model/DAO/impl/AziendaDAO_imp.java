@@ -263,4 +263,9 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         super.destroy();
     }
     
+    @Override
+    public void storeAzienda(Azienda az)throws DataLayerException{
+        
+    }
+    
 }
