@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class RichiestaTirocinio_imp implements RichiestaTirocinio{
     
     private String srcDocCandid, dottorato, specializzazione, laurea, diploma;
-    private LocalDate data_inizio, data_fine;
+    private Date data_inizio, data_fine;
     private int stato, cfu, tutore_uni, studente, tirocinio, id;
     
     public RichiestaTirocinio_imp(){
@@ -66,12 +66,12 @@ public class RichiestaTirocinio_imp implements RichiestaTirocinio{
     }
 
     @Override
-    public LocalDate getDataInizio() {
+    public Date getDataInizio() {
         return this.data_inizio;
     }
 
     @Override
-    public LocalDate getDataFine() {
+    public Date getDataFine() {
         return this.data_fine;
     }
 
@@ -131,12 +131,12 @@ public class RichiestaTirocinio_imp implements RichiestaTirocinio{
     }
 
     @Override
-    public void setDataInizio(LocalDate di) {
+    public void setDataInizio(Date di) {
         this.data_inizio = di;
     }
 
     @Override
-    public void setDataFine(LocalDate df) {
+    public void setDataFine(Date df) {
         this.data_fine = df;
     }
 

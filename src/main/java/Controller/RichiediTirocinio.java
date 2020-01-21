@@ -35,21 +35,30 @@ public class RichiediTirocinio extends BaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if(request.getParameter("tirocinio") != null && !request.getParameter("tirocinio").equals("0")){
-            HttpSession s = SecurityLayer.checkSession(request);
-            if (s!= null) {
-                request.setAttribute("username", s.getAttribute("username"));
-                request.setAttribute("tipo", (int)s.getAttribute("tipo"));
+            try {
+                HttpSession s = SecurityLayer.checkSession(request);
+                if (s!= null) {
+                    request.setAttribute("username", s.getAttribute("username"));
+                    request.setAttribute("tipo", (int)s.getAttribute("tipo"));
+                }
+                if (request.getParameter("submit_richiesta") != null) {
+                    action_submit_richiesta(request, response);
+                }
+                else if(request.getParameter("submit_tutore") != null){
+                    action_crea_tutore(request, response);
+                }
+                else{
+                    action_default(request, response);
+                }
+                
+                //MOSTRO IL TEMPLATE
+                TemplateResult res = new TemplateResult(getServletContext());
+                res.activate("richiesta_tirocinio.ftl.html", request, response);
+            } catch (TemplateManagerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
             }
-            if (request.getParameter("submit_richiesta") != null) {
-                action_submit_richiesta(request, response);
-            }
-            else if(request.getParameter("submit_tutore") != null){
-                action_crea_tutore(request, response);
-            }
-            else{
-                action_default(request, response);
-            }
-
+            
         }
         
     }
@@ -60,12 +69,7 @@ public class RichiediTirocinio extends BaseController {
             request.setAttribute("tutori_universitari", tutori_universitari);
             Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(SecurityLayer.checkNumeric(request.getParameter("tirocinio")));
             request.setAttribute("tirocinio", tirocinio);
-            //MOSTRO IL TEMPLATE
-            TemplateResult res = new TemplateResult(getServletContext());
-            res.activate("richiesta_tirocinio.ftl.html", request, response);
-        } catch (TemplateManagerException ex) {
-            request.setAttribute("eccezione", ex);
-            action_error(request, response);
+                       
         } catch (DataLayerException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
@@ -141,12 +145,9 @@ public class RichiediTirocinio extends BaseController {
                     //tutore universitario creato con successo
                     request.setAttribute("new_tutore", 1);
                     request.setAttribute("messaggio", "Tutore universitario aggiunto con successo! Puoi scegliere adesso il tutore appena creato");
-                    response.sendRedirect("richiedi_tirocinio?tirocinio="+request.getParameter("tirocinio"));
+                    action_default(request, response);
                 }
             } catch (DataLayerException ex) {
-                request.setAttribute("eccezione", ex);
-                action_error(request, response);
-            } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }

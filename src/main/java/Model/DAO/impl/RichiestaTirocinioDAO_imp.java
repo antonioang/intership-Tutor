@@ -66,8 +66,8 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             rt.setSpecializzazione(rs.getString("specializzazione"));
             rt.setLaurea(rs.getString("laurea"));
             rt.setDiploma(rs.getString("diploma"));
-            rt.setDataInizio(rs.getDate("data_inizio").toLocalDate());
-            rt.setDataFine(rs.getDate("data_fine").toLocalDate());
+            rt.setDataInizio(rs.getDate("data_inizio"));
+            rt.setDataFine(rs.getDate("data_fine"));
             rt.setStatoCandidatura(rs.getInt("stato_candidatura"));
             rt.setCfu(rs.getInt("cfu"));
             rt.setStudente(rs.getInt("studente"));

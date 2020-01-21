@@ -186,7 +186,22 @@
             </div>
         </div>
     </div>
-    <#else>
+    <#elseif tipo == 1>
+        <#if stato_tirocinio??>
+            <#if stato_tirocinio == 1>
+                <div>
+                    <div class="panel text-center maincard">
+                        <h5 class="card-header"><b>Candidatura al tirocinio effettuata</b></h5>
+                        <div class="card-body">
+                          <h5 class="card-title">Candidatura in stato di valutazione</h5>
+                          <p class="card-text mainparagraph">Verrai notificato quando l'azienda avr&agrave; preso visione della tua candidatura</p>
+                        </div>
+                    </div>
+                </div>
+            <#else>
+            
+            </#if>
+        <#else>
         <div>
             <div class="panel text-center maincard">
                 <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
@@ -197,6 +212,7 @@
                 </div>
             </div>
         </div>
+        </#if>
     </#if>
     <#else>
     <div>

@@ -7,6 +7,7 @@ package Controller;
 
 import Model.DAO.impl.BaseDataLayer;
 import Model.Interfaces.Azienda;
+import Model.Interfaces.Persona;
 import Model.Interfaces.Rapporto;
 import Model.Interfaces.RichiestaTirocinio;
 import Model.Interfaces.Studente;
@@ -55,6 +56,7 @@ public class GeneraDocumenti extends BaseController {
                     //modulo resoconto tirocinio
                     case 3:
                         action_genera_resoconto(request, response);
+                        break;
             }
         }
         else{
@@ -72,6 +74,7 @@ public class GeneraDocumenti extends BaseController {
                 //ottengo l'azienda dall'id
                 int id_azienda = SecurityLayer.checkNumeric(request.getParameter("azienda"));
                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(id_azienda);
+                Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
                 //calcolo la differenza in mesi dall'inizio alla fine della convenzione
                 LocalDate inizio = azienda.getInizioConv();
                 LocalDate fine = azienda.getFineConv();
@@ -79,7 +82,9 @@ public class GeneraDocumenti extends BaseController {
                 
                 //setto i dati necessari 
                 request.setAttribute("azienda", azienda);
+                request.setAttribute("responsabile_tirocini", responsabile_tirocini);
                 request.setAttribute("durata_conv", durataInMesi);
+                
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
                 res.activateNoOutline("modulo_convenzione.ftl.html", request, response);  
