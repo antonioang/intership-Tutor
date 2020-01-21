@@ -48,8 +48,8 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
                     + "values(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             delUtente = connection.prepareStatement("DELETE FROM utente\n" +
                     "WHERE id_utente=?;");
-            updUtente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.utente\n" +
-                "SET username=?, password=?, email=?, tipo=?\n" +
+            updUtente = connection.prepareStatement("UPDATE utente\n" +
+                "SET username=?, email=?, tipo=?\n" +
                 "WHERE id_utente=?;");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
@@ -188,7 +188,6 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     public int updUtente(Utente utente) throws DataLayerException {
         try {
             updUtente.setString(1, utente.getUsername());
-            updUtente.setString(2, utente.getPassword());
             updUtente.setString(3, utente.getEmail());
             updUtente.setInt(4, utente.getTipo());
             updUtente.setInt(5, utente.getId());

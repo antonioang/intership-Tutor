@@ -17,6 +17,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -126,37 +128,44 @@ public class CreaTirocinio extends BaseController {
     
     private void action_crea_tutore(HttpServletRequest request, HttpServletResponse response){
         //CREO IL TUTORE DEL TIROCINIO
-            Persona tutore = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().createPersona();
-            
-            //validazione input responsabile tirocini
-            if (SecurityLayer.checkString(request.getParameter("nome_tt")) && SecurityLayer.checkString(request.getParameter("cognome_tt")) &&
-                        SecurityLayer.checkEmail(request.getParameter("email_tt")) && SecurityLayer.checkTelNum(request.getParameter("telefono_tt"))){
-            
-                try {
-                    tutore.setNome(request.getParameter("nome_tt"));
-                    tutore.setCognome(request.getParameter("cognome_tt"));
-                    tutore.setEmail(request.getParameter("email_tt"));
-                    tutore.setTelefono(request.getParameter("telefono_tt"));
-                    
-                    int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().addPersona(tutore);
-                    if(insert != 1){
-                        request.setAttribute("errore", "errore_inserimento");
-                        request.setAttribute("messaggio", "Il tutore tirocini già esistente. Riprova!");
-                        action_error(request, response);
-                    }
-                    else{
-                        //tutore tirocinio creato con successo
-                    }
-                } catch (DataLayerException ex) {
-                    request.setAttribute("eccezione", ex);
+        Persona tutore = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().createPersona();
+
+        //validazione input responsabile tirocini
+        if (SecurityLayer.checkString(request.getParameter("nome_tt")) && SecurityLayer.checkString(request.getParameter("cognome_tt")) &&
+                    SecurityLayer.checkEmail(request.getParameter("email_tt")) && SecurityLayer.checkTelNum(request.getParameter("telefono_tt"))){
+
+            try {
+                tutore.setNome(request.getParameter("nome_tt"));
+                tutore.setCognome(request.getParameter("cognome_tt"));
+                tutore.setEmail(request.getParameter("email_tt"));
+                tutore.setTelefono(request.getParameter("telefono_tt"));
+                tutore.setTipo(2);
+
+                int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().addPersona(tutore);
+                if(insert != 1){
+                    request.setAttribute("errore", "errore_inserimento");
+                    request.setAttribute("messaggio", "Il tutore tirocinio già esistente. Riprova!");
                     action_error(request, response);
                 }
-            }
-            else{
-                request.setAttribute("errore", "errore_validazione");
-                request.setAttribute("messaggio", "I campi del tutore tirocinio non sono corretti. Riprova!");
+                else{
+                    //tutore tirocinio creato con successo
+                    request.setAttribute("new_tutore", 1);
+                    request.setAttribute("messaggio", "Tutore tirocinio aggiunto con successo! Puoi scegliere adesso il tutore appena creato");
+                    action_default(request, response);
+                }
+            } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (TemplateManagerException ex) {
+                request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
+        }
+        else{
+            request.setAttribute("errore", "errore_validazione");
+            request.setAttribute("messaggio", "I campi del tutore tirocinio non sono corretti. Riprova!");
+            action_error(request, response);
+        }
     }
     
     private void action_error(HttpServletRequest request, HttpServletResponse response){

@@ -97,9 +97,10 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
     }
 
     @Override
-    public Rapporto getRapporto(int id) throws DataLayerException {
+    public Rapporto getRapporto(int id_studente, int id_tirocinio) throws DataLayerException {
          try {
-             getRapporto.setInt(1, id);
+             getRapporto.setInt(1, id_studente);
+             getRapporto.setInt(2, id_tirocinio);
              ResultSet rs = getRapporto.executeQuery();
              if(rs.next()){
                  return createRapporto(rs);

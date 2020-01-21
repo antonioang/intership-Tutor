@@ -23,6 +23,10 @@ public interface PersonaDAO {
     Persona getPersona(int id) throws DataLayerException;
     
     List<Persona> getTutoriTirocinio() throws DataLayerException;
+    
+    List<Persona> getTutoriUniversitari() throws DataLayerException;
+    
+    List<Persona> getResponsabiliTirocini() throws DataLayerException;
         
     int addPersona(Persona p) throws DataLayerException;
     

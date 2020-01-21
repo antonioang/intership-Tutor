@@ -25,7 +25,7 @@ import java.util.List;
 public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
     private PreparedStatement addPersona, delPersona, updPersona; 
-    private PreparedStatement getPersona, getTutoriTirocinio;
+    private PreparedStatement getPersona, getTutoriTirocinio, getTutoriUniversitari, getResponsabiliTirocini;
     
     public PersonaDAO_imp(DataLayer d) {
         super(d);
@@ -42,7 +42,9 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
                 "SET nome=?, cognome=?, email=?, telefono=?, tipo=?\n" +
                 "WHERE id_persona=?;");
             getPersona = connection.prepareStatement("SELECT * FROM persona WHERE id_persona = ?");
+            getResponsabiliTirocini = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 1");
             getTutoriTirocinio = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 2");
+            getTutoriUniversitari = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 3");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzazione degli Statement", ex);
         }
@@ -176,6 +178,34 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
         super.destroy();
+    }
+
+    @Override
+    public List<Persona> getTutoriUniversitari() throws DataLayerException {
+        List<Persona> lista = new ArrayList();
+        try {
+            ResultSet rs = getTutoriUniversitari.executeQuery();
+            while(rs.next()){
+                lista.add(createPersona(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dei tutori", ex);
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Persona> getResponsabiliTirocini() throws DataLayerException {
+        List<Persona> lista = new ArrayList();
+        try {
+            ResultSet rs = getResponsabiliTirocini.executeQuery();
+            while(rs.next()){
+                lista.add(createPersona(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dei tutori", ex);
+        }
+        return lista;
     }
     
 }

@@ -26,7 +26,7 @@ public interface RapportoDAO {
     
     List<Rapporto> getRapportiTirocini(int t) throws DataLayerException;
     
-    Rapporto getRapporto(int id)throws DataLayerException;
+    Rapporto getRapporto(int id_studente, int id_tirocinio)throws DataLayerException;
     
     int updateDocumentoRapporto(int st, int t, String src)throws DataLayerException;
     

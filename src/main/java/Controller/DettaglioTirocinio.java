@@ -9,6 +9,7 @@ import Model.DAO.impl.BaseDataLayer;
 import Model.Interfaces.RichiestaTirocinio;
 import Model.Interfaces.Studente;
 import Model.Interfaces.Tirocinio;
+import Model.Interfaces.Utente;
 import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateManagerException;
@@ -64,9 +65,11 @@ public class DettaglioTirocinio extends BaseController {
                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
                 request.setAttribute("tirocinio", tirocinio);
                 
+                
                 //mostro la lista degli studenti candidati, rifiutati o in sospeso solo se l'utente è un'azienda o un amministratore
                 if(request.getAttribute("tipo") !=null){
                     if((int) request.getAttribute("tipo") == 2 || (int) request.getAttribute("tipo") == 3){
+                        //admin e azienda
                         List<Studente> accettati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioAccettato(id_tirocinio);
                         List<Studente> rifiutati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioRifiutato(id_tirocinio);
                         List<Studente> sospeso = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioSospeso(id_tirocinio);
@@ -74,6 +77,36 @@ public class DettaglioTirocinio extends BaseController {
                         request.setAttribute("studenti_rifiutati", rifiutati);
                         request.setAttribute("studenti_sospeso", sospeso);
                     }
+                    else{
+                        //studente
+                        Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername( (String) request.getAttribute("username"));
+                        Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
+                        //controlla lo stato
+                        RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, studente.getId());
+                        switch (richiesta.getStatoCandidatura()) {
+                                //tirocinio richiesto
+                                case 1:
+                                    request.setAttribute("stato_tirocinio", 1);
+                                    break;
+
+                                //tirocinio attivo   
+                                case 2:
+                                    request.setAttribute("stato_tirocinio", 2);
+                                    break;
+
+                                //tirocinio concluso
+                                case 3:
+                                    request.setAttribute("stato_tirocinio", 3);
+                                    break;
+                                //tirocinio rifiutato
+                                case 4:
+                                    request.setAttribute("stato_tirocinio", 4);
+                                    break;    
+                        }
+                    }
+                }
+                else{
+                    //anonimo
                 }
                 
                 //MOSTRO IL TEMPLATE

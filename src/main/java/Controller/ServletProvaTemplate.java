@@ -96,7 +96,7 @@ public class ServletProvaTemplate extends HttpServlet {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            temp.activate("login.ftl.html",request,response);
+            temp.activate("richiesta_tirocinio.ftl.html",request,response);
         } catch(TemplateManagerException ex){
             Logger.getLogger(FailureResult.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
