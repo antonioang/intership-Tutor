@@ -40,10 +40,7 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("username", s.getAttribute("username"));
                 request.setAttribute("tipo", (int)s.getAttribute("tipo"));
             }
-            if(request.getParameter("id_studente") != null && request.getParameter("action") != null){
-                action_gestisci_candidato(request, response);
-            }
-            else if(request.getParameter("visibile") != null){
+            if(request.getParameter("visibile") != null){
                 action_change_visibile(request, response);
             }
             action_default(request, response);
@@ -122,52 +119,7 @@ public class DettaglioTirocinio extends BaseController {
         }
         
     }
-    
-    private void action_gestisci_candidato(HttpServletRequest request, HttpServletResponse response){
-        try {
-            if(SecurityLayer.checkNumber(request.getParameter("id")) && SecurityLayer.checkNumber(request.getParameter("id"))){
-                int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
-                int id_studente = SecurityLayer.checkNumeric(request.getParameter("id_studente"));
-                RichiestaTirocinio rt = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
-
-                boolean action = false;
-                //controllo che il valore del parametro action sia effettivamente un booleano
-                if(SecurityLayer.checkBoolean(request.getParameter("action"))){
-                    action = SecurityLayer.stringToBoolean(request.getParameter("action"));
-                }
-                else{
-                    request.setAttribute("errore", "errore_azione_candidato");
-                    request.setAttribute("messaggio", "Errore durante l'accettazione o la rimozione del candidato. Riprovare");
-                    action_error(request, response);
-                }
-
-                if(action){
-                    //Approva candidato
-                    ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(rt.getId(), 1);
-                    response.sendRedirect("tirocinio?id="+id_tirocinio);
-                }
-                else{
-                    //Rifiuta candidato
-                    ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(rt.getId(), 2);
-                    response.sendRedirect("tirocinio?id="+id_tirocinio);
-                }
-            }
-            else{
-                request.setAttribute("errore", "errore_parametro_errato");
-                request.setAttribute("messaggio", "Errore durante il caricamento della pagina. Riprovare");
-                action_error(request, response);
-            }
-            
-        } catch (DataLayerException ex) {
-            request.setAttribute("eccezione", ex);
-            action_error(request, response);
-        } catch (IOException ex) {
-            request.setAttribute("eccezione", ex);
-            action_error(request, response);
-        }
         
-    }
-    
     private void action_change_visibile(HttpServletRequest request, HttpServletResponse response){
         
         if(SecurityLayer.checkString(request.getParameter("visibile")) && SecurityLayer.checkNumber(request.getParameter("id")) ){

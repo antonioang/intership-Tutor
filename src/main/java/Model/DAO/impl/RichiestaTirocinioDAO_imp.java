@@ -15,6 +15,7 @@ import framework.data.DataLayerException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,6 +30,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     
     private PreparedStatement addRichiestaTirocinio, updRichiestaTirocinioStato, updDocumentoRichiestaTirocinio;
     private PreparedStatement getRichiestaTirocinio, getRichiesteTirocinioByTirocinio, getRicTirByTirocinioStudente;
+    private PreparedStatement updDataInizioDataFine;
     
     public RichiestaTirocinioDAO_imp(DataLayer d) {
         super(d);
@@ -41,7 +43,8 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
                 "(dottorato_ricerca, specializzazione, laurea, diploma, stato_candidatura, cfu, tutore_universitario, studente, tirocinio)\n" +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             updRichiestaTirocinioStato = connection.prepareStatement("UPDATE richiesta_tirocinio SET stato_candidatura=? WHERE id_richiesta=?");
-            updDocumentoRichiestaTirocinio = connection.prepareStatement("UPDATE richiesta_tirocinio src_doc_candid=? WHERE id_richiesta=?");
+            updDocumentoRichiestaTirocinio = connection.prepareStatement("UPDATE richiesta_tirocinio SET src_doc_candid=? WHERE id_richiesta=?");
+            updDataInizioDataFine = connection.prepareStatement("UPDATE richiesta_tirocinio SET data_inizio=?, data_fine=? WHERE id_richiesta=?");
             getRichiestaTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE id_richiesta=?");
             getRichiesteTirocinioByTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio=?");
             getRicTirByTirocinioStudente = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio = ? AND studente = ?");
@@ -200,6 +203,18 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
         super.destroy();
+    }
+
+    @Override
+    public int updDataInizioDataFine(LocalDate data_inizio, LocalDate data_fine, int id_richiesta) throws DataLayerException {
+        try {
+            updDataInizioDataFine.setDate(1, java.sql.Date.valueOf(data_inizio));
+            updDataInizioDataFine.setDate(2, java.sql.Date.valueOf(data_fine));
+            updDataInizioDataFine.setInt(3, id_richiesta);
+            return updDataInizioDataFine.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante l'aggiornamento delle date della richiesta tirocinio", ex);
+        }
     }
     
 }

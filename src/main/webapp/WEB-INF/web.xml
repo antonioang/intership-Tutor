@@ -79,6 +79,10 @@
         <servlet-name>DownloadDocumenti</servlet-name>
         <servlet-class>Controller.DownloadDocumenti</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GestioneRichiestaTirocinio</servlet-name>
+        <servlet-class>Controller.GestioneRichiestaTirocinio</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -154,6 +158,10 @@
     <servlet-mapping>
         <servlet-name>DownloadDocumenti</servlet-name>
         <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestioneRichiestaTirocinio</servlet-name>
+        <url-pattern>/gestione_richiesta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
