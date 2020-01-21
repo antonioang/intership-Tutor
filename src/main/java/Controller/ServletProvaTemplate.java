@@ -6,8 +6,13 @@
 package Controller;
 
 import Model.DAO.impl.BaseDataLayer;
+import Model.Impl.Test_Impl;
+import Model.Impl.Utente_imp;
 import Model.Interfaces.Azienda;
 import Model.Interfaces.Studente;
+import Model.Interfaces.Test;
+import Model.Interfaces.Utente;
+import data.proxy.TestProxy;
 import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateResult;
@@ -70,6 +75,7 @@ public class ServletProvaTemplate extends HttpServlet {
 
             BaseDataLayer dl= new BaseDataLayer(ds);
             try {
+                
                 dl.init();
                 Studente st = dl.getStudenteDAO().getStudente(1);
                 request.setAttribute("studente", st);
@@ -79,6 +85,8 @@ public class ServletProvaTemplate extends HttpServlet {
                 request.setAttribute("aziende_convenzionate",aziende_convenzionate);
                 List tirocini=new ArrayList();
                 request.setAttribute("tirocini",tirocini);
+               
+                
             } catch (DataLayerException ex) {
                 Logger.getLogger(ServletProvaTemplate.class.getName()).log(Level.SEVERE, null, ex);
             }

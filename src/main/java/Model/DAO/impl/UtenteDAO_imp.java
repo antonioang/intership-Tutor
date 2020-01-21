@@ -8,6 +8,7 @@ package Model.DAO.impl;
 import Model.DAO.UtenteDAO;
 import Model.Impl.Utente_imp;
 import Model.Interfaces.Utente;
+import data.proxy.UtenteProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
@@ -57,14 +58,14 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     }
     
     @Override
-    public Utente createUtente() {
-        return new Utente_imp();
+    public UtenteProxy createUtente() {
+        return new UtenteProxy(getDataLayer());
     }
 
     @Override
-    public Utente createUtente(ResultSet rs) throws DataLayerException {
+    public UtenteProxy createUtente(ResultSet rs) throws DataLayerException {
         try {
-            Utente ut = createUtente();
+            UtenteProxy ut = createUtente();
             ut.setUsername(rs.getString("username"));
             ut.setPassword(rs.getString("password"));
             ut.setEmail(rs.getString("email"));
@@ -194,7 +195,7 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dati utente", ex);
         }
-    }
+       }
     
     @Override
     public void destroy() throws DataLayerException{
@@ -215,4 +216,51 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         }
         super.destroy();
     }
+    
+//    @Override
+//    public void storeUtente(Utente utente) throws DataLayerException{
+//        int key = utente.getId();
+//        
+//        if (utente.getId() > 0){
+//            if(utente instanceof UtenteProxy && !((UtenteProxy) utente).isDirty()){
+//                return;//se utente è di tipo proxy e non ha subito modifiche non facciamo nulla
+//            }
+//            try { //facciamo l'update dell utente per modificare  
+//                updUtente.setString(1, utente.getUsername());
+//                updUtente.setString(2, utente.getPassword());
+//                updUtente.setString(3, utente.getEmail());
+//                updUtente.setInt(4, utente.getTipo());
+//                updUtente.setInt(5, utente.getId());
+//                updUtente.executeUpdate();
+//                System.out.print(utente.getId());
+//            } catch (SQLException ex) {
+//                Logger.getLogger(UtenteDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//           }else{
+//            try {
+//               //facciamo un insert dell utente perché non è mai stato inserito
+//                addUtente.setString(1, utente.getEmail());
+//                addUtente.setString(2, utente.getUsername());
+//                addUtente.setString(3, utente.getPassword());
+//                addUtente.setInt(4, utente.getTipo());
+//                if(addUtente.executeUpdate() == 1){
+//                   try(ResultSet keys = addUtente.getGeneratedKeys()){
+//                       if(keys.next()){
+//                           key = keys.getInt(1);
+//                       }
+//                   }
+//                   utente.setId(key);
+//                   System.out.print(utente.getEmail());
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(UtenteDAO_imp.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//           
+//            
+//        }
+//        if(utente instanceof UtenteProxy){
+//            ((UtenteProxy) utente).setDirty(false);
+//        }
+//       
+//    }
 }

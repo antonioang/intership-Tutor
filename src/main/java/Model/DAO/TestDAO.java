@@ -21,4 +21,6 @@ public interface TestDAO {
     
     Test getTest() throws DataLayerException;
     
+    void storeTest(Test test) throws DataLayerException;
+    
 }

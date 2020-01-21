@@ -48,7 +48,7 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         
     }
     @Override
-    public int insertValutazione(Valutazione v)throws DataLayerException {
+    public int addValutazione(Valutazione v)throws DataLayerException {
         try {
             addValutazione.setInt(1, v.getPunteggio());
             addValutazione.setInt(2,v.getStudente());
@@ -124,7 +124,7 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         }
 
     @Override
-    public int deleteValutazione(int id_az, int id_st)throws DataLayerException {
+    public int delValutazione(int id_az, int id_st)throws DataLayerException {
         try {
             delValutazione.setInt(1, id_az);
             delValutazione.setInt(2, id_st);

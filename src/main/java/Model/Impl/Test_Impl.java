@@ -14,6 +14,7 @@ import Model.Interfaces.Test;
 public class Test_Impl implements Test{
     
     private String prova;
+    private int id;
     
     public Test_Impl(){
         this.prova = "";
@@ -27,6 +28,16 @@ public class Test_Impl implements Test{
     @Override
     public void setTestString(String stringa) {
         this.prova = stringa;
+    }
+    
+    @Override
+    public int getId(){
+        return this.id;
+    }
+    
+    @Override
+    public void setId(int i){
+        this.id = i;
     }
     
 }

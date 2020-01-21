@@ -35,6 +35,7 @@ public class Azienda_imp implements Azienda {
     private LocalDate fineConv;
     private int rappresentante_tirocini;
     private Utente u;
+    private Persona p;
     
     public Azienda_imp(){
         this.id = 0;
@@ -55,6 +56,7 @@ public class Azienda_imp implements Azienda {
         this.fineConv = null;
         this.rappresentante_tirocini = 0;
         this.u = null;
+        this.p = null;
     }
     
     @Override
@@ -237,4 +239,14 @@ public class Azienda_imp implements Azienda {
         this.id = id;
     }
     
+    @Override
+    public Persona getPersona(){
+        return this.p;
+    }
+    
+    
+    @Override
+    public void setPersona(Persona p){
+        this.p = p;
+    }
 }

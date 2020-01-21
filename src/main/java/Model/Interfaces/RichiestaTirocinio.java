@@ -26,9 +26,9 @@ public interface RichiestaTirocinio {
     
     String getDiploma();
     
-    LocalDate getDataInizio();
+    Date getDataInizio();
     
-    LocalDate getDataFine();
+    Date getDataFine();
     
     int getStudente();
     
@@ -52,9 +52,9 @@ public interface RichiestaTirocinio {
     
     void setDiploma(String d);
     
-    void setDataInizio(LocalDate di);
+    void setDataInizio(Date di);
     
-    void setDataFine(LocalDate df);
+    void setDataFine(Date df);
     
     void setStatoCandidatura(int sc);
     

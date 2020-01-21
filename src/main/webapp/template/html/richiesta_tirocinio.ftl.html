@@ -48,7 +48,8 @@
                                 </select>
                             </div>
                         </div>
-                        <input value="submit_tirocinio" name="submit_tirocinio" type="hidden"/>
+                        <input value="${tirocinio.getId()}" name="tirocinio" type="hidden"/>
+                        <input value="submit" name="submit_richiesta" type="hidden"/>
                         <div class="centered">
                             <button class="btn btn-theme centered"  type="submit"><i class="fa fa-lock"></i> Invia Tirocinio</button>
                         </div>
@@ -83,9 +84,10 @@
                               <input class=" form-control" id="telefono_tt" name="telefono_tt" type="text" required/>
                             </div>
                         </div>
-                        <input value="submit_tutore" name="submit_tutore" type="hidden"/>
+                        <input value="${tirocinio.getId()}" name="tirocinio" type="hidden"/>
+                        <input value="submit" name="submit_tutore" type="hidden"/>
                         <div class="centered">
-                            <button class="btn btn-theme centered"  type="submit"><i class="fa fa-lock"></i> Crea Nuovo Tutore</button>
+                            <button class="btn btn-theme centered" type="submit"><i class="fa fa-lock"></i> Crea Nuovo Tutore</button>
                         </div>
                     </form>
                 </div>

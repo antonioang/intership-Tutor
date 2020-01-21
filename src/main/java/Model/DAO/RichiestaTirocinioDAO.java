@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import Model.Interfaces.RichiestaTirocinio;
 import framework.data.DataLayerException;
+import java.time.LocalDate;
 
 /**
  *
@@ -29,6 +30,8 @@ public interface RichiestaTirocinioDAO {
     int updRichiestaTirocinioStato(int id_richiesta, int st) throws DataLayerException;
     
     int updDocumentoRichiestaTirocinio (int id_richiesta, String src) throws DataLayerException;
+    
+    int updDataInizioDataFine(LocalDate data_inizio, LocalDate data_fine, int id_richiesta) throws DataLayerException;
     
     List<RichiestaTirocinio> getRichiesteTirocinioByTirocinio(int id_tirocinio) throws DataLayerException;
 }
