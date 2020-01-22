@@ -35,4 +35,6 @@ public interface StudenteDAO {
     int updStudente(Studente st) throws DataLayerException;
     
     int delStudente(Studente st) throws DataLayerException;
+    
+    void storeStudente(Studente st) throws DataLayerException;
 }

@@ -6,8 +6,6 @@
 package Model.Impl;
 
 import Model.Interfaces.Rapporto;
-import Model.Interfaces.Studente;
-import Model.Interfaces.Tirocinio;
 
 /**
  *
@@ -15,24 +13,22 @@ import Model.Interfaces.Tirocinio;
  */
 public class Rapporto_imp implements Rapporto {
     
-    private String ore;
+    private int ore;
     private String descrizione_att;
     private String giudizio;
-    private String scr_doc;
     private int st;
     private int t;
     
     public Rapporto_imp(){
-        this.ore = "";
+        this.ore = 0;
         this.descrizione_att = "";
         this.giudizio = "";
-        this.scr_doc = "";
         this.st = 0;
         this.t = 0;
 }
 
     @Override
-    public String getOre() {
+    public int getOre() {
         return this.ore;
     }
 
@@ -47,11 +43,6 @@ public class Rapporto_imp implements Rapporto {
     }
 
     @Override
-    public String getSrcDocResoconto() {
-        return this.scr_doc;
-    }
-
-    @Override
     public int getStudente() {
         return this.st;
     }
@@ -62,7 +53,7 @@ public class Rapporto_imp implements Rapporto {
     }
 
     @Override
-    public void setOre(String ore) {
+    public void setOre(int ore) {
         this.ore = ore;
     }
 
@@ -74,11 +65,6 @@ public class Rapporto_imp implements Rapporto {
     @Override
     public void setGiudizio(String g) {
         this.giudizio = g;
-    }
-
-    @Override
-    public void setSrcDocResoconto(String src) {
-        this.scr_doc = src;
     }
 
     @Override

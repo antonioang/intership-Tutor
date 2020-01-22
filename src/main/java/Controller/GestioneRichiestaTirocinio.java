@@ -36,7 +36,7 @@ public class GestioneRichiestaTirocinio extends BaseController {
             request.setAttribute("username", s.getAttribute("username"));
             request.setAttribute("tipo", (int)s.getAttribute("tipo"));
         }
-        if(request.getParameter("id") != null && !request.getParameter("id").equals("0")){
+        if(request.getParameter("tirocinio") != null && !request.getParameter("tirocinio").equals("0") && request.getParameter("studente") != null && !request.getParameter("studente").equals("0")){
             try {
                 if(request.getParameter("accetta") != null){
                     action_accetta_richiesta(request, response);
@@ -47,8 +47,9 @@ public class GestioneRichiestaTirocinio extends BaseController {
                 else if(request.getParameter("imposta_date") != null){
                     action_imposta_date(request, response);
                 }
-                //action_default
-                action_default(request, response);
+                else{
+                    action_default(request, response);
+                }                
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
                 res.activate("gestione_richiesta.ftl.html", request, response);
@@ -63,8 +64,10 @@ public class GestioneRichiestaTirocinio extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response){
         try {
             //ottengo i dati dello studente, i dati del tutore universitario, e i dati della richiesta
-            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(Integer.parseInt(request.getParameter("id")));
-            Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(richiesta.getStudente());
+            int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
+            int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+            Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
             Persona tutore_uni = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(richiesta.getTutoreUniversitario());
             
             //setto i dati
@@ -81,11 +84,13 @@ public class GestioneRichiestaTirocinio extends BaseController {
     private void action_imposta_date(HttpServletRequest request, HttpServletResponse response){
         if(request.getParameter("data_inizio") != null && request.getParameter("data_fine") != null){
             try {
-                int id_richiesta = Integer.parseInt(request.getParameter("id"));
+                int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
+                int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+                RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
                 LocalDate data_inizio = SecurityLayer.checkDate(request.getParameter("data_inizio"));
                 LocalDate data_fine = SecurityLayer.checkDate(request.getParameter("data_fine"));
                 
-                int update = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDataInizioDataFine(data_inizio, data_fine, id_richiesta);
+                int update = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDataInizioDataFine(data_inizio, data_fine, richiesta.getId());
                 if(update != 1){
                     request.setAttribute("errore", "errore_aggiornamento");
                     request.setAttribute("messaggio", "L'inserimento delle date inizio e fine della richiesta di tirocinio non è andata a buon fine. Riprova!");
@@ -103,7 +108,9 @@ public class GestioneRichiestaTirocinio extends BaseController {
     
     private void action_accetta_richiesta(HttpServletRequest request, HttpServletResponse response){
         try {
-            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(Integer.parseInt(request.getParameter("id")));
+            int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
+            int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
             ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 2);
         } catch (DataLayerException ex) {
             request.setAttribute("eccezione", ex);
@@ -113,7 +120,9 @@ public class GestioneRichiestaTirocinio extends BaseController {
     
     private void action_rifiuta_richiesta(HttpServletRequest request, HttpServletResponse response){
         try {
-            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(Integer.parseInt(request.getParameter("id")));
+            int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
+            int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+            RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
             ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 4);
         } catch (DataLayerException ex) {
             request.setAttribute("eccezione", ex);

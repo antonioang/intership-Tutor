@@ -25,6 +25,8 @@ public interface AziendaDAO {
     Azienda getAziendaByUtente(int id_utente) throws DataLayerException;
     
     List<Azienda> getAziendeByStato(int stato) throws DataLayerException;
+    
+    float getValutazioneAzienda(int azienda) throws DataLayerException;
         
     int updateAziendaStato(int id_az, int stato) throws DataLayerException;
     
@@ -35,5 +37,7 @@ public interface AziendaDAO {
     int updAziendaDocumento(int id_az, String src) throws DataLayerException;
         
     int updAzienda(Azienda az) throws DataLayerException;
+    
+    void storeAzienda(Azienda az) throws DataLayerException;
     
 }

@@ -47,10 +47,13 @@ public class DettaglioAzienda extends BaseController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response){
         try {
-            //Ottengo l'azienda e la lista dei tirocini
+            //Ottengo l'azienda, la sua valutazione e la lista dei tirocini
             int id_azienda =Integer.parseInt(request.getParameter("id"));
             Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(id_azienda);
             List<Tirocinio> tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocini(azienda.getId());
+            float valutazione = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getValutazioneAzienda(id_azienda);
+            
+            request.setAttribute("valutazione", valutazione);
             request.setAttribute("azienda", azienda);
             request.setAttribute("tirocini", tirocini);
             

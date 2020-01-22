@@ -208,4 +208,9 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         return lista;
     }
     
+    @Override
+    public void storePersona(Persona p) throws DataLayerException{
+        
+    }
+    
 }

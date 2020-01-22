@@ -18,8 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -43,7 +42,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
                 "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n" +
                 "WHERE id_studente=?");
             getStudentiByTirocinioAccettato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 2");
-            getStudentiByTirocinioSospeso = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 0");
+            getStudentiByTirocinioSospeso = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 1");
             getStudentiByTirocinioRifiutato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 4");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
@@ -72,6 +71,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             st.setProvinciaResidenza(rs.getString("provincia_residenza"));
             st.setTelefono(rs.getString("telefono"));
             st.setId(rs.getInt("id_studente"));
+            st.setUtente(rs.getInt("utente"));
             return st;
         } catch (SQLException ex) {
             throw new DataLayerException("Impossibile creare oggetto Studente dal ResultSet", ex);
@@ -107,7 +107,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             addStudente.setString(10, st.getTelefono());
             addStudente.setString(11, st.getCorsoLaurea());
             addStudente.setBoolean(12, st.getHandicap());
-            addStudente.setInt(13, st.getUtente().getId());
+            addStudente.setInt(13, st.getUtente());
             if (addStudente.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
                 //per il record appena inserito, usiamo il metodo
@@ -153,7 +153,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             updStudente.setString(10, st.getTelefono());
             updStudente.setString(11, st.getCorsoLaurea());
             updStudente.setBoolean(12, st.getHandicap());
-            updStudente.setInt(13, st.getUtente().getId());
+            updStudente.setInt(13, st.getUtente());
             updStudente.setInt(14, st.getId());           
             return updStudente.executeUpdate(); 
             
@@ -247,6 +247,9 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         }
         super.destroy();
     }
-    
+    @Override
+    public void storeStudente(Studente st) throws DataLayerException{
+        
+    } 
     
 }

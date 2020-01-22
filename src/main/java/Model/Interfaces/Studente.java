@@ -39,7 +39,7 @@ public interface Studente {
     
     boolean getHandicap();
             
-    Utente getUtente();
+    int getUtente();
     
     void setId(int id);
     
@@ -67,5 +67,5 @@ public interface Studente {
     
     void setHandicap(boolean handicap);
             
-    void setUtente(Utente ut);
+    void setUtente(int ut);
 }

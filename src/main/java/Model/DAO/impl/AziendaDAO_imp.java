@@ -16,9 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 
 /**
  *
@@ -28,7 +28,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
 
     private PreparedStatement getAziendaById, getAziendaByUtente, getAziendaByStato, getTirocinantiAttivi;
     private PreparedStatement uAziendaByStato, uAziendaDoc, updAzienda;
-    private PreparedStatement addAzienda, delAzienda;
+    private PreparedStatement addAzienda, delAzienda, getValutazione;
     
     public AziendaDAO_imp(DataLayer d) {
         super(d);
@@ -57,6 +57,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             + "responsabile_tirocini, utente, nome)\n" +
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             delAzienda = connection.prepareStatement("DELETE FROM azienda WHERE id_azienda=?");
+            getValutazione = connection.prepareStatement("SELECT AVG(punteggio) AS media FROM valutazione_azienda where azienda = ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore inizializzazione degli statement azienda", ex);
         }
@@ -88,6 +89,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             az.setFineConv(rs.getDate("fine_conv").toLocalDate());
             az.setRespTirocini(rs.getInt("responsabile_tirocini"));
             az.setId(rs.getInt("id_azienda"));
+            az.setUtente(rs.getInt("utente"));
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante creazione azienda", ex);
         }
@@ -166,7 +168,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             addAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
             addAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
             addAzienda.setInt(15, az.getRespTirocini());
-            addAzienda.setInt(16, az.getUtente().getId());
+            addAzienda.setInt(16, az.getUtente());
             addAzienda.setString(17, az.getNome());
             if (addAzienda.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
@@ -237,7 +239,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
             updAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
             updAzienda.setInt(15, az.getRespTirocini());
-            updAzienda.setInt(16, az.getUtente().getId());
+            updAzienda.setInt(16, az.getUtente());
             updAzienda.setString(17, az.getNome());
             updAzienda.setInt(18, az.getId());
             return updAzienda.executeUpdate();
@@ -261,6 +263,25 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
         super.destroy();
+    }
+
+    @Override
+    public float getValutazioneAzienda(int azienda) throws DataLayerException {
+        try {
+            getValutazione.setInt(1, azienda);
+            ResultSet rs = getValutazione.executeQuery();
+            if(rs.next()){
+                return rs.getFloat("media");
+            }
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il calcolo della valutazione", ex);
+        }
+        return 0;
+    }
+    
+    @Override
+    public void storeAzienda(Azienda az)throws DataLayerException{
+        
     }
     
 }

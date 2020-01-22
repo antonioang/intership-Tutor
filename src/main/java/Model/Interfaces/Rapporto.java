@@ -10,25 +10,21 @@ package Model.Interfaces;
  * @author jacopo
  */
 public interface Rapporto {
-    String getOre();
+    int getOre();
     
     String getDescrizioneAtt();
     
     String getGiudizio();
     
-    String getSrcDocResoconto();
-    
     int getStudente();
     
     int getTirocinio();
     
-    void setOre(String ore);
+    void setOre(int ore);
     
     void setDescrizioneAtt(String d);
     
     void setGiudizio(String g);
-    
-    void setSrcDocResoconto(String src);
     
     void setStudente(int s);
     

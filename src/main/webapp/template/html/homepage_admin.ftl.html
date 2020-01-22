@@ -11,6 +11,7 @@
                 <th>Inizio/Fine Convenzione</th>
                 <th>Indirizzo</th>
                 <th>Ragione Sociale</th>
+                <th>Approva/Rifiuta Azienda</th>
               </tr>
             </thead>
             <tbody>
@@ -18,10 +19,19 @@
               <#list aziende_da_approvare as azienda>
               <tr>
                 <td>1</td>
-                <td>${azieda.getNome()}</td>
+                <td>${azienda.getNome()}</td>
                 <td>${azienda.getInizioConv()} - ${azienda.getFineConv()}</td>
                 <td>${azienda.getIndirizzo()}</td>
                 <td>${azienda.getRagioneSociale()}</td>
+                <td>
+                    <a href="gestione_azienda?id=${azienda.getId()}&action=approva">
+                        Approva
+                    </a>
+                    /
+                    <a href="gestione_azienda?id=${azienda.getId()}&action=rifiuta">
+                        Rifiuta
+                    </a>
+                </td>
               </tr>
               </#list>
             <#else>
