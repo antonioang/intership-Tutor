@@ -30,5 +30,5 @@ public interface RapportoDAO {
     
     int updateDocumentoRapporto(int st, int t, String src)throws DataLayerException;
     
-    
+    void storeRapporto(Rapporto rapporto) throws DataLayerException;
 }

@@ -138,5 +138,8 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
         super.destroy();
     }
    
-    
+     @Override
+    public void storeRapporto(Rapporto rapporto){
+        
+    }
 }
