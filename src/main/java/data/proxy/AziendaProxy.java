@@ -124,6 +124,7 @@ public class AziendaProxy extends Azienda_imp {
     @Override
     public void setRespTirocini(int id) {
         super.setRespTirocini(id);
+        this.responsabile_tirocinioId = id;
         this.dirty = true;
     }
 
@@ -137,7 +138,6 @@ public class AziendaProxy extends Azienda_imp {
     @Override
     public void setPersona(Persona p){
         super.setPersona(p);
-        this.responsabile_tirocinioId = p.getId();
         this.dirty = true;
     }
 
