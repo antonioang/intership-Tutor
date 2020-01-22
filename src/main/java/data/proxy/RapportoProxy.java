@@ -25,7 +25,7 @@ public class RapportoProxy extends Rapporto_imp {
         this.tirocinio_id = 0;
     }
     @Override
-    public void setOre(String ore) {
+    public void setOre(int ore) {
         super.setOre(ore);
         this.dirty = true;
     }

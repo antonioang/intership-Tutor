@@ -10,7 +10,7 @@ package Model.Interfaces;
  * @author jacopo
  */
 public interface Rapporto {
-    String getOre();
+    int getOre();
     
     String getDescrizioneAtt();
     
@@ -22,7 +22,7 @@ public interface Rapporto {
     
     int getTirocinio();
     
-    void setOre(String ore);
+    void setOre(int ore);
     
     void setDescrizioneAtt(String d);
     

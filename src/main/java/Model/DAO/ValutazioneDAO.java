@@ -28,9 +28,9 @@ public interface ValutazioneDAO {
     
     Valutazione getValutazione(int id_az, int id_st)throws DataLayerException;
     
-    int deleteValutazione(int id_az, int id_st)throws DataLayerException;
+    int delValutazione(int id_az, int id_st)throws DataLayerException;
     
-    int insertValutazione(Valutazione v)throws DataLayerException;
+    int addValutazione(Valutazione v)throws DataLayerException;
     
     void storeValutazione(Valutazione v) throws DataLayerException;
 }

@@ -112,10 +112,13 @@ public class GeneraDocumenti extends BaseController {
                 int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
+                RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+                Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
                 //setto i dati necessari 
                 request.setAttribute("studente", studente);
-                //setto i dati necessari 
                 request.setAttribute("tirocinio", tirocinio);
+                request.setAttribute("richiesta_tirocinio", richiesta);
+                request.setAttribute("azienda", azienda);
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
                 res.activateNoOutline("modulo_richiesta_convenzione.ftl.html", request, response);  

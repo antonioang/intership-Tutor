@@ -71,7 +71,7 @@
     <#if tipo==2 || tipo==3>
     <div class="row mt content-panel">
         <div class="col-lg-12">
-            <h3><i class="fa fa-angle-right"></i>Studenti Candidati</h3>
+            <h3><i class="fa fa-angle-right"></i>Studenti Attivi</h3>
             <div class="panel-body">
                 <div class="row">
                     <table class="table table-hover">
@@ -96,7 +96,7 @@
                           </#list>
                         <#else>
                             <tr>
-                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                                <td>La lista degli studenti attivi &egrave; vuota</td>
                             </tr>
                         </#if>
                         </tbody>
@@ -132,7 +132,7 @@
                           </#list>
                         <#else>
                             <tr>
-                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                                <td>La lista degli studenti rifiutati &egrave; vuota</td>
                             </tr>
                         </#if>
                         </tbody>
@@ -166,18 +166,15 @@
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
                             <td>
-                                <a href="tirocinio?id=${tirocinio.getId()}&id_studente=${studente.getId()}&action=true">
-                                <button><i class="fa fa-check"></i></button>
-                                </a>
-                                <a href="tirocinio?id=${tirocinio.getId()}&id_studente=${studente.getId()}&action=false">
-                                <button><i class="fa fa-times"></i></button>
+                                <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}">
+                                    Gestione Candidatura
                                 </a>
                             </td>
                           </tr>
                           </#list>
                         <#else>
                             <tr>
-                                <td>La lista degli studenti candidati &egrave; vuota</td>
+                                <td>La lista degli studenti in sospeso &egrave; vuota</td>
                             </tr>
                         </#if>
                         </tbody>
