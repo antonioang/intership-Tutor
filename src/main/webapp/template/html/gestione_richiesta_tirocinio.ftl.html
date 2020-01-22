@@ -1,1 +1,181 @@
-
+<section class="wrapper">
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Informazioni Sudente</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Nome</h5>
+                            <p>${studente.getNome()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Nato a</h5>
+                            <p>${studente.getCittaNascita()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Residente</h5>
+                            <p>${studente.getCittaResidenza()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Telefono</h5>
+                            <p>${studente.getTelefono()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Cognome</h5>
+                            <p>${studente.getCognome()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Provincia di</h5>
+                            <p>${studente.getProvinciaNascita()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>CAP</h5>
+                            <p>${studente.getCapResidenza()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Handicap</h5>
+                            <p>${studente.getHandicap()?string('si', 'no')}</p>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-4">                        
+                        <div class="centered overview-profile-text">
+                            <h5>Codice Fsicale</h5>
+                            <p>${studente.getCodFiscale()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Data</h5>
+                            <p>${studente.getDataNascita()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Provincia di Residenza</h5>
+                            <p>${studente.getProvinciaResidenza()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Corso di Laurea</h5>
+                            <p>${studente.getCorsoLaurea()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Informazioni Richiesta</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>CFU Richiesti</h5>
+                            <p>${richiesta_tirocinio.getCfu()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Dottorato di Ricerca</h5>
+                            <p>${richiesta_tirocinio.getDottorato()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Diploma</h5>
+                            <p>${richiesta_tirocinio.getDiploma()}</p>
+                        </div>
+                        <div class="centered overview-profile-text">
+                            <h5>Specializzazione</h5>
+                            <p>${richiesta_tirocinio.getSpecializzazione()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">                        
+                        <div class="centered overview-profile-text">
+                            <h5>Laurea</h5>
+                            <p>${richiesta_tirocinio.getLaurea()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Informazioni Tutore Universitario</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Nome e Cognome</h5>
+                            <p>${tutore_uni.getNome()} ${tutore_uni.getCognome()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Email</h5>
+                            <p>${tutore_uni.getEmail()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">                        
+                        <div class="centered overview-profile-text">
+                            <h5>Telefono</h5>
+                            <p>${tutore_uni.getTelefono()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt content-panel">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i>Informazioni Finali Richiesta</h3>
+            <div class="panel-body">
+                <div class="row">
+                    <form action="">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label centered col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
+                            <div class="col-sm-12">
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_nascita" name="data_nascita" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label centered col-lg-12" for="data_fine" >Fine Tirocinio</label>
+                            <div class="col-sm-12">
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_nascita" name="data_nascita" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">                        
+                        <div class="centered overview-profile-text">
+                            <h5>Telefono</h5>
+                            <p>${tutore_uni.getTelefono()}</p>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="row mt">
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Nome e Cognome</h5>
+                            <p>${tutore_uni.getNome()} ${tutore_uni.getCognome()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="centered overview-profile-text">
+                            <h5>Email</h5>
+                            <p>${tutore_uni.getEmail()}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">                        
+                        <div class="centered overview-profile-text">
+                            <h5>Telefono</h5>
+                            <p>${tutore_uni.getTelefono()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

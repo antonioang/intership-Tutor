@@ -31,7 +31,7 @@ public class UploadDocumenti extends BaseController {
         HttpSession s = SecurityLayer.checkSession(request);
         if (s!= null) {
             request.setAttribute("username", (String)s.getAttribute("username"));
-            request.setAttribute("tipo", (String)s.getAttribute("tipo"));
+            request.setAttribute("tipo", (int)s.getAttribute("tipo"));
         }
         System.out.println("fuori");
         if (request.getParameter("tipo") != null ) {
