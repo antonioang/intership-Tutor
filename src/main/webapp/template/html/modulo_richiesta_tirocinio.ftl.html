@@ -133,19 +133,74 @@ body {margin-top: 0px;margin-left: 0px;}
 .td4{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 318px;}
 .td5{border-left: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 334px;vertical-align: bottom;}
 
+.contenitore{
+    float:left;
+}
+.contenitore1{
+    float:left;
+    width:100%
+}
+
 .input{
     margin-left: 15px;
     margin-right: -118px;
     font-weight: bold;
 }
 .titolo{
-    width: 200px;
+    width: 150px;
     margin-right: 5px;
 }
 .paragrafo{
     display: inline-block;
     border-bottom: 1px solid black;
-    width: 350px;
+    width: 300px;
+}
+.paragrafo_cn{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 200px;
+}
+.paragrafo_dn{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 120px;
+}
+.paragrafo_provincia{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 90px;
+}
+.paragrafo_date{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 300px;
+}
+.paragrafo_mesi{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 150px;
+}
+.paragrafo_obiettivo{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+.paragrafo_vuoto{
+    display: inline-block;
+}
+.paragrafo1{
+    width: 80%;
+    border-bottom: 1px solid black;
+    margin-left:5%
+}
+.paragrafo_cr{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 370px;
+}
+.underlined{
+    text-decoration: underline;
+    font-weight: bold;
 }
 .image{
     width: 60px;
@@ -196,24 +251,105 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p5 ft7">ALLEGATO 1</P>
 <P class="p6 ft7">alla Convenzione per lo svolgimento di attivit&agrave; di tirocinio e di orientamento (ai sensi dell'art. 18 L.196/97 e dell'Art. 1 Decreto Ministero del Lavoro e Previdenza Sociale N. 142/98 e della Legge 148 del 14/09/2011) per studenti, laureati e diplomati del Dipartimento di Ingegneria, Scienze dell'Informazione e Matematica dell'Universit&agrave; degli Studi dell'Aquila.</P>
 <P class="p7 ft7">PROGETTO FORMATIVO E DI ORIENTAMENTO</P>
+
+<#if studente??>
+<div class=" p9 ft8"><span class="titolo ft7">Nominativo del tirocinante</span><p class="paragrafo"><span class="input">${studente.getNome()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p8 ft8"><SPAN class="ft7">Nominativo del tirocinante </SPAN>_________________________________________________</P>
+</#if>
+
+<#if studente??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">Nato a</span><p class="paragrafo_cn"><span class="input">${studente.getCittaNascita()}</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">Prov.</span><p class="paragrafo_provincia"><span class="input">(${studente.getProvinciaNascita()})</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">il</span><p class="paragrafo_dn"><span class="input">${studente.getDataNascita()}</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p9 ft8"><SPAN class="ft7">Nato a </SPAN>__________________________________________Prov._____ il ____/___/ ____</P>
+</#if>
+
+<#if studente??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">Residente in</span><p class="paragrafo_cr"><span class="input">${studente.getCittaResidenza()}</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">Prov.</span><p class="paragrafo_provincia"><span class="input">(${studente.getProvinciaResidenza()})</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p9 ft8"><SPAN class="ft7">Residente in </SPAN>____________________________________________Prov. (_______)</P>
+</#if>
+
+<#if studente??>
+<div class=" p9 ft8"><span class="titolo ft7">Codice fiscale</span><p class="paragrafo"><span class="input">${studente.getCodFiscale()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p10 ft8"><SPAN class="ft7">Codice fiscale</SPAN>____________________________________________________________</P>
+</#if>
+
+<#if studente??>
+<div class=" p9 ft8"><span class="titolo ft7">Telefono</span><p class="paragrafo"><span class="input">${studente.getTelefono()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p9 ft8"><SPAN class="ft7">Telefono </SPAN>________________________________________________________________</P>
+</#if>
+
 <P class="p11 ft9">Attuale condizione (barrare la casella &#8211; possibilit&agrave; di doppia scelta):</P>
+
+<#if studente??>
+<div class=" p9 ft8">&#9745;<span class="titolo p12 ft8">Studente Corso di Laurea in:</span><p class="paragrafo"><span class="input">${studente.getCorsoLaurea()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p12 ft8"><SPAN class="ft10">&#9745;</SPAN><SPAN class="ft11">Studente Corso di Laurea in: ______________________________________________</SPAN></P>
-<P class="p13 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Diplomato. Diploma universitario in: ________________________________________</SPAN></P>
+</#if>
+
+<#if richiesta_tirocinio??>
+<div class=" p9 ft8">&#9745;<span class="titolo p12 ft8">Diplomato. Diploma universitario in:</span><p class="paragrafo"><span class="input">${richiesta_tirocinio.getDiploma()}</span>&nbsp;</p>,
 <P class="p14 ft8">(entro 12 mesi dal diploma)</P>
+</div>
+<#else>
+<P class="p13 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Diplomato. Diploma universitario in: ________________________________________</SPAN></P>
+<P class="p15 ft8">(entro 12 mesi dalla laurea)</P>
+</#if>
+
+<#if richiesta_tirocinio??>
+<div class=" p9 ft8">&#9745;<span class="titolo p12 ft8">Laureato. Laurea in:</span><p class="paragrafo"><span class="input">${richiesta_tirocinio.getLaurea()}</span>&nbsp;</p>,
+<P class="p14 ft8">(entro 12 mesi dal diploma)</P>
+</div>
+<#else>
 <P class="p13 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Laureato. Laurea in: ____________________________________________________</SPAN></P>
 <P class="p15 ft8">(entro 12 mesi dalla laurea)</P>
-<P class="p9 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Dottorato di ricerca in: ___________________________________________________</SPAN></P>
+</#if>
+
+<#if richiesta_tirocinio??>
+<div class=" p9 ft8">&#9745;<span class="titolo p12 ft8">Dottorato di ricerca in:</span><p class="paragrafo"><span class="input">${richiesta_tirocinio.getDottorato()}</span>&nbsp;</p>,
+</div>
+<#else>
+<P class="p13 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Dottorato di ricerca in: ____________________________________________________</SPAN></P>
+</#if>
+
+<#if richiesta_tirocinio??>
+<div class=" p9 ft8">&#9745;<span class="titolo p12 ft8">Scuola o corso di perfezionamento o specializzazione in:</span><p class="paragrafo"><span class="input">${richiesta_tirocinio.getSpecializzazione()}</span>&nbsp;</p>,
+</div>
+<#else>
 <P class="p16 ft8"><SPAN class="ft10">&#9744;</SPAN><SPAN class="ft11">Scuola o corso di perfezionamento o specializzazione in: ________________________</SPAN></P>
-<P class="p17 ft8">__________________________________________________________________</P>
+</#if>
+
 <P class="p13 ft8">Barrare se trattasi di soggetto portatore di handicap:</P>
+
+<#if studente.getHandicap()??>
+    <#if studente.getHandicap() == true>
+    <P class="p18 ft8">Si<SPAN style="padding-left:114px;"><SPAN class="ft12">&#9745;</SPAN></SPAN></P>
+    <P class="p19 ft8">No<SPAN style="padding-left:111px;"><SPAN class="ft13">&#9744;</SPAN></SPAN></P>
+    <#else>
+    <P class="p18 ft8">Si<SPAN style="padding-left:114px;"><SPAN class="ft12">&#9744;</SPAN></SPAN></P>
+    <P class="p19 ft8">No<SPAN style="padding-left:111px;"><SPAN class="ft13">&#9745;</SPAN></SPAN></P>
+    </#if>
+<#else>
 <P class="p18 ft8">Si<SPAN style="padding-left:114px;"><SPAN class="ft12">&#9744;</SPAN></SPAN></P>
 <P class="p19 ft8">No<SPAN style="padding-left:111px;"><SPAN class="ft13">&#9744;</SPAN></SPAN></P>
+</#if>
+
+<#if azienda??>
+<div class=" p9 ft8"><span class="titolo ft7">Ente/Azienda ospitante</span><p class="paragrafo"><span class="input">${azienda.getNome()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p20 ft8"><SPAN class="ft7">Ente/Azienda ospitante </SPAN>___________________________________________________</P>
+</#if>
+
 </DIV>
 <DIV id="page_2">
     <div class="image-container">
@@ -224,15 +360,63 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p21 ft0">UNIVERSITA' DEGLI STUDI DELL'AQUILA</P>
 <P class="p22 ft1">Dipartimento di INGEGNERIA E SCIENZE DELL'INFORMAZIONE E MATEMATICA</P>
 <P class="p23 ft14">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</P>
-<P class="p24 ft8"><SPAN class="ft7">Luogo di effettuazione del tirocinio </SPAN>_________________________________________</P>
-<P class="p25 ft8"><SPAN class="ft7">Settore di inserimento </SPAN>____________________________________________________</P>
-<P class="p26 ft8"><SPAN class="ft7">Tempi di accesso ai locali aziendali </SPAN>_________________________________________</P>
+
+<#if azienda??>
+<div class=" p9 ft8"><span class="titolo ft7">Luogo di effettuazione del tirocinio</span><p class="paragrafo"><span class="input">${azienda.getCitta()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p20 ft8"><SPAN class="ft7">Luogo di effettuazione del tirocinio </SPAN>___________________________________________________</P>
+</#if>
+
+<#if tirocinio??>
+<div class=" p9 ft8"><span class="titolo ft7">Settore di inserimento</span><p class="paragrafo"><span class="input">${tirocinio.getSettore()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p20 ft8"><SPAN class="ft7">Settore di inserimento</SPAN>___________________________________________________</P>
+</#if>
+
+<#if tirocinio??>
+<div class=" p9 ft8"><span class="titolo ft7">Tempi di accesso ai locali aziendali </span><p class="paragrafo"><span class="input">${tirocinio.getOrari()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p20 ft8"><SPAN class="ft7">Tempi di accesso ai locali aziendali</SPAN>___________________________________________________</P>
+</#if>
+
+<#if tirocinio??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">Periodo di tirocinio</span><p class="paragrafo_vuoto"></p>:</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">n.</span><p class="paragrafo_mesi"><span class="input">${durata_mesi} mesi</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">dal</span><p class="paragrafo_date"><span class="input">${richiesta_tirocinio.getDataInizio()} al ${richiesta_tirocinio.getDataFine()}</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p25 ft8"><SPAN class="ft7">Periodo di tirocinio </SPAN>n. _______ mesi dal___________________al __________________</P>
-<P class="p27 ft16">(con possibilit&agrave; di proroga entro i limiti massimi previsti dalla normativa vigente) <SPAN class="ft15">numero ore di tirocinio __________ per il conseguimento di n. ___________ CFU</SPAN></P>
+</#if>
+
+<P class="p27 ft16">(con possibilit&agrave; di proroga entro i limiti massimi previsti dalla normativa vigente)</P>
+
+<#if tirocinio??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">numero ore di tirocinio</span><p class="paragrafo_mesi"><span class="input">${tirocinio.getDurata()} ore</span></p></div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">per il sonseguimento di n.</span><p class="paragrafo_mesi"><span class="input">${richiesta_tirocinio.getCfu()} CFU</span>&nbsp;</p>,</div>
+</div>
+<#else>
+<P class="p27 ft16">
+    <SPAN class="ft15">numero ore di tirocinio __________ per il conseguimento di n. ___________ CFU</SPAN></P>
+</#if>
+
+<#if tutore_tirocinio??>
+<div class=" p9 ft8"><span class="titolo ft7">Tutore universitario</span><p class="paragrafo"><span class="input">${tutore_tirocinio.getNome()}</span>&nbsp;</p>,</div>
+<div class=" p9 ft8"><span class="titolo p25 ft7">Telefono</span><p class="paragrafo"><span class="input">${tutore_tirocinio.getTelefono()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p28 ft8"><SPAN class="ft7">Tutore universitario</SPAN>_______________________________________________________</P>
 <P class="p25 ft8">Telefono___________________________________</P>
-<P class="p29 ft8"><SPAN class="ft7">Tutore aziendale</SPAN>: _________________________________________________________</P>
-<P class="p26 ft8">Telefono___________________________________</P>
+</#if>
+
+<#if rappresentante_tirocini??>
+<div class=" p9 ft8"><span class="titolo ft7">Tutore aziendale</span><p class="paragrafo"><span class="input">${rappresentante_tirocini.getNome()}</span>&nbsp;</p>,</div>
+<div class=" p9 ft8"><span class="titolo p25 ft7">Telefono</span><p class="paragrafo"><span class="input">${rappresentante_tirocini.getTelefono()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p28 ft8"><SPAN class="ft7">Tutore aziendale</SPAN>_______________________________________________________</P>
+<P class="p25 ft8">Telefono___________________________________</P>
+</#if>
+
 <P class="p29 ft7">Polizze assicurative<SPAN class="ft17">:</SPAN></P>
 <P class="p24 ft18">Copertura assicurativa per rischio responsabilit&agrave; civile terzi:</P>
 <P class="p24 ft8">Compagnia assicurativa: QBE Insurance Assicurazioni</P>
@@ -245,14 +429,40 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p29 ft7">Posizione INAIL:</P>
 <P class="p24 ft8">Copertura assicurativa "in conto Stato" ex art. 2 D.P.R. N. 156 del 9.04.1999</P>
 <P class="p25 ft19">Obiettivi del tirocinio:</P>
-<P class="p24 ft8">________________________________________________________________________</P>
-<P class="p24 ft8">________________________________________________________________________</P>
-<P class="p30 ft8">________________________________________________________________________</P>
-<P class="p24 ft8">________________________________________________________________________</P>
+
+<#if tirocinio??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><p class="paragrafo_obiettivo"><span class="input">${tirocinio.getObiettivo()}</span></p></div>
+</div>
+<#else>
+<P class="p27 ft16">
+    <P class="p24 ft8">________________________________________________________________________</P>
+</#if>
+
 <P class="p31 ft19">Modalit&agrave;:</P>
-<P class="p24 ft8">________________________________________________________________________</P>
-<P class="p24 ft8">________________________________________________________________________</P>
+
+<#if tirocinio??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><p class="paragrafo_obiettivo"><span class="input">${tirocinio.getModalita()}</span></p></div>
+</div>
+<#else>
+<P class="p27 ft16">
+    <P class="p24 ft8">________________________________________________________________________</P>
+    <P class="p24 ft8">________________________________________________________________________</P>
+</#if>
+
 <P class="p32 ft19">Facilitazioni previste: sussidio di formazione e servizi aziendali (mensa)</P>
+
+<#if tirocinio??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><p class="paragrafo_obiettivo"><span class="input">${tirocinio.getFacilitazioni()}</span></p></div>
+</div>
+<#else>
+<P class="p27 ft16">
+    <P class="p24 ft8">________________________________________________________________________</P>
+    <P class="p24 ft8">________________________________________________________________________</P>
+</#if>
+
 <P class="p24 ft8">________________________________________________________________________</P>
 </DIV>
 <DIV id="page_3">

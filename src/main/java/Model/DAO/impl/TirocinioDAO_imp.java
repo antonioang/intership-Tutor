@@ -8,6 +8,7 @@ package Model.DAO.impl;
 import Model.DAO.TirocinioDAO;
 import Model.Impl.Tirocinio_imp;
 import Model.Interfaces.Tirocinio;
+import data.proxy.TirocinioProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
@@ -54,13 +55,13 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     }
     
     @Override
-    public Tirocinio createTirocinio() {
-        return new Tirocinio_imp();
+    public TirocinioProxy createTirocinio() {
+        return new TirocinioProxy(getDataLayer());
     }
 
     @Override
-    public Tirocinio createTirocinio(ResultSet rs) throws DataLayerException {
-        Tirocinio t = createTirocinio();
+    public TirocinioProxy createTirocinio(ResultSet rs) throws DataLayerException {
+        TirocinioProxy t = createTirocinio();
         try { 
             t.setLuogo(rs.getString("luogo"));
             t.setSettore(rs.getString("settore"));
@@ -253,6 +254,60 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     
     @Override
     public void storeTirocinio(Tirocinio tirocinio) throws DataLayerException{
+        int key = tirocinio.getId();
         
+        if (tirocinio.getId() > 0){//Controllo se esiste un istanza dell'oggetto
+            if(tirocinio instanceof TirocinioProxy && !((TirocinioProxy) tirocinio).isDirty()){
+                return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
+            }
+            try { //update se l'oggetto è stato modificato 
+               updTirocinio.setString(1, tirocinio.getLuogo());
+               updTirocinio.setString(2, tirocinio.getSettore());
+               updTirocinio.setString(3, tirocinio.getOrari());
+               updTirocinio.setString(5, tirocinio.getTitolo());
+               updTirocinio.setString(6, tirocinio.getObiettivo());
+               updTirocinio.setString(7, tirocinio.getModalita());
+               updTirocinio.setString(8, tirocinio.getFacilitazioni());
+               updTirocinio.setInt(4, tirocinio.getDurata());
+               updTirocinio.setInt(9, tirocinio.getAzienda());
+               updTirocinio.setInt(10, tirocinio.getTutoreTirocinio());
+               updTirocinio.setBoolean(11, tirocinio.getVisibile());
+               updTirocinio.setInt(12, tirocinio.getId());
+               updTirocinio.executeQuery();
+            } catch (SQLException ex) {
+                throw new DataLayerException("Errore durante l'update del tirocinio"+ ex);
+            }
+           }else{
+            try {
+               //insert dell'oggetto
+                addTirocinio.setString(1, tirocinio.getLuogo());
+                addTirocinio.setString(2, tirocinio.getSettore());
+                addTirocinio.setString(3, tirocinio.getOrari());          
+                addTirocinio.setString(5, tirocinio.getTitolo());
+                addTirocinio.setString(6, tirocinio.getObiettivo());
+                addTirocinio.setString(7, tirocinio.getModalita());
+                addTirocinio.setString(8, tirocinio.getFacilitazioni());
+                addTirocinio.setInt(4, tirocinio.getDurata());
+                addTirocinio.setInt(9, tirocinio.getAzienda());
+                addTirocinio.setInt(10, tirocinio.getTutoreTirocinio());
+                addTirocinio.setBoolean(11, tirocinio.getVisibile());
+                if(addTirocinio.executeUpdate() == 1){
+                   try(ResultSet keys = addTirocinio.getGeneratedKeys()){
+                       if(keys.next()){
+                           key = keys.getInt(1);
+                       }
+                   }
+                   tirocinio.setId(key);
+                   
+                }
+            } catch (SQLException ex) {
+                throw new DataLayerException("Errore durante l'inserimento del tirocinio"+ ex);
+            }
+           
+            
+        }
+        if(tirocinio instanceof TirocinioProxy){
+            ((TirocinioProxy) tirocinio).setDirty(false);
+        }
     }
 }

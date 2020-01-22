@@ -131,6 +131,8 @@ public class AziendaProxy extends Azienda_imp {
         this.dirty = true;
     }
     
+    
+
     @Override
     public void setId(int id) {
         super.setId(id);

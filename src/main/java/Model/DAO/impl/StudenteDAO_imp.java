@@ -8,6 +8,7 @@ package Model.DAO.impl;
 import Model.DAO.StudenteDAO;
 import Model.Impl.Studente_imp;
 import Model.Interfaces.Studente;
+import data.proxy.StudenteProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
@@ -50,14 +51,14 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
     }
     
     @Override
-    public Studente createStudente() {
-        return new Studente_imp();
+    public StudenteProxy createStudente() {
+        return new StudenteProxy(getDataLayer());
     }
 
     @Override
-    public Studente createStudente(ResultSet rs) throws DataLayerException {
+    public StudenteProxy createStudente(ResultSet rs) throws DataLayerException {
         try {
-            Studente st = createStudente();
+            StudenteProxy st = createStudente();
             st.setCapResidenza(rs.getInt("cap_residenza"));
             st.setCittaNascita(rs.getString("citta_nascita"));
             st.setCittaResidenza(rs.getString("citta_residenza"));
@@ -249,7 +250,65 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
     }
     @Override
     public void storeStudente(Studente st) throws DataLayerException{
+        int key = st.getId();
         
+        if (st.getId() > 0){//Controllo se esiste un istanza dell'oggetto
+            if(st instanceof StudenteProxy && !((StudenteProxy) st).isDirty()){
+                return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
+            }
+            try { //update se l'oggetto è stato modificato 
+                updStudente.setString(1, st.getNome());
+                updStudente.setString(2, st.getCognome());
+                updStudente.setString(3, st.getCodFiscale());
+                updStudente.setDate(4, java.sql.Date.valueOf(st.getDataNascita()));
+                updStudente.setString(5, st.getCittaNascita());
+                updStudente.setString(6, st.getProvinciaNascita());
+                updStudente.setString(7, st.getCittaResidenza());
+                updStudente.setString(8, st.getProvinciaResidenza());
+                updStudente.setInt(9, st.getCapResidenza());
+                updStudente.setString(10, st.getTelefono());
+                updStudente.setString(11, st.getCorsoLaurea());
+                updStudente.setBoolean(12, st.getHandicap());
+                updStudente.setInt(13, st.getUtente());
+                updStudente.setInt(14, st.getId());
+                updStudente.executeQuery();
+            } catch (SQLException ex) {
+                throw new DataLayerException("Errore durante l'update dello studente"+ ex);
+            }
+           }else{
+            try {
+               //insert dell'oggetto
+                addStudente.setString(1, st.getNome());
+                addStudente.setString(2, st.getCognome());
+                addStudente.setString(3, st.getCodFiscale());
+                addStudente.setDate(4, java.sql.Date.valueOf(st.getDataNascita()));
+                addStudente.setString(5, st.getCittaNascita());
+                addStudente.setString(6, st.getProvinciaNascita());
+                addStudente.setString(7, st.getCittaResidenza());
+                addStudente.setString(8, st.getProvinciaResidenza());
+                addStudente.setInt(9, st.getCapResidenza());
+                addStudente.setString(10, st.getTelefono());
+                addStudente.setString(11, st.getCorsoLaurea());
+                addStudente.setBoolean(12, st.getHandicap());
+                addStudente.setInt(13, st.getUtente());
+                if(addStudente.executeUpdate() == 1){
+                   try(ResultSet keys = addStudente.getGeneratedKeys()){
+                       if(keys.next()){
+                           key = keys.getInt(1);
+                       }
+                   }
+                   st.setId(key);
+                   
+                }
+            } catch (SQLException ex) {
+                throw new DataLayerException("Errore durante l'inserimento della persona"+ ex);
+            }
+           
+            
+        }
+        if(st instanceof StudenteProxy){
+            ((StudenteProxy) st).setDirty(false);
+        }
     } 
     
 }

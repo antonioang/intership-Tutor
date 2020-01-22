@@ -8,6 +8,7 @@ package Model.DAO.impl;
 import Model.DAO.PersonaDAO;
 import Model.Impl.Persona_imp;
 import Model.Interfaces.Persona;
+import data.proxy.PersonaProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
@@ -51,14 +52,14 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     }
     
     @Override
-    public Persona createPersona(){
-        return new Persona_imp();
+    public PersonaProxy createPersona(){
+        return new PersonaProxy(getDataLayer());
     }
 
     @Override
-    public Persona createPersona(ResultSet rs) throws DataLayerException {
+    public PersonaProxy createPersona(ResultSet rs) throws DataLayerException {
         try {
-            Persona p = createPersona();
+            PersonaProxy p = createPersona();
             p.setNome(rs.getString("nome"));
             p.setCognome(rs.getString("cognome"));
             p.setEmail(rs.getString("email"));
@@ -210,7 +211,49 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
     @Override
     public void storePersona(Persona p) throws DataLayerException{
+        int key = p.getId();
         
+        if (p.getId() > 0){//Controllo se esiste un istanza dell'oggetto
+            if(p instanceof PersonaProxy && !((PersonaProxy) p).isDirty()){
+                return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
+            }
+            try { //update se l'oggetto è stato modificato 
+                updPersona.setString(1, p.getNome());
+                updPersona.setString(2, p.getCognome());
+                updPersona.setString(3, p.getEmail());
+                updPersona.setString(4, p.getTelefono());
+                updPersona.setInt(5, p.getTipo());
+                updPersona.setInt(6, p.getId());
+                updPersona.executeUpdate();
+            } catch (SQLException ex) {
+                throw new DataLayerException("Errore durante l'update della persona"+ ex);
+            }
+           }else{
+            try {
+               //insert dell'oggetto
+                addPersona.setString(1, p.getNome());
+                addPersona.setString(2, p.getCognome());
+                addPersona.setString(3, p.getEmail());
+                addPersona.setString(4, p.getTelefono());
+                addPersona.setInt(5, p.getTipo());
+                if(addPersona.executeUpdate() == 1){
+                   try(ResultSet keys = addPersona.getGeneratedKeys()){
+                       if(keys.next()){
+                           key = keys.getInt(1);
+                       }
+                   }
+                   p.setId(key);
+                   
+                }
+            } catch (SQLException ex) {
+                throw new DataLayerException("Errore durante l'inserimento della persona"+ ex);
+            }
+           
+            
+        }
+        if(p instanceof PersonaProxy){
+            ((PersonaProxy) p).setDirty(false);
+        }
     }
     
 }
