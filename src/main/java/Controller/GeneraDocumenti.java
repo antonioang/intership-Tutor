@@ -18,6 +18,7 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javax.servlet.ServletException;
@@ -115,14 +116,18 @@ public class GeneraDocumenti extends BaseController {
                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
                 RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
+                LocalDate inizio = richiesta.getDataInizio().toLocalDate();
+                LocalDate fine = richiesta.getDataFine().toLocalDate();
+                long durataInMesi = ChronoUnit.MONTHS.between(inizio, fine);
                 //setto i dati necessari 
+                request.setAttribute("durata_mesi", durataInMesi);
                 request.setAttribute("studente", studente);
                 request.setAttribute("tirocinio", tirocinio);
                 request.setAttribute("richiesta_tirocinio", richiesta);
                 request.setAttribute("azienda", azienda);
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
-                res.activateNoOutline("modulo_richiesta_convenzione.ftl.html", request, response);  
+                res.activateNoOutline("modulo_richiesta_tirocinio.ftl.html", request, response);  
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
