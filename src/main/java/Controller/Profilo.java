@@ -143,7 +143,7 @@ public class Profilo extends BaseController {
                     studente.setTelefono(request.getParameter("telefono"));
                     studente.setCorsoLaurea(request.getParameter("corso_laurea"));
                     studente.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
-                    studente.setUtente(utente);
+                    studente.setUtente(utente.getId());
                     
                     //Inserisco lo studente nel DB
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().updStudente(studente);
@@ -237,7 +237,7 @@ public class Profilo extends BaseController {
                     azienda.setInizioConv(SecurityLayer.checkDate(request.getParameter("inizio_conv")));
                     azienda.setFineConv(SecurityLayer.checkDate(request.getParameter("fine_conv")));
                     azienda.setRespTirocini(responsabile_tirocini.getId());
-                    azienda.setUtente(utente);
+                    azienda.setUtente(utente.getId());
                     
                     //Aggiorno l'azienda nel DB
                     int update = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().updAzienda(azienda);

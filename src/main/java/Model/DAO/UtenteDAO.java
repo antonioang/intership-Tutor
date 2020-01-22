@@ -29,7 +29,7 @@ public interface UtenteDAO {
     
     int addUtente(Utente utente) throws DataLayerException;
     
-    int delUtente(Utente utente) throws DataLayerException;
+    int delUtente(int utente) throws DataLayerException;
     
     int updUtente(Utente utente) throws DataLayerException;
     

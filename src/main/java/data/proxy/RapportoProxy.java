@@ -43,12 +43,6 @@ public class RapportoProxy extends Rapporto_imp {
     }
 
     @Override
-    public void setSrcDocResoconto(String src) {
-        super.setSrcDocResoconto(src);
-        this.dirty = true;
-    }
-
-    @Override
     public void setStudente(int s) {
         super.setStudente(s);
         this.studente_id = s;

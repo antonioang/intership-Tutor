@@ -71,7 +71,7 @@ public class UploadDocumenti extends BaseController {
                         os.write(buffer, 0, read);
                     }
                     //rimando alla servlet per la gestione delle richieste di convenzione per effettuare update dellla src del documento di convenzione
-                    response.sendRedirect("richieste_convenzione?convalida=si&az="+id_azienda+"&src="+uploaded.getName());
+                    response.sendRedirect("gestione_azienda?id="+id_azienda+"&src="+uploaded.getName());
                 }
             } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);

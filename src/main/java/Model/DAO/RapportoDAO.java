@@ -6,8 +6,6 @@
 package Model.DAO;
 
 import Model.Interfaces.Rapporto;
-import Model.Interfaces.Studente;
-import Model.Interfaces.Tirocinio;
 import framework.data.DataLayerException;
 import java.sql.ResultSet;
 import java.util.List;

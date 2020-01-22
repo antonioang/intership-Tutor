@@ -23,7 +23,7 @@ import java.util.List;
 public class RapportoDAO_imp extends DAO implements RapportoDAO {
     
      private PreparedStatement getRapporto, getRapportoByStudente, getRapportoByTirocinio;
-     private PreparedStatement updateSrcDoc, addRapporto;
+     private PreparedStatement addRapporto;
     
     public RapportoDAO_imp(DataLayer d) {
         super(d);
@@ -33,12 +33,11 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
     public void init() throws DataLayerException{
         super.init();
          try {
-             addRapporto = connection.prepareStatement("INSERT INTO .rapporto_tirocinio (ore, descrizione_att, giudizio, src_doc_resoconto, studente, tirocinio)\n" +
-                "VALUES(?, ?, ?, ?, ?, ?)");
+             addRapporto = connection.prepareStatement("INSERT INTO .rapporto_tirocinio (ore, descrizione_att, giudizio, studente, tirocinio)\n" +
+                "VALUES(?, ?, ?, ?, ?)");
              getRapporto = connection.prepareStatement("SELECT * FROM rapporto_tirocinio WHERE studente=? AND tirocinio=?");
              getRapportoByStudente = connection.prepareStatement("SELECT * FROM rapporto_tirocinio WHERE studente=?");
              getRapportoByTirocinio = connection.prepareStatement("SELECT * FROM rapporto_tirocinio WHERE tirocinio=?");
-             updateSrcDoc = connection.prepareStatement("UPDATE rapporto_tirocinio SET src_doc_resoconto WHERE studente=? AND tirocinio=?");
          } catch (SQLException ex) {
               throw new DataLayerException("Errore durante l'inizializzazione degli statements",ex);
          }
@@ -57,7 +56,6 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
              r.setOre(rs.getInt("ore"));
              r.setDescrizioneAtt(rs.getString("descrizione"));
              r.setGiudizio(rs.getString("giudizio"));
-             r.setSrcDocResoconto(rs.getString("src_doc_resoconto"));
              r.setStudente(rs.getInt("studente"));
              r.setTirocinio(rs.getInt("tirocinio"));
              
@@ -119,9 +117,8 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
              addRapporto.setInt(1, rp.getOre());
              addRapporto.setString(2, rp.getDescrizioneAtt());
              addRapporto.setString(3, rp.getGiudizio());
-             addRapporto.setString(4, rp.getSrcDocResoconto());
+             addRapporto.setInt(4, rp.getStudente());
              addRapporto.setInt(5, rp.getStudente());
-             addRapporto.setInt(6, rp.getStudente());
              return addRapporto.executeUpdate();
          } catch (SQLException ex) {
              throw new DataLayerException("Errore durante l'inserimento del rapporto", ex);
@@ -134,7 +131,6 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
             getRapporto.close();
             getRapportoByStudente.close();
             getRapportoByTirocinio.close();
-            updateSrcDoc.close();
             addRapporto.close();
             
         } catch (SQLException ex) {

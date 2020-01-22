@@ -64,9 +64,10 @@ public class Home extends BaseController {
                         break;
                     case 3:
                         //ADMIN
-
+                        
+                        List<Azienda> aziende_da_approvare = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendeByStato(0);
                         //setto i dati necessari
-
+                        request.setAttribute("aziende_da_approvare", aziende_da_approvare);
                         //mostro il template
                         res = new TemplateResult(getServletContext());
                         res.activate("homepage_admin.ftl.html", request, response);

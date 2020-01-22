@@ -87,6 +87,10 @@
         <servlet-name>CreaResoconto</servlet-name>
         <servlet-class>Controller.CreaResoconto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GestioneAzienda</servlet-name>
+        <servlet-class>Controller.GestioneAzienda</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -170,6 +174,10 @@
     <servlet-mapping>
         <servlet-name>CreaResoconto</servlet-name>
         <url-pattern>/crea_resoconto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestioneAzienda</servlet-name>
+        <url-pattern>/gestione_azienda</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

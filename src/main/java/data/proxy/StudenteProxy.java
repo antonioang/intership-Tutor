@@ -98,9 +98,9 @@ public class StudenteProxy extends Studente_imp {
     }
 
     @Override
-    public void setUtente(Utente ut) {
+    public void setUtente(int ut) {
         super.setUtente(ut);
-        this.utenteId = ut.getId();
+        this.utenteId = ut;
         this.dirty = true;
     }
 
