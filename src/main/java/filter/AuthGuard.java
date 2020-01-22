@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Mattia Lenza
  */
-@WebFilter({"/richiesta_tirocinio", "/profilo"})
+@WebFilter({"/richiedi_tirocinio", "/profilo"})
 public class AuthGuard implements Filter{
 
     @Override
@@ -30,7 +30,7 @@ public class AuthGuard implements Filter{
         HttpServletRequest http_request = (HttpServletRequest)request;
         HttpServletResponse http_response = (HttpServletResponse)response;
         HttpSession sessione = http_request.getSession();
-        
+                
         if (sessione.getAttribute("username") != null){
             //Utente loggato
             chain.doFilter(request, response); //vai tranquillo
