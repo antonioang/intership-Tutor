@@ -33,13 +33,14 @@ public class UploadDocumenti extends BaseController {
             request.setAttribute("username", (String)s.getAttribute("username"));
             request.setAttribute("tipo", (String)s.getAttribute("tipo"));
         }
-        
-        if (request.getParameter("tipo")!=null && (request.getParameter("tipo").equals("1") || request.getParameter("tipo").equals("2"))) {
+        System.out.println("fuori");
+        if (request.getParameter("tipo") != null ) {
+            System.out.println("dentro");
             if(request.getParameter("tipo").equals("1")){
                 //upload convenzione
                 action_upload_convenzione(request, response);
             }
-            else{
+            else if(request.getParameter("tipo").equals("2")){
                 //upload richiesta tirocinio
                 action_upload_richiesta(request, response);
             }

@@ -5,11 +5,7 @@
  */
 package data.proxy;
 
-import Model.DAO.PersonaDAO;
 import Model.Impl.Azienda_imp;
-import Model.Interfaces.Persona;
-import Model.Interfaces.RichiestaTirocinio;
-import Model.Interfaces.Utente;
 import framework.data.DataLayer;
 import java.time.LocalDate;
 
@@ -149,17 +145,5 @@ public class AziendaProxy extends Azienda_imp {
     public boolean isDirty() {
         return dirty;
     }
-
-//    public void setUtenteId(int id_utente){
-//        this.utenteId = id_utente;
-//        //reset della cache utente
-//        super.setPersona(null);
-//    }
-//    
-//    public void setPersonaId(int id_persona){
-//        this.responsabile_tirocinioId = id_persona;
-//        //reset della cache persona
-//        super.setPersona(null);
-//    }
 
 }
