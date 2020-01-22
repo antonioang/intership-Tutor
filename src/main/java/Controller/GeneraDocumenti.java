@@ -159,7 +159,7 @@ public class GeneraDocumenti extends BaseController {
                  request.setAttribute("richiesta_tirocinio", richiesta_tirocinio);
                  //mostro il template
                  TemplateResult res = new TemplateResult(getServletContext());
-                 res.activateNoOutline("modulo_resoconto_tirocinio.ftl.html", request, response);  
+                 res.activateNoOutline("modulo_resoconto.ftl.html", request, response);  
              } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
