@@ -22,7 +22,7 @@ public class Studente_imp implements Studente {
     private boolean handicap;
     private Tirocinio tirocinio;
     private LocalDate dataNascita;
-    private Utente utente;
+    private int utente;
     
     public Studente_imp(){
         this.id = 0;
@@ -39,6 +39,7 @@ public class Studente_imp implements Studente {
         this.handicap = false;
         this.tirocinio = null;
         this.dataNascita = null;
+        this.utente = 0;
     }
     
     @Override
@@ -107,7 +108,7 @@ public class Studente_imp implements Studente {
     }
     
     @Override
-    public Utente getUtente() {
+    public int getUtente() {
         return this.utente;
     }
 
@@ -172,7 +173,7 @@ public class Studente_imp implements Studente {
     }
 
     @Override
-    public void setUtente(Utente ut) {
+    public void setUtente(int ut) {
         this.utente = ut;
     }
 

@@ -175,9 +175,9 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     }
 
     @Override
-    public int delUtente(Utente utente) throws DataLayerException {
+    public int delUtente(int utente) throws DataLayerException {
         try {
-            delUtente.setInt(1, utente.getId());      
+            delUtente.setInt(1, utente);      
             return delUtente.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore nella cancellazione dell'utente", ex);

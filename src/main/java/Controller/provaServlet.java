@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 
 /**
  *
@@ -66,6 +67,10 @@ public class provaServlet extends BaseController {
         w.println("<H2>");
         w.println("Test Servlet e Sessione");
         w.println("</H2>");
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        String encryptedPassword = passwordEncryptor.encryptPassword("admin");
+        w.println(encryptedPassword);
+        
         //Ottengo la sessione (se esiste) dalla richiesta
         HttpSession sessione = request.getSession(true);
  

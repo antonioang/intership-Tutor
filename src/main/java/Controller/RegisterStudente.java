@@ -110,7 +110,7 @@ public class RegisterStudente extends BaseController{
                 st.setTelefono(request.getParameter("telefono"));
                 st.setCorsoLaurea(request.getParameter("corso_laurea"));
                 st.setHandicap(Boolean.valueOf(request.getParameter("handicap")));
-                st.setUtente(ut);
+                st.setUtente(ut.getId());
                 
                 //Inserisco lo studente nel DB
                 int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().addStudente(st);
@@ -118,7 +118,7 @@ public class RegisterStudente extends BaseController{
                     request.setAttribute("errore", "errore_inserimento");
                     request.setAttribute("messaggio", "Ipossibile inserire lo studente nel DB. Riprova!");
                     //Cancello l'utente creato in precedenza
-                    action_delete_ut(request, response, ut);
+                    action_delete_ut(request, response, ut.getId());
                     action_error(request, response);
                 }
                 
@@ -134,7 +134,7 @@ public class RegisterStudente extends BaseController{
                 request.setAttribute("errore", "errore_validazione");
                 request.setAttribute("messaggio", "I campi inseriti non sono corretti. Riprova!");
                 //Cancello l'utente creato in precedenza
-                action_delete_ut(request, response, ut);
+                action_delete_ut(request, response, ut.getId());
                 action_error(request, response);
             }
 
@@ -157,7 +157,7 @@ public class RegisterStudente extends BaseController{
         }
     }    
     
-    private void action_delete_ut(HttpServletRequest request, HttpServletResponse response, Utente ut){
+    private void action_delete_ut(HttpServletRequest request, HttpServletResponse response, int ut){
         try {
             ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().delUtente(ut);
         } catch (DataLayerException ex) {

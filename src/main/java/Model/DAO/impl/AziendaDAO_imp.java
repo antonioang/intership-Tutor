@@ -89,6 +89,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             az.setFineConv(rs.getDate("fine_conv").toLocalDate());
             az.setRespTirocini(rs.getInt("responsabile_tirocini"));
             az.setId(rs.getInt("id_azienda"));
+            az.setUtente(rs.getInt("utente"));
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante creazione azienda", ex);
         }
@@ -167,7 +168,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             addAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
             addAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
             addAzienda.setInt(15, az.getRespTirocini());
-            addAzienda.setInt(16, az.getUtente().getId());
+            addAzienda.setInt(16, az.getUtente());
             addAzienda.setString(17, az.getNome());
             if (addAzienda.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
@@ -238,7 +239,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
             updAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
             updAzienda.setInt(15, az.getRespTirocini());
-            updAzienda.setInt(16, az.getUtente().getId());
+            updAzienda.setInt(16, az.getUtente());
             updAzienda.setString(17, az.getNome());
             updAzienda.setInt(18, az.getId());
             return updAzienda.executeUpdate();

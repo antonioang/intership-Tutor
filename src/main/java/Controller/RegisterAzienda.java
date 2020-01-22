@@ -133,14 +133,14 @@ public class RegisterAzienda extends BaseController {
                     az.setInizioConv(SecurityLayer.checkDate(request.getParameter("inizio_conv")));
                     az.setFineConv(SecurityLayer.checkDate(request.getParameter("fine_conv")));
                     az.setRespTirocini(responsabile_tirocini.getId());
-                    az.setUtente(ut);
+                    az.setUtente(ut.getId());
                     
                     int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().addAzienda(az);
                     if (insert != 1) {
                         request.setAttribute("errore", "errore_inserimento");
                         request.setAttribute("messaggio", "Azienda già esistente!");
                         //Se l'inserimento dell'azienda fallisce cancello sia l'utente che il responsabile tirocini
-                        action_delete_ut(request, response, ut);
+                        action_delete_ut(request, response, ut.getId());
                         action_delete_rt(request, response, responsabile_tirocini);
                         
                         action_error(request, response);
@@ -154,7 +154,7 @@ public class RegisterAzienda extends BaseController {
                     request.setAttribute("errore", "errore_validazione");
                     request.setAttribute("messaggio", "I dati aziendali inseriti non sono validi. Riprova!");
                     //Se l'inserimento dell'azienda fallisce cancello sia l'utente che il responsabile tirocini
-                    action_delete_ut(request, response, ut);
+                    action_delete_ut(request, response, ut.getId());
                     action_delete_rt(request, response, responsabile_tirocini);
                         
                     action_error(request, response);
@@ -177,7 +177,7 @@ public class RegisterAzienda extends BaseController {
         }
     }  
     
-    private void action_delete_ut(HttpServletRequest request, HttpServletResponse response, Utente ut){
+    private void action_delete_ut(HttpServletRequest request, HttpServletResponse response, int ut){
         try {
             ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().delUtente(ut);
         } catch (DataLayerException ex) {

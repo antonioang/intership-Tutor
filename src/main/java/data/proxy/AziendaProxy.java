@@ -128,18 +128,12 @@ public class AziendaProxy extends Azienda_imp {
     }
 
     @Override
-    public void setUtente(Utente u) {
+    public void setUtente(int u) {
         super.setUtente(u);
-        this.utenteId = u.getId();
+        this.utenteId = u;
         this.dirty = false;
     }
     
-    @Override
-    public void setPersona(Persona p){
-        this.responsabile_tirocinioId = p.getId();
-        this.dirty = false;
-    }
-
     @Override
     public void setId(int id) {
         super.setId(id);
@@ -154,16 +148,5 @@ public class AziendaProxy extends Azienda_imp {
     public boolean isDirty() {
         return dirty;
     }
-    
-    public void setUtenteId(int id_utente){
-        this.utenteId = id_utente;
-        //reset della cache utente
-        super.setPersona(null);
-    }
-    
-    public void setPersonaId(int id_persona){
-        this.responsabile_tirocinioId = id_persona;
-        //reset della cache persona
-        super.setPersona(null);
-    }
+        
 }

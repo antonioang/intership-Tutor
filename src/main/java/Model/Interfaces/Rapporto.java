@@ -16,8 +16,6 @@ public interface Rapporto {
     
     String getGiudizio();
     
-    String getSrcDocResoconto();
-    
     int getStudente();
     
     int getTirocinio();
@@ -27,8 +25,6 @@ public interface Rapporto {
     void setDescrizioneAtt(String d);
     
     void setGiudizio(String g);
-    
-    void setSrcDocResoconto(String src);
     
     void setStudente(int s);
     

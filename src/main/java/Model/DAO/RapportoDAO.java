@@ -6,8 +6,6 @@
 package Model.DAO;
 
 import Model.Interfaces.Rapporto;
-import Model.Interfaces.Studente;
-import Model.Interfaces.Tirocinio;
 import framework.data.DataLayerException;
 import java.sql.ResultSet;
 import java.util.List;
@@ -29,7 +27,5 @@ public interface RapportoDAO {
     List<Rapporto> getRapportiTirocini(int t) throws DataLayerException;
     
     Rapporto getRapporto(int id_studente, int id_tirocinio) throws DataLayerException;
-    
-    int updateDocumentoRapporto(int st, int t, String src) throws DataLayerException;
-    
+        
 }
