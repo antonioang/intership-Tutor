@@ -4,6 +4,11 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <context-param>
+        <param-name>uploads.directory</param-name>
+        <!-- Tomcat must have write permissions on this folder -->
+        <param-value>documenti_caricati</param-value>
+    </context-param>
+    <context-param>
         <param-name>view.outline_template</param-name>
         <param-value>outline.ftl.html</param-value>
     </context-param>

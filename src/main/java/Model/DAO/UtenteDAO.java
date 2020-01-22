@@ -33,5 +33,5 @@ public interface UtenteDAO {
     
     int updUtente(Utente utente) throws DataLayerException;
     
-    //void  storeUtente(Utente utente) throws DataLayerException;
+    void  storeUtente(Utente utente) throws DataLayerException;
 }

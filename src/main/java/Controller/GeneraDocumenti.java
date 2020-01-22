@@ -119,12 +119,16 @@ public class GeneraDocumenti extends BaseController {
                 LocalDate inizio = richiesta.getDataInizio().toLocalDate();
                 LocalDate fine = richiesta.getDataFine().toLocalDate();
                 long durataInMesi = ChronoUnit.MONTHS.between(inizio, fine);
+                Persona tutore_universitario = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(richiesta.getTutoreUniversitario());
+                Persona rappresentante_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
                 //setto i dati necessari 
                 request.setAttribute("durata_mesi", durataInMesi);
                 request.setAttribute("studente", studente);
                 request.setAttribute("tirocinio", tirocinio);
                 request.setAttribute("richiesta_tirocinio", richiesta);
                 request.setAttribute("azienda", azienda);
+                request.setAttribute("tutore_universitario", tutore_universitario);
+                request.setAttribute("rappresentante_tirocini", rappresentante_tirocini);
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
                 res.activateNoOutline("modulo_richiesta_tirocinio.ftl.html", request, response);  
@@ -154,6 +158,9 @@ public class GeneraDocumenti extends BaseController {
                  int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
                  Rapporto resoconto = ((BaseDataLayer)request.getAttribute("datalayer")).getRapportoDAO().getRapporto(id_studente, id_tirocinio);
                  RichiestaTirocinio richiesta_tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
+                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
+                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
                  //setto i dati necessari
                  request.setAttribute("resoconto", resoconto);
                  request.setAttribute("richiesta_tirocinio", richiesta_tirocinio);
