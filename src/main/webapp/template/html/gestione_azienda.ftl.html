@@ -31,7 +31,7 @@
                       <div class="col-md-6">
                         <div class="centered overview-profile-text">
                           <h5>Indirizzo</h5>
-                          <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap}</p>
+                          <p>${azienda.getIndirizzo()}</p>
                         </div>
                         <div class="centered overview-profile-text">
                           <h5>Rappresentante Legale</h5>
@@ -97,13 +97,13 @@
                         <div class="col">
                             <form method='post' action='upload' enctype='multipart/form-data'>
                                 <input type="hidden" name="azienda" value="${azienda.getId()}"/>
-                                <input name="tipo" type="hidden" value="1" />
+                                <input name="tipo" type="hidden" value="1"/>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                    <input type="file" class="custom-file-input" name="file" required>
                                     <label class="custom-file-label" for="validatedCustomFile">Sfoglia file...</label>
                                     <!-- <div class="invalid-feedback">Example invalid custom file feedback</div> -->
                                 </div>
-                                <button type='submit' name='tipo' value='1' class="btn bg-success text-white">
+                                <button type='submit' class="btn bg-success text-white">
                                     Carica documento firmato
                                 </button>
                             </form>
