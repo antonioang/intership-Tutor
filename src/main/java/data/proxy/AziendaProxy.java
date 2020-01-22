@@ -135,11 +135,7 @@ public class AziendaProxy extends Azienda_imp {
         this.dirty = true;
     }
     
-    @Override
-    public void setPersona(Persona p){
-        super.setPersona(p);
-        this.dirty = true;
-    }
+    
 
     @Override
     public void setId(int id) {
