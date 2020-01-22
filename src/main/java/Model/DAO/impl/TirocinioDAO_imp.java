@@ -250,4 +250,9 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         }
         super.destroy();
     }
+    
+    @Override
+    public void storeTirocinio(Tirocinio tirocinio) throws DataLayerException{
+        
+    }
 }
