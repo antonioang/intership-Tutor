@@ -217,4 +217,9 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
         }
     }
     
+    @Override
+    public void storeRichiestaTirocinio(RichiestaTirocinio rt) throws DataLayerException {
+        
+    }
+    
 }
