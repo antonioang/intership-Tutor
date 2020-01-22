@@ -34,4 +34,6 @@ public interface PersonaDAO {
     
     int updPersona(Persona p) throws DataLayerException;
     
+    void storePersona(Persona p) throws DataLayerException;
+    
 }

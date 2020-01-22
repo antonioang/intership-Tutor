@@ -279,4 +279,9 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         return 0;
     }
     
+    @Override
+    public void storeAzienda(Azienda az)throws DataLayerException{
+        
+    }
+    
 }

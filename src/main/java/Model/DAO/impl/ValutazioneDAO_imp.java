@@ -147,4 +147,9 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         }
         super.destroy();
     }
+    
+    @Override
+    public void storeValutazione(Valutazione v)throws DataLayerException{
+        
+    }
 }

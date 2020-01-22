@@ -247,6 +247,9 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         }
         super.destroy();
     }
-    
+    @Override
+    public void storeStudente(Studente st) throws DataLayerException{
+        
+    } 
     
 }

@@ -34,4 +34,6 @@ public interface RichiestaTirocinioDAO {
     int updDataInizioDataFine(LocalDate data_inizio, LocalDate data_fine, int id_richiesta) throws DataLayerException;
     
     List<RichiestaTirocinio> getRichiesteTirocinioByTirocinio(int id_tirocinio) throws DataLayerException;
+    
+    void storeRichiestaTirocinio(RichiestaTirocinio rt) throws DataLayerException;
 }

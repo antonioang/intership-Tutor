@@ -110,6 +110,7 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
          return null;
     }
 
+
     @Override
     public int addRapporto(Rapporto rp) throws DataLayerException {
          try {
@@ -140,5 +141,8 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
 
 
    
-    
+     @Override
+    public void storeRapporto(Rapporto rapporto){
+        
+    }
 }
