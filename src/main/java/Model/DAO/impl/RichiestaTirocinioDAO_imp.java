@@ -30,7 +30,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     
     private PreparedStatement addRichiestaTirocinio, updRichiestaTirocinioStato, updDocumentoRichiestaTirocinio;
     private PreparedStatement getRichiestaTirocinio, getRichiesteTirocinioByTirocinio, getRicTirByTirocinioStudente;
-    private PreparedStatement updDataInizioDataFine;
+    private PreparedStatement updDataInizioDataFine, updDocumento;
     
     public RichiestaTirocinioDAO_imp(DataLayer d) {
         super(d);
@@ -48,6 +48,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             getRichiestaTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE id_richiesta=?");
             getRichiesteTirocinioByTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio=?");
             getRicTirByTirocinioStudente = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio = ? AND studente = ?");
+            updDocumento = connection.prepareStatement("UPDATE richiesta_tirocinio SET src_doc_candid=? WHERE id_richiesta=?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzazione degli statements",ex);
         }
@@ -150,15 +151,16 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     }
 
     @Override
-    public int updDocumentoRichiestaTirocinio(int id_richiesta, String src) throws DataLayerException {
-        
+    public int updDocumento(int id_richiesta, String src) throws DataLayerException{
         try {
-            System.out.print("DB: "+src);
-            updDocumentoRichiestaTirocinio.setString(1, src);
-            updDocumentoRichiestaTirocinio.setInt(2, id_richiesta);
-            return updRichiestaTirocinioStato.executeUpdate();
+            System.out.println("dentro al metodo");
+            System.out.println("src: "+ src);
+            System.out.println("id: "+ id_richiesta);
+            updDocumento.setString(1, src);
+            updDocumento.setInt(2, id_richiesta);
+            return updDocumento.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataLayerException("Errore durante l'aggiornamento del documento della richiesta", ex);
+            throw new DataLayerException("Errore durante l'aggiornamento del documento della richiesta ", ex);
         }
     }
 

@@ -51,10 +51,10 @@
               <div class="panel-heading">
                 <ul class="nav nav-tabs nav-justified">
                   <li class="active">
-                    <a data-toggle="tab" href="#overview">Overview</a>
+                    <a data-toggle="tab" href="#overview">Riepilogo</a>
                   </li>
                   <li>
-                    <a data-toggle="tab" href="#edit">Edit Profile</a>
+                    <a data-toggle="tab" href="#edit">Modifica Profilo</a>
                   </li>
                 </ul>
               </div>
@@ -317,9 +317,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="CF" class="control-label col-lg-2">Codice Fiscale</label>
+                                    <label for="codice_fiscale" class="control-label col-lg-2">Codice Fiscale</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="CF" name="CF" value="${studente.codFiscale}" type="text" required/>
+                                      <input class=" form-control" id="codice_fiscale" name="codice_fiscale" value="${studente.codFiscale}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -329,45 +329,45 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="cittaNascita" class="control-label col-lg-2">Citt&agrave di nascita</label>
+                                    <label for="citta_nascita" class="control-label col-lg-2">Citt&agrave di nascita</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="CittaNascita" name="CittaNascita" value="${studente.cittaNascita}" type="text" required/>
+                                      <input class=" form-control" id="citta_nascita" name="citta_nascita" value="${studente.cittaNascita}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="provNascita" class="control-label col-lg-2">Provincia di nascita</label>
+                                    <label for="provincia_nascita" class="control-label col-lg-2">Provincia di nascita</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="provNascita" name="provNascita" value="${studente.getProvinciaNascita()}" type="text" required/>
+                                      <input class=" form-control" id="provincia_nascita" name="provincia_nascita" value="${studente.getProvinciaNascita()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tel" class="control-label col-lg-2">Telefono</label>
+                                    <label for="telefono" class="control-label col-lg-2">Telefono</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="tel" name="tel" value="${studente.getTelefono()}" type="text" required/>
+                                      <input class=" form-control" id="telefono" name="telefono" value="${studente.getTelefono()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="laurea" class="control-label col-lg-2">Corso di laurea</label>
+                                    <label for="corso_laurea" class="control-label col-lg-2">Corso di laurea</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="laurea" name="laurea" value="${studente.corsoLaurea}" type="text" required/>
+                                      <input class=" form-control" id="corso_laurea" name="corso_laurea" value="${studente.corsoLaurea}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="cittaRes" class="control-label col-lg-2">Citt&agrave di residenza</label>
+                                    <label for="citta_residenza" class="control-label col-lg-2">Citt&agrave di residenza</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cittaRes" name="cittaRes" value="${studente.getCittaResidenza()}" type="text" required/>
+                                      <input class=" form-control" id="citta_residenza" name="citta_residenza" value="${studente.getCittaResidenza()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="provRes" class="control-label col-lg-2">Provincia di residenza</label>
+                                    <label for="provincia_residenza" class="control-label col-lg-2">Provincia di residenza</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="provRes" name="provRes" value="${studente.getProvinciaResidenza()}" type="text" required/>
+                                      <input class=" form-control" id="provincia_residenza" name="provincia_residenza" value="${studente.getProvinciaResidenza()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="cap" class="control-label col-lg-2">CAP</label>
+                                    <label for="cap_residenza" class="control-label col-lg-2">CAP</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cap" name="cap" value='${studente.capResidenza?string["00000"]}' type="text" required/>
+                                      <input class=" form-control" id="cap_residenza" name="cap_residenza" value='${studente.capResidenza?string["00000"]}' type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -388,26 +388,26 @@
                                 <#if studente.handicap>
                                     <div class="radio">
                                         <label>
-                                          <input type="radio" name="optionsRadios" id="optionsRadios1" checked value="si">
+                                          <input type="radio" name="handicap" id="optionsRadios1" checked value="true">
                                           SI
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="no">
+                                          <input type="radio" name="handicap" id="optionsRadios2" value="false">
                                           NO
                                         </label>
                                     </div>
                                     <#else>
                                     <div class="radio">
                                         <label>
-                                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="si">
+                                          <input type="radio" name="handicap" id="optionsRadios1" value="true">
                                           SI
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="no" checked>
+                                          <input type="radio" name="handicap" id="optionsRadios2" value="false" checked>
                                           NO
                                         </label>
                                     </div>
@@ -415,7 +415,7 @@
                                 </div>
                                 </div>
                                 <div class="centered">
-                                <button class="btn btn-theme centered" type="submit"><i class="fa fa-lock"></i>  Modifica</button>
+                                <button class="btn btn-theme centered" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i>  Modifica</button>
                                 </div>
                             </form>
                         </#if>
