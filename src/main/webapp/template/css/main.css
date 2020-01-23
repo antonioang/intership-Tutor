@@ -49,6 +49,10 @@
     text-align: left;
 }
 
+.sub-header-edit-profile{
+    margin-left: -5px !important;
+}
+
 #carica_file{
     width: 83%;
     float: left;
