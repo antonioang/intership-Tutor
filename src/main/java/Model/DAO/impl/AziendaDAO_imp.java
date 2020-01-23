@@ -277,7 +277,6 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     
     @Override
     public void storeAzienda(Azienda az)throws DataLayerException{
-        int key = az.getId();
         
         if (az.getId() > 0){//Controllo se esiste un istanza dell'oggetto
             if(az instanceof AziendaProxy && !((AziendaProxy) az).isDirty()){

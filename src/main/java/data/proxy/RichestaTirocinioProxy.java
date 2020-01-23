@@ -21,6 +21,7 @@ public class RichestaTirocinioProxy extends RichiestaTirocinio_imp {
     protected int tirocinio_id;
     
     public RichestaTirocinioProxy(DataLayer d){
+        super();
         this.dirty = false;
         this.dataLayer = d;
         this.tutoreUniversitario_id = 0;
