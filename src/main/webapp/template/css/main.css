@@ -48,3 +48,13 @@
     padding: 10px;
     text-align: left;
 }
+
+#carica_file{
+    width: 83%;
+    float: left;
+}
+#button_carica_file{
+    float: left;
+    padding: 0;
+    margin-left: 7%;
+}

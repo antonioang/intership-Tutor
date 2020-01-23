@@ -133,17 +133,17 @@
                     <form action="gestione_richiesta" method="POST">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label centered col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
-                            <div class="col-sm-12">
-                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_inizio" name="data_inizio" >
+                            <label class="control-label col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
+                            <div class="">
+                              <input class="form-control form-control-inline default-date-picker" value="${data_inizio}" size="16" type="date" id="data_inizio" name="data_inizio" >
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label centered col-lg-12" for="data_fine" >Fine Tirocinio</label>
-                            <div class="col-sm-12">
-                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_fine" name="data_fine" >
+                            <label class="control-label col-lg-12" for="data_fine" >Fine Tirocinio</label>
+                            <div class="">
+                              <input class="form-control form-control-inline default-date-picker" value="${data_fine}" size="16" type="date" id="data_fine" name="data_fine" >
                             </div>
                         </div>
                     </div>
@@ -158,16 +158,29 @@
                 </div>
                 <div class="row mt">
                     <div class="col-md-4">
-                        <div class="centered overview-profile-text">
-                            <h5>Nome e Cognome</h5>
-                            <p>${tutore_uni.getNome()} ${tutore_uni.getCognome()}</p>
+                        <div>
+                            <a href="documenti?tipo=2&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}" target="_blank" rel="noopener noreferrer">
+                            <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="centered overview-profile-text">
-                            <h5>Email</h5>
-                            <p>${tutore_uni.getEmail()}</p>
-                        </div>
+                        <form class="form-horizontal style-form" method="POST" action="upload" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <input type="hidden" name="tipo" value="2" />
+                                <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
+                                <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
+                                <div class="controls col-md-12">
+                                  <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <span class="btn btn-theme btn-file">
+                                    <input id="carica_file" type="file" name="file" class="default" />
+                                    <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
+                                    </span>
+                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                  </div>
+                                </div>
+                             </div>
+                        </form>
                     </div>
                     <div class="col-md-4">                        
                         <div class="centered overview-profile-text">
