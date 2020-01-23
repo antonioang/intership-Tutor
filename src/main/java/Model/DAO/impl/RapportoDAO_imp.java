@@ -118,7 +118,7 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
              addRapporto.setString(2, rp.getDescrizioneAtt());
              addRapporto.setString(3, rp.getGiudizio());
              addRapporto.setInt(4, rp.getStudente());
-             addRapporto.setInt(5, rp.getStudente());
+             addRapporto.setInt(5, rp.getTirocinio());
              return addRapporto.executeUpdate();
          } catch (SQLException ex) {
              throw new DataLayerException("Errore durante l'inserimento del rapporto", ex);

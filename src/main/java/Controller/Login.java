@@ -6,6 +6,8 @@
 package Controller;
 
 import Model.DAO.impl.BaseDataLayer;
+import Model.Interfaces.Azienda;
+import Model.Interfaces.Studente;
 import Model.Interfaces.Utente;
 import framework.data.DataLayerException;
 import framework.result.FailureResult;
@@ -74,7 +76,29 @@ public class Login extends BaseController {
                 
                 if(utente != null && encryptor.checkPassword(request.getParameter("password"), utente.getPassword())){
                     SecurityLayer.createSession(request, utente.getUsername(), utente.getId(), utente.getTipo());
-                   
+                    String nomeDaVisualizzare = "";
+                    //Ottengo il nome da inserire nell'outline
+                    switch (utente.getTipo()) {
+                                //studente
+                                case 1:
+                                    Studente studente = ((BaseDataLayer) request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
+                                    nomeDaVisualizzare = studente.getNome()+" "+studente.getCognome();
+                                    break;
+
+                                //azienda  
+                                case 2:
+                                    Azienda azienda = ((BaseDataLayer) request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
+                                    nomeDaVisualizzare = azienda.getNome();
+                                    break;
+
+                                //admin
+                                case 3:
+                                    nomeDaVisualizzare = utente.getUsername();
+                                    break;
+                        }
+                    HttpSession sessione = SecurityLayer.checkSession(request);
+                    sessione.setAttribute("nomeDaVisualizzare", nomeDaVisualizzare);
+                    
                     //controllo se il referrer è definito
                     if(request.getParameter("referrer") == null){
                         response.sendRedirect("home");

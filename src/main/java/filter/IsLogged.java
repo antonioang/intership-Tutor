@@ -36,6 +36,7 @@ public class IsLogged implements Filter{
         if (sessione.getAttribute("username") != null){
             //Utente loggato
             request.setAttribute("logged", "logged");
+            request.setAttribute("nomeDaVisualizzare", sessione.getAttribute("nomeDaVisualizzare"));
         }
         
         chain.doFilter(request, response);

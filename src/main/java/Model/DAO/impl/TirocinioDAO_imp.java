@@ -6,8 +6,6 @@
 package Model.DAO.impl;
 
 import Model.DAO.TirocinioDAO;
-import Model.Impl.Tirocinio_imp;
-import Model.Interfaces.RichiestaTirocinio;
 import Model.Interfaces.Tirocinio;
 import data.proxy.TirocinioProxy;
 import framework.data.DAO;
@@ -248,6 +246,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             searchTirocinio.close();
             updTirocinio.close();
             updTirocinioVisibile.close();
+            getTirociniByStatoRichieste.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
