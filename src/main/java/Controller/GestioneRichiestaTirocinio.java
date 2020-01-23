@@ -9,6 +9,7 @@ import Model.DAO.impl.BaseDataLayer;
 import Model.Interfaces.Persona;
 import Model.Interfaces.RichiestaTirocinio;
 import Model.Interfaces.Studente;
+import Model.Interfaces.Tirocinio;
 import framework.data.DataLayerException;
 import framework.result.FailureResult;
 import framework.result.TemplateManagerException;
@@ -72,12 +73,14 @@ public class GestioneRichiestaTirocinio extends BaseController {
             //ottengo i dati dello studente, i dati del tutore universitario, e i dati della richiesta
             int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
             int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+            Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
             RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
             Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
             Persona tutore_uni = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(richiesta.getTutoreUniversitario());
             
             //setto i dati
             request.setAttribute("richiesta_tirocinio", richiesta);
+            request.setAttribute("tirocinio", tirocinio);
             request.setAttribute("studente", studente);
             request.setAttribute("tutore_uni", tutore_uni);
             
@@ -103,6 +106,8 @@ public class GestioneRichiestaTirocinio extends BaseController {
                     action_error(request, response);
                 }
                 else{
+                    request.setAttribute("data_inizio", data_inizio);
+                    request.setAttribute("data_fine", data_fine);
                     action_default(request, response);
                 }
             } catch (DataLayerException ex) {
