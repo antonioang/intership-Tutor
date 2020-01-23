@@ -107,7 +107,7 @@ public class Profilo extends BaseController {
             try {
                 //SE é UNO STUDENTE
                 Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
-                Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente((int) request.getAttribute("id_utente"));
+                Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
                 //validazione input dati dell'utente
                 if(SecurityLayer.checkString(request.getParameter("username")) && SecurityLayer.checkEmail(request.getParameter("email"))){
                     utente.setUsername(request.getParameter("username"));
