@@ -49,7 +49,7 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             delUtente = connection.prepareStatement("DELETE FROM utente\n" +
                     "WHERE id_utente=?;");
             updUtente = connection.prepareStatement("UPDATE utente\n" +
-                "SET username=?, email=?, tipo=?\n" +
+                "SET username=?, email=?\n" +
                 "WHERE id_utente=?;");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
@@ -188,9 +188,8 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     public int updUtente(Utente utente) throws DataLayerException {
         try {
             updUtente.setString(1, utente.getUsername());
-            updUtente.setString(3, utente.getEmail());
-            updUtente.setInt(4, utente.getTipo());
-            updUtente.setInt(5, utente.getId());
+            updUtente.setString(2, utente.getEmail());
+            updUtente.setInt(3, utente.getId());
             return updUtente.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dati utente", ex);
@@ -225,36 +224,21 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             if(utente instanceof UtenteProxy && !((UtenteProxy) utente).isDirty()){
                 return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
             }
-            try { //update se l'oggetto è stato modificato 
-                updUtente.setString(1, utente.getUsername());
-                updUtente.setString(2, utente.getPassword());
-                updUtente.setString(3, utente.getEmail());
-                updUtente.setInt(4, utente.getTipo());
-                updUtente.setInt(5, utente.getId());
-                updUtente.executeUpdate();
+            //update se l'oggetto è stato modificato 
+//                updUtente.setString(1, utente.getUsername());
+//                updUtente.setString(2, utente.getPassword());
+//                updUtente.setString(3, utente.getEmail());
+//                updUtente.setInt(4, utente.getTipo());
+//                updUtente.setInt(5, utente.getId());
+//                updUtente.executeUpdate();
+                updUtente(utente);
                 System.out.print(utente.getId());
-            } catch (SQLException ex) {
-                throw new DataLayerException("Errore durante l'update dell'utente"+ ex);
-            }
+
            }else{
-            try {
+
                //insert dell'oggetto
-                addUtente.setString(1, utente.getEmail());
-                addUtente.setString(2, utente.getUsername());
-                addUtente.setString(3, utente.getPassword());
-                addUtente.setInt(4, utente.getTipo());
-                if(addUtente.executeUpdate() == 1){
-                   try(ResultSet keys = addUtente.getGeneratedKeys()){
-                       if(keys.next()){
-                           key = keys.getInt(1);
-                       }
-                   }
-                   utente.setId(key);
-                   System.out.print(utente.getEmail());
-                }
-            } catch (SQLException ex) {
-                throw new DataLayerException("Errore durante l'inserimento dell'utente"+ ex);
-            }
+                addUtente(utente);
+
            
             
         }

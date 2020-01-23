@@ -25,18 +25,18 @@
                       <h3>Valutazione</h3>
                   </div>
                   <div>
-                      <h3>temp</h3>
+                      <h3>${valutazione}</h3>
                   </div>
                   </#if>
                   <#if tipo==1>
                   <div>
-                      <h3>Tirocini attivi: ${tirocini_attivi}</h3>
+                      <h3>Tirocini attivi: ${tirocini_attivi!"0"}</h3>
                   </div>
                   <div>
-                      <h3>Tirocini conclusi: ${tirocini_conclusi}</h3>
+                      <h3>Tirocini conclusi: ${tirocini_conclusi!"0"}</h3>
                   </div>
                   <div>
-                      <h3>Tirocini in sospeso: ${tirocini_sospesi}</h3>
+                      <h3>Tirocini in sospeso: ${tirocini_sospesi!"0"}</h3>
                   </div>
                   </#if>
               </div>
@@ -110,7 +110,7 @@
                               </div>
                               <div class="centered overview-profile-text">
                                 <h5>Cap</h5>
-                                <p>${studente.capResidenza}</p>
+                                <p>${studente.capResidenza?string["00000"]}</p>
                               </div>
                               <div class="centered overview-profile-text">
                                 <h5>Username</h5>
@@ -132,7 +132,7 @@
                             <div class="col-md-6">
                               <div class="centered overview-profile-text">
                                 <h5>Indirizzo</h5>
-                                <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap}</p>
+                                <p>${azienda.getIndirizzo()}, ${azienda.citta}(${azienda.provincia}), ${azienda.getCap()?string["00000"]}</p>
                               </div>
                               <div class="centered overview-profile-text">
                                 <h5>Rappresentante Legale</h5>
@@ -206,13 +206,13 @@
                                 <div class="form-group">
                                     <label for="cap" class="control-label col-lg-2">Cap</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cap" name="cap" value="${azienda.getCap()}" type="text" required/>
+                                      <input class=" form-control" id="cap" name="cap" value='${azienda.getCap()?string["00000"]}' type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="rapprLeg" class="control-label col-lg-2">Rappresentante Legale</label>
+                                    <label for="rappresentante_legale" class="control-label col-lg-2">Rappresentante Legale</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="rapprLeg" name="rapprLeg" value="${azienda.getRapprLeg()}" type="text" required/>
+                                      <input class=" form-control" id="rappresentante_legale" name="rappresentante_legale" value="${azienda.getRapprLeg()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -224,7 +224,7 @@
                                 <div class="form-group">
                                     <label for="foroCompetente" class="control-label col-lg-2">Foro Competente</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="foroCompetente" name="foroCompetente" value="${azienda.getForoCompetente()}" type="text" required/>
+                                      <input class=" form-control" id="foroCompetente" name="foro_competente" value="${azienda.getForoCompetente()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -234,37 +234,67 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="statoConv" class="control-label col-lg-2">Stato Convenzione</label>
+                                    <label for="corso_studio" class="control-label col-lg-2">Corso di Studi</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="statoConv" name="statoConv" value="${azienda.getStatoConv()}" type="text" required/>
+                                      <input class=" form-control" id="corso_studio" name="corso_studio" value="${azienda.getCorsoStudi()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="corsoStudi" class="control-label col-lg-2">Corso di Studi</label>
+                                    <label for="inizio_conv" class="control-label col-lg-2">Inizio Convenzione</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="corsoStudi" name="corsoStudi" value="${azienda.getCorsoStudi()}" type="text" required/>
+                                      <input class=" form-control" id="inizio_conv" name="inizio_conv" value="${azienda.getInizioConv()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inizioConv" class="control-label col-lg-2">Inizio Convenzione</label>
+                                    <label for="fine_conv" class="control-label col-lg-2">Fine Convenzione</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="inizioConv" name="inizioConv" value="${azienda.getInizioConv()}" type="text" required/>
+                                      <input class=" form-control" id="fine_conv" name="fine_conv" value="${azienda.getFineConv()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="fineConv" class="control-label col-lg-2">Fine Convenzione</label>
+                                    <label for="ragione_sociale" class="control-label col-lg-2">Ragione Sociale</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="fineConv" name="fineConv" value="${azienda.getFineConv()}" type="text" required/>
+                                      <input class=" form-control" id="ragione_sociale" name="ragione_sociale" value="${azienda.getRagioneSociale()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="ragioneSociale" class="control-label col-lg-2">Ragione Sociale</label>
+                                    <label for="username" class="control-label col-lg-2">Email</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="ragioneSociale" name="ragioneSociale" value="${azienda.getRagioneSociale()}" type="text" required/>
+                                      <input class=" form-control" id="username" name="username" value="${utente.getUsername()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="control-label col-lg-2">Username</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="username" name="email" value="${utente.getEmail()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nome_rt" class="control-label col-lg-2">Nome Responsabile Tirocini</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="nome_rt" name="nome_rt" value="${responsabile_tirocini.getNome()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cognome_rt" class="control-label col-lg-2">Cognome Responsabile Tirocini</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="cognome_rt" name="cognome_rt" value="${responsabile_tirocini.getCognome()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email_rt" class="control-label col-lg-2">Email Responsabile Tirocini</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="email_rt" name="email_rt" value="${responsabile_tirocini.getEmail()}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono_rt" class="control-label col-lg-2">Cognome Responsabile Tirocini</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="telefono_rt" name="telefono_rt" value="${responsabile_tirocini.getTelefono()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="centered">
-                                <button class="btn btn-theme centered" type="submit"><i class="fa fa-lock"></i>  Modifica</button>
+                                <button class="btn btn-theme centered" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i>  Modifica</button>
                                 </div>
                             </form>
                         
@@ -335,7 +365,7 @@
                                 <div class="form-group">
                                     <label for="cap" class="control-label col-lg-2">CAP</label>
                                     <div class="col-sm-10">
-                                      <input class=" form-control" id="cap" name="cap" value="${studente.capResidenza}" type="text" required/>
+                                      <input class=" form-control" id="cap" name="cap" value='${studente.capResidenza?string["00000"]}' type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">

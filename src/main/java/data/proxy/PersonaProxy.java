@@ -17,6 +17,7 @@ public class PersonaProxy extends Persona_imp{
     protected DataLayer dataLayer;
     
     public PersonaProxy(DataLayer d){
+        super();
         this.dirty = false;
         this.dataLayer = d;
     }

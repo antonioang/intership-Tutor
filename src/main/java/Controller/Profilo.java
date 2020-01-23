@@ -16,6 +16,8 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,8 +67,13 @@ public class Profilo extends BaseController {
             //SETTO IL PARAMETRO A SECONDA SE L'UTENTE CORRISPONDE AD UNO STUDENTE O AD UN'AZIENDA
             if((int) request.getAttribute("tipo") == 2){
                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
+                Persona responsabile_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
+                float valutazione = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getValutazioneAzienda(azienda.getId());
+                
                 request.setAttribute("azienda", azienda);
                 request.setAttribute("utente", utente);
+                request.setAttribute("responsabile_tirocini", responsabile_tirocini);
+                request.setAttribute("valutazione", valutazione);
             }
             else if((int) request.getAttribute("tipo") == 1){
                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
@@ -108,13 +115,7 @@ public class Profilo extends BaseController {
                     utente.setTipo(1);
                     
                     //Aggiorno l'utente nel DB
-                    int update = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().updUtente(utente);
-                    if (update != 1) {
-                        request.setAttribute("errore", "errore_aggiornamento");
-                        request.setAttribute("messaggio", "Errore aggiornamento dati utente. Riprova!");
-                        action_error(request, response);
-                        return;
-                    }
+                    ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().storeUtente(utente);
                 }
                 else{
                     request.setAttribute("errore", "errore_validazione");
@@ -146,12 +147,7 @@ public class Profilo extends BaseController {
                     studente.setUtente(utente.getId());
                     
                     //Inserisco lo studente nel DB
-                    int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().updStudente(studente);
-                    if (insert != 1){
-                        request.setAttribute("errore", "errore_aggiornamento");
-                        request.setAttribute("messaggio", "Errore durante l'aggiornamento dei dati dello studente. Riprova!");
-                        action_error(request, response);
-                    }
+                    ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().storeStudente(studente);
                 }
                 else{
                     //campi in input non validi
@@ -178,13 +174,7 @@ public class Profilo extends BaseController {
                     utente.setTipo(1);
                     
                     //Aggiorno l'utente nel DB
-                    int update = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().updUtente(utente);
-                    if (update != 1) {
-                        request.setAttribute("errore", "errore_aggiornamento");
-                        request.setAttribute("messaggio", "Errore aggiornamento dati utente. Riprova!");
-                        action_error(request, response);
-                        return;
-                    }
+                    ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().storeUtente(utente);
                 }
                 else{
                     request.setAttribute("errore", "errore_validazione");
@@ -202,12 +192,8 @@ public class Profilo extends BaseController {
                     responsabile_tirocini.setTelefono(request.getParameter("telefono_rt"));
                     
                     //Aggiorno il responsabile tirocini nel DB
-                    int update = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().updPersona(responsabile_tirocini);
-                    if (update != 1) {
-                        request.setAttribute("errore", "errore_aggiornamento");
-                        request.setAttribute("messaggio", "Errore durante l'aggiornamento dei dati del responsabile tirocini. Riprova!");
-                        action_error(request, response);
-                    }
+                    ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().storePersona(responsabile_tirocini);
+                    
                 } else {
                     request.setAttribute("errore", "errore_validazione");
                     request.setAttribute("messaggio", "I campi del responsabile tirocini non sono corretti. Riprova!");
@@ -227,7 +213,7 @@ public class Profilo extends BaseController {
                     azienda.setRagioneSociale(request.getParameter("ragione_sociale"));
                     azienda.setIndirizzo(request.getParameter("indirizzo"));
                     azienda.setCitta(request.getParameter("citta"));
-                    azienda.setCap(Integer.parseInt(request.getParameter("cap")));
+                    azienda.setCap(SecurityLayer.checkNumeric(request.getParameter("cap")));
                     azienda.setProvincia(request.getParameter("provincia"));
                     azienda.setRapprLeg(request.getParameter("rappresentante_legale"));
                     azienda.setPiva(request.getParameter("piva"));
@@ -240,15 +226,14 @@ public class Profilo extends BaseController {
                     azienda.setUtente(utente.getId());
                     
                     //Aggiorno l'azienda nel DB
-                    int update = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().updAzienda(azienda);
-                    if (update != 1) {
-                        request.setAttribute("errore", "errore_aggiornamento");
-                        request.setAttribute("messaggio", "Errore aggiornamento azienda. Riprova!");                    
-                        action_error(request, response);
-                    }
+                    ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().storeAzienda(azienda);
+                    response.sendRedirect("profilo");
                 }
                 
             } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
