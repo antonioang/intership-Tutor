@@ -16,6 +16,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +49,9 @@ public class GestioneRichiestaTirocinio extends BaseController {
                 else if(request.getParameter("imposta_date") != null){
                     action_imposta_date(request, response);
                 }
+                else if(request.getParameter("src") !=null){
+                    action_update_doc_richiesta(request, response);
+                }
                 else{
                     action_default(request, response);
                 }                
@@ -58,6 +63,7 @@ public class GestioneRichiestaTirocinio extends BaseController {
                 action_error(request, response);
             }
         }
+
         
     }
     
@@ -104,6 +110,28 @@ public class GestioneRichiestaTirocinio extends BaseController {
                 action_error(request, response);
             }
         }
+    }
+    
+    private void action_update_doc_richiesta(HttpServletRequest request, HttpServletResponse response){
+        try {
+            int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
+            int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+            String src = request.getParameter("src");
+            RichiestaTirocinio richiesta = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+            int update = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDocumentoRichiestaTirocinio(richiesta.getId(), src);
+            if(update != 1){
+                request.setAttribute("errore", "errore_aggiornamento");
+                request.setAttribute("messaggio", "L'inserimento del documento di candidatura non è andato a buon fine. Riprova!");
+                action_error(request, response);
+            }
+            else{
+                action_default(request, response);
+            }
+        } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        }
+        
     }
     
     private void action_accetta_richiesta(HttpServletRequest request, HttpServletResponse response){
