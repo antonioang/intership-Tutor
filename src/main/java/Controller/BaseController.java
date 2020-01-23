@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +30,7 @@ import javax.sql.DataSource;
  */
 public abstract class BaseController extends HttpServlet {
     
-    @Resource(name = "jdbc/herokuDB")
+    //@Resource(name = "jdbc/herokuDB")
     private DataSource ds;
     
     protected abstract void processRequest(HttpServletRequest request, HttpServletResponse response) 
@@ -41,6 +44,12 @@ public abstract class BaseController extends HttpServlet {
         //(possibly) pass such variables through the request.
             BaseDataLayer dl;
         try {
+            // Obtain our environment naming context
+            Context initCtx;
+            initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            // Look up our data source
+            ds = (DataSource) envCtx.lookup("jdbc/herokuDB");      
             dl = new BaseDataLayer(ds);
             dl.init();
             request.setAttribute("datalayer", dl);
@@ -56,6 +65,8 @@ public abstract class BaseController extends HttpServlet {
             (new FailureResult(getServletContext())).activate(
                     (ex.getMessage() != null || ex.getCause() == null) ? ex.getMessage() : ex.getCause().getMessage(), request, response);
         } catch (DataLayerException ex) {
+            Logger.getLogger(BaseController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
             Logger.getLogger(BaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
            
