@@ -132,6 +132,10 @@
                             <#if tipo==2>
                             <div class="col-md-6">
                               <div class="centered overview-profile-text">
+                                <h5>Nome</h5>
+                                <p>${azienda.getNome()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
                                 <h5>Indirizzo</h5>
                                 <p>${azienda.getIndirizzo()}, ${azienda.citta}(${azienda.provincia}), ${azienda.getCap()?string["00000"]}</p>
                               </div>
@@ -147,13 +151,9 @@
                                 <h5>Foro Competente</h5>
                                 <p>${azienda.foroCompetente}</p>
                               </div>
-                            <!-- prima colonna nella seconda riga -->
-                            </div>
-                            <!-- /col-md-6 -->
-                            <div class="col-md-6">
                               <div class="centered overview-profile-text">
                                 <h5>Tematica</h5>
-                                <p>${azienda.tematica}</p>
+                                <p>${azienda.getTematica()}</p>
                               </div>
                               <div class="centered overview-profile-text">
                                 <h5>Corso di Studi</h5>
@@ -163,9 +163,37 @@
                                 <h5>Durata convenzione</h5>
                                 <p>${azienda.inizioConv} - ${azienda.fineConv}</p>
                               </div>
+                            <!-- prima colonna nella seconda riga -->
+                            </div>
+                            <!-- /col-md-6 -->
+                            <div class="col-md-6">
                               <div class="centered overview-profile-text">
                                 <h5>Ragione sociale</h5>
                                 <p>${azienda.ragioneSociale}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Username</h5>
+                                <p>${utente.username}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Email</h5>
+                                <p>${utente.email}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Nome Responsabile Tirocini</h5>
+                                <p>${responsabile_tirocini.getNome()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Cognome Responsabile Tirocini</h5>
+                                <p>${responsabile_tirocini.getCognome()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Email Responsabile Tirocini</h5>
+                                <p>${responsabile_tirocini.getEmail()}</p>
+                              </div>
+                              <div class="centered overview-profile-text">
+                                <h5>Telefono Responsabile Tirocini</h5>
+                                <p>${responsabile_tirocini.getTelefono()}</p>
                               </div>
                             </div>
                             </#if>
@@ -180,6 +208,7 @@
                         <#if tipo==2>
                               
                             <form class="cmxform form-horizontal style-form" action="profilo">
+                                <h4 class="mb sub-header-edit-profile"> Informazioni Azienda</h4>
                                 <div class="form-group">
                                     <label for="nome" class="control-label col-lg-2">Nome</label>
                                     <div class="col-sm-10">
@@ -258,18 +287,20 @@
                                       <input class=" form-control" id="ragione_sociale" name="ragione_sociale" value="${azienda.getRagioneSociale()}" type="text" required/>
                                     </div>
                                 </div>
+                                <h4 class="mb sub-header-edit-profile"> Informazioni Utente</h4>
                                 <div class="form-group">
-                                    <label for="username" class="control-label col-lg-2">Email</label>
+                                    <label for="username" class="control-label col-lg-2">Username</label>
                                     <div class="col-sm-10">
                                       <input class=" form-control" id="username" name="username" value="${utente.getUsername()}" type="text" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="control-label col-lg-2">Username</label>
+                                    <label for="email" class="control-label col-lg-2">Email</label>
                                     <div class="col-sm-10">
                                       <input class=" form-control" id="username" name="email" value="${utente.getEmail()}" type="text" required/>
                                     </div>
                                 </div>
+                                <h4 class="mb sub-header-edit-profile"> Informazioni Responsabile Tirocini</h4>
                                 <div class="form-group">
                                     <label for="nome_rt" class="control-label col-lg-2">Nome Responsabile Tirocini</label>
                                     <div class="col-sm-10">
@@ -289,7 +320,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="telefono_rt" class="control-label col-lg-2">Cognome Responsabile Tirocini</label>
+                                    <label for="telefono_rt" class="control-label col-lg-2">Telefono Responsabile Tirocini</label>
                                     <div class="col-sm-10">
                                       <input class=" form-control" id="telefono_rt" name="telefono_rt" value="${responsabile_tirocini.getTelefono()}" type="text" required/>
                                     </div>
@@ -371,18 +402,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="username" class="control-label col-lg-2">Username</label>
-                                    <div class="col-sm-10">
-                                      <input class=" form-control" id="username" name="username" value="${utente.username}" type="text" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="control-label col-lg-2">Email</label>
-                                    <div class="col-sm-10">
-                                      <input class=" form-control" id="email" name="email" value="${utente.email}" type="text" required/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                 <h5 class="col-lg-2">Portatore di handicap?</h5>
                                 <div class="col-sm-10">
                                 <#if studente.handicap>
@@ -413,6 +432,19 @@
                                     </div>
                                 </#if>
                                 </div>
+                                </div>
+                                <h4 class="mb sub-header-edit-profile"> Informazioni Utente</h4>
+                                <div class="form-group">
+                                    <label for="username" class="control-label col-lg-2">Username</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="username" name="username" value="${utente.username}" type="text" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="control-label col-lg-2">Email</label>
+                                    <div class="col-sm-10">
+                                      <input class=" form-control" id="email" name="email" value="${utente.email}" type="text" required/>
+                                    </div>
                                 </div>
                                 <div class="centered">
                                 <button class="btn btn-theme centered" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i>  Modifica</button>
