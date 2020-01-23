@@ -1,8 +1,8 @@
 <section class="wrapper">
-    <div class="row mt content-panel">
         <#if messaggio??>
         <div class="alert alert-success"><b></b>${messaggio}</div>
         </#if>
+    <div class="row mt content-panel">
         <div class="col-lg-12">
             <h3><i class="fa fa-angle-right"></i>Informazioni Sudente</h3>
             <div class="panel-body">
@@ -185,10 +185,18 @@
                              </div>
                         </form>
                     </div>
-                    <div class="col-md-4">                        
-                        <div class="centered overview-profile-text">
-                            <h5>Telefono</h5>
-                            <p>${tutore_uni.getTelefono()}</p>
+                    <div class="col-md-4">
+                        <div class="contenitore3 centered">
+                            <#if richiesta_tirocinio.getSrcDocCandid() == "">
+                                <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-lock"></i> Accetta Richiesta</button>
+                            <#else>
+                                <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&accetta=accetta">
+                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Accetta Richiesta</button>
+                                </a>
+                            </#if>
+                                <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&rifiuta=rifiuta">
+                                    <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Rifiuta Richiesta</button>
+                                </a>
                         </div>
                     </div>
                 </div>
