@@ -86,7 +86,7 @@ body {margin-top: 0px;margin-left: 0px;}
 .p6{text-align: justify;padding-left: 9px;padding-right: 76px;margin-top: 0px;margin-bottom: 0px;}
 .p7{text-align: left;padding-left: 150px;margin-top: 15px;margin-bottom: 0px;}
 .p8{text-align: left;padding-left: 9px;margin-top: 52px;margin-bottom: 0px;}
-.p9{text-align: left;padding-left: 9px;margin-top: 18px;margin-bottom: 0px;}
+.p9{text-align: left;padding-left: 9px;margin-bottom: 0px;}
 .p10{text-align: left;padding-left: 9px;margin-top: 17px;margin-bottom: 0px;}
 .p11{text-align: left;padding-left: 131px;margin-top: 19px;margin-bottom: 0px;}
 .p12{text-align: left;padding-left: 9px;margin-top: 3px;margin-bottom: 0px;}
@@ -133,6 +133,14 @@ body {margin-top: 0px;margin-left: 0px;}
 .td4{border-right: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 318px;}
 .td5{border-left: #000000 1px solid;border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 334px;vertical-align: bottom;}
 
+.contenitore{
+    float:left;
+}
+.contenitore1{
+    float:left;
+    width:100%
+}
+
 .input{
     margin-left: 15px;
     margin-right: -118px;
@@ -146,6 +154,41 @@ body {margin-top: 0px;margin-left: 0px;}
     display: inline-block;
     border-bottom: 1px solid black;
     width: 350px;
+}
+.paragrafo_cn{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 200px;
+}
+.paragrafo_dn{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 120px;
+}
+.paragrafo_provincia{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 90px;
+}
+.paragrafo_date{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 300px;
+}
+.paragrafo_obiettivo{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+.paragrafo_nome{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 30%;
+}
+.paragrafo_mesi{
+    display: inline-block;
+    border-bottom: 1px solid black;
+    width: 150px;
 }
 .image{
     width: 60px;
@@ -178,30 +221,100 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p22 ft1">Dipartimento di INGEGNERIA E SCIENZE DELL'INFORMAZIONE E MATEMATICA</P>
 <P class="p23 ft14">SEGRETERIA AMMINISTRATIVA PER LA DIDATTICA</P>
 <P class="p24 ft7">(da compilare a cura dell'Azienda)</P>
-<P class="p40 ft8"><SPAN class="ft7">Ente/Azienda </SPAN>___________________________________________________________</P>
-<P class="p25 ft8">Codice Fiscale Ente/Azienda _______________________________________________</P>
+
+<#if azienda??>
+<div class=" p9 ft8"><span class="titolo ft7">Ente/Azienda</span><p class="paragrafo"><span class="input">${azienda.getNome()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p20 ft8"><SPAN class="ft7">Ente/Azienda </SPAN>___________________________________________________</P>
+</#if>
+
+<#if azienda??>
+<div class=" p9 ft8"><span class="titolo ft7">Partita IVA Ente/Azienda</span><p class="paragrafo"><span class="input">${azienda.getPiva()}</span>&nbsp;</p>,</div>
+<#else>
+<P class="p20 ft8"><SPAN class="ft7">Partita IVA Ente/Azienda </SPAN>___________________________________________________</P>
+</#if>
+
 <P class="p25 ft18">Tirocinante:</P>
+
+<#if studente??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">Cognome</span><p class="paragrafo_cn"><span class="input">${studente.getCognome()}</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">Nome</span><p class="paragrafo_provincia"><span class="input">${studente.getNome()}</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p30 ft8"><SPAN class="ft7">Cognome</SPAN>_________________________________ <SPAN class="ft7">Nome</SPAN>________________________</P>
+</#if>
+
 <P class="p41 ft8">(Codice identificativo tirocinio: Dipartimento, Corso di Laurea o diploma, anno, n progressivo, altro)</P>
 <P class="p24 ft8">_______________________________________________________________________</P>
 <P class="p29 ft7">Periodo del tirocinio:</P>
+
+<#if richiesta_tirocinio??>
+<div class="contenitore1">
+<div class="contenitore p9 ft8"><span class="titolo ft7">dal</span><p class="paragrafo_mesi"><span class="input">${richiesta_tirocinio.getDataInizio()}</span>&nbsp;</p>,</div>
+<div class="contenitore p9 ft8"><span class="titolo ft7">al</span><p class="paragrafo_date"><span class="input"> ${richiesta_tirocinio.getDataFine()}</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p24 ft7">dal <SPAN class="ft8">__________________________________</SPAN>al ________________________________</P>
+</#if>
+
+<#if resoconto??>
+<div class="contenitore1">
+<div class=" p9 ft8"><span class="titolo ft7">per un totale di</span><p class="paragrafo_mesi"><span class="input">${resoconto.getOre()} ore</span>&nbsp;</p>,</div>
+</div>
+<#else>
 <P class="p26 ft7">Per un totale di <SPAN class="ft8">_______________ </SPAN>ore</P>
+</#if>
+
+<#if azienda??>
+<div class=" p25 ft8"><span class="titolo ft7">Sede di svolgimento del tirocinio</span><p class="paragrafo"><span class="input">${azienda.getCitta()}</span>&nbsp;</p>,</div>
+<#else>
 <P class="p25 ft7">Sede di svolgimento del tirocinio ___________________________________________</P>
+</#if>
+
+
 <P class="p25 ft7">Descrizione attivit&agrave; svolta</P>
-<P class="p25 ft8">________________________________________________________________________</P>
-<P class="p29 ft8">________________________________________________________________________</P>
-<P class="p25 ft8">________________________________________________________________________</P>
-<P class="p29 ft8">________________________________________________________________________</P>
+
+<#if resoconto??>
+<div class="contenitore1">
+<div class=" p9 ft8"><p class="paragrafo_obiettivo"><span class="input">${resoconto.getDescrizioneAtt()}</span></p></div>
+</div>
+<#else>
+    <P class="p25 ft8">________________________________________________________________________</P>
+</#if>
+
 <P class="p42 ft7">Si attesta che il/la Sig</P>
-<P class="p24 ft8">________________________________________________________________________</P>
+
+<#if studente??>
+<div class="contenitore1">
+<div class="p9 ft8"><p class="paragrafo_nome"><span class="input">${studente.getNome()} ${studente.getCognome()}</span></p></div>
+</div>
+<#else>
+    <P class="p25 ft8">________________________________________________________________________</P>
+</#if>
+
 <P class="p29 ft8">Ha effettuato i compiti affidatigli conseguendo il seguente risultato :</P>
-<P class="p24 ft8">________________________________________________________________________</P>
-<P class="p29 ft8">________________________________________________________________________</P>
-<P class="p29 ft8">________________________________________________________________________</P>
+
+<#if resoconto??>
+<div class="contenitore1">
+<div class="p9 ft8"><p class="paragrafo_obiettivo"><span class="input">${resoconto.getGiudizio()}</span></p></div>
+</div>
+<#else>
+    <P class="p25 ft8">________________________________________________________________________</P>
+</#if>
+
 <P class="p43 ft7">Data _________________________</P>
 <P class="p44 ft8">Il Tutor aziendale</P>
-<P class="p24 ft8">_______________________________________</P>
+
+<#if rappresentante_tirocini??>
+<div class="contenitore1">
+<div class=" p9 ft8"><p class="paragrafo_nome"><span class="input">${rappresentante_tirocini.getNome()} ${rappresentante_tirocini.getCognome()}</span></p></div>
+</div>
+<#else>
+    <P class="p24 ft8">_______________________________________</P>
+</#if>
+
+
 </DIV>
 </BODY>
 </HTML>

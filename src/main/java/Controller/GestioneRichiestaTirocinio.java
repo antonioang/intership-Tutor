@@ -58,7 +58,7 @@ public class GestioneRichiestaTirocinio extends BaseController {
                 }                
                 //mostro il template
                 TemplateResult res = new TemplateResult(getServletContext());
-                res.activate("gestione_richiesta.ftl.html", request, response);
+                res.activate("gestione_richiesta_tirocinio.ftl.html", request, response);
             } catch (TemplateManagerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);

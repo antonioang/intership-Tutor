@@ -161,12 +161,17 @@ public class GeneraDocumenti extends BaseController {
                  Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
                  Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
                  Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
+                 Persona rappresentante_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
                  //setto i dati necessari
                  request.setAttribute("resoconto", resoconto);
                  request.setAttribute("richiesta_tirocinio", richiesta_tirocinio);
+                 request.setAttribute("studente", studente);
+                 request.setAttribute("azienda", azienda);
+                 request.setAttribute("tirocinio", tirocinio);
+                 request.setAttribute("rappresentante_tirocini", rappresentante_tirocini);
                  //mostro il template
                  TemplateResult res = new TemplateResult(getServletContext());
-                 res.activateNoOutline("modulo_resoconto_tirocinio.ftl.html", request, response);  
+                 res.activateNoOutline("modulo_resoconto.ftl.html", request, response);  
              } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
