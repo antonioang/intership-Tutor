@@ -38,4 +38,6 @@ public interface TirocinioDAO {
     List<Tirocinio> searchTirocinio(int durata, String titolo, String facilitazioni, String luogo, String settore, String obiettivi, String corsoStudio) throws DataLayerException;
     
     void storeTirocinio(Tirocinio tirocinio) throws DataLayerException;
+    
+    List<Tirocinio> getTirociniByStatoRichieste(int id_studente, int stato) throws DataLayerException;
 }

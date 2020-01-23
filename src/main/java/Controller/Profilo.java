@@ -9,6 +9,7 @@ import Model.DAO.impl.BaseDataLayer;
 import Model.Interfaces.Azienda;
 import Model.Interfaces.Persona;
 import Model.Interfaces.Studente;
+import Model.Interfaces.Tirocinio;
 import Model.Interfaces.Utente;
 import framework.data.DataLayerException;
 import framework.result.FailureResult;
@@ -16,8 +17,7 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -77,6 +77,12 @@ public class Profilo extends BaseController {
             }
             else if((int) request.getAttribute("tipo") == 1){
                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
+                List<Tirocinio> tirocini_sospeso = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 1);
+                List<Tirocinio> tirocini_attivi = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 2);
+                List<Tirocinio> tirocini_conclusi = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 3);
+                request.setAttribute("tirocini_sospesi", tirocini_sospeso.size());
+                request.setAttribute("tirocini_attivi", tirocini_attivi.size());
+                request.setAttribute("tirocini_conclusi", tirocini_conclusi.size());
                 request.setAttribute("studente", studente);
                 request.setAttribute("utente", utente);
             }
@@ -148,6 +154,7 @@ public class Profilo extends BaseController {
                     
                     //Inserisco lo studente nel DB
                     ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().storeStudente(studente);
+                    response.sendRedirect("profilo");
                 }
                 else{
                     //campi in input non validi
@@ -156,6 +163,9 @@ public class Profilo extends BaseController {
                     action_error(request, response);
                 }
             } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }

@@ -78,3 +78,11 @@
 .no-border{
     border: none;
 }
+.nomeDaVisualizzare{
+    color: #f2f2f2;
+    font-size: 15px;
+    -webkit-border-radius: 4px;
+    padding: 5px 15px;
+    margin-right: 15px;
+    text-transform: uppercase;
+}

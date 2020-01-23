@@ -7,6 +7,7 @@ package Controller;
 
 import Model.DAO.impl.BaseDataLayer;
 import Model.Interfaces.Azienda;
+import Model.Interfaces.Studente;
 import Model.Interfaces.Tirocinio;
 import Model.Interfaces.Utente;
 import framework.data.DataLayerException;
@@ -40,9 +41,17 @@ public class Home extends BaseController {
                 switch((int) request.getAttribute("tipo")){
                     case 1:
                         //STUDENTE
-
+                         Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
+                         Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
                         //setto i dati necessari
-
+                        List<Tirocinio> tirocini_sospeso = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 1);
+                        List<Tirocinio> tirocini_attivi = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 2);
+                        List<Tirocinio> tirocini_conclusi = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 3);
+                        List<Tirocinio> tirocini_rifiutati = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirociniByStatoRichieste(studente.getId(), 4);
+                        request.setAttribute("tirocini_sospesi", tirocini_sospeso);
+                        request.setAttribute("tirocini_attivi", tirocini_attivi);
+                        request.setAttribute("tirocini_conclusi", tirocini_conclusi);
+                        request.setAttribute("tirocini_rifiutati", tirocini_rifiutati);
                         //mostro il template
                         res = new TemplateResult(getServletContext());
                         request.setAttribute("activeHome", "active");
@@ -52,7 +61,7 @@ public class Home extends BaseController {
                         //AZIENDA
 
                         //setto i dati necessari
-                        Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
+                        utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
                         Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendaByUtente(utente.getId());
                         List<Tirocinio> tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocini(azienda.getId());
                         request.setAttribute("tirocini", tirocini);
