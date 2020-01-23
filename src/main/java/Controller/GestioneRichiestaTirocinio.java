@@ -83,7 +83,10 @@ public class GestioneRichiestaTirocinio extends BaseController {
             request.setAttribute("tirocinio", tirocinio);
             request.setAttribute("studente", studente);
             request.setAttribute("tutore_uni", tutore_uni);
-            
+            if(richiesta.getDataInizio() != null && richiesta.getDataFine() != null){
+                request.setAttribute("data_inizio", richiesta.getDataInizio());
+                request.setAttribute("data_fine", richiesta.getDataFine());
+            }
         } catch (DataLayerException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
@@ -106,8 +109,6 @@ public class GestioneRichiestaTirocinio extends BaseController {
                     action_error(request, response);
                 }
                 else{
-                    request.setAttribute("data_inizio", data_inizio);
-                    request.setAttribute("data_fine", data_fine);
                     action_default(request, response);
                 }
             } catch (DataLayerException ex) {
@@ -122,6 +123,7 @@ public class GestioneRichiestaTirocinio extends BaseController {
             int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
             int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
             String src = request.getParameter("src");
+            System.out.println("richiesta: "+src);
             RichiestaTirocinio richiesta = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
             int update = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDocumentoRichiestaTirocinio(richiesta.getId(), src);
             if(update != 1){
