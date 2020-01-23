@@ -218,29 +218,15 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     
     @Override
     public void storeUtente(Utente utente) throws DataLayerException{
-        int key = utente.getId();
         
         if (utente.getId() > 0){//Controllo se esiste un istanza dell'oggetto
             if(utente instanceof UtenteProxy && !((UtenteProxy) utente).isDirty()){
                 return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
             }
-            //update se l'oggetto è stato modificato 
-//                updUtente.setString(1, utente.getUsername());
-//                updUtente.setString(2, utente.getPassword());
-//                updUtente.setString(3, utente.getEmail());
-//                updUtente.setInt(4, utente.getTipo());
-//                updUtente.setInt(5, utente.getId());
-//                updUtente.executeUpdate();
                 updUtente(utente);
-                System.out.print(utente.getId());
 
            }else{
-
-               //insert dell'oggetto
-                addUtente(utente);
-
-           
-            
+                addUtente(utente);  
         }
         if(utente instanceof UtenteProxy){
             ((UtenteProxy) utente).setDirty(false);
