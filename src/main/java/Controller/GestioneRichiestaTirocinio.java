@@ -17,6 +17,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -158,7 +160,11 @@ public class GestioneRichiestaTirocinio extends BaseController {
             int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
             RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
             ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 4);
+            response.sendRedirect("tirocinio?id="+id_tirocinio);
         } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        } catch (IOException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }
