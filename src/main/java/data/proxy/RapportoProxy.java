@@ -19,6 +19,7 @@ public class RapportoProxy extends Rapporto_imp {
     protected int tirocinio_id;
     
     public RapportoProxy(DataLayer d){
+        super();
         this.dataLayer = d;
         this.dirty = false;
         this.studente_id = 0;

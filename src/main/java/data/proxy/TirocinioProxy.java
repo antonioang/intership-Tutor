@@ -19,6 +19,7 @@ public class TirocinioProxy extends Tirocinio_imp{
     protected int persona_id;
     
     public TirocinioProxy(DataLayer d){
+        super();
         this.dataLayer = d;
         this.dirty = false;
         this.azienda_id = 0;

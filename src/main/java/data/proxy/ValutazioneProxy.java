@@ -19,6 +19,7 @@ public class ValutazioneProxy extends Valutazione_imp {
     protected int studente_id;
     
     public ValutazioneProxy(DataLayer d){
+        super();
         this.dirty = false;
         this.dataLayer = d;
         this.azienda_id = 0;
