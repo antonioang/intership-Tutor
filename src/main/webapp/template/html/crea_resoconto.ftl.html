@@ -1,0 +1,37 @@
+<section class="wrapper">
+    <div class="row mt">
+        <div class="col-lg-12">
+            <h3><i class="fa fa-angle-right"></i> Nuovo Resoconto</h3>
+            <div class="form-panel">
+                <div class="form">
+                    <form class="cmxform form-horizontal style-form" action="crea_resoconto" method="POST">
+                        <h4 class="mb"><i class="fa fa-angle-right"></i> Compila il resoconto di ${studente.getNome()} ${studente.getCognome()} relativo al tirocinio ${tirocinio.getTitolo()}</h4>
+                        <div class="form-group">
+                            <label for="ore" class="control-label col-lg-2">Ore</label>
+                            <div class="col-sm-10">
+                              <input class=" form-control" id="ore" name="ore" type="number" required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="descrizione" class="control-label col-lg-2">Descrizione</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="descrizione" name="descrizione" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="giudizio" class="control-label col-lg-2">Giudizio</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="giudizio" name="giudizio" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <input value="${studente.getId()}" id="studente" name="studente" type="hidden"/>
+                        <input value="${tirocinio.getId()}" id="tirocinio" name="tirocinio" type="hidden"/>
+                        <div class="centered">
+                            <button class="btn btn-theme centered"  type="submit"><i class="fa fa-lock"></i> Invia Resoconto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
