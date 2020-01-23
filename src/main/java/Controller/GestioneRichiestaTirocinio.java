@@ -106,6 +106,8 @@ public class GestioneRichiestaTirocinio extends BaseController {
                     action_error(request, response);
                 }
                 else{
+                    request.setAttribute("data_inizio", data_inizio);
+                    request.setAttribute("data_fine", data_fine);
                     action_default(request, response);
                 }
             } catch (DataLayerException ex) {
