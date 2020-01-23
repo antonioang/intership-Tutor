@@ -16,8 +16,6 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -148,6 +146,7 @@ public class Profilo extends BaseController {
                     
                     //Inserisco lo studente nel DB
                     ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().storeStudente(studente);
+                    response.sendRedirect("profilo");
                 }
                 else{
                     //campi in input non validi
@@ -156,6 +155,9 @@ public class Profilo extends BaseController {
                     action_error(request, response);
                 }
             } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }

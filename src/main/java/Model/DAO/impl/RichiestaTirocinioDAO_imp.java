@@ -18,8 +18,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 /**
@@ -28,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinioDAO{
     
-    private PreparedStatement addRichiestaTirocinio, updRichiestaTirocinioStato, updDocumentoRichiestaTirocinio;
+    private PreparedStatement addRichiestaTirocinio, updRichiestaTirocinioStato;
     private PreparedStatement getRichiestaTirocinio, getRichiesteTirocinioByTirocinio, getRicTirByTirocinioStudente;
     private PreparedStatement updDataInizioDataFine, updDocumento;
     
@@ -43,7 +42,6 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
                 "(dottorato_ricerca, specializzazione, laurea, diploma, stato_candidatura, cfu, tutore_universitario, studente, tirocinio)\n" +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             updRichiestaTirocinioStato = connection.prepareStatement("UPDATE richiesta_tirocinio SET stato_candidatura=? WHERE id_richiesta=?");
-            updDocumentoRichiestaTirocinio = connection.prepareStatement("UPDATE richiesta_tirocinio SET src_doc_candid=? WHERE id_richiesta=?");
             updDataInizioDataFine = connection.prepareStatement("UPDATE richiesta_tirocinio SET data_inizio=?, data_fine=? WHERE id_richiesta=?");
             getRichiestaTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE id_richiesta=?");
             getRichiesteTirocinioByTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio=?");
@@ -199,7 +197,6 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
         try {
             addRichiestaTirocinio.close();
             updRichiestaTirocinioStato.close();
-            updDocumentoRichiestaTirocinio.close();
             getRichiestaTirocinio.close();
             getRichiesteTirocinioByTirocinio.close();
             getRicTirByTirocinioStudente.close();
@@ -225,5 +222,9 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     public void storeRichiestaTirocinio(RichiestaTirocinio rt) throws DataLayerException {
         
     }
+
+    
+
+
     
 }

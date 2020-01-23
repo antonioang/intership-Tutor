@@ -7,6 +7,7 @@ package Model.DAO.impl;
 
 import Model.DAO.TirocinioDAO;
 import Model.Impl.Tirocinio_imp;
+import Model.Interfaces.RichiestaTirocinio;
 import Model.Interfaces.Tirocinio;
 import data.proxy.TirocinioProxy;
 import framework.data.DAO;
@@ -27,7 +28,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     
     PreparedStatement getTirociniVisibili, getTirocini, getTirocinio;
     PreparedStatement addTirocinio, updTirocinio, delTirocinio;
-    PreparedStatement updTirocinioVisibile, searchTirocinio;
+    PreparedStatement updTirocinioVisibile, searchTirocinio, getTirociniByStatoRichieste;
     
     public TirocinioDAO_imp(DataLayer d) {
         super(d);
@@ -49,6 +50,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             updTirocinioVisibile = connection.prepareStatement("UPDATE tirocinio SET visibile=? WHERE id_tirocinio=?");
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
                     + "OR tirocinio.settore like ? OR tirocinio.titolo like ? OR tirocinio.obiettivo like ? OR tirocinio.durata like ? OR azienda.corso_studi like ? OR facilitazioni like ?");
+            getTirociniByStatoRichieste = connection.prepareStatement("SELECT * FROM tirocinio JOIN richiesta_tirocinio ON richiesta_tirocinio.tirocinio = id_tirocinio WHERE richiesta_tirocinio.studente = ? && richiesta_tirocinio.stato_candidatura = ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }
@@ -250,6 +252,22 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
         super.destroy();
+    }
+    
+    @Override
+    public List<Tirocinio> getTirociniByStatoRichieste(int id_studente, int stato) throws DataLayerException {
+        try {
+            List<Tirocinio> lista = new ArrayList();
+            getTirociniByStatoRichieste.setInt(1, id_studente);
+            getTirociniByStatoRichieste.setInt(2, stato);
+            ResultSet rs = getTirociniByStatoRichieste.executeQuery();
+            while(rs.next()){
+                lista.add(createTirocinio(rs));
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero delle richieste tirocinio", ex);
+        }
     }
     
     @Override
