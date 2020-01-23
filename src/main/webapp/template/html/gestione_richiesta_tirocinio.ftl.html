@@ -130,12 +130,12 @@
             <h3><i class="fa fa-angle-right"></i>Informazioni Finali Richiesta</h3>
             <div class="panel-body">
                 <div class="row">
-                    <form action="">
+                    <form action="gestione_richiesta" method="POST">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label centered col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
                             <div class="col-sm-12">
-                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_nascita" name="data_nascita" >
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_inizio" name="data_inizio" >
                             </div>
                         </div>
                     </div>
@@ -143,14 +143,15 @@
                         <div class="form-group">
                             <label class="control-label centered col-lg-12" for="data_fine" >Fine Tirocinio</label>
                             <div class="col-sm-12">
-                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_nascita" name="data_nascita" >
+                              <input class="form-control form-control-inline default-date-picker" size="16" type="date" id="data_fine" name="data_fine" >
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">                        
-                        <div class="centered overview-profile-text">
-                            <h5>Telefono</h5>
-                            <p>${tutore_uni.getTelefono()}</p>
+                    <div class="col-md-4">
+                        <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
+                        <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
+                        <div class="centered mt">
+                            <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-lock"></i> Salva Dati</button>
                         </div>
                     </div>
                     </form>
