@@ -20,6 +20,7 @@ public class StudenteProxy extends Studente_imp {
     protected int utenteId;
     
     public StudenteProxy(DataLayer d){
+        super();
         this.dataLayer = d;
         this.dirty = false;
         this.utenteId = 0;

@@ -144,6 +144,7 @@ public class UploadDocumenti extends BaseController {
                     while ((read = is.read(buffer)) > 0) {
                         os.write(buffer, 0, read);
                     }
+                    log("upload: "+uploaded.getName());
                     //Rimando alla servlet per la gestione delle richieste di convenzione per effettuare update dellla src del documento di convenzione
                     response.sendRedirect("gestione_richiesta?tirocinio="+id_tirocinio+"&studente="+id_studente+"&src="+uploaded.getName());
                 }  

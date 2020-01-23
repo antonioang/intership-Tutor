@@ -6,10 +6,8 @@
 package Model.DAO.impl;
 
 import Model.DAO.AziendaDAO;
-import Model.Impl.Azienda_imp;
 import Model.Interfaces.Azienda;
 import data.proxy.AziendaProxy;
-import data.proxy.PersonaProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
@@ -19,8 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -50,7 +47,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             uAziendaDoc = connection.prepareStatement("UPDATE azienda SET src_doc_conv=? WHERE id_azienda=?");
             updAzienda = connection.prepareStatement("UPDATE azienda\n" +
             "SET rag_sociale=?, indirizzo=?, citta=?, cap=?, provincia=?, rappr_leg=?, piva=?, "
-            + "foro_competente=?, src_doc_conv=?, tematica=?, stato_conv=?, corso_studi=?, "
+            + "foro_competente=?, tematica=?, corso_studi=?, "
             + "inizio_conv=?, fine_conv=?, responsabile_tirocini=?, nome=?\n" +
             "WHERE id_azienda=?;");
             addAzienda = connection.prepareStatement("INSERT INTO azienda\n" +
@@ -234,16 +231,13 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda.setString(6, az.getRapprLeg());
             updAzienda.setString(7, az.getPiva());
             updAzienda.setString(8, az.getForoCompetente());
-            updAzienda.setString(9, az.getSrcDocPath());
-            updAzienda.setString(10, az.getTematica());
-            updAzienda.setBoolean(11, az.getStatoConv());
-            updAzienda.setString(12, az.getCorsoStudi());
-            updAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
-            updAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
-            updAzienda.setInt(15, az.getRespTirocini());
-            updAzienda.setInt(16, az.getUtente());
-            updAzienda.setString(17, az.getNome());
-            updAzienda.setInt(18, az.getId());
+            updAzienda.setString(9, az.getTematica());
+            updAzienda.setString(10, az.getCorsoStudi());
+            updAzienda.setDate(11, java.sql.Date.valueOf(az.getInizioConv()));
+            updAzienda.setDate(12, java.sql.Date.valueOf(az.getFineConv()));
+            updAzienda.setInt(13, az.getRespTirocini());
+            updAzienda.setString(14, az.getNome());
+            updAzienda.setInt(15, az.getId());
             return updAzienda.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dell'azienda", ex);
@@ -289,63 +283,13 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             if(az instanceof AziendaProxy && !((AziendaProxy) az).isDirty()){
                 return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
             }
-            try { //update se l'oggetto è stato modificato 
-                updAzienda.setString(1, az.getRagioneSociale());
-            updAzienda.setString(2, az.getIndirizzo());
-            updAzienda.setString(3, az.getCitta());
-            updAzienda.setInt(4, az.getCap());
-            updAzienda.setString(5, az.getProvincia());
-            updAzienda.setString(6, az.getRapprLeg());
-            updAzienda.setString(7, az.getPiva());
-            updAzienda.setString(8, az.getForoCompetente());
-            updAzienda.setString(9, az.getSrcDocPath());
-            updAzienda.setString(10, az.getTematica());
-            updAzienda.setBoolean(11, az.getStatoConv());
-            updAzienda.setString(12, az.getCorsoStudi());
-            updAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
-            updAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
-            updAzienda.setInt(15, az.getRespTirocini());
-            updAzienda.setInt(16, az.getUtente());
-            updAzienda.setString(17, az.getNome());
-            updAzienda.setInt(18, az.getId());
-            updAzienda.executeQuery();
-            } catch (SQLException ex) {
-                throw new DataLayerException("Errore durante l'update dell'azienda"+ ex);
-            }
+                //update dell'oggetto
+                updAzienda(az);
+                System.out.println("aggiornata");
+
            }else{
-            try {
                //insert dell'oggetto
-                addAzienda.setString(1, az.getRagioneSociale());
-                addAzienda.setString(2, az.getIndirizzo());
-                addAzienda.setString(3, az.getCitta());
-                addAzienda.setInt(4, az.getCap());
-                addAzienda.setString(5, az.getProvincia());
-                addAzienda.setString(6, az.getRapprLeg());
-                addAzienda.setString(7, az.getPiva());
-                addAzienda.setString(8, az.getForoCompetente());
-                addAzienda.setString(9, az.getSrcDocPath());
-                addAzienda.setString(10, az.getTematica());
-                addAzienda.setBoolean(11, az.getStatoConv());
-                addAzienda.setString(12, az.getCorsoStudi());
-                addAzienda.setDate(13, java.sql.Date.valueOf(az.getInizioConv()));
-                addAzienda.setDate(14, java.sql.Date.valueOf(az.getFineConv()));
-                addAzienda.setInt(15, az.getRespTirocini());
-                addAzienda.setInt(16, az.getUtente());
-                addAzienda.setString(17, az.getNome());
-                if(addAzienda.executeUpdate() == 1){
-                   try(ResultSet keys = addAzienda.getGeneratedKeys()){
-                       if(keys.next()){
-                           key = keys.getInt(1);
-                       }
-                   }
-                   az.setId(key);
-                   
-                }
-            } catch (SQLException ex) {
-                throw new DataLayerException("Errore durante l'inserimento dell'azinda"+ ex);
-            }
-           
-            
+                addAzienda(az);            
         }
         if(az instanceof AziendaProxy){
             ((AziendaProxy) az).setDirty(false);

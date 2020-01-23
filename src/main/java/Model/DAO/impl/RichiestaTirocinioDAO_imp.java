@@ -151,7 +151,9 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
 
     @Override
     public int updDocumentoRichiestaTirocinio(int id_richiesta, String src) throws DataLayerException {
+        
         try {
+            System.out.print("DB: "+src);
             updDocumentoRichiestaTirocinio.setString(1, src);
             updDocumentoRichiestaTirocinio.setInt(2, id_richiesta);
             return updRichiestaTirocinioStato.executeUpdate();

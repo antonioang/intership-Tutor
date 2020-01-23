@@ -21,10 +21,11 @@ public class AziendaProxy extends Azienda_imp {
     protected boolean dirty;
     
     public AziendaProxy(DataLayer d){
-    this.dataLayer = d;
-    this.dirty = false;
-    this.responsabile_tirocinioId = 0;
-    this.utenteId = 0;
+        super();
+        this.dataLayer = d;
+        this.dirty = false;
+        this.responsabile_tirocinioId = 0;
+        this.utenteId = 0;
     }
         
        
@@ -43,6 +44,7 @@ public class AziendaProxy extends Azienda_imp {
 
     @Override
     public void setIndirizzo(String i) {
+        super.setIndirizzo(i);
         this.dirty = true;
     }
 
@@ -54,6 +56,7 @@ public class AziendaProxy extends Azienda_imp {
 
     @Override
     public void setCap(int cap) {
+        super.setCap(cap);
         this.dirty = true;
     }
 
