@@ -15,22 +15,22 @@
               </tr>
             </thead>
             <tbody>
+              <#assign count=1>
               <#if (aziende_convenzionate?size>0)>
                 <#list aziende_convenzionate as azienda>
                 <tr>
-                  <td>1</td>
+                  <td>${count} <#assign count++></td>
                   <td><a href="azienda?id=${azienda.getId()}">${azienda.getNome()}</a></td>
                   <td>${azienda.getCitta()}</td>
                   <td>${azienda.getCorsoStudi()}</td>
                 </tr>
                 </#list>
-              <#else>
-                <tr>
-                    <td>La lista delle aziende convenzionate &egrave; vuota</td>
-                </tr>
               </#if>
             </tbody>
           </table>
+          <#if (aziende_convenzionate?size==0)>
+          <p>La lista delle aziende convenzionate &egrave; vuota</p>
+          </#if>
         </div>
         </div>
         <!-- /col-md-12 -->

@@ -86,10 +86,11 @@
                           </tr>
                         </thead>
                         <tbody>
+                        <#assign count=1>
                         <#if (studenti_candidati?size>0)>
                           <#list studenti_candidati as studente>
                           <tr>
-                            <td>1</td>
+                            <td>${count} <#assign count++></td>
                             <td>${studente.getNome()} ${studente.getCognome()}</td>
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
@@ -100,13 +101,12 @@
                             </td>
                           </tr>
                           </#list>
-                        <#else>
-                            <tr>
-                                <td>La lista degli studenti attivi &egrave; vuota</td>
-                            </tr>
                         </#if>
                         </tbody>
                     </table>
+                    <#if (studenti_candidati?size==0)>
+                    <p>La lista degli studenti candidati &egrave; vuota</p>
+                    </#if>
                 </div>
             </div>
         </div>
@@ -127,22 +127,22 @@
                           </tr>
                         </thead>
                         <tbody>
+                        <#assign count=1>
                         <#if (studenti_rifiutati?size>0)>
                           <#list studenti_rifiutati as studente>
                           <tr>
-                            <td>1</td>
+                            <td>${count} <#assign count++></td>
                             <td>${studente.getNome()} ${studente.getCognome()}</td>
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
                           </tr>
                           </#list>
-                        <#else>
-                            <tr>
-                                <td>La lista degli studenti rifiutati &egrave; vuota</td>
-                            </tr>
                         </#if>
                         </tbody>
                     </table>
+                    <#if (studenti_rifiutati?size==0)>
+                    <p>La lista degli studenti rifiutati &egrave; vuota</p>
+                    </#if>
                 </div>
             </div>
         </div>
@@ -164,10 +164,11 @@
                           </tr>
                         </thead>
                         <tbody>
+                        <#assign count=1>
                         <#if (studenti_sospeso?size>0)>
                           <#list studenti_sospeso as studente>
                           <tr>
-                            <td>1</td>
+                            <td>${count} <#assign count++></td>
                             <td>${studente.getNome()} ${studente.getCognome()}</td>
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
@@ -178,13 +179,12 @@
                             </td>
                           </tr>
                           </#list>
-                        <#else>
-                            <tr>
-                                <td>La lista degli studenti in sospeso &egrave; vuota</td>
-                            </tr>
                         </#if>
                         </tbody>
                     </table>
+                    <#if (studenti_sospeso?size==0)>
+                    <p>La lista degli studenti in sospeso &egrave; vuota</p>
+                    </#if>
                 </div>
             </div>
         </div>
