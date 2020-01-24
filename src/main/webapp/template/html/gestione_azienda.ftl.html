@@ -95,18 +95,20 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <form method='post' action='upload' enctype='multipart/form-data'>
+                            <form method="POST" action="upload" enctype="multipart/form-data" class="form-horizontal style-form">
                                 <input type="hidden" name="azienda" value="${azienda.getId()}"/>
                                 <input name="tipo" type="hidden" value="1"/>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="file" required>
-                                    <label class="custom-file-label" for="validatedCustomFile">Sfoglia file...</label>
-                                    <!-- <div class="invalid-feedback">Example invalid custom file feedback</div> -->
-                                </div>
-                                <button type='submit' class="btn bg-success text-white">
-                                    Carica documento firmato
-                                </button>
+                                 <div class="controls col-md-12">
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                      <span class="btn btn-theme btn-file">
+                                      <input id="carica_file" type="file" name="file" class="default" />
+                                      <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
+                                      </span>
+                                      <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    </div>
+                                  </div>
                             </form>
+                           
                         </div> 
                     </div>
                      
