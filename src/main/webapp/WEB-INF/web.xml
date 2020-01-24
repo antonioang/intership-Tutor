@@ -96,6 +96,14 @@
         <servlet-name>GestioneAzienda</servlet-name>
         <servlet-class>Controller.GestioneAzienda</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FAQ</servlet-name>
+        <servlet-class>Controller.FAQ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contatti</servlet-name>
+        <servlet-class>Controller.Contatti</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Prova</servlet-name>
         <url-pattern>/prova</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>GestioneAzienda</servlet-name>
         <url-pattern>/gestione_azienda</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FAQ</servlet-name>
+        <url-pattern>/faq</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contatti</servlet-name>
+        <url-pattern>/contatti</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
