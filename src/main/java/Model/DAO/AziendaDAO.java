@@ -8,6 +8,7 @@ package Model.DAO;
 import Model.Interfaces.Azienda;
 import framework.data.DataLayerException;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public interface AziendaDAO {
     Azienda getAziendaByUtente(int id_utente) throws DataLayerException;
     
     List<Azienda> getAziendeByStato(int stato) throws DataLayerException;
+    
+    HashMap<Azienda, Integer> getAziendeConPiuTirocinanti() throws DataLayerException;
+    
+    List<Azienda> getBestAziende() throws DataLayerException;
+    
+    List<Azienda> getWorstAziende() throws DataLayerException;
     
     float getValutazioneAzienda(int azienda) throws DataLayerException;
         

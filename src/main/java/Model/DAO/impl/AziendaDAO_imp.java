@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 /**
  *
@@ -25,10 +25,11 @@ import java.util.ArrayList;
  */
 public class AziendaDAO_imp extends DAO implements AziendaDAO{
 
-    private PreparedStatement getAziendaById, getAziendaByUtente, getAziendaByStato, getTirocinantiAttivi;
+    private PreparedStatement getAziendaById, getAziendaByUtente, getAziendaByStato, getAziendeConPiuTirocinanti;
     private PreparedStatement uAziendaByStato, uAziendaDoc, updAzienda;
     private PreparedStatement addAzienda, delAzienda, getValutazione;
-    
+    private PreparedStatement getBestAziende, getWorstAziende;
+            
     public AziendaDAO_imp(DataLayer d) {
         super(d);
     }
@@ -42,7 +43,9 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             getAziendaById = connection.prepareStatement("SELECT * FROM azienda WHERE id_azienda = ?");
             getAziendaByUtente = connection.prepareStatement("SELECT * FROM azienda WHERE utente = ?");
             getAziendaByStato = connection.prepareStatement("SELECT * FROM azienda WHERE stato_conv = ?");
-            getTirocinantiAttivi = connection.prepareStatement("SELECT * FROM azienda WHERE responsabile_tirocinio = ?");
+            getAziendeConPiuTirocinanti = connection.prepareStatement("SELECT*, count(*) as studenti FROM azienda JOIN tirocinio ON tirocinio.azienda = id_azienda "
+                    + "JOIN richiesta_tirocinio ON richiesta_tirocinio.tirocinio = id_tirocinio WHERE stato_candidatura = 2 "
+                    + "group by tirocinio.azienda ORDER BY studenti desc LIMIT 5");
             uAziendaByStato =  connection.prepareStatement("UPDATE azienda SET stato_conv = ? WHERE id_azienda = ?");
             uAziendaDoc = connection.prepareStatement("UPDATE azienda SET src_doc_conv = ? WHERE id_azienda = ?");
             updAzienda = connection.prepareStatement("UPDATE azienda\n" +
@@ -57,6 +60,10 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             delAzienda = connection.prepareStatement("DELETE FROM azienda WHERE id_azienda=?");
             getValutazione = connection.prepareStatement("SELECT AVG(punteggio) AS media FROM valutazione_azienda where azienda = ?");
+            getBestAziende = connection.prepareStatement("SELECT *, AVG(punteggio) as valutazione FROM valutazione_azienda "
+                    + "JOIN azienda ON valutazione_azienda.azienda = id_azienda group by id_azienda ORDER BY valutazione desc LIMIT 5");
+            getWorstAziende = connection.prepareStatement("SELECT *, AVG(punteggio) as valutazione FROM valutazione_azienda "
+                    + "JOIN azienda ON valutazione_azienda.azienda = id_azienda group by id_azienda ORDER BY valutazione asc LIMIT 5");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore inizializzazione degli statement azienda", ex);
         }
@@ -255,6 +262,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda.close();
             addAzienda.close();
             delAzienda.close();
+            getAziendeConPiuTirocinanti.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
@@ -292,6 +300,48 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         }
         if(az instanceof AziendaProxy){
             ((AziendaProxy) az).setDirty(false);
+        }
+    }
+
+    @Override
+    public HashMap<Azienda, Integer> getAziendeConPiuTirocinanti() throws DataLayerException {
+        try {
+            HashMap aziende = new HashMap<Azienda, Integer>();
+            ResultSet rs = getAziendeConPiuTirocinanti.executeQuery();
+            while(rs.next()){
+                aziende.put(createAzienda(rs), rs.getString("studenti"));
+            }
+            return aziende;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero delle aziende con più tirocinanti ", ex);
+        }
+    }
+
+    @Override
+    public List<Azienda> getBestAziende() throws DataLayerException {
+        try {
+            List<Azienda> lista = new ArrayList();
+            ResultSet rs = getBestAziende.executeQuery();
+            while(rs.next()){
+                lista.add(createAzienda(rs));
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero delle aziende migliori ", ex);
+        }
+    }
+
+    @Override
+    public List<Azienda> getWorstAziende() throws DataLayerException {
+        try {
+            List<Azienda> lista = new ArrayList();
+            ResultSet rs = getWorstAziende.executeQuery();
+            while(rs.next()){
+                lista.add(createAzienda(rs));
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero delle aziende peggiori ", ex);
         }
     }
     
