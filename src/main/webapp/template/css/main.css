@@ -86,3 +86,7 @@
     margin-right: 15px;
     text-transform: uppercase;
 }
+.table {
+    max-height: 300px;
+    overflow: hidden;
+}

@@ -15,10 +15,11 @@
               </tr>
             </thead>
             <tbody>
+            <#assign count=1>
             <#if (tirocini?size>0)>
               <#list tirocini as tirocinio>
               <tr>
-                <td>1</td>
+                <td>${count} <#assign count++></td>
                 <td>${tirocinio.getTitolo()}</td>
                 <td>
                     <#if tirocinio.getVisibile()>
@@ -36,13 +37,12 @@
                 </td>
               </tr>
               </#list>
-            <#else>
-                <tr>
-                    <td>La lista dei tirocini attivi &egrave; vuota</td>
-                </tr>
             </#if>
             </tbody>
             </table>
+            <#if (tirocini?size==0)>
+            <p>La lista dei tirocini attivi &egrave; vuota</p>
+            </#if>
         </div>        
     </div>
     <div class="row">
@@ -51,8 +51,8 @@
                 <div class="panel text-center maincard">
                     <h5 class="card-header"><b>Crea una nuova offerta di tirocinio</b></h5>
                     <div class="card-body">
-                        <h5 class="card-title">Una volta creato il tirocinio dovr&agrave; essere approvato dall'amministratore di sistema</h5>
-                      <p class="card-text mainparagraph">Puoi sempre visualizzare lo stato dei tirocini nell'homepage</p>
+                        <h5 class="card-title">Vai alla pagina di creazione tirocinio e compila tutti i campi per pubblicare un'offerta.</h5>
+                        <p class="card-text mainparagraph">una volta che l'offerta sar&agrave; pubblicata, gli studenti potranno inoltrare le loro candidature.</p>
                       <a href="creazione_tirocinio" name='submit_tirocinio' value='submit' class="mainbtn"> <i class="fa fa-mortar-board"></i> Crea Tirocinio</a>
                     </div>
                 </div>
