@@ -6,6 +6,7 @@
 package Model.Impl;
 
 import Model.Interfaces.Rapporto;
+import java.time.LocalDate;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Rapporto_imp implements Rapporto {
     private String giudizio;
     private int st;
     private int t;
+    private LocalDate data;
     
     public Rapporto_imp(){
         this.ore = 0;
@@ -25,6 +27,7 @@ public class Rapporto_imp implements Rapporto {
         this.giudizio = "";
         this.st = 0;
         this.t = 0;
+        this.data = null;
 }
 
     @Override
@@ -51,6 +54,11 @@ public class Rapporto_imp implements Rapporto {
     public int getTirocinio() {
         return this.t;
     }
+    
+    @Override
+    public LocalDate getData() {
+        return this.data;
+    }
 
     @Override
     public void setOre(int ore) {
@@ -75,6 +83,11 @@ public class Rapporto_imp implements Rapporto {
     @Override
     public void setTirocinio(int t) {
         this.t = t;
+    }
+
+    @Override
+    public void setData(LocalDate data) {
+        this.data = data;
     }
     
 }

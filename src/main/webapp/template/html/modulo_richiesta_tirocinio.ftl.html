@@ -401,9 +401,9 @@ body {margin-top: 0px;margin-left: 0px;}
     <SPAN class="ft15">numero ore di tirocinio __________ per il conseguimento di n. ___________ CFU</SPAN></P>
 </#if>
 
-<#if tutore_tirocinio??>
-<div class=" p9 ft8"><span class="titolo ft7">Tutore universitario</span><p class="paragrafo"><span class="input">${tutore_tirocinio.getNome()}</span>&nbsp;</p>,</div>
-<div class=" p9 ft8"><span class="titolo p25 ft7">Telefono</span><p class="paragrafo"><span class="input">${tutore_tirocinio.getTelefono()}</span>&nbsp;</p>,</div>
+<#if tutore_universitario??>
+<div class=" p9 ft8"><span class="titolo ft7">Tutore universitario</span><p class="paragrafo"><span class="input">${tutore_universitario.getNome()}</span>&nbsp;</p>,</div>
+<div class=" p9 ft8"><span class="titolo p25 ft7">Telefono</span><p class="paragrafo"><span class="input">${tutore_universitario.getTelefono()}</span>&nbsp;</p>,</div>
 <#else>
 <P class="p28 ft8"><SPAN class="ft7">Tutore universitario</SPAN>_______________________________________________________</P>
 <P class="p25 ft8">Telefono___________________________________</P>

@@ -19,6 +19,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +47,9 @@ public class DettaglioTirocinio extends BaseController {
             }
             else if(request.getParameter("valutazione") != null){
                 action_valuta_azienda(request, response);
+            }
+            else if(request.getParameter("concludi") != null){
+                action_concludi_tirocinio(request, response);
             }
             action_default(request, response);
         }
@@ -179,6 +184,26 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
+        }
+    }
+    
+    private void action_concludi_tirocinio(HttpServletRequest request, HttpServletResponse response){
+        int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
+        if(request.getParameter("studente") != null){
+            try {
+                int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
+                RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+                ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 3);
+                response.sendRedirect("crea_resoconto?studente="+id_studente+"&tirocinio="+id_tirocinio);
+            } catch (DataLayerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            } catch (IOException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            }
+            
+            
         }
     }
         

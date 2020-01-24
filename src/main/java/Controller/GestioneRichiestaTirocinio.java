@@ -122,7 +122,7 @@ public class GestioneRichiestaTirocinio extends BaseController {
             int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
             String src = request.getParameter("src");
             RichiestaTirocinio richiesta = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
-            int update = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDocumento(id_studente, src);
+            int update = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updDocumento(richiesta.getId(), src);
             if(update != 1){
                 request.setAttribute("errore", "errore_aggiornamento");
                 request.setAttribute("messaggio", "L'inserimento del documento di candidatura non è andato a buon fine. Riprova!");
