@@ -37,7 +37,8 @@ public class GestioneAzienda extends BaseController {
             try {
                 if(request.getParameter("action") != null){
                     String azione = request.getParameter("action");
-                    if(azione.equals("approva")){
+                    if(azione.equals("accetta")){
+                        System.out.println("porto la nonna");
                         action_approva_azienda(request, response);
                     }
                     else if(azione.equals("rifiuta")){
@@ -64,9 +65,14 @@ public class GestioneAzienda extends BaseController {
     private void action_approva_azienda (HttpServletRequest request, HttpServletResponse response){
         try {
             //ottengo l'azienda dall'id
+            System.out.println("dentro");
             int id_azienda = SecurityLayer.checkNumeric(request.getParameter("id"));
             ((BaseDataLayer) request.getAttribute("datalayer")).getAziendaDAO().updateAziendaStato(id_azienda, 1);
+            response.sendRedirect("home");
         } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        } catch (IOException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }
@@ -79,8 +85,12 @@ public class GestioneAzienda extends BaseController {
             Azienda azienda = ((BaseDataLayer) request.getAttribute("datalayer")).getAziendaDAO().getAzienda(id_azienda);
             ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().delUtente(azienda.getUtente());
             ((BaseDataLayer) request.getAttribute("datalayer")).getAziendaDAO().delAzienda(id_azienda);
+            response.sendRedirect("home");
             
         } catch (DataLayerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        } catch (IOException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }
