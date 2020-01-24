@@ -54,7 +54,6 @@ public class Home extends BaseController {
                         request.setAttribute("tirocini_rifiutati", tirocini_rifiutati);
                         //mostro il template
                         res = new TemplateResult(getServletContext());
-                        request.setAttribute("activeHome", "active");
                         res.activate("homepage_studente.ftl.html", request, response);
                         break;
                     case 2:
@@ -68,7 +67,6 @@ public class Home extends BaseController {
                         
                         //mostro il template
                         res = new TemplateResult(getServletContext());
-                        request.setAttribute("activeHome", "active");
                         res.activate("homepage_azienda.ftl.html", request, response);
                         break;
                     case 3:
@@ -88,7 +86,6 @@ public class Home extends BaseController {
             else{
                  //ANONIMO
                 res = new TemplateResult(getServletContext());
-                request.setAttribute("activeHome", "active");
                 res.activate("index.ftl.html", request, response);   
             }
         } catch (TemplateManagerException ex) {

@@ -28,7 +28,7 @@ public class DownloadDocumenti extends BaseController {
         HttpSession s = SecurityLayer.checkSession(request);
         if (s!= null) {
             request.setAttribute("username", (String)s.getAttribute("username"));
-            request.setAttribute("tipo", (String)s.getAttribute("tipo"));
+            request.setAttribute("tipo", (int)s.getAttribute("tipo"));
         }
         
          if (request.getParameter("nome_doc")!=null) {

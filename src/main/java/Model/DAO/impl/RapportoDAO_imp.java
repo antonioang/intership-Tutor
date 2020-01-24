@@ -54,10 +54,11 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
         Rapporto r = createRapporto();
          try {
              r.setOre(rs.getInt("ore"));
-             r.setDescrizioneAtt(rs.getString("descrizione"));
+             r.setDescrizioneAtt(rs.getString("descrizione_att"));
              r.setGiudizio(rs.getString("giudizio"));
              r.setStudente(rs.getInt("studente"));
              r.setTirocinio(rs.getInt("tirocinio"));
+             r.setData(rs.getDate("data").toLocalDate());
              
          } catch (SQLException ex) {
               throw new DataLayerException("Errore durante creazione del rapporto tirocinio", ex);

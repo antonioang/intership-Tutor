@@ -5,11 +5,14 @@
  */
 package Model.Interfaces;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author jacopo
  */
 public interface Rapporto {
+    
     int getOre();
     
     String getDescrizioneAtt();
@@ -20,6 +23,8 @@ public interface Rapporto {
     
     int getTirocinio();
     
+    LocalDate getData();
+    
     void setOre(int ore);
     
     void setDescrizioneAtt(String d);
@@ -29,4 +34,6 @@ public interface Rapporto {
     void setStudente(int s);
     
     void setTirocinio(int t);
+    
+    void setData(LocalDate data);
 }

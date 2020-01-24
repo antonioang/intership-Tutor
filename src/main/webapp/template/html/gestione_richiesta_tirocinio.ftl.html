@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
                             <div class="">
-                              <input class="form-control form-control-inline default-date-picker" value="${data_inizio}" size="16" type="date" id="data_inizio" name="data_inizio" >
+                              <input class="form-control form-control-inline default-date-picker" value='${richiesta_tirocinio.getDataInizio()?string["dd/MM/yyyy"]}' onfocus="(this.type='date')" type="text" id="data_inizio" name="data_inizio" >
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-12" for="data_fine" >Fine Tirocinio</label>
                             <div class="">
-                              <input class="form-control form-control-inline default-date-picker" value="${data_fine}" size="16" type="date" id="data_fine" name="data_fine" >
+                              <input class="form-control form-control-inline default-date-picker" value='${richiesta_tirocinio.getDataFine()?string["dd/MM/yyyy"]}' onfocus="(this.type='date')" type="text" id="data_fine" name="data_fine" >
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
                         <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
                         <div class="centered mt">
-                            <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-lock"></i> Salva Dati</button>
+                            <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-lock"></i> Imposta periodo di svolgimento</button>
                         </div>
                     </div>
                     </form>
@@ -162,12 +162,14 @@
                 <div class="row mt">
                     <div class="col-md-4">
                         <div>
+                            <p>Visualizza e Stampa il modulo per la candidatura</p>
                             <a href="documenti?tipo=2&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}" target="_blank" rel="noopener noreferrer">
                             <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
                             </a>
                         </div>
                     </div>
                     <div class="col-md-4">
+                        <p>Carica una scansione del documento firmato e timbrato</p>
                         <form class="form-horizontal style-form" method="POST" action="upload" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="hidden" name="tipo" value="2" />
@@ -186,8 +188,9 @@
                         </form>
                     </div>
                     <div class="col-md-4">
+                        <p>Potrai abilitare lo studente solo se &egrave; prensente il documento</p>
                         <div class="contenitore3 centered">
-                            <#if richiesta_tirocinio.getSrcDocCandid() == "">
+                            <#if richiesta_tirocinio.getSrcDocCandid() == "" && richiesta_tirocinio.getDataInizio() != null && richiesta_tirocinio.getDataFine() != null>
                                 <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-lock"></i> Accetta Richiesta</button>
                             <#else>
                                 <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&accetta=accetta">

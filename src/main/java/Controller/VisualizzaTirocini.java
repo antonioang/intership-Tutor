@@ -82,7 +82,7 @@ public class VisualizzaTirocini extends BaseController {
                 request.setAttribute("luogo", luogo);
                 request.setAttribute("settore", settore);
                 request.setAttribute("obiettivi", obiettivi);
-                request.setAttribute("corsoStudio", corso);
+                request.setAttribute("corsoStudi", corso);
                 
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);

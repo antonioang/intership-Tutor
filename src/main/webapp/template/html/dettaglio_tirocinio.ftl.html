@@ -82,6 +82,7 @@
                             <th>Nome</th>
                             <th>Telefono</th>
                             <th>Corso di Laurea</th>
+                            <th>Concludi Tirocinio</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -93,6 +94,11 @@
                             <td>${studente.getNome()} ${studente.getCognome()}</td>
                             <td>${studente.getTelefono()}</td>
                             <td>${studente.getCorsoLaurea()}</td>
+                            <td>
+                                <a href="tirocinio?id=${tirocinio.getId()}&studente=${studente.getId()}&concludi=concludi">
+                                    Concludi Tirocinio
+                                </a>
+                            </td>
                           </tr>
                           </#list>
                         </#if>
@@ -195,8 +201,32 @@
                         </div>
                     </div>
                 </div>
-            <#else>
-            
+            <#elseif stato_tirocinio == 2>
+                <div>
+                    <div class="panel text-center maincard">
+                        <h5 class="card-header"><b>Candidatura al tirocinio approvata</b></h5>
+                        <div class="card-body">
+                          <h5 class="card-title">La tua candidatura &egrave; stata approvata con successo dall'Azienda</h5>
+                          <p class="card-text mainparagraph">Adesso puoi scaricare il documento che attesta la tua candidatura</p>
+                          <a href="download?nome_doc=${richiesta_tirocinio.getSrcDocCandid()}">
+                            <button class="btn btn-theme centered"><i class="fa fa-download"></i> Scarica Documento</button>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+            <#elseif stato_tirocinio == 3>
+                <div>
+                    <div class="panel text-center maincard">
+                        <h5 class="card-header"><b>Tirocinio Concluso</b></h5>
+                        <div class="card-body">
+                          <h5 class="card-title">Il tirocinio si &egrave; concluso, adesso puoi visualizzare il resoconto dell'azienda e fornire una valutazione all'azienda</h5>
+                          <a href="documenti?tipo=3&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}">
+                            <button class="btn btn-theme centered"><i class="fa fa-search"></i> Visualizza Resoconto</button>
+                          </a>
+                          <p class="card-text mainparagraph">Dai un punteggio all'azienda da 0 a 5 stelle</p>
+                        </div>
+                    </div>
+                </div>
             </#if>
         <#else>
         <div>

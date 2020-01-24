@@ -86,28 +86,46 @@
             <div class="panel text-center maincard">
                 <h5 class="card-header"><b>Gestione convenzione azienda</b></h5>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="card-title">Prima di poter abilitare una convenzione c'&egrave; bisogno di caricare il modulo di convenzione firmato</h5>
-                            <p class="card-text mainparagraph">Stampa il modulo dopo aver cliccato sul pulsante "Visualizza Modulo"</p>
-                            <a href="documenti?tipo=1&azienda=${azienda.getId()}" target="_blank" rel="noopener noreferrer" class="mainbtn"> <i class="fa fa-file"></i> Visualizza Modulo di Convenzione</a>
+                    <div class="row mt">
+                        <div class="col-md-4">
+                            <div>
+                                <p>Visualizza e Stampa il modulo per la convenzione</p>
+                                <a href="documenti?tipo=1&azienda=${azienda.getId()}" target="_blank" rel="noopener noreferrer">
+                                <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <form method='post' action='upload' enctype='multipart/form-data'>
+                        <div class="col-md-4">
+                            <p>Carica una scansione del documento firmato e timbrato</p>
+                            <form method="POST" action="upload" enctype="multipart/form-data" class="form-horizontal style-form">
                                 <input type="hidden" name="azienda" value="${azienda.getId()}"/>
                                 <input name="tipo" type="hidden" value="1"/>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="file" required>
-                                    <label class="custom-file-label" for="validatedCustomFile">Sfoglia file...</label>
-                                    <!-- <div class="invalid-feedback">Example invalid custom file feedback</div> -->
-                                </div>
-                                <button type='submit' class="btn bg-success text-white">
-                                    Carica documento firmato
-                                </button>
+                                 <div class="controls col-md-12">
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                      <span class="btn btn-theme btn-file">
+                                      <input id="carica_file" type="file" name="file" class="default" />
+                                      <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
+                                      </span>
+                                      <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    </div>
+                                  </div>
                             </form>
                         </div> 
+                        <div class="col-md-4">
+                            <p>Potrai abilitare la convenzione solo se &egrave; prensente il documento</p>
+                            <div class="contenitore3 centered">
+                                <#if azienda.getSrcDocPath() == "">
+                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-lock"></i> Approva Convenzione</button>
+                                <#else>
+                                    <a href="gestione_azienda?id=${azienda.getId()}&action=accetta">
+                                        <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Approva Convenzione</button>
+                                    </a>
+                                </#if>
+                                    <a href="gestione_azienda?id=${azienda.getId()}&action=rifiuta">
+                                        <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Rifiuta Convenzione</button>
+                                    </a>
+                            </div>
+                        </div>
                     </div>
                      
                 </div>

@@ -302,8 +302,13 @@ body {margin-top: 0px;margin-left: 0px;}
 <#else>
     <P class="p25 ft8">________________________________________________________________________</P>
 </#if>
-
+<#if resoconto??>
+<div class="contenitore1">
+<div class="p9 ft8"><span class="titolo ft7">Data</span><p class="paragrafo_nome"><span class="input">${resoconto.getData()}</span></p></div>
+</div>
+<#else>
 <P class="p43 ft7">Data _________________________</P>
+</#if>
 <P class="p44 ft8">Il Tutor aziendale</P>
 
 <#if rappresentante_tirocini??>

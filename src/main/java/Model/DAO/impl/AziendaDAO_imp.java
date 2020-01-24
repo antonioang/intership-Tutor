@@ -43,8 +43,8 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             getAziendaByUtente = connection.prepareStatement("SELECT * FROM azienda WHERE utente = ?");
             getAziendaByStato = connection.prepareStatement("SELECT * FROM azienda WHERE stato_conv = ?");
             getTirocinantiAttivi = connection.prepareStatement("SELECT * FROM azienda WHERE responsabile_tirocinio = ?");
-            uAziendaByStato =  connection.prepareStatement("UPDATE aziendaSET stato_conv= ? WHERE id_azienda= ?");
-            uAziendaDoc = connection.prepareStatement("UPDATE azienda SET src_doc_conv=? WHERE id_azienda=?");
+            uAziendaByStato =  connection.prepareStatement("UPDATE azienda SET stato_conv = ? WHERE id_azienda = ?");
+            uAziendaDoc = connection.prepareStatement("UPDATE azienda SET src_doc_conv = ? WHERE id_azienda = ?");
             updAzienda = connection.prepareStatement("UPDATE azienda\n" +
             "SET rag_sociale=?, indirizzo=?, citta=?, cap=?, provincia=?, rappr_leg=?, piva=?, "
             + "foro_competente=?, tematica=?, corso_studi=?, "
@@ -141,11 +141,11 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     @Override
     public int updateAziendaStato(int id_az, int stato) throws DataLayerException {
         try {
-            uAziendaByStato.setInt(1, id_az);
-            uAziendaByStato.setInt(2, stato);
+            uAziendaByStato.setInt(1, stato);
+            uAziendaByStato.setInt(2, id_az);
             return uAziendaByStato.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
+            throw new DataLayerException("Errore l'aggiornamento dello stato della convenzione", ex);
         }
     }
 
