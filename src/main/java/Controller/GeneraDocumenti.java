@@ -157,21 +157,28 @@ public class GeneraDocumenti extends BaseController {
                  int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
                  int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("tirocinio"));
                  Rapporto resoconto = ((BaseDataLayer)request.getAttribute("datalayer")).getRapportoDAO().getRapporto(id_studente, id_tirocinio);
-                 RichiestaTirocinio richiesta_tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
-                 Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
-                 Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
-                 Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
-                 Persona rappresentante_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
-                 //setto i dati necessari
-                 request.setAttribute("resoconto", resoconto);
-                 request.setAttribute("richiesta_tirocinio", richiesta_tirocinio);
-                 request.setAttribute("studente", studente);
-                 request.setAttribute("azienda", azienda);
-                 request.setAttribute("tirocinio", tirocinio);
-                 request.setAttribute("rappresentante_tirocini", rappresentante_tirocini);
-                 //mostro il template
-                 TemplateResult res = new TemplateResult(getServletContext());
-                 res.activateNoOutline("modulo_resoconto.ftl.html", request, response);  
+                 if(resoconto != null){
+                    RichiestaTirocinio richiesta_tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+                    Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudente(id_studente);
+                    Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
+                    Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
+                    Persona rappresentante_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getPersona(azienda.getRespTirocini());
+                    //setto i dati necessari
+                    request.setAttribute("resoconto", resoconto);
+                    request.setAttribute("richiesta_tirocinio", richiesta_tirocinio);
+                    request.setAttribute("studente", studente);
+                    request.setAttribute("azienda", azienda);
+                    request.setAttribute("tirocinio", tirocinio);
+                    request.setAttribute("rappresentante_tirocini", rappresentante_tirocini);
+                    //mostro il template
+                    TemplateResult res = new TemplateResult(getServletContext());
+                    res.activateNoOutline("modulo_resoconto.ftl.html", request, response); 
+                 }
+                 else{
+                    request.setAttribute("errore", "errore_recupero_resoconto");
+                    request.setAttribute("message", "L'azienda non ha ancora compilato il resoconto dle tirocinio la pagina! Riprova più tardi");
+                 }
+                  
              } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);

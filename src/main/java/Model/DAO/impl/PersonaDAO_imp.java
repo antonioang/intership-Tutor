@@ -6,7 +6,6 @@
 package Model.DAO.impl;
 
 import Model.DAO.PersonaDAO;
-import Model.Impl.Persona_imp;
 import Model.Interfaces.Persona;
 import data.proxy.PersonaProxy;
 import framework.data.DAO;
@@ -18,6 +17,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +28,7 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     
     private PreparedStatement addPersona, delPersona, updPersona; 
     private PreparedStatement getPersona, getTutoriTirocinio, getTutoriUniversitari, getResponsabiliTirocini;
+    private PreparedStatement getBestTutoriUni, getBestTutoriTirocinio;
     
     public PersonaDAO_imp(DataLayer d) {
         super(d);
@@ -46,6 +48,10 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
             getResponsabiliTirocini = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 1");
             getTutoriTirocinio = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 2");
             getTutoriUniversitari = connection.prepareStatement("SELECT * FROM persona WHERE tipo = 3");
+            getBestTutoriUni = connection.prepareStatement("SELECT *, count(*) as occorrenze FROM richiesta_tirocinio JOIN persona on tutore_universitario = id_persona "
+                    + "group by tutore_universitario ORDER BY occorrenze desc LIMIT 5");
+            getBestTutoriTirocinio = connection.prepareStatement("SELECT *, count(*) as occorrenze FROM tirocinio JOIN persona on tutore_tirocinio = id_persona"
+                    + " group by tutore_tirocinio ORDER BY occorrenze desc LIMIT 5");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzazione degli Statement", ex);
         }
@@ -175,6 +181,8 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
             updPersona.close();
             getPersona.close();
             getTutoriTirocinio.close();
+            getBestTutoriUni.close();
+            getBestTutoriTirocinio.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
@@ -224,6 +232,34 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         }
         if(p instanceof PersonaProxy){
             ((PersonaProxy) p).setDirty(false);
+        }
+    }
+
+    @Override
+    public List<Persona> getBestTutoriTirocinio() throws DataLayerException {
+        try {
+            List<Persona> lista = new ArrayList();
+            ResultSet rs = getBestTutoriTirocinio.executeQuery();
+            while(rs.next()){
+                lista.add(createPersona(rs));
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dei migliori Tutori Tirocinio ", ex);
+        }
+    }
+
+    @Override
+    public List<Persona> getBestTutoriUni() throws DataLayerException {
+        try {
+            List<Persona> lista = new ArrayList();
+            ResultSet rs = getBestTutoriUni.executeQuery();
+            while(rs.next()){
+                lista.add(createPersona(rs));
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero dei migliori Tutori Universitari ", ex);
         }
     }
     

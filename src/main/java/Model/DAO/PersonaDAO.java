@@ -27,6 +27,10 @@ public interface PersonaDAO {
     List<Persona> getTutoriUniversitari() throws DataLayerException;
     
     List<Persona> getResponsabiliTirocini() throws DataLayerException;
+    
+    List<Persona> getBestTutoriTirocinio() throws DataLayerException;
+    
+    List<Persona> getBestTutoriUni() throws DataLayerException;
         
     int addPersona(Persona p) throws DataLayerException;
     
@@ -35,5 +39,7 @@ public interface PersonaDAO {
     int updPersona(Persona p) throws DataLayerException;
     
     void storePersona(Persona p) throws DataLayerException;
+    
+    
     
 }
