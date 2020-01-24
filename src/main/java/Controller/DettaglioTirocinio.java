@@ -83,8 +83,10 @@ public class DettaglioTirocinio extends BaseController {
                         //studente
                         Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername( (String) request.getAttribute("username"));
                         Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
-                        //controlla lo stato
                         RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, studente.getId());
+                        request.setAttribute("studente", studente);
+                        request.setAttribute("richiesta_tirocinio", richiesta);
+                        //controlla lo stato
                         switch (richiesta.getStatoCandidatura()) {
                                 //tirocinio richiesto
                                 case 1:

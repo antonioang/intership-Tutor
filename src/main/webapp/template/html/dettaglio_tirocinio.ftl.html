@@ -195,8 +195,19 @@
                         </div>
                     </div>
                 </div>
-            <#else>
-            
+            <#elseif stato_tirocinio == 2>
+                <div>
+                    <div class="panel text-center maincard">
+                        <h5 class="card-header"><b>Candidatura al tirocinio approvata</b></h5>
+                        <div class="card-body">
+                          <h5 class="card-title">La tua candidatura è stata approvata con successo dall'Azienda</h5>
+                          <p class="card-text mainparagraph">Adesso puoi scaricare il documento che attesta la tua candidatura</p>
+                          <a href="download?nome_doc=${richiesta_tirocinio.getSrcDocCandid()}">
+                            <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
+                          </a>
+                        </div>
+                    </div>
+                </div>
             </#if>
         <#else>
         <div>
