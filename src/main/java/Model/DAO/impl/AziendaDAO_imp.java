@@ -319,12 +319,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     }
 
     @Override
-    public HashMap<Azienda, Integer> getBestAziende() throws DataLayerException {
+    public HashMap<Azienda, Float> getBestAziende() throws DataLayerException {
         try {
-            HashMap<Azienda, Integer> lista = new HashMap<Azienda, Integer>();
+            HashMap<Azienda, Float> lista = new HashMap<Azienda, Float>();
             ResultSet rs = getBestAziende.executeQuery();
             while(rs.next()){
-                lista.put(createAzienda(rs), SecurityLayer.checkNumeric(rs.getString("valutazione")));
+                lista.put(createAzienda(rs), SecurityLayer.checkFloat(rs.getString("valutazione")));
             }
             return lista;
         } catch (SQLException ex) {
@@ -333,12 +333,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     }
 
     @Override
-    public HashMap<Azienda, Integer> getWorstAziende() throws DataLayerException {
+    public HashMap<Azienda, Float> getWorstAziende() throws DataLayerException {
         try {
-            HashMap<Azienda, Integer> lista = new HashMap<Azienda, Integer>();
+            HashMap<Azienda, Float> lista = new HashMap<Azienda, Float>();
             ResultSet rs = getWorstAziende.executeQuery();
             while(rs.next()){
-                lista.put(createAzienda(rs), SecurityLayer.checkNumeric(rs.getString("valutazione")));
+                lista.put(createAzienda(rs), SecurityLayer.checkFloat(rs.getString("valutazione")));
             }
             return lista;
         } catch (SQLException ex) {

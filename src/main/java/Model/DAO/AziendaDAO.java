@@ -29,9 +29,9 @@ public interface AziendaDAO {
     
     HashMap<Azienda, Integer> getAziendeConPiuTirocinanti() throws DataLayerException;
     
-    HashMap<Azienda, Integer> getBestAziende() throws DataLayerException;
+    HashMap<Azienda, Float> getBestAziende() throws DataLayerException;
     
-    HashMap<Azienda, Integer> getWorstAziende() throws DataLayerException;
+    HashMap<Azienda, Float> getWorstAziende() throws DataLayerException;
     
     float getValutazioneAzienda(int azienda) throws DataLayerException;
         
