@@ -11,6 +11,7 @@ import data.proxy.AziendaProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
+import framework.security.SecurityLayer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -318,12 +319,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     }
 
     @Override
-    public List<Azienda> getBestAziende() throws DataLayerException {
+    public HashMap<Azienda, Integer> getBestAziende() throws DataLayerException {
         try {
-            List<Azienda> lista = new ArrayList();
+            HashMap<Azienda, Integer> lista = new HashMap<Azienda, Integer>();
             ResultSet rs = getBestAziende.executeQuery();
             while(rs.next()){
-                lista.add(createAzienda(rs));
+                lista.put(createAzienda(rs), SecurityLayer.checkNumeric(rs.getString("valutazione")));
             }
             return lista;
         } catch (SQLException ex) {
@@ -332,12 +333,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
     }
 
     @Override
-    public List<Azienda> getWorstAziende() throws DataLayerException {
+    public HashMap<Azienda, Integer> getWorstAziende() throws DataLayerException {
         try {
-            List<Azienda> lista = new ArrayList();
+            HashMap<Azienda, Integer> lista = new HashMap<Azienda, Integer>();
             ResultSet rs = getWorstAziende.executeQuery();
             while(rs.next()){
-                lista.add(createAzienda(rs));
+                lista.put(createAzienda(rs), SecurityLayer.checkNumeric(rs.getString("valutazione")));
             }
             return lista;
         } catch (SQLException ex) {

@@ -56,7 +56,7 @@ public class FailureResult {
             if (context.getInitParameter("view.error_template") != null) {
                 request.setAttribute("error", message);
                 request.setAttribute("outline_tpl", "");
-                template.activate("error", request, response);
+                template.activate("errore.ftl.html", request, response);
             } else {
                 //altrimenti, inviamo un errore HTTP
                 //otherwise, use HTTP errors
