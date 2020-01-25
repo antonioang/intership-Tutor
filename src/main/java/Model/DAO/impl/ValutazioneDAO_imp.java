@@ -37,11 +37,11 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
     @Override
     public void init() throws DataLayerException {
         try {
-            getValutazione = connection.prepareStatement("SELECT * FROM valutazione_azienda WHERE id_studente = ? AND id_azienda = ?");
-            getValutazioneSt = connection.prepareStatement("SELECT * FROM valutazione_azienda WHERE id_studente = ?");
-            getValutazioneAz = connection.prepareStatement("SELECT * FROM valutazione_azienda WHERE id_azienda = ?");
+            getValutazione = connection.prepareStatement("SELECT * FROM valutazione_azienda WHERE studente = ? AND azienda = ?");
+            getValutazioneSt = connection.prepareStatement("SELECT * FROM valutazione_azienda WHERE studente = ?");
+            getValutazioneAz = connection.prepareStatement("SELECT * FROM valutazione_azienda WHERE azienda = ?");
             addValutazione = connection.prepareStatement("INSERT INTO valutazione_azienda (punteggio, studente, azienda) VALUES(?, ?, ?);");
-            delValutazione = connection.prepareStatement("DELETE FROM valutazione_azienda WHERE id_studente = ? AND id_azienda = ?");
+            delValutazione = connection.prepareStatement("DELETE FROM valutazione_azienda WHERE studente = ? AND azienda = ?");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore inizializzazione degli statement valutazione azienda", ex);
         }
