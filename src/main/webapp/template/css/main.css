@@ -11,7 +11,18 @@
 .maincard{
     margin-top: 2em;
 }
-
+.errorcard{
+    margin-top: 4em;
+    min-height: 15em;
+    
+}
+.error-card-body{
+    min-height:12em;
+}
+.errorparagraph{
+    margin-top: 20px;
+    margin-bottom: 45px;
+}
 .mainparagraph{
     margin-top: 20px;
     margin-bottom: 20px;
