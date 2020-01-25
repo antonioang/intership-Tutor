@@ -51,7 +51,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
                     + "OR tirocinio.settore like ? OR tirocinio.titolo like ? OR tirocinio.obiettivo like ? OR tirocinio.durata like ? OR azienda.corso_studi like ? OR facilitazioni like ?");
             getTirociniByStatoRichieste = connection.prepareStatement("SELECT * FROM tirocinio JOIN richiesta_tirocinio ON richiesta_tirocinio.tirocinio = id_tirocinio WHERE richiesta_tirocinio.studente = ? && richiesta_tirocinio.stato_candidatura = ?");
-            getLatestTirocini = connection.prepareStatement("");
+            getLatestTirocini = connection.prepareStatement("SELECT * FROM tirocinio ORDER BY id_tirocinio DESC LIMIT 10");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }

@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -236,12 +237,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     }
 
     @Override
-    public List<Persona> getBestTutoriTirocinio() throws DataLayerException {
+    public HashMap<Persona, Integer> getBestTutoriTirocinio() throws DataLayerException {
         try {
-            List<Persona> lista = new ArrayList();
+            HashMap<Persona, Integer> lista = new HashMap<Persona, Integer>();
             ResultSet rs = getBestTutoriTirocinio.executeQuery();
             while(rs.next()){
-                lista.add(createPersona(rs));
+                lista.put(createPersona(rs), rs.getInt("occorrenze"));
             }
             return lista;
         } catch (SQLException ex) {
@@ -250,12 +251,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     }
 
     @Override
-    public List<Persona> getBestTutoriUni() throws DataLayerException {
+    public HashMap<Persona, Integer> getBestTutoriUni() throws DataLayerException {
         try {
-            List<Persona> lista = new ArrayList();
+            HashMap<Persona, Integer> lista = new HashMap<Persona, Integer>();
             ResultSet rs = getBestTutoriUni.executeQuery();
             while(rs.next()){
-                lista.add(createPersona(rs));
+                lista.put(createPersona(rs), rs.getInt("occorrenze"));
             }
             return lista;
         } catch (SQLException ex) {

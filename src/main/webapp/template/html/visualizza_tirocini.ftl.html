@@ -1,5 +1,58 @@
 <section class="wrapper">
-    <div class="row no-margin">
+    <#if (ultimi_tirocini??)>
+    <div class="row">
+        <!-- /col-md-12 -->
+        <div class="col-md-12 mt">
+                <#if (ultimi_tirocini?size>0)>
+                    <div class="content-panel">
+                      <table class="table table-hover">
+                        <h4><i class="fa fa-angle-right"></i>Ultime offerte di tirocinio inserite</h4>
+                        <hr>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Titolo</th>
+                            <th>Modalit&agrave;</th>
+                            <th>Luogo</th>
+                            <th>Durata</th>
+                            <th>Orari</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                         <#assign count=1>
+                         <#list ultimi_tirocini as tirocinio>
+                          <tr>
+                            <td>${count} <#assign count++></td>
+                            <td>
+                                <a href="tirocinio?id=${tirocinio.getId()}">
+                                    ${tirocinio.getTitolo()}
+                                </a>
+                            </td>
+                            <td>${tirocinio.getModalita()}</td>
+                            <td>${tirocinio.getLuogo()}</td>
+                            <td>${tirocinio.getDurata()}</td>
+                            <td>${tirocinio.getOrari()}</td>
+                          </tr>
+                         </#list>
+                        </tbody>
+                      </table>
+                    </div>
+                <#else>
+                    <div>
+                        <div class="panel text-center maincard">
+                            <h5 class="card-header"><b>Non sono stati trovati tirocini</b></h5>
+                            <div class="card-body">
+                                <h5 class="card-title">La ricerca secondo i parametri inseriti non ha prodotto risultati</h5>
+                              <p class="card-text mainparagraph">Puoi provare ad eseguire una ricerca secondo altri paramentri.</p>
+                            </div>
+                        </div>
+                    </div>
+                </#if>
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    </#if>
+    <div class="row no-margin-sides mt">
         <div class="card">
             <div class="card-header">
                 <h4>Ricerca Tirocinio</h4>
@@ -134,57 +187,4 @@
     </div>
     </#if>
     
-    <#if (ultimi_tirocini??)>
-    <div class="row">
-        <!-- /col-md-12 -->
-        <div class="col-md-12 mt">
-                <#if (ultimi_tirocini?size>0)>
-                    <div class="content-panel">
-                      <table class="table table-hover">
-                        <h4><i class="fa fa-angle-right"></i>Ultime offerte di tirocinio inserite</h4>
-                        <hr>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Titolo</th>
-                            <th>Modalit&agrave;</th>
-                            <th>Luogo</th>
-                            <th>Durata</th>
-                            <th>Orari</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                         <#assign count=1>
-                         <#list ultimi_tirocini as tirocinio>
-                          <tr>
-                            <td>${count} <#assign count++></td>
-                            <td>
-                                <a href="tirocinio?id=${tirocinio.getId()}">
-                                    ${tirocinio.getTitolo()}
-                                </a>
-                            </td>
-                            <td>${tirocinio.getModalita()}</td>
-                            <td>${tirocinio.getLuogo()}</td>
-                            <td>${tirocinio.getDurata()}</td>
-                            <td>${tirocinio.getOrari()}</td>
-                          </tr>
-                         </#list>
-                        </tbody>
-                      </table>
-                    </div>
-                <#else>
-                    <div>
-                        <div class="panel text-center maincard">
-                            <h5 class="card-header"><b>Non sono stati trovati tirocini</b></h5>
-                            <div class="card-body">
-                                <h5 class="card-title">La ricerca secondo i parametri inseriti non ha prodotto risultati</h5>
-                              <p class="card-text mainparagraph">Puoi provare ad eseguire una ricerca secondo altri paramentri.</p>
-                            </div>
-                        </div>
-                    </div>
-                </#if>
-        </div>
-        <!-- /col-md-12 -->
-    </div>
-    </#if>
 </section>

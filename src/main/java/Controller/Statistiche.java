@@ -43,8 +43,8 @@ public class Statistiche extends BaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response) {
         try {
             //ottengo i dati
-            List<Persona> best_tutori_tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getBestTutoriTirocinio();
-            List<Persona> best_tutori_uni = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getBestTutoriUni();
+            HashMap<Persona, Integer> best_tutori_tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getBestTutoriTirocinio();
+            HashMap<Persona, Integer> best_tutori_uni = ((BaseDataLayer)request.getAttribute("datalayer")).getPersonaDAO().getBestTutoriUni();
             HashMap<Azienda, Integer> aziende_piu_tirocinanti = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAziendeConPiuTirocinanti();
             HashMap<Azienda, Float> best_aziende = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getBestAziende();
             HashMap<Azienda, Float> worst_aziende = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getWorstAziende();

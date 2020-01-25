@@ -3,9 +3,9 @@
         <div class="col-lg-12 mt">
             <#if eccezione??>
                 <div class="panel text-center errorcard">
-                    <h5 class="card-header"><b>${eccezione}</b></h5>
+                    <h5 class="card-header"><b>Qualcosa all'interno del server &egrave; andato storto!</b></h5>
                     <div class="error-card-body card-body">
-                        <h5 class="card-title">qualcosa allinterno del server &egrave; andato storto!</h5>
+                        <h5 class="card-title">${error_message}</h5>
                           <p class="card-text errorparagraph">Puoi utilizzare il tasto indietro del browser per tornare alla pagine precedente o cliccare il pulsante per tornare alla home</p>
                           <a href="home" class="mainbtn"> <i class="fa fa-home"></i> Torna alla home</a>
                     </div>

@@ -8,6 +8,7 @@ package Model.DAO;
 import Model.Interfaces.Persona;
 import framework.data.DataLayerException;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,9 +29,9 @@ public interface PersonaDAO {
     
     List<Persona> getResponsabiliTirocini() throws DataLayerException;
     
-    List<Persona> getBestTutoriTirocinio() throws DataLayerException;
+    HashMap<Persona, Integer> getBestTutoriTirocinio() throws DataLayerException;
     
-    List<Persona> getBestTutoriUni() throws DataLayerException;
+    HashMap<Persona, Integer> getBestTutoriUni() throws DataLayerException;
         
     int addPersona(Persona p) throws DataLayerException;
     

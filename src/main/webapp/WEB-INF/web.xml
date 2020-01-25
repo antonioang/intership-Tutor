@@ -16,6 +16,10 @@
         <param-name>view.template_directory</param-name>
         <param-value>template/html</param-value>
     </context-param>
+    <context-param>
+        <param-name>view.error_template</param-name>
+        <param-value>errore.ftl.html</param-value>
+    </context-param>
     <filter>
         <filter-name>IsLogged</filter-name>
         <filter-class>filter.IsLogged</filter-class>
