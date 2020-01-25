@@ -324,7 +324,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             HashMap<Azienda, Float> lista = new HashMap<Azienda, Float>();
             ResultSet rs = getBestAziende.executeQuery();
             while(rs.next()){
-                lista.put(createAzienda(rs), SecurityLayer.checkFloat(rs.getString("valutazione")));
+                lista.put(createAzienda(rs), rs.getFloat("valutazione"));
             }
             return lista;
         } catch (SQLException ex) {
@@ -338,7 +338,7 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             HashMap<Azienda, Float> lista = new HashMap<Azienda, Float>();
             ResultSet rs = getWorstAziende.executeQuery();
             while(rs.next()){
-                lista.put(createAzienda(rs), SecurityLayer.checkFloat(rs.getString("valutazione")));
+                lista.put(createAzienda(rs), rs.getFloat("valutazione"));
             }
             return lista;
         } catch (SQLException ex) {

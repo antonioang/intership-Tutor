@@ -387,12 +387,4 @@ public class SecurityLayer {
         return false;
     }
     
-    public static float checkFloat(String s){
-        if(s != null && s.length() != 0){
-            return Float.parseFloat(s);
-        }
-        else{
-            throw new IllegalArgumentException("float argument isn't valid");
-        }
-    }
 }
