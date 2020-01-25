@@ -103,10 +103,10 @@ public class RegisterStudente extends BaseController{
                 st.setCodFiscale(request.getParameter("codice_fiscale"));
                 st.setDataNascita(SecurityLayer.checkDate(request.getParameter("data_nascita")));
                 st.setCittaNascita(request.getParameter("citta_nascita"));
-                st.setProvinciaNascita(request.getParameter("provincia_nascita"));
+                st.setProvinciaNascita(request.getParameter("provincia_nascita").toUpperCase());
                 st.setCittaResidenza(request.getParameter("citta_residenza"));
                 st.setCapResidenza(Integer.parseInt(request.getParameter("cap_residenza")));
-                st.setProvinciaResidenza(request.getParameter("provincia_residenza"));
+                st.setProvinciaResidenza(request.getParameter("provincia_residenza").toUpperCase());
                 st.setTelefono(request.getParameter("telefono"));
                 st.setCorsoLaurea(request.getParameter("corso_laurea"));
                 st.setHandicap(Boolean.valueOf(request.getParameter("handicap")));

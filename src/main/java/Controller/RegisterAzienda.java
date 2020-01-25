@@ -124,7 +124,7 @@ public class RegisterAzienda extends BaseController {
                     az.setIndirizzo(request.getParameter("indirizzo"));
                     az.setCitta(request.getParameter("citta"));
                     az.setCap(Integer.parseInt(request.getParameter("cap")));
-                    az.setProvincia(request.getParameter("provincia"));
+                    az.setProvincia(request.getParameter("provincia").toUpperCase());
                     az.setRapprLeg(request.getParameter("rappresentante_legale"));
                     az.setPiva(request.getParameter("piva"));
                     az.setForoCompetente(request.getParameter("foro_competente"));

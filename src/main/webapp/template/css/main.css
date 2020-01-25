@@ -173,7 +173,7 @@ a:hover{
 
 .rating:not(:hover) label input:checked ~ .icon,
 .rating:hover label:hover input ~ .icon {
-  color: #09f;
+  color: orange;
 }
 
 .rating label input:focus:not(:checked) ~ .icon:last-child {
@@ -182,4 +182,7 @@ a:hover{
 }
 .richiedi-tirocinio{
     margin-top: 10px;
+}
+.rating > .icon-colored{
+    color: orange;
 }

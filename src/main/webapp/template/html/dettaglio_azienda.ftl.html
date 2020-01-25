@@ -16,7 +16,17 @@
                       <h3>Valutazione</h3>
                   </div>
                   <div>
-                      <h3>${valutazione}</h3>
+                      <div class='rating'>
+                          <#assign n = valutazione>
+                            <#list 1..n as i>
+                                <span class="icon-colored">&#9733;</span>
+                            </#list>
+                          <#assign n = 5-valutazione>
+                            <#list 1..n as i>
+                                <span class="icon">&#9733;</span>
+                            </#list>  
+                      </div>
+                      <p><strong>${valutazione}</strong> stelle su <strong>5</strong></p>
                   </div>
               </div>
               <!-- /col-md-4 -->
@@ -44,7 +54,7 @@
                       <div class="col-md-6">
                         <div class="centered overview-profile-text">
                           <h5>Indirizzo</h5>
-                          <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap}</p>
+                          <p>${azienda.indirizzo}, ${azienda.citta}(${azienda.provincia}), ${azienda.cap?string["00000"]}</p>
                         </div>
                         <div class="centered overview-profile-text">
                           <h5>Rappresentante Legale</h5>
