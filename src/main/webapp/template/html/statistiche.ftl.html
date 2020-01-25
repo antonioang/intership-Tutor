@@ -1,0 +1,159 @@
+<section class="wrapper">
+    <div class="row">
+        <div class="col-lg-12 mt">
+            <div class="border-head">
+              <h3>STATISTICHE</h3>
+            </div>
+            <div class="mt content-panel">
+              <table class="table table-hover">
+                  <h4><i class="fa fa-angle-right"></i> Tutori universitari pi&ugrave; cercati</h4>
+                <hr>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Telefono</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <#assign count=1>
+                  <#if (best_tutori_uni?size>0)>
+                    <#list best_tutori_uni as tutore_uni>
+                    <tr>
+                      <td>${count} <#assign count++></td>
+                      <td>${tutore_uni.getNome()}</td>
+                      <td>${tutore_uni.getCognome()}</td>
+                      <td>${tutore_uni.getTelefono()}</td>
+                    </tr>
+                    </#list>
+                  </#if>
+                </tbody>
+              </table>
+              <#if (best_tutori_uni?size==0)>
+              <p>La lista dei migliori tutori universitari &egrave; vuota</p>
+              </#if>
+            </div>
+            <div class="mt content-panel">
+              <table class="table table-hover">
+                  <h4><i class="fa fa-angle-right"></i> Tutori tirocinio pi&ugrave; cercati</h4>
+                <hr>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Telefono</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <#assign count=1>
+                  <#if (best_tutori_tirocinio?size>0)>
+                    <#list best_tutori_tirocinio as tutore_tirocinio>
+                    <tr>
+                      <td>${count} <#assign count++></td>
+                      <td>${tutore_tirocinio.getNome()}</td>
+                      <td>${tutore_tirocinio.getCognome()}</td>
+                      <td>${tutore_tirocinio.getTelefono()}</td>
+                    </tr>
+                    </#list>
+                  </#if>
+                </tbody>
+              </table>
+              <#if (best_tutori_tirocinio?size==0)>
+              <p>La lista dei miglio tutori tirocinio &egrave; vuota</p>
+              </#if>
+            </div>
+            <div class="mt content-panel">
+              <table class="table table-hover">
+                  <h4><i class="fa fa-angle-right"></i> Aziende con valutazioni migliori</h4>
+                <hr>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Citt&agrave;</th>
+                    <th>Corso di Studi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <#assign count=1>
+                  <#if (best_aziende?size>0)>
+                    <#list best_aziende as azienda>
+                    <tr>
+                      <td>${count} <#assign count++></td>
+                      <td><a href="azienda?id=${azienda.getId()}">${azienda.getNome()}</a></td>
+                      <td>${azienda.getCitta()}</td>
+                      <td>${azienda.getCorsoStudi()}</td>
+                    </tr>
+                    </#list>
+                  </#if>
+                </tbody>
+              </table>
+              <#if (best_aziende?size==0)>
+              <p>La lista delle aziende con valutazioni migliori &egrave; vuota</p>
+              </#if>
+            </div>
+            <div class="mt content-panel">
+              <table class="table table-hover">
+                  <h4><i class="fa fa-angle-right"></i> Aziende con valutazioni peggiori</h4>
+                <hr>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Citt&agrave;</th>
+                    <th>Corso di Studi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <#assign count=1>
+                  <#if (worst_aziende?size>0)>
+                    <#list worst_aziende as azienda>
+                    <tr>
+                      <td>${count} <#assign count++></td>
+                      <td><a href="azienda?id=${azienda.getId()}">${azienda.getNome()}</a></td>
+                      <td>${azienda.getCitta()}</td>
+                      <td>${azienda.getCorsoStudi()}</td>
+                    </tr>
+                    </#list>
+                  </#if>
+                </tbody>
+              </table>
+              <#if (worst_aziende?size==0)>
+              <p>La lista delle aziende con valutazioni peggiori &egrave; vuota</p>
+              </#if>
+            </div>
+            <div class="mt content-panel">
+              <table class="table table-hover">
+                  <h4><i class="fa fa-angle-right"></i> Aziende che ospitano pi&ugrave; tirocinanti</h4>
+                <hr>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Citt&agrave;</th>
+                    <th>Corso di Studi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <#assign count=1>
+                  <#if (aziende_piu_tirocinanti?size>0)>
+                    <#list aziende_piu_tirocinanti as azienda, value>
+                    <tr>
+                      <td>${count} <#assign count++></td>
+                      <td>${azienda.getNome()}</td>
+                      <td>${azienda.getCitta()}</td>
+                      <td>${azienda.getCorsoStudi()}</td>
+                    </tr>
+                    </#list>
+                  </#if>
+                </tbody>
+              </table>
+              <#if (aziende_piu_tirocinanti?size==0)>
+              <p>La lista delle aziende con pi&ugrave; tirocinanti &egrave; vuota</p>
+              </#if>
+            </div>
+        </div>
+    </div>
+</section>
