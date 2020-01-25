@@ -40,4 +40,6 @@ public interface TirocinioDAO {
     void storeTirocinio(Tirocinio tirocinio) throws DataLayerException;
     
     List<Tirocinio> getTirociniByStatoRichieste(int id_studente, int stato) throws DataLayerException;
+    
+    List<Tirocinio> getLatestTirocini() throws DataLayerException;
 }

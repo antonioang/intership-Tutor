@@ -14,6 +14,8 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,9 +45,19 @@ public class VisualizzaTirocini extends BaseController {
     
     private void action_default(HttpServletRequest request, HttpServletResponse response){
         try {
+            //ottengo gli ultimi tirocini inseriti
+            List<Tirocinio> ultimi_tirocini = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getLatestTirocini();
+            
+            //setto i dati necessari
+            request.setAttribute("ultimi_tirocini", ultimi_tirocini);
+            
+            //mostro il template
             TemplateResult res = new TemplateResult(getServletContext());
             res.activate("visualizza_tirocini.ftl.html", request, response);
         } catch (TemplateManagerException ex) {
+            request.setAttribute("eccezione", ex);
+            action_error(request, response);
+        } catch (DataLayerException ex) {
             request.setAttribute("eccezione", ex);
             action_error(request, response);
         }

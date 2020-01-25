@@ -17,6 +17,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +26,7 @@ import java.util.List;
  */
 public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     
-    PreparedStatement getTirociniVisibili, getTirocini, getTirocinio;
+    PreparedStatement getTirociniVisibili, getTirocini, getTirocinio, getLatestTirocini;
     PreparedStatement addTirocinio, updTirocinio, delTirocinio;
     PreparedStatement updTirocinioVisibile, searchTirocinio, getTirociniByStatoRichieste;
     
@@ -49,6 +51,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
                     + "OR tirocinio.settore like ? OR tirocinio.titolo like ? OR tirocinio.obiettivo like ? OR tirocinio.durata like ? OR azienda.corso_studi like ? OR facilitazioni like ?");
             getTirociniByStatoRichieste = connection.prepareStatement("SELECT * FROM tirocinio JOIN richiesta_tirocinio ON richiesta_tirocinio.tirocinio = id_tirocinio WHERE richiesta_tirocinio.studente = ? && richiesta_tirocinio.stato_candidatura = ?");
+            getLatestTirocini = connection.prepareStatement("");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }
@@ -283,5 +286,20 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         if(tirocinio instanceof TirocinioProxy){
             ((TirocinioProxy) tirocinio).setDirty(false);
         }
+    }
+
+    @Override
+    public List<Tirocinio> getLatestTirocini() throws DataLayerException {
+        List<Tirocinio> lista = new ArrayList();
+        try {
+            ResultSet rs = getLatestTirocini.executeQuery();
+            while(rs.next()){
+                lista.add(createTirocinio(rs));
+            }
+            return lista;     
+        } catch (SQLException ex) {
+            throw new DataLayerException("Errore durante il recupero degli ultimi tirocini inseriti ", ex);
+        }
+        
     }
 }
