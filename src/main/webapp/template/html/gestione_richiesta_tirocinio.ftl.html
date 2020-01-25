@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
                             <div class="">
-                              <input class="form-control form-control-inline default-date-picker" value='${richiesta_tirocinio.getDataInizio()?string["dd/MM/yyyy"]}' onfocus="(this.type='date')" type="text" id="data_inizio" name="data_inizio" >
+                              <input class="form-control form-control-inline default-date-picker" value='${(richiesta_tirocinio.getDataInizio()?string["dd/MM/yyyy"])!"inserire la data di inizio tirocinio"}' onfocus="(this.type='date')" type="text" id="data_inizio" name="data_inizio" >
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                         <div class="form-group">
                             <label class="control-label col-lg-12" for="data_fine" >Fine Tirocinio</label>
                             <div class="">
-                              <input class="form-control form-control-inline default-date-picker" value='${richiesta_tirocinio.getDataFine()?string["dd/MM/yyyy"]}' onfocus="(this.type='date')" type="text" id="data_fine" name="data_fine" >
+                              <input class="form-control form-control-inline default-date-picker" value='${(richiesta_tirocinio.getDataFine()?string["dd/MM/yyyy"])!"inserire la data di fine tirocinio"}' onfocus="(this.type='date')" type="text" id="data_fine" name="data_fine" >
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
                         <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
                         <div class="centered mt">
-                            <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-lock"></i> Imposta periodo di svolgimento</button>
+                            <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-calendar"></i> Imposta periodo di svolgimento</button>
                         </div>
                     </div>
                     </form>
@@ -190,15 +190,15 @@
                     <div class="col-md-4">
                         <p>Potrai abilitare lo studente solo se &egrave; prensente il documento</p>
                         <div class="contenitore3 centered">
-                            <#if richiesta_tirocinio.getSrcDocCandid() == "" && richiesta_tirocinio.getDataInizio() != null && richiesta_tirocinio.getDataFine() != null>
-                                <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-lock"></i> Accetta Richiesta</button>
-                            <#else>
+                            <#if richiesta_tirocinio.getSrcDocCandid()?? && richiesta_tirocinio.getDataInizio() != null && richiesta_tirocinio.getDataFine() != null>
                                 <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&accetta=accetta">
-                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Accetta Richiesta</button>
+                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-check"></i> Accetta Richiesta</button>
                                 </a>
+                            <#else>
+                                <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-check"></i> Accetta Richiesta</button>
                             </#if>
                                 <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&rifiuta=rifiuta">
-                                    <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Rifiuta Richiesta</button>
+                                    <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-times"></i> Rifiuta Richiesta</button>
                                 </a>
                         </div>
                     </div>

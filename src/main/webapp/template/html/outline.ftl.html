@@ -40,11 +40,15 @@
           <li><a class="logout" href="logout">Logout</a></li>
         </ul>
       </div>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="profilo">Profilo</a></li>
-        </ul>
-      </div>
+      <#if tipo??>
+        <#if tipo != 3>
+        <div class="top-menu">
+          <ul class="nav pull-right top-menu">
+            <li><a class="logout" href="profilo">Profilo</a></li>
+          </ul>
+        </div>
+        </#if>
+      </#if>
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
             <h3 class="nomeDaVisualizzare">${nomeDaVisualizzare}</h3>
@@ -80,8 +84,8 @@
               <span>Home</span>
               </a>
           </li>
-           <#if tipologia??>
-           <#if tipo == '2'>
+           <#if tipo??>
+           <#if tipo == 3>
           <li class="mt">
             <a class="${activeStatistiche!}" href="statistiche">
               <i class="fa fa-industry"></i>
