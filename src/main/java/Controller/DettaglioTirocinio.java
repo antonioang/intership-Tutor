@@ -106,6 +106,10 @@ public class DettaglioTirocinio extends BaseController {
                                 //tirocinio concluso
                                 case 3:
                                     request.setAttribute("stato_tirocinio", 3);
+                                    Valutazione valutazione = ((BaseDataLayer)request.getAttribute("datalayer")).getValutazioneDAO().getValutazione(tirocinio.getAzienda(), studente.getId());
+                                    if(valutazione != null){
+                                        request.setAttribute("valutato", "valutato");
+                                    }
                                     break;
                                 //tirocinio rifiutato
                                 case 4:

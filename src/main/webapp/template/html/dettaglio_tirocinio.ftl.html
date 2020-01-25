@@ -221,11 +221,57 @@
                     <div class="panel text-center maincard">
                         <h5 class="card-header"><b>Tirocinio Concluso</b></h5>
                         <div class="card-body">
-                          <h5 class="card-title">Il tirocinio si &egrave; concluso, adesso puoi visualizzare il resoconto dell'azienda e fornire una valutazione all'azienda</h5>
+                          <h5 class="card-title">Il tirocinio si &egrave; concluso, adesso puoi visualizzare il resoconto dell'azienda</h5>
                           <a href="documenti?tipo=3&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}">
-                            <button class="btn btn-theme centered"><i class="fa fa-search"></i> Visualizza Resoconto</button>
+                            <button class="btn btn-theme centered richiedi-tirocinio"><i class="fa fa-search"></i> Visualizza Resoconto</button>
                           </a>
-                          <p class="card-text mainparagraph">Dai un punteggio all'azienda da 0 a 5 stelle</p>
+                          <#if !valutato??>
+                          <p class="card-text mainparagraph">Dai un punteggio all'esperienza con l'azienda da 0 a 5 stelle</p>
+                          <div>
+                              <form method="POST" action="tirocinio">
+                                  <div class="rating">
+                                      <label>
+                                        <input type="radio" name="valutazione" value="1" />
+                                        <span class="icon">&#9733;</span>
+                                      </label>
+                                      <label>
+                                        <input type="radio" name="valutazione" value="2" />
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                      </label>
+                                      <label>
+                                        <input type="radio" name="valutazione" value="3" />
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>   
+                                      </label>
+                                      <label>
+                                        <input type="radio" name="valutazione" value="4" />
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                      </label>
+                                      <label>
+                                        <input type="radio" name="valutazione" value="5" />
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                        <span class="icon">&#9733;</span>
+                                      </label>
+                                  </div>
+                                
+                                  <input name="id" value="${tirocinio.getId()}" type="hidden" />
+                                  <div>
+                                      <button class="btn btn-theme" type="submit">Valuta</button>
+                                  </div>
+                                  
+                              </form>
+                          </div>
+                          <#else>
+                          <p class="card-text mainparagraph">Grazie per aver valutato l'azienda!</p>
+                          </#if>
                         </div>
                     </div>
                 </div>
