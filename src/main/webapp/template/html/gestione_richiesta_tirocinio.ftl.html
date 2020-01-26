@@ -163,7 +163,7 @@
                     <div class="col-md-4">
                         <div>
                             <p>Visualizza e Stampa il modulo per la candidatura</p>
-                            <a href="documenti?tipo=2&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}" target="_blank" rel="noopener noreferrer">
+                            <a href="documenti?tipo=2&studente=${studente.getId()}&tirocinio=${(tirocinio.id)!}" target="_blank" rel="noopener noreferrer">
                             <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
                             </a>
                         </div>
@@ -174,7 +174,7 @@
                             <div class="form-group">
                                 <input type="hidden" name="tipo" value="2" />
                                 <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
-                                <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
+                                <input  value="${(tirocinio.id)!}" type="hidden" id="tirocinio" name="tirocinio" >
                                 <div class="controls col-md-12">
                                   <div class="fileupload fileupload-new" data-provides="fileupload">
                                     <span class="btn btn-theme btn-file">
@@ -190,14 +190,16 @@
                     <div class="col-md-4">
                         <p>Potrai abilitare lo studente solo se &egrave; prensente il documento</p>
                         <div class="contenitore3 centered">
-                            <#if richiesta_tirocinio.getSrcDocCandid()?? && richiesta_tirocinio.getDataInizio() != null && richiesta_tirocinio.getDataFine() != null>
-                                <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&accetta=accetta">
-                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-check"></i> Accetta Richiesta</button>
-                                </a>
-                            <#else>
-                                <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-check"></i> Accetta Richiesta</button>
+                            <#if richiesta_tirocinio??>
+                                <#if richiesta_tirocinio.srcDocCandid?has_content && richiesta_tirocinio.dataInizio?? && richiesta_tirocinio.dataFine??>
+                                    <a href="gestione_richiesta?tirocinio=${(tirocinio.id)!}&studente=${studente.getId()}&accetta=accetta">
+                                        <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-check"></i> Accetta Richiesta</button>
+                                    </a>
+                                <#else>
+                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-check"></i> Accetta Richiesta</button>
+                                </#if>
                             </#if>
-                                <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}&rifiuta=rifiuta">
+                                <a href="gestione_richiesta?tirocinio=${(tirocinio.id)!}&studente=${(studente.id)!}&rifiuta=rifiuta">
                                     <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-times"></i> Rifiuta Richiesta</button>
                                 </a>
                         </div>
