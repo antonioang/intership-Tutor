@@ -25,9 +25,16 @@
                   <div>
                       <h3>Valutazione</h3>
                   </div>
-                  <div>
-                      <h3>${valutazione}</h3>
-                  </div>
+                  <div class='rating'>
+                        <#assign n = valutazione>
+                          <#list 1..n as i>
+                              <span class="icon-colored">&#9733;</span>
+                          </#list>
+                        <#assign n = 5-valutazione>
+                          <#list 1..n as i>
+                              <span class="icon">&#9733;</span>
+                          </#list>  
+                    </div>
                   </#if>
                   <#if tipo==1>
                   <div>
