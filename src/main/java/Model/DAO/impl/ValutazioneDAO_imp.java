@@ -6,8 +6,6 @@
 package Model.DAO.impl;
 
 import Model.Impl.Valutazione_imp;
-import Model.Interfaces.Azienda;
-import Model.Interfaces.Studente;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import java.sql.ResultSet;
@@ -16,8 +14,6 @@ import Model.Interfaces.Valutazione;
 import framework.data.DataLayerException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import Model.DAO.ValutazioneDAO;
 import java.util.ArrayList;
 
@@ -142,6 +138,7 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
             getValutazione.close();
             getValutazioneAz.close();
             getValutazioneSt.close();
+            delValutazione.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }

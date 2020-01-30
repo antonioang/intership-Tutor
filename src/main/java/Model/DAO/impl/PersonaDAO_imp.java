@@ -18,8 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -177,11 +176,13 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
     @Override
     public void destroy()throws DataLayerException{
         try {
-            addPersona.close();
+            addPersona.close(); 
             delPersona.close();
             updPersona.close();
             getPersona.close();
             getTutoriTirocinio.close();
+            getTutoriUniversitari.close();
+            getResponsabiliTirocini.close();
             getBestTutoriUni.close();
             getBestTutoriTirocinio.close();
         } catch (SQLException ex) {

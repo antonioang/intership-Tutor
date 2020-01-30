@@ -11,7 +11,6 @@ import data.proxy.AziendaProxy;
 import framework.data.DAO;
 import framework.data.DataLayer;
 import framework.data.DataLayerException;
-import framework.security.SecurityLayer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -263,7 +262,10 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
             updAzienda.close();
             addAzienda.close();
             delAzienda.close();
+            getValutazione.close();
             getAziendeConPiuTirocinanti.close();
+            getBestAziende.close();
+            getWorstAziende.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }

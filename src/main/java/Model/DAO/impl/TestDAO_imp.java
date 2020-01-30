@@ -6,7 +6,6 @@
 package Model.DAO.impl;
 
 import Model.DAO.TestDAO;
-import Model.Impl.Test_Impl;
 import Model.Interfaces.Test;
 import data.proxy.TestProxy;
 import framework.data.DAO;

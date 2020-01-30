@@ -197,9 +197,11 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
         try {
             addRichiestaTirocinio.close();
             updRichiestaTirocinioStato.close();
-            getRichiestaTirocinio.close();
+            getRichiestaTirocinio.close(); 
             getRichiesteTirocinioByTirocinio.close();
             getRicTirByTirocinioStudente.close();
+            updDataInizioDataFine.close();
+            updDocumento.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }

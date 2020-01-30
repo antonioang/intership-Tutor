@@ -85,21 +85,21 @@
               </a>
           </li>
            <#if tipo??>
-           <#if tipo == 3>
-          <li class="mt">
-            <a class="${activeStatistiche!}" href="statistiche">
-              <i class="fa fa-industry"></i>
-              <span>Statistiche</span>
-              </a>
-          </li>
-          </#if>
-          <#else>
-          <li class="mt">
-            <a class="${activeAziende!}" href="aziende">
-              <i class="fa fa-suitcase"></i>
-              <span>Aziende</span>
-              </a>
-          </li>
+            <#if tipo == 3>
+             <li class="mt">
+               <a class="${activeStatistiche!}" href="statistiche">
+                 <i class="fa fa-industry"></i>
+                 <span>Statistiche</span>
+                 </a>
+             </li>
+           <#elseif tipo == 1>
+           <li class="mt">
+             <a class="${activeAziende!}" href="aziende">
+               <i class="fa fa-suitcase"></i>
+               <span>Aziende</span>
+               </a>
+           </li>
+           </#if>
           </#if>
           <li class="mt">
             <a class="${activeTirocini!}" href="tirocini">

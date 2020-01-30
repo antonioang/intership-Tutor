@@ -17,8 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -250,6 +249,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             updTirocinio.close();
             updTirocinioVisibile.close();
             getTirociniByStatoRichieste.close();
+            getLatestTirocini.close();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }

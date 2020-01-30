@@ -6,7 +6,6 @@
 package Model.DAO.impl;
 
 import Model.DAO.UtenteDAO;
-import Model.Impl.Utente_imp;
 import Model.Interfaces.Utente;
 import data.proxy.UtenteProxy;
 import framework.data.DAO;
@@ -16,8 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -205,7 +203,6 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             delUtente.close();
             updUtente.close();
             UtenteById.close();
-            UtenteByLogin.close();
             UtenteByLogin.close();
             UtenteByUser.close();
             CheckUtenteExist.close();

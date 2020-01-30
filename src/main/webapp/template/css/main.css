@@ -7,6 +7,10 @@
     background: #b51e0b;
     margin-top: 25px;
 }
+.mainbtn:hover{
+    color: #1d2122;
+    text-decoration: none;
+}
 
 .maincard{
     margin-top: 2em;
