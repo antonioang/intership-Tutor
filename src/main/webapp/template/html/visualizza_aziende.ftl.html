@@ -2,36 +2,36 @@
     <div class="row">
         <!-- /col-md-12 -->
         <div class="col-md-12 mt">
-        <div class="content-panel">
-          <h4><i class="fa fa-angle-right"></i> Aziende Disponibili</h4>
-          <hr>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Citt&agrave;</th>
-                <th>Corso di Studi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <#assign count=1>
-              <#if (aziende_convenzionate?size>0)>
-                <#list aziende_convenzionate as azienda>
-                <tr>
-                  <td>${count} <#assign count++></td>
-                  <td><a href="azienda?id=${azienda.getId()}">${azienda.getNome()}</a></td>
-                  <td>${azienda.getCitta()}</td>
-                  <td>${azienda.getCorsoStudi()}</td>
-                </tr>
-                </#list>
-              </#if>
-            </tbody>
-          </table>
-          <#if (aziende_convenzionate?size==0)>
-          <p>La lista delle aziende convenzionate &egrave; vuota</p>
-          </#if>
-        </div>
+            <div class="content-panel">
+                <h4><i class="fa fa-angle-right"></i> Aziende Disponibili</h4>
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Citt&agrave;</th>
+                            <th>Corso di Studi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <#assign count=1>
+                        <#if (aziende_convenzionate?size>0)>
+                        <#list aziende_convenzionate as azienda>
+                        <tr>
+                            <td>${count} <#assign count++></td>
+                            <td><a href="azienda?id=${azienda.getId()}">${azienda.getNome()}</a></td>
+                            <td>${azienda.getCitta()}</td>
+                            <td>${azienda.getCorsoStudi()}</td>
+                        </tr>
+                        </#list>
+                        </#if>
+                    </tbody>
+                </table>
+                <#if (aziende_convenzionate?size==0)>
+                <p>La lista delle aziende convenzionate &egrave; vuota</p>
+                </#if>
+            </div>
         </div>
         <!-- /col-md-12 -->
     </div>

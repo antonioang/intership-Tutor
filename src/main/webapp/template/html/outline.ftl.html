@@ -24,175 +24,175 @@
         <link href="template/css/main.css" rel="stylesheet"/>
     </head>
     <body>
-     <section id="container">
-    <!-- **********************************************************************************************************************************************************
-        TOP BAR CONTENT & NOTIFICATIONS
-        *********************************************************************************************************************************************************** -->
-    <!--header start-->
-    <header class="header black-bg">
-      
-      <!--logo start-->
-      <a href="home" class="logo"><b>Internship<span>Tutor</span></b></a>
-      <!--logo end-->
-        <#if logged??>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="logout">Logout</a></li>
-        </ul>
-      </div>
-      <#if tipo??>
-        <#if tipo != 3>
-        <div class="top-menu">
-          <ul class="nav pull-right top-menu">
-            <li><a class="logout" href="profilo">Profilo</a></li>
-          </ul>
-        </div>
-        </#if>
-      </#if>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-            <h3 class="nomeDaVisualizzare">${nomeDaVisualizzare}</h3>
-        </ul>
-      </div>
-        <#else>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="login">Accedi</a></li>
-        </ul>
-      </div>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" href="registrazione_studente">Registrati</a></li>
-        </ul>
-      </div>
-        </#if>
-    </header>
-    <!--header end-->
-    <!-- **********************************************************************************************************************************************************
-        MAIN SIDEBAR MENU
-        *********************************************************************************************************************************************************** -->
-    <!--sidebar start-->
-    <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-          <div class="centered"><img src="template/img/Logounivaq.jpg" class="img-circle" width="80" alt="Logo Univaq"></div>
-          <h5 class="centered">UNIVAQ</h5>
-          <li class="mt">
-            <a class="${activeHome!}" href="home">
-              <i class="fa fa-dashboard"></i>
-              <span>Home</span>
-              </a>
-          </li>
-           <#if tipo??>
-            <#if tipo == 3>
-             <li class="mt">
-               <a class="${activeStatistiche!}" href="statistiche">
-                 <i class="fa fa-industry"></i>
-                 <span>Statistiche</span>
-                 </a>
-             </li>
-           <#elseif tipo == 1>
-           <li class="mt">
-             <a class="${activeAziende!}" href="aziende">
-               <i class="fa fa-suitcase"></i>
-               <span>Aziende</span>
-               </a>
-           </li>
-           </#if>
-           <#else>
-           <li class="mt">
-             <a class="${activeAziende!}" href="aziende">
-               <i class="fa fa-suitcase"></i>
-               <span>Aziende</span>
-               </a>
-           </li>
-          </#if>
-          <li class="mt">
-            <a class="${activeTirocini!}" href="tirocini">
-              <i class="fa fa-calendar"></i>
-              <span>Tirocini</span>
-              </a>
-          </li>
-          <li class="mt">
-            <a class="${activeFaq!}" href="faq">
-              <i class="fa fa-question"></i>
-              <span>FAQ</span>
-              </a>
-          </li>
-          <li class="mt">
-            <a class="${activeContatti!}" href="contatti">
-              <i class="fa fa-address-card"></i>
-              <span>Contatti</span>
-              </a>
-          </li>
-        </ul>
-        <!-- sidebar menu end-->
-      </div>
-    </aside>
-    <!--sidebar end-->
-        <div>TODO write content</div>
-        <section id="main-content">
-        <#include content_tpl>
-        </section>
-        
+        <section id="container">
+            <!-- **********************************************************************************************************************************************************
+                TOP BAR CONTENT & NOTIFICATIONS
+                *********************************************************************************************************************************************************** -->
+            <!--header start-->
+            <header class="header black-bg">
+
+                <!--logo start-->
+                <a href="home" class="logo"><b>Internship<span>Tutor</span></b></a>
+                <!--logo end-->
+                <#if logged??>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <li><a class="logout" href="logout">Logout</a></li>
+                    </ul>
+                </div>
+                <#if tipo??>
+                <#if tipo != 3>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <li><a class="logout" href="profilo">Profilo</a></li>
+                    </ul>
+                </div>
+                </#if>
+                </#if>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <h3 class="nomeDaVisualizzare">${nomeDaVisualizzare}</h3>
+                    </ul>
+                </div>
+                <#else>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <li><a class="logout" href="login">Accedi</a></li>
+                    </ul>
+                </div>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <li><a class="logout" href="registrazione_studente">Registrati</a></li>
+                    </ul>
+                </div>
+                </#if>
+            </header>
+            <!--header end-->
+            <!-- **********************************************************************************************************************************************************
+                MAIN SIDEBAR MENU
+                *********************************************************************************************************************************************************** -->
+            <!--sidebar start-->
+            <aside>
+                <div id="sidebar" class="nav-collapse ">
+                    <!-- sidebar menu start-->
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <div class="centered"><img src="template/img/Logounivaq.jpg" class="img-circle" width="80" alt="Logo Univaq"></div>
+                        <h5 class="centered">UNIVAQ</h5>
+                        <li class="mt">
+                            <a class="${activeHome!}" href="home">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <#if tipo??>
+                        <#if tipo == 3>
+                        <li class="mt">
+                            <a class="${activeStatistiche!}" href="statistiche">
+                                <i class="fa fa-industry"></i>
+                                <span>Statistiche</span>
+                            </a>
+                        </li>
+                        <#elseif tipo == 1>
+                        <li class="mt">
+                            <a class="${activeAziende!}" href="aziende">
+                                <i class="fa fa-suitcase"></i>
+                                <span>Aziende</span>
+                            </a>
+                        </li>
+                        </#if>
+                        <#else>
+                        <li class="mt">
+                            <a class="${activeAziende!}" href="aziende">
+                                <i class="fa fa-suitcase"></i>
+                                <span>Aziende</span>
+                            </a>
+                        </li>
+                        </#if>
+                        <li class="mt">
+                            <a class="${activeTirocini!}" href="tirocini">
+                                <i class="fa fa-calendar"></i>
+                                <span>Tirocini</span>
+                            </a>
+                        </li>
+                        <li class="mt">
+                            <a class="${activeFaq!}" href="faq">
+                                <i class="fa fa-question"></i>
+                                <span>FAQ</span>
+                            </a>
+                        </li>
+                        <li class="mt">
+                            <a class="${activeContatti!}" href="contatti">
+                                <i class="fa fa-address-card"></i>
+                                <span>Contatti</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- sidebar menu end-->
+                </div>
+            </aside>
+            <!--sidebar end-->
+            <div>TODO write content</div>
+            <section id="main-content">
+                <#include content_tpl>
+            </section>
+
             <!--footer start-->
             <footer class="site-footer ">
-              <div class="text-center">
-                <p>
-                  Progetto <strong>Internship Tutor 2019</strong>
-                </p>
-                <div class="credits">
-                  <strong> Realizzato da: </strong>Jacopo Cicoria 242076 Antonio Angelini 243486 Mattia Lenza 242455
+                <div class="text-center">
+                    <p>
+                        Progetto <strong>Internship Tutor 2019</strong>
+                    </p>
+                    <div class="credits">
+                        <strong> Realizzato da: </strong>Jacopo Cicoria 242076 Antonio Angelini 243486 Mattia Lenza 242455
+                    </div>
+                    <a href="index.html#" class="go-top">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
                 </div>
-                <a href="index.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-                  </a>
-              </div>
             </footer>
             <!--footer end-->
-        
-        <!-- js placed at the end of the document so the pages load faster -->
-        <script src="template/lib/jquery/jquery.min.js"></script>
 
-        <script src="template/lib/bootstrap/js/bootstrap.min.js"></script>
-        <script class="include" src="template/lib/jquery.dcjqaccordion.2.7.js"></script>
-        <script src="template/lib/jquery.scrollTo.min.js"></script>
-        <script src="template/lib/jquery.nicescroll.js"></script>
-        <script src="template/lib/jquery.sparkline.js"></script>
-        <!--common script for all pages-->
-        <script src="template/lib/common-scripts.js"></script>
-        <script src="template/lib/gritter/js/jquery.gritter.js"></script>
-        <script src="template/lib/gritter-conf.js"></script>
-        <!--script for this page-->
-        <script src="template/lib/sparkline-chart.js"></script>
-        <script src="template/lib/zabuto_calendar.js"></script>
-        
-        <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7"></script>
-        <script src="template/lib/google-maps/maplace.js"></script>
-        <script src="template/lib/google-maps/data/points.js"></script>
-          <script>
-            //ul list example
-            new Maplace({
-              locations: LocsB,
-              map_div: '#gmap-list',
-              controls_type: 'list',
-              controls_title: 'Choose a location:'
-            }).Load();
+            <!-- js placed at the end of the document so the pages load faster -->
+            <script src="template/lib/jquery/jquery.min.js"></script>
 
-            new Maplace({
-              locations: LocsB,
-              map_div: '#gmap-tabs',
-              controls_div: '#controls-tabs',
-              controls_type: 'list',
-              controls_on_map: false,
-              show_infowindow: false,
-              start: 1,
-              afterShow: function(index, location, marker) {
-                $('#info').html(location.html);
-              }
-            }).Load();
-          </script>
+            <script src="template/lib/bootstrap/js/bootstrap.min.js"></script>
+            <script class="include" src="template/lib/jquery.dcjqaccordion.2.7.js"></script>
+            <script src="template/lib/jquery.scrollTo.min.js"></script>
+            <script src="template/lib/jquery.nicescroll.js"></script>
+            <script src="template/lib/jquery.sparkline.js"></script>
+            <!--common script for all pages-->
+            <script src="template/lib/common-scripts.js"></script>
+            <script src="template/lib/gritter/js/jquery.gritter.js"></script>
+            <script src="template/lib/gritter-conf.js"></script>
+            <!--script for this page-->
+            <script src="template/lib/sparkline-chart.js"></script>
+            <script src="template/lib/zabuto_calendar.js"></script>
+
+            <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.7"></script>
+            <script src="template/lib/google-maps/maplace.js"></script>
+            <script src="template/lib/google-maps/data/points.js"></script>
+            <script>
+                //ul list example
+                new Maplace({
+                    locations: LocsB,
+                    map_div: '#gmap-list',
+                    controls_type: 'list',
+                    controls_title: 'Choose a location:'
+                }).Load();
+
+                new Maplace({
+                    locations: LocsB,
+                    map_div: '#gmap-tabs',
+                    controls_div: '#controls-tabs',
+                    controls_type: 'list',
+                    controls_on_map: false,
+                    show_infowindow: false,
+                    start: 1,
+                    afterShow: function (index, location, marker) {
+                        $('#info').html(location.html);
+                    }
+                }).Load();
+            </script>
         </section>
     </body>
 </html>

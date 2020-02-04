@@ -2,33 +2,33 @@
     <div class="row">
         <div class="col-md-12 mt">
             <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Tirocini Attivi <i class="fa fa-caret-square-o-right"></i></h4>
-            <hr>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Titolo</th>
-                <th>Luogo</th>
-                <th>Durata</th>
-              </tr>
-            </thead>
-            <tbody>
-            <#assign count=1>
-            <#if (tirocini_attivi?size>0)>
-              <#list tirocini_attivi as tirocinio>
-              <tr>
-                <td>${count} <#assign count++></td>
-                <td>
-                    <a href="tirocinio?id=${tirocinio.getId()}">
-                        ${tirocinio.getTitolo()}
-                    </a>
-                </td>
-                <td>${tirocinio.getLuogo()}</td>
-                <td>${tirocinio.getDurata()}</td>
-              </tr>
-              </#list>
-            </#if>
-            </tbody>
+                <h4><i class="fa fa-angle-right"></i> Tirocini Attivi <i class="fa fa-caret-square-o-right"></i></h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titolo</th>
+                        <th>Luogo</th>
+                        <th>Durata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#assign count=1>
+                    <#if (tirocini_attivi?size>0)>
+                    <#list tirocini_attivi as tirocinio>
+                    <tr>
+                        <td>${count} <#assign count++></td>
+                        <td>
+                            <a href="tirocinio?id=${tirocinio.getId()}">
+                                ${tirocinio.getTitolo()}
+                            </a>
+                        </td>
+                        <td>${tirocinio.getLuogo()}</td>
+                        <td>${tirocinio.getDurata()}</td>
+                    </tr>
+                    </#list>
+                    </#if>
+                </tbody>
             </table>
             <#if (tirocini_attivi?size==0)>
             <p>La lista dei tirocini attivi &egrave; vuota</p>
@@ -38,33 +38,33 @@
     <div class="row">
         <div class="col-md-12 mt">
             <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Tirocini Conclusi <i class="fa fa-check"></i></h4>
-            <hr>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Titolo</th>
-                <th>Luogo</th>
-                <th>Durata</th>
-              </tr>
-            </thead>
-            <tbody>
-            <#assign count=1>
-            <#if (tirocini_conclusi?size>0)>
-              <#list tirocini_conclusi as tirocinio>
-              <tr>
-                <td>${count} <#assign count++></td>
-                <td>
-                    <a href="tirocinio?id=${tirocinio.getId()}">
-                        ${tirocinio.getTitolo()}
-                    </a>
-                </td>
-                <td>${tirocinio.getLuogo()}</td>
-                <td>${tirocinio.getDurata()}</td>
-              </tr>
-              </#list>
-            </#if>
-            </tbody>
+                <h4><i class="fa fa-angle-right"></i> Tirocini Conclusi <i class="fa fa-check"></i></h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titolo</th>
+                        <th>Luogo</th>
+                        <th>Durata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#assign count=1>
+                    <#if (tirocini_conclusi?size>0)>
+                    <#list tirocini_conclusi as tirocinio>
+                    <tr>
+                        <td>${count} <#assign count++></td>
+                        <td>
+                            <a href="tirocinio?id=${tirocinio.getId()}">
+                                ${tirocinio.getTitolo()}
+                            </a>
+                        </td>
+                        <td>${tirocinio.getLuogo()}</td>
+                        <td>${tirocinio.getDurata()}</td>
+                    </tr>
+                    </#list>
+                    </#if>
+                </tbody>
             </table>
             <#if (tirocini_conclusi?size==0)>
             <p>La lista dei tirocini conclusi &egrave; vuota</p>
@@ -74,33 +74,33 @@
     <div class="row">
         <div class="col-md-12 mt">
             <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Tirocini In Sospeso <i class="fa fa-refresh"></i></h4>
-            <hr>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Titolo</th>
-                <th>Luogo</th>
-                <th>Durata</th>
-              </tr>
-            </thead>
-            <tbody>
-            <#assign count=1>
-            <#if (tirocini_sospesi?size>0)>
-              <#list tirocini_sospesi as tirocinio>
-              <tr>
-                <td>${count} <#assign count++></td>
-                <td>
-                    <a href="tirocinio?id=${tirocinio.getId()}">
-                        ${tirocinio.getTitolo()}
-                    </a>
-                </td>
-                <td>${tirocinio.getLuogo()}</td>
-                <td>${tirocinio.getDurata()}</td>
-              </tr>
-              </#list>
-            </#if>
-            </tbody>
+                <h4><i class="fa fa-angle-right"></i> Tirocini In Sospeso <i class="fa fa-refresh"></i></h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titolo</th>
+                        <th>Luogo</th>
+                        <th>Durata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#assign count=1>
+                    <#if (tirocini_sospesi?size>0)>
+                    <#list tirocini_sospesi as tirocinio>
+                    <tr>
+                        <td>${count} <#assign count++></td>
+                        <td>
+                            <a href="tirocinio?id=${tirocinio.getId()}">
+                                ${tirocinio.getTitolo()}
+                            </a>
+                        </td>
+                        <td>${tirocinio.getLuogo()}</td>
+                        <td>${tirocinio.getDurata()}</td>
+                    </tr>
+                    </#list>
+                    </#if>
+                </tbody>
             </table>
             <#if (tirocini_sospesi?size==0)>
             <p>La lista dei tirocini sospesi &egrave; vuota</p>
@@ -110,33 +110,33 @@
     <div class="row">
         <div class="col-md-12 mt">
             <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Tirocini Rifiutati <i class="fa fa-times"></i></h4>
-            <hr>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Titolo</th>
-                <th>Luogo</th>
-                <th>Durata</th>
-              </tr>
-            </thead>
-            <tbody>
-            <#assign count=1>
-            <#if (tirocini_rifiutati?size>0)>
-              <#list tirocini_rifiutati as tirocinio>
-              <tr>
-                <td>${count} <#assign count++></td>
-                <td>
-                    <a href="tirocinio?id=${tirocinio.getId()}">
-                        ${tirocinio.getTitolo()}
-                    </a>
-                </td>
-                <td>${tirocinio.getLuogo()}</td>
-                <td>${tirocinio.getDurata()}</td>
-              </tr>
-              </#list>
-            </#if>
-            </tbody>
+                <h4><i class="fa fa-angle-right"></i> Tirocini Rifiutati <i class="fa fa-times"></i></h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titolo</th>
+                        <th>Luogo</th>
+                        <th>Durata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#assign count=1>
+                    <#if (tirocini_rifiutati?size>0)>
+                    <#list tirocini_rifiutati as tirocinio>
+                    <tr>
+                        <td>${count} <#assign count++></td>
+                        <td>
+                            <a href="tirocinio?id=${tirocinio.getId()}">
+                                ${tirocinio.getTitolo()}
+                            </a>
+                        </td>
+                        <td>${tirocinio.getLuogo()}</td>
+                        <td>${tirocinio.getDurata()}</td>
+                    </tr>
+                    </#list>
+                    </#if>
+                </tbody>
             </table>
             <#if (tirocini_rifiutati?size==0)>
             <p>La lista dei tirocini rifiutati &egrave; vuota</p>

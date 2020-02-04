@@ -1,136 +1,136 @@
 <section class="wrapper">
-        <div class="row mt">
-          <div class="col-lg-12">
+    <div class="row mt">
+        <div class="col-lg-12">
             <div class="row content-panel">
-              <div class="col profile-text mt mb centered">
-                <div class="">
-                <h3>${azienda.nome}</h3>
-                <p>Operante in zona: ${azienda.foroCompetente}</p>
-                <br>
+                <div class="col profile-text mt mb centered">
+                    <div class="">
+                        <h3>${azienda.nome}</h3>
+                        <p>Operante in zona: ${azienda.foroCompetente}</p>
+                        <br>
+                    </div>
                 </div>
-              </div>
-              <!-- /col-md-4 -->
+                <!-- /col-md-4 -->
             </div>
             <!-- /row -->
-          </div>
-          <!-- /col-lg-12 -->
-          <div class="col-lg-12 mt">
+        </div>
+        <!-- /col-lg-12 -->
+        <div class="col-lg-12 mt">
             <div class="row content-panel">
-              <div class="panel-heading">
-                <ul class="nav nav-tabs nav-justified">
-                  <li class="active">
-                    <a data-toggle="" class="no-border">Informazioni</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- /panel-heading -->
-              <div class="panel-body">
-                <div class="tab-content">
-                  <div id="overview" class="tab-pane active">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="centered overview-profile-text">
-                          <h5>Indirizzo</h5>
-                          <p>${azienda.getIndirizzo()}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Rappresentante Legale</h5>
-                          <p>${azienda.rapprLeg}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Partita iva</h5>
-                          <p>${azienda.piva}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Foro Competente</h5>
-                          <p>${azienda.foroCompetente}</p>
-                        </div>
-                      <!-- prima colonna nella seconda riga -->
-                      </div>
-                      <!-- /col-md-6 -->
-                      <div class="col-md-6">
-                        <div class="centered overview-profile-text">
-                          <h5>Tematica</h5>
-                          <p>${azienda.tematica}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Corso di Studi</h5>
-                          <p>${azienda.corsoStudi}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Durata convenzione</h5>
-                          <p> Dal ${azienda.inizioConv} Al ${azienda.fineConv}</p>
-                        </div>
-                        <div class="centered overview-profile-text">
-                          <h5>Ragione sociale</h5>
-                          <p>${azienda.ragioneSociale}</p>
-                        </div>
-                        <!-- seconda colonna nella seconda riga -->
-                        <!-- /row -->
-                      </div>
-                      <!-- /col-md-6 -->
-                    </div>
-                    <!-- /OVERVIEW -->
-                  </div>
-                 
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active">
+                            <a data-toggle="" class="no-border">Informazioni</a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- /tab-content -->
-              </div>
-              <!-- /panel-body -->
+                <!-- /panel-heading -->
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div id="overview" class="tab-pane active">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="centered overview-profile-text">
+                                        <h5>Indirizzo</h5>
+                                        <p>${azienda.getIndirizzo()}</p>
+                                    </div>
+                                    <div class="centered overview-profile-text">
+                                        <h5>Rappresentante Legale</h5>
+                                        <p>${azienda.rapprLeg}</p>
+                                    </div>
+                                    <div class="centered overview-profile-text">
+                                        <h5>Partita iva</h5>
+                                        <p>${azienda.piva}</p>
+                                    </div>
+                                    <div class="centered overview-profile-text">
+                                        <h5>Foro Competente</h5>
+                                        <p>${azienda.foroCompetente}</p>
+                                    </div>
+                                    <!-- prima colonna nella seconda riga -->
+                                </div>
+                                <!-- /col-md-6 -->
+                                <div class="col-md-6">
+                                    <div class="centered overview-profile-text">
+                                        <h5>Tematica</h5>
+                                        <p>${azienda.tematica}</p>
+                                    </div>
+                                    <div class="centered overview-profile-text">
+                                        <h5>Corso di Studi</h5>
+                                        <p>${azienda.corsoStudi}</p>
+                                    </div>
+                                    <div class="centered overview-profile-text">
+                                        <h5>Durata convenzione</h5>
+                                        <p> Dal ${azienda.inizioConv} Al ${azienda.fineConv}</p>
+                                    </div>
+                                    <div class="centered overview-profile-text">
+                                        <h5>Ragione sociale</h5>
+                                        <p>${azienda.ragioneSociale}</p>
+                                    </div>
+                                    <!-- seconda colonna nella seconda riga -->
+                                    <!-- /row -->
+                                </div>
+                                <!-- /col-md-6 -->
+                            </div>
+                            <!-- /OVERVIEW -->
+                        </div>
+
+                    </div>
+                    <!-- /tab-content -->
+                </div>
+                <!-- /panel-body -->
             </div>
             <!-- /col-lg-12 -->
-          </div>
-          <!-- /row -->
         </div>
-        <div>
-            <div class="panel text-center maincard">
-                <h5 class="card-header"><b>Gestione convenzione azienda</b></h5>
-                <div class="card-body">
-                    <div class="row mt">
-                        <div class="col-md-4">
-                            <div>
-                                <p>Visualizza e Stampa il modulo per la convenzione</p>
-                                <a href="documenti?tipo=1&azienda=${azienda.getId()}" target="_blank" rel="noopener noreferrer">
+        <!-- /row -->
+    </div>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Gestione convenzione azienda</b></h5>
+            <div class="card-body">
+                <div class="row mt">
+                    <div class="col-md-4">
+                        <div>
+                            <p>Visualizza e Stampa il modulo per la convenzione</p>
+                            <a href="documenti?tipo=1&azienda=${azienda.getId()}" target="_blank" rel="noopener noreferrer">
                                 <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <p>Carica una scansione del documento firmato e timbrato</p>
-                            <form method="POST" action="upload" enctype="multipart/form-data" class="form-horizontal style-form">
-                                <input type="hidden" name="azienda" value="${azienda.getId()}"/>
-                                <input name="tipo" type="hidden" value="1"/>
-                                 <div class="controls col-md-12">
-                                    <div class="fileupload fileupload-new" data-provides="fileupload">
-                                      <span class="btn btn-theme btn-file">
-                                      <input id="carica_file" type="file" name="file" class="default" />
-                                      <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
-                                      </span>
-                                      <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                    </div>
-                                  </div>
-                            </form>
-                        </div> 
-                        <div class="col-md-4">
-                            <p>Potrai abilitare la convenzione solo se &egrave; prensente il documento</p>
-                            <div class="contenitore3 centered">
-                                <#if azienda.getSrcDocPath() == "">
-                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-lock"></i> Approva Convenzione</button>
-                                <#else>
-                                    <a href="gestione_azienda?id=${azienda.getId()}&action=accetta">
-                                        <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Approva Convenzione</button>
-                                    </a>
-                                </#if>
-                                    <a href="gestione_azienda?id=${azienda.getId()}&action=rifiuta">
-                                        <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Rifiuta Convenzione</button>
-                                    </a>
-                            </div>
+                            </a>
                         </div>
                     </div>
-                     
+                    <div class="col-md-4">
+                        <p>Carica una scansione del documento firmato e timbrato</p>
+                        <form method="POST" action="upload" enctype="multipart/form-data" class="form-horizontal style-form">
+                            <input type="hidden" name="azienda" value="${azienda.getId()}"/>
+                            <input name="tipo" type="hidden" value="1"/>
+                            <div class="controls col-md-12">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <span class="btn btn-theme btn-file">
+                                        <input id="carica_file" type="file" name="file" class="default" />
+                                        <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
+                                    </span>
+                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div> 
+                    <div class="col-md-4">
+                        <p>Potrai abilitare la convenzione solo se &egrave; prensente il documento</p>
+                        <div class="contenitore3 centered">
+                            <#if azienda.getSrcDocPath() == "">
+                            <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-lock"></i> Approva Convenzione</button>
+                            <#else>
+                            <a href="gestione_azienda?id=${azienda.getId()}&action=accetta">
+                                <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Approva Convenzione</button>
+                            </a>
+                            </#if>
+                            <a href="gestione_azienda?id=${azienda.getId()}&action=rifiuta">
+                                <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-lock"></i> Rifiuta Convenzione</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                
+
             </div>
+
         </div>
-        <!-- /container -->
-      </section>
+    </div>
+    <!-- /container -->
+</section>

@@ -54,11 +54,11 @@
                             <a href="tirocinio?id=${tirocinio.getId()}&visibile=change"> 
                                 <#if tirocinio.getVisibile()>
                                 <button class="btn btn-theme centered"><i class="fa fa-eye-slash"></i>
-                                Rendi invisibile
+                                    Rendi invisibile
                                 </button>
                                 <#else>
                                 <button class="btn btn-theme centered"><i class="fa fa-eye"></i>
-                                Rendi visibile
+                                    Rendi visibile
                                 </button>
                                 </#if>
                             </a>
@@ -79,31 +79,31 @@
                     <table class="table table-hover">
                         <hr>
                         <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Nome</th>
-                            <th>Telefono</th>
-                            <th>Corso di Laurea</th>
-                            <th>Concludi Tirocinio</th>
-                          </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Telefono</th>
+                                <th>Corso di Laurea</th>
+                                <th>Concludi Tirocinio</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <#assign count=1>
-                        <#if (studenti_candidati?size>0)>
-                          <#list studenti_candidati as studente>
-                          <tr>
-                            <td>${count} <#assign count++></td>
-                            <td>${studente.getNome()} ${studente.getCognome()}</td>
-                            <td>${studente.getTelefono()}</td>
-                            <td>${studente.getCorsoLaurea()}</td>
-                            <td>
-                                <a href="tirocinio?id=${tirocinio.getId()}&studente=${studente.getId()}&concludi=concludi">
-                                    Concludi Tirocinio
-                                </a>
-                            </td>
-                          </tr>
-                          </#list>
-                        </#if>
+                            <#assign count=1>
+                            <#if (studenti_candidati?size>0)>
+                            <#list studenti_candidati as studente>
+                            <tr>
+                                <td>${count} <#assign count++></td>
+                                <td>${studente.getNome()} ${studente.getCognome()}</td>
+                                <td>${studente.getTelefono()}</td>
+                                <td>${studente.getCorsoLaurea()}</td>
+                                <td>
+                                    <a href="tirocinio?id=${tirocinio.getId()}&studente=${studente.getId()}&concludi=concludi">
+                                        Concludi Tirocinio
+                                    </a>
+                                </td>
+                            </tr>
+                            </#list>
+                            </#if>
                         </tbody>
                     </table>
                     <#if (studenti_candidati?size==0)>
@@ -121,25 +121,25 @@
                     <table class="table table-hover">
                         <hr>
                         <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Nome</th>
-                            <th>Telefono</th>
-                            <th>Corso di Laurea</th>
-                          </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Telefono</th>
+                                <th>Corso di Laurea</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <#assign count=1>
-                        <#if (studenti_rifiutati?size>0)>
-                          <#list studenti_rifiutati as studente>
-                          <tr>
-                            <td>${count} <#assign count++></td>
-                            <td>${studente.getNome()} ${studente.getCognome()}</td>
-                            <td>${studente.getTelefono()}</td>
-                            <td>${studente.getCorsoLaurea()}</td>
-                          </tr>
-                          </#list>
-                        </#if>
+                            <#assign count=1>
+                            <#if (studenti_rifiutati?size>0)>
+                            <#list studenti_rifiutati as studente>
+                            <tr>
+                                <td>${count} <#assign count++></td>
+                                <td>${studente.getNome()} ${studente.getCognome()}</td>
+                                <td>${studente.getTelefono()}</td>
+                                <td>${studente.getCorsoLaurea()}</td>
+                            </tr>
+                            </#list>
+                            </#if>
                         </tbody>
                     </table>
                     <#if (studenti_rifiutati?size==0)>
@@ -157,31 +157,31 @@
                     <table class="table table-hover">
                         <hr>
                         <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Nome</th>
-                            <th>Telefono</th>
-                            <th>Corso di Laurea</th>
-                            <th>Approva/Rifiuta</th>
-                          </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Telefono</th>
+                                <th>Corso di Laurea</th>
+                                <th>Approva/Rifiuta</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <#assign count=1>
-                        <#if (studenti_sospeso?size>0)>
-                          <#list studenti_sospeso as studente>
-                          <tr>
-                            <td>${count} <#assign count++></td>
-                            <td>${studente.getNome()} ${studente.getCognome()}</td>
-                            <td>${studente.getTelefono()}</td>
-                            <td>${studente.getCorsoLaurea()}</td>
-                            <td>
-                                <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}">
-                                    Gestione Candidatura
-                                </a>
-                            </td>
-                          </tr>
-                          </#list>
-                        </#if>
+                            <#assign count=1>
+                            <#if (studenti_sospeso?size>0)>
+                            <#list studenti_sospeso as studente>
+                            <tr>
+                                <td>${count} <#assign count++></td>
+                                <td>${studente.getNome()} ${studente.getCognome()}</td>
+                                <td>${studente.getTelefono()}</td>
+                                <td>${studente.getCorsoLaurea()}</td>
+                                <td>
+                                    <a href="gestione_richiesta?tirocinio=${tirocinio.getId()}&studente=${studente.getId()}">
+                                        Gestione Candidatura
+                                    </a>
+                                </td>
+                            </tr>
+                            </#list>
+                            </#if>
                         </tbody>
                     </table>
                     <#if (studenti_sospeso?size==0)>
@@ -192,111 +192,111 @@
         </div>
     </div>
     <#elseif tipo == 1>
-        <#if stato_tirocinio??>
-            <#if stato_tirocinio == 1>
-                <div>
-                    <div class="panel text-center maincard">
-                        <h5 class="card-header"><b>Candidatura al tirocinio effettuata</b></h5>
-                        <div class="card-body">
-                          <h5 class="card-title">Candidatura in stato di valutazione</h5>
-                          <p class="card-text mainparagraph">Verrai notificato quando l'azienda avr&agrave; preso visione della tua candidatura</p>
-                        </div>
-                    </div>
-                </div>
-            <#elseif stato_tirocinio == 2>
-                <div>
-                    <div class="panel text-center maincard">
-                        <h5 class="card-header"><b>Candidatura al tirocinio approvata</b></h5>
-                        <div class="card-body">
-                          <h5 class="card-title">La tua candidatura &egrave; stata approvata con successo dall'Azienda</h5>
-                          <p class="card-text mainparagraph">Adesso puoi scaricare il documento che attesta la tua candidatura</p>
-                          <a href="download?nome_doc=${richiesta_tirocinio.getSrcDocCandid()}">
-                            <button class="btn btn-theme centered"><i class="fa fa-download"></i> Scarica Documento</button>
-                          </a>
-                        </div>
-                    </div>
-                </div>
-            <#elseif stato_tirocinio == 3>
-                <div>
-                    <div class="panel text-center maincard">
-                        <h5 class="card-header"><b>Tirocinio Concluso</b></h5>
-                        <div class="card-body">
-                          <h5 class="card-title">Il tirocinio si &egrave; concluso, adesso puoi visualizzare il resoconto dell'azienda</h5>
-                          <a href="documenti?tipo=3&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}">
-                            <button class="btn btn-theme centered richiedi-tirocinio"><i class="fa fa-search"></i> Visualizza Resoconto</button>
-                          </a>
-                          <#if !valutato??>
-                          <p class="card-text mainparagraph">Dai un punteggio all'esperienza con l'azienda da 0 a 5 stelle</p>
-                          <div>
-                              <form method="POST" action="tirocinio">
-                                  <div class="rating">
-                                      <label>
-                                        <input type="radio" name="valutazione" value="1" />
-                                        <span class="icon">&#9733;</span>
-                                      </label>
-                                      <label>
-                                        <input type="radio" name="valutazione" value="2" />
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                      </label>
-                                      <label>
-                                        <input type="radio" name="valutazione" value="3" />
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>   
-                                      </label>
-                                      <label>
-                                        <input type="radio" name="valutazione" value="4" />
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                      </label>
-                                      <label>
-                                        <input type="radio" name="valutazione" value="5" />
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                        <span class="icon">&#9733;</span>
-                                      </label>
-                                  </div>
-                                
-                                  <input name="id" value="${tirocinio.getId()}" type="hidden" />
-                                  <div>
-                                      <button class="btn btn-theme" type="submit">Valuta</button>
-                                  </div>
-                                  
-                              </form>
-                          </div>
-                          <#else>
-                          <p class="card-text mainparagraph">Grazie per aver valutato l'azienda!</p>
-                          </#if>
-                        </div>
-                    </div>
-                </div>
-            </#if>
-        <#else>
-        <div>
-            <div class="panel text-center maincard">
-                <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
-                <div class="card-body">
-                  <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
-                  <p class="card-text mainparagraph">Specifica i dati del tirocinio e concludi la richiesta</p>
-                  <a href="richiedi_tirocinio?tirocinio=${tirocinio.getId()}" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
-                </div>
+    <#if stato_tirocinio??>
+    <#if stato_tirocinio == 1>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Candidatura al tirocinio effettuata</b></h5>
+            <div class="card-body">
+                <h5 class="card-title">Candidatura in stato di valutazione</h5>
+                <p class="card-text mainparagraph">Verrai notificato quando l'azienda avr&agrave; preso visione della tua candidatura</p>
             </div>
         </div>
-        </#if>
+    </div>
+    <#elseif stato_tirocinio == 2>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Candidatura al tirocinio approvata</b></h5>
+            <div class="card-body">
+                <h5 class="card-title">La tua candidatura &egrave; stata approvata con successo dall'Azienda</h5>
+                <p class="card-text mainparagraph">Adesso puoi scaricare il documento che attesta la tua candidatura</p>
+                <a href="download?nome_doc=${richiesta_tirocinio.getSrcDocCandid()}">
+                    <button class="btn btn-theme centered"><i class="fa fa-download"></i> Scarica Documento</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <#elseif stato_tirocinio == 3>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Tirocinio Concluso</b></h5>
+            <div class="card-body">
+                <h5 class="card-title">Il tirocinio si &egrave; concluso, adesso puoi visualizzare il resoconto dell'azienda</h5>
+                <a href="documenti?tipo=3&studente=${studente.getId()}&tirocinio=${tirocinio.getId()}">
+                    <button class="btn btn-theme centered richiedi-tirocinio"><i class="fa fa-search"></i> Visualizza Resoconto</button>
+                </a>
+                <#if !valutato??>
+                <p class="card-text mainparagraph">Dai un punteggio all'esperienza con l'azienda da 0 a 5 stelle</p>
+                <div>
+                    <form method="POST" action="tirocinio">
+                        <div class="rating">
+                            <label>
+                                <input type="radio" name="valutazione" value="1" />
+                                <span class="icon">&#9733;</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="valutazione" value="2" />
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="valutazione" value="3" />
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>   
+                            </label>
+                            <label>
+                                <input type="radio" name="valutazione" value="4" />
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="valutazione" value="5" />
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                                <span class="icon">&#9733;</span>
+                            </label>
+                        </div>
+
+                        <input name="id" value="${tirocinio.getId()}" type="hidden" />
+                        <div>
+                            <button class="btn btn-theme" type="submit">Valuta</button>
+                        </div>
+
+                    </form>
+                </div>
+                <#else>
+                <p class="card-text mainparagraph">Grazie per aver valutato l'azienda!</p>
+                </#if>
+            </div>
+        </div>
+    </div>
     </#if>
     <#else>
     <div>
         <div class="panel text-center maincard">
             <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
             <div class="card-body">
-              <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
-              <p class="card-text mainparagraph">Accedi o Registrati, specifica i dati del tirocinio e concludi la richiesta</p>
-              <a href="richiedi_tirocinio?id_tirocinio=${tirocinio.getId()}" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
+                <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
+                <p class="card-text mainparagraph">Specifica i dati del tirocinio e concludi la richiesta</p>
+                <a href="richiedi_tirocinio?tirocinio=${tirocinio.getId()}" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
+            </div>
+        </div>
+    </div>
+    </#if>
+    </#if>
+    <#else>
+    <div>
+        <div class="panel text-center maincard">
+            <h5 class="card-header"><b>Effettua la tua candidatura al tirocinio</b></h5>
+            <div class="card-body">
+                <h5 class="card-title">Da qui puoi accedere alla richiesta di tirocinio</h5>
+                <p class="card-text mainparagraph">Accedi o Registrati, specifica i dati del tirocinio e concludi la richiesta</p>
+                <a href="richiedi_tirocinio?id_tirocinio=${tirocinio.getId()}" class="mainbtn"> <i class="fa fa-mortar-board"></i> Richiedi</a>
             </div>
         </div>
     </div>

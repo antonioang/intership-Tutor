@@ -1,44 +1,44 @@
 <section class="wrapper">
-<div class="row">
+    <div class="row">
         <div class="col-md-12 mt">
             <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Riepilogo Tirocini <i class="fa fa-sort-amount-asc"></i></h4>
-            <hr>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Titolo</th>
-                <th>Stato</th>
-                <th>Luogo</th>
-                <th>Durata</th>
-                <th>Gestione</th>
-              </tr>
-            </thead>
-            <tbody>
-            <#assign count=1>
-            <#if (tirocini?size>0)>
-              <#list tirocini as tirocinio>
-              <tr>
-                <td>${count} <#assign count++></td>
-                <td>${tirocinio.getTitolo()}</td>
-                <td>
-                    <#if tirocinio.getVisibile()>
-                    Visibile
-                    <#else>
-                    Non visibile
+                <h4><i class="fa fa-angle-right"></i> Riepilogo Tirocini <i class="fa fa-sort-amount-asc"></i></h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titolo</th>
+                        <th>Stato</th>
+                        <th>Luogo</th>
+                        <th>Durata</th>
+                        <th>Gestione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#assign count=1>
+                    <#if (tirocini?size>0)>
+                    <#list tirocini as tirocinio>
+                    <tr>
+                        <td>${count} <#assign count++></td>
+                        <td>${tirocinio.getTitolo()}</td>
+                        <td>
+                            <#if tirocinio.getVisibile()>
+                            Visibile
+                            <#else>
+                            Non visibile
+                            </#if>
+                        </td>
+                        <td>${tirocinio.getLuogo()}</td>
+                        <td>${tirocinio.getDurata()} Ore</td>
+                        <td>
+                            <a href="tirocinio?id=${tirocinio.getId()}">
+                                <button class="btn btn-theme centered"><i class="fa fa-wrench"></i> Gestisci</button>
+                            </a>
+                        </td>
+                    </tr>
+                    </#list>
                     </#if>
-                </td>
-                <td>${tirocinio.getLuogo()}</td>
-                <td>${tirocinio.getDurata()} Ore</td>
-                <td>
-                    <a href="tirocinio?id=${tirocinio.getId()}">
-                    <button class="btn btn-theme centered"><i class="fa fa-wrench"></i> Gestisci</button>
-                    </a>
-                </td>
-              </tr>
-              </#list>
-            </#if>
-            </tbody>
+                </tbody>
             </table>
             <#if (tirocini?size==0)>
             <p>La lista dei tirocini attivi &egrave; vuota</p>
@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Vai alla pagina di creazione tirocinio e compila tutti i campi per pubblicare un'offerta.</h5>
                         <p class="card-text mainparagraph">una volta che l'offerta sar&agrave; pubblicata, gli studenti potranno inoltrare le loro candidature.</p>
-                      <a href="creazione_tirocinio" name='submit_tirocinio' value='submit' class="mainbtn"> <i class="fa fa-plus"></i> Crea Tirocinio</a>
+                        <a href="creazione_tirocinio" name='submit_tirocinio' value='submit' class="mainbtn"> <i class="fa fa-plus"></i> Crea Tirocinio</a>
                     </div>
                 </div>
             </div>

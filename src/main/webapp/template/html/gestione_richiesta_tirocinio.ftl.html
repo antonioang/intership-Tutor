@@ -1,7 +1,7 @@
 <section class="wrapper">
-        <#if messaggio??>
-        <div class="alert alert-success"><b></b>${messaggio}</div>
-        </#if>
+    <#if messaggio??>
+    <div class="alert alert-success"><b></b>${messaggio}</div>
+    </#if>
     <div class="row mt content-panel">
         <div class="col-lg-12">
             <h3><i class="fa fa-angle-right"></i>Informazioni Sudente</h3>
@@ -42,7 +42,7 @@
                             <h5>Handicap</h5>
                             <p>${studente.getHandicap()?string('si', 'no')}</p>
                         </div>
-                        
+
                     </div>
                     <div class="col-md-4">                        
                         <div class="centered overview-profile-text">
@@ -134,29 +134,29 @@
             <div class="panel-body">
                 <div class="row">
                     <form action="gestione_richiesta" method="POST">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
-                            <div class="">
-                              <input class="form-control form-control-inline default-date-picker" value='${(richiesta_tirocinio.getDataInizio()?string["dd/MM/yyyy"])!"inserire la data di inizio tirocinio"}' onfocus="(this.type='date')" type="text" id="data_inizio" name="data_inizio" >
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-lg-12" for="data_inizio" >Inizio Tirocinio</label>
+                                <div class="">
+                                    <input class="form-control form-control-inline default-date-picker" value='${(richiesta_tirocinio.getDataInizio()?string["dd/MM/yyyy"])!"inserire la data di inizio tirocinio"}' onfocus="(this.type = 'date')" type="text" id="data_inizio" name="data_inizio" >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label col-lg-12" for="data_fine" >Fine Tirocinio</label>
-                            <div class="">
-                              <input class="form-control form-control-inline default-date-picker" value='${(richiesta_tirocinio.getDataFine()?string["dd/MM/yyyy"])!"inserire la data di fine tirocinio"}' onfocus="(this.type='date')" type="text" id="data_fine" name="data_fine" >
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label col-lg-12" for="data_fine" >Fine Tirocinio</label>
+                                <div class="">
+                                    <input class="form-control form-control-inline default-date-picker" value='${(richiesta_tirocinio.getDataFine()?string["dd/MM/yyyy"])!"inserire la data di fine tirocinio"}' onfocus="(this.type = 'date')" type="text" id="data_fine" name="data_fine" >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
-                        <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
-                        <div class="centered mt">
-                            <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-calendar"></i> Imposta periodo di svolgimento</button>
+                        <div class="col-md-4">
+                            <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
+                            <input  value="${tirocinio.getId()}" type="hidden" id="tirocinio" name="tirocinio" >
+                            <div class="centered mt">
+                                <button class="btn btn-theme centered" name="imposta_date" value="imposta_date" type="submit"><i class="fa fa-calendar"></i> Imposta periodo di svolgimento</button>
+                            </div>
                         </div>
-                    </div>
                     </form>
                 </div>
                 <div class="row mt">
@@ -164,7 +164,7 @@
                         <div>
                             <p>Visualizza e Stampa il modulo per la candidatura</p>
                             <a href="documenti?tipo=2&studente=${studente.getId()}&tirocinio=${(tirocinio.id)!}" target="_blank" rel="noopener noreferrer">
-                            <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
+                                <button class="btn btn-theme centered"><i class="fa fa-file"></i> Visualizza Documento</button>
                             </a>
                         </div>
                     </div>
@@ -176,32 +176,32 @@
                                 <input value="${studente.getId()}" type="hidden" id="studente" name="studente" >
                                 <input  value="${(tirocinio.id)!}" type="hidden" id="tirocinio" name="tirocinio" >
                                 <div class="controls col-md-12">
-                                  <div class="fileupload fileupload-new" data-provides="fileupload">
-                                    <span class="btn btn-theme btn-file">
-                                    <input id="carica_file" type="file" name="file" class="default" />
-                                    <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
-                                    </span>
-                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                  </div>
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                        <span class="btn btn-theme btn-file">
+                                            <input id="carica_file" type="file" name="file" class="default" />
+                                            <button class="btn btn-theme centered" type="submit" id="button_carica_file"><i class="fa fa-upload"></i></button>
+                                        </span>
+                                        <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                    </div>
                                 </div>
-                             </div>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-4">
                         <p>Potrai abilitare lo studente solo se &egrave; prensente il documento</p>
                         <div class="contenitore3 centered">
                             <#if richiesta_tirocinio??>
-                                <#if richiesta_tirocinio.srcDocCandid?has_content && richiesta_tirocinio.dataInizio?? && richiesta_tirocinio.dataFine??>
-                                    <a href="gestione_richiesta?tirocinio=${(tirocinio.id)!}&studente=${studente.getId()}&accetta=accetta">
-                                        <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-check"></i> Accetta Richiesta</button>
-                                    </a>
-                                <#else>
-                                    <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-check"></i> Accetta Richiesta</button>
-                                </#if>
+                            <#if richiesta_tirocinio.srcDocCandid?has_content && richiesta_tirocinio.dataInizio?? && richiesta_tirocinio.dataFine??>
+                            <a href="gestione_richiesta?tirocinio=${(tirocinio.id)!}&studente=${studente.getId()}&accetta=accetta">
+                                <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-check"></i> Accetta Richiesta</button>
+                            </a>
+                            <#else>
+                            <button class="btn btn-theme accetta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo" disabled><i class="fa fa-check"></i> Accetta Richiesta</button>
                             </#if>
-                                <a href="gestione_richiesta?tirocinio=${(tirocinio.id)!}&studente=${(studente.id)!}&rifiuta=rifiuta">
-                                    <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-times"></i> Rifiuta Richiesta</button>
-                                </a>
+                            </#if>
+                            <a href="gestione_richiesta?tirocinio=${(tirocinio.id)!}&studente=${(studente.id)!}&rifiuta=rifiuta">
+                                <button class="btn btn-theme rifiuta-richiesta" type="submit" name="modifica_profilo" value="modifica_profilo"><i class="fa fa-times"></i> Rifiuta Richiesta</button>
+                            </a>
                         </div>
                     </div>
                 </div>
