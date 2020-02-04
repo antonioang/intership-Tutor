@@ -6,7 +6,6 @@
 package Model.DAO.impl;
 
 import Model.DAO.StudenteDAO;
-import Model.Impl.Studente_imp;
 import Model.Interfaces.Studente;
 import data.proxy.StudenteProxy;
 import framework.data.DAO;
@@ -20,28 +19,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author jacopo
  */
 public class StudenteDAO_imp extends DAO implements StudenteDAO {
+
     private PreparedStatement getStudentebyID, getStudenteByUtente, getStudentiByTirocinioAccettato, getStudentiByTirocinioSospeso, getStudentiByTirocinioRifiutato;
     private PreparedStatement addStudente, updStudente, delStudente;
-    
+
     public StudenteDAO_imp(DataLayer d) {
         super(d);
     }
-    public void init() throws DataLayerException{
+
+    public void init() throws DataLayerException {
         try {
             addStudente = connection.prepareStatement("INSERT INTO heroku_fb8c344fac20fe1.studente"
-                    + "(nome, cognome, cod_fiscale, data_nascita, citta_nascita, provincia_nascita, citta_residenza, provincia_residenza, cap_residenza, telefono, corso_laurea, handicap, utente)\n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+                    + "(nome, cognome, cod_fiscale, data_nascita, citta_nascita, provincia_nascita, citta_residenza, provincia_residenza, cap_residenza, telefono, corso_laurea, handicap, utente)\n"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             getStudentebyID = connection.prepareStatement("SELECT * FROM studente WHERE id_studente = ?");
             getStudenteByUtente = connection.prepareStatement("SELECT * FROM studente WHERE utente = ?");
-            updStudente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.studente\n" +
-                "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n" +
-                "WHERE id_studente=?");
+            updStudente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.studente\n"
+                    + "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n"
+                    + "WHERE id_studente=?");
             getStudentiByTirocinioAccettato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 2");
             getStudentiByTirocinioSospeso = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 1");
             getStudentiByTirocinioRifiutato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 4");
@@ -49,7 +49,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
         }
     }
-    
+
     @Override
     public StudenteProxy createStudente() {
         return new StudenteProxy(getDataLayer());
@@ -84,8 +84,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         try {
             getStudentebyID.setInt(1, id);
             ResultSet rs = getStudentebyID.executeQuery();
-            if(rs.next()){
-                return createStudente(rs);
+            try {
+                if (rs.next()) {
+                    return createStudente(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dello studente tramite l'id", ex);
@@ -131,7 +135,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
                     }
                 }
                 return 1;
-            } else { 
+            } else {
                 return 0;
             }
         } catch (SQLException ex) {
@@ -155,9 +159,9 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
             updStudente.setString(11, st.getCorsoLaurea());
             updStudente.setBoolean(12, st.getHandicap());
             updStudente.setInt(13, st.getUtente());
-            updStudente.setInt(14, st.getId());           
-            return updStudente.executeUpdate(); 
-            
+            updStudente.setInt(14, st.getId());
+            return updStudente.executeUpdate();
+
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dati studente", ex);
         }
@@ -166,7 +170,7 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
     @Override
     public int delStudente(Studente st) throws DataLayerException {
         try {
-            delStudente.setInt(1,st.getId());
+            delStudente.setInt(1, st.getId());
             return delStudente.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la cancellazione dello studente", ex);
@@ -178,8 +182,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         try {
             getStudenteByUtente.setInt(1, id_utente);
             ResultSet rs = getStudenteByUtente.executeQuery();
-            if(rs.next()){
-               return createStudente(rs);
+            try {
+                if (rs.next()) {
+                    return createStudente(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dello studente tramite l'utente", ex);
@@ -193,8 +201,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         try {
             getStudentiByTirocinioAccettato.setInt(1, id_tirocinio);
             ResultSet rs = getStudentiByTirocinioAccettato.executeQuery();
-            while(rs.next()){
-                lista.add(createStudente(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createStudente(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero degli studenti associati al tirocinio");
@@ -208,8 +220,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         try {
             getStudentiByTirocinioSospeso.setInt(1, id_tirocinio);
             ResultSet rs = getStudentiByTirocinioSospeso.executeQuery();
-            while(rs.next()){
-                lista.add(createStudente(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createStudente(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero degli studenti associati al tirocinio");
@@ -223,8 +239,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         try {
             getStudentiByTirocinioRifiutato.setInt(1, id_tirocinio);
             ResultSet rs = getStudentiByTirocinioRifiutato.executeQuery();
-            while(rs.next()){
-                lista.add(createStudente(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createStudente(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero degli studenti associati al tirocinio");
@@ -232,8 +252,8 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         return lista;
     }
 
-     @Override
-    public void destroy()throws DataLayerException{
+    @Override
+    public void destroy() throws DataLayerException {
         try {
             getStudentiByTirocinioRifiutato.close();
             getStudentebyID.close();
@@ -248,20 +268,21 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
         }
         super.destroy();
     }
+
     @Override
-    public void storeStudente(Studente st) throws DataLayerException{
-        
-        if (st.getId() > 0){//Controllo se esiste un istanza dell'oggetto
-            if(st instanceof StudenteProxy && !((StudenteProxy) st).isDirty()){
+    public void storeStudente(Studente st) throws DataLayerException {
+
+        if (st.getId() > 0) {//Controllo se esiste un istanza dell'oggetto
+            if (st instanceof StudenteProxy && !((StudenteProxy) st).isDirty()) {
                 return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
             }
-                updStudente(st);
-           }else{
-                addStudente(st);
+            updStudente(st);
+        } else {
+            addStudente(st);
         }
-        if(st instanceof StudenteProxy){
+        if (st instanceof StudenteProxy) {
             ((StudenteProxy) st).setDirty(false);
         }
-    } 
-    
+    }
+
 }

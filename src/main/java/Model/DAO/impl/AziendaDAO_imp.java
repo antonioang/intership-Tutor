@@ -107,8 +107,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             getAziendaById.setInt(1, id);
             ResultSet rs = getAziendaById.executeQuery();
-            if(rs.next()){
-                return createAzienda(rs);
+            try{
+                if(rs.next()){
+                    return createAzienda(rs);
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
@@ -121,8 +125,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             getAziendaByUtente.setInt(1, id_utente);
             ResultSet rs = getAziendaByUtente.executeQuery();
-            if(rs.next()){
-                return createAzienda(rs);
+            try{
+                if(rs.next()){
+                    return createAzienda(rs);
+                }
+            } finally{
+                rs.close();
             }
             return null;
         } catch (SQLException ex) {
@@ -136,8 +144,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             getAziendaByStato.setInt(1, stato);
             ResultSet rs = getAziendaByStato.executeQuery();
-            while (rs.next()){
-                lista.add(createAzienda(rs)); 
+            try{
+                while (rs.next()){
+                    lista.add(createAzienda(rs)); 
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dell'azienda", ex);
@@ -277,8 +289,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             getValutazione.setInt(1, azienda);
             ResultSet rs = getValutazione.executeQuery();
-            if(rs.next()){
-                return rs.getFloat("media");
+            try{
+                if(rs.next()){
+                    return rs.getFloat("media");
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il calcolo della valutazione", ex);
@@ -311,8 +327,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             HashMap aziende = new HashMap<Azienda, Integer>();
             ResultSet rs = getAziendeConPiuTirocinanti.executeQuery();
-            while(rs.next()){
-                aziende.put(createAzienda(rs), rs.getString("studenti"));
+            try{ 
+                while(rs.next()){
+                    aziende.put(createAzienda(rs), rs.getString("studenti"));
+                }
+            } finally{
+                rs.close();
             }
             return aziende;
         } catch (SQLException ex) {
@@ -325,9 +345,13 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             HashMap<Azienda, Float> lista = new HashMap<Azienda, Float>();
             ResultSet rs = getBestAziende.executeQuery();
-            while(rs.next()){
-                lista.put(createAzienda(rs), rs.getFloat("valutazione"));
-            }
+            try{
+                while(rs.next()){
+                    lista.put(createAzienda(rs), rs.getFloat("valutazione"));
+                }
+            } finally{
+                rs.close();
+            }    
             return lista;
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero delle aziende migliori ", ex);
@@ -339,8 +363,12 @@ public class AziendaDAO_imp extends DAO implements AziendaDAO{
         try {
             HashMap<Azienda, Float> lista = new HashMap<Azienda, Float>();
             ResultSet rs = getWorstAziende.executeQuery();
-            while(rs.next()){
-                lista.put(createAzienda(rs), rs.getFloat("valutazione"));
+            try{
+                while(rs.next()){
+                    lista.put(createAzienda(rs), rs.getFloat("valutazione"));
+                }
+            } finally{
+                rs.close();
             }
             return lista;
         } catch (SQLException ex) {

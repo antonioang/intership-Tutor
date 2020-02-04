@@ -18,33 +18,32 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
  * @author jacopo
  */
 public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
-    
+
     PreparedStatement getTirociniVisibili, getTirocini, getTirocinio, getLatestTirocini;
     PreparedStatement addTirocinio, updTirocinio, delTirocinio;
     PreparedStatement updTirocinioVisibile, searchTirocinio, getTirociniByStatoRichieste;
-    
+
     public TirocinioDAO_imp(DataLayer d) {
         super(d);
     }
-    
+
     @Override
-    public void init() throws DataLayerException{
+    public void init() throws DataLayerException {
         try {
             getTirociniVisibili = connection.prepareStatement("SELECT * FROM tirocinio WHERE azienda = ? AND visibile = ?");
             getTirocini = connection.prepareStatement("SELECT * FROM tirocinio WHERE azienda = ?");
             getTirocinio = connection.prepareStatement("SELECT * FROM tirocinio WHERE id_tirocinio = ?");
-            addTirocinio = connection.prepareStatement("INSERT INTO tirocinio\n" +
-                "(luogo, settore, orari, durata, titolo, obiettivo, modalita, facilitazioni, azienda, tutore_tirocinio, visibile)\n" +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            updTirocinio = connection.prepareStatement("UPDATE tirocinio\n" +
-                "SET luogo=?, settore=?, orari=?, durata=?, titolo=?, obiettivo=?, modalita=?, facilitazioni=?, azienda=?, tutore_tirocinio=?, visibile=?\n" +
-                "WHERE id_tirocinio=?");   
+            addTirocinio = connection.prepareStatement("INSERT INTO tirocinio\n"
+                    + "(luogo, settore, orari, durata, titolo, obiettivo, modalita, facilitazioni, azienda, tutore_tirocinio, visibile)\n"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            updTirocinio = connection.prepareStatement("UPDATE tirocinio\n"
+                    + "SET luogo=?, settore=?, orari=?, durata=?, titolo=?, obiettivo=?, modalita=?, facilitazioni=?, azienda=?, tutore_tirocinio=?, visibile=?\n"
+                    + "WHERE id_tirocinio=?");
             delTirocinio = connection.prepareStatement("DELETE FROM tirocinio WHERE id_tirocinio=0;");
             updTirocinioVisibile = connection.prepareStatement("UPDATE tirocinio SET visibile=? WHERE id_tirocinio=?");
             searchTirocinio = connection.prepareStatement("SELECT * FROM tirocinio JOIN azienda ON tirocinio.azienda = azienda.id_azienda WHERE tirocinio.luogo like ? "
@@ -55,7 +54,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             throw new DataLayerException("Errore durante l'inizializzaizione degli statement", ex);
         }
     }
-    
+
     @Override
     public TirocinioProxy createTirocinio() {
         return new TirocinioProxy(getDataLayer());
@@ -64,7 +63,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
     @Override
     public TirocinioProxy createTirocinio(ResultSet rs) throws DataLayerException {
         TirocinioProxy t = createTirocinio();
-        try { 
+        try {
             t.setLuogo(rs.getString("luogo"));
             t.setSettore(rs.getString("settore"));
             t.setOrari(rs.getString("orari"));
@@ -90,9 +89,12 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             getTirociniVisibili.setInt(1, az);
             getTirociniVisibili.setBoolean(2, visibile);
             ResultSet rs = getTirociniVisibili.executeQuery();
-            
-            while(rs.next()){
-                lista.add(createTirocinio(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createTirocinio(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dei tirocini attivi", ex);
@@ -106,8 +108,12 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         try {
             getTirocini.setInt(1, az);
             ResultSet rs = getTirocini.executeQuery();
-            while(rs.next()){
-                lista.add(createTirocinio(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createTirocinio(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dei tirocini dell'azienda");
@@ -120,8 +126,12 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         try {
             getTirocinio.setInt(1, id);
             ResultSet rs = getTirocinio.executeQuery();
-            if(rs.next()){
-                return createTirocinio(rs);
+            try {
+                if (rs.next()) {
+                    return createTirocinio(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore dutante il recupero del tirocinio");
@@ -134,7 +144,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         try {
             addTirocinio.setString(1, t.getLuogo());
             addTirocinio.setString(2, t.getSettore());
-            addTirocinio.setString(3, t.getOrari());          
+            addTirocinio.setString(3, t.getOrari());
             addTirocinio.setString(5, t.getTitolo());
             addTirocinio.setString(6, t.getObiettivo());
             addTirocinio.setString(7, t.getModalita());
@@ -143,7 +153,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             addTirocinio.setInt(9, t.getAzienda());
             addTirocinio.setInt(10, t.getTutoreTirocinio());
             addTirocinio.setBoolean(11, t.getVisibile());
-            
+
             if (addTirocinio.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
                 //per il record appena inserito, usiamo il metodo
@@ -166,7 +176,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
                     }
                 }
                 return 1;
-            } else { 
+            } else {
                 return 0;
             }
         } catch (SQLException ex) {
@@ -194,7 +204,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             throw new DataLayerException("Errore durante l'aggiornamento del tirocinio", ex);
         }
     }
-    
+
     @Override
     public int delTirocinio(int id) throws DataLayerException {
         try {
@@ -204,7 +214,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             throw new DataLayerException("Errore durante la cancellazione del Tirocinio", ex);
         }
     }
-    
+
     @Override
     public int updTirocinioVisibile(int i, boolean bln) throws DataLayerException {
         try {
@@ -228,17 +238,22 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             searchTirocinio.setString(6, corsoStudio);
             searchTirocinio.setString(7, facilitazioni);
             ResultSet rs = searchTirocinio.executeQuery();
-            while(rs.next()){
-                lista.add(createTirocinio(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createTirocinio(rs));
+                }
+            } finally {
+                rs.close();
             }
+
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dei tirocini", ex);
         }
         return lista;
     }
 
-     @Override
-    public void destroy()throws DataLayerException{
+    @Override
+    public void destroy() throws DataLayerException {
         try {
             addTirocinio.close();
             delTirocinio.close();
@@ -255,7 +270,7 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         }
         super.destroy();
     }
-    
+
     @Override
     public List<Tirocinio> getTirociniByStatoRichieste(int id_studente, int stato) throws DataLayerException {
         try {
@@ -263,27 +278,31 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
             getTirociniByStatoRichieste.setInt(1, id_studente);
             getTirociniByStatoRichieste.setInt(2, stato);
             ResultSet rs = getTirociniByStatoRichieste.executeQuery();
-            while(rs.next()){
-                lista.add(createTirocinio(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createTirocinio(rs));
+                }
+            } finally {
+                rs.close();
             }
             return lista;
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero delle richieste tirocinio", ex);
         }
     }
-    
+
     @Override
-    public void storeTirocinio(Tirocinio tirocinio) throws DataLayerException{
-        
-        if (tirocinio.getId() > 0){//Controllo se esiste un istanza dell'oggetto
-            if(tirocinio instanceof TirocinioProxy && !((TirocinioProxy) tirocinio).isDirty()){
+    public void storeTirocinio(Tirocinio tirocinio) throws DataLayerException {
+
+        if (tirocinio.getId() > 0) {//Controllo se esiste un istanza dell'oggetto
+            if (tirocinio instanceof TirocinioProxy && !((TirocinioProxy) tirocinio).isDirty()) {
                 return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
             }
-                updTirocinio(tirocinio);
-           }else{
-                addTirocinio(tirocinio);
+            updTirocinio(tirocinio);
+        } else {
+            addTirocinio(tirocinio);
         }
-        if(tirocinio instanceof TirocinioProxy){
+        if (tirocinio instanceof TirocinioProxy) {
             ((TirocinioProxy) tirocinio).setDirty(false);
         }
     }
@@ -293,13 +312,17 @@ public class TirocinioDAO_imp extends DAO implements TirocinioDAO {
         List<Tirocinio> lista = new ArrayList();
         try {
             ResultSet rs = getLatestTirocini.executeQuery();
-            while(rs.next()){
-                lista.add(createTirocinio(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createTirocinio(rs));
+                }
+            } finally {
+                rs.close();
             }
-            return lista;     
+            return lista;
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero degli ultimi tirocini inseriti ", ex);
         }
-        
+
     }
 }

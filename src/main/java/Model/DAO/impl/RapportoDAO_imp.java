@@ -72,8 +72,12 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
          try {
              getRapportoByStudente.setInt(1, st);
              ResultSet rs = getRapportoByStudente.executeQuery();
-             if(rs.next()){
-                 list.add(createRapporto(rs));
+             try{
+                if(rs.next()){
+                     list.add(createRapporto(rs));
+                }
+             } finally{
+                 rs.close();
              }
          } catch (SQLException ex) {
              throw new DataLayerException("Errore durante il recupero dei rapporti studenti", ex);
@@ -87,8 +91,12 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
          try {
              getRapportoByTirocinio.setInt(1, t);
              ResultSet rs = getRapportoByTirocinio.executeQuery();
-             if(rs.next()){
-                 list.add(createRapporto(rs));
+             try{
+                if(rs.next()){
+                     list.add(createRapporto(rs));
+                }
+             } finally{
+                 rs.close();
              }
          } catch (SQLException ex) {
              throw new DataLayerException("Errore durante il recupero dei rapporti tirocini", ex);
@@ -102,8 +110,12 @@ public class RapportoDAO_imp extends DAO implements RapportoDAO {
              getRapporto.setInt(1, id_studente);
              getRapporto.setInt(2, id_tirocinio);
              ResultSet rs = getRapporto.executeQuery();
-             if(rs.next()){
-                 return createRapporto(rs);
+             try{
+                if(rs.next()){
+                    return createRapporto(rs);
+                }
+             } finally{
+                 rs.close();
              }
          } catch (SQLException ex) {
               throw new DataLayerException("Errore durante il recupero del rapporto", ex);

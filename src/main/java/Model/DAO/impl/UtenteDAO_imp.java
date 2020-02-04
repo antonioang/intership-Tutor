@@ -16,26 +16,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 /**
  *
  * @author matti
  */
 public class UtenteDAO_imp extends DAO implements UtenteDAO {
-    
+
     private PreparedStatement UtenteById, UtenteByLogin, UtenteByUser;
     private PreparedStatement addUtente, delUtente, updUtente;
     private PreparedStatement CheckUtenteExist;
-    
-    public UtenteDAO_imp(DataLayer d){
-        super(d);    
+
+    public UtenteDAO_imp(DataLayer d) {
+        super(d);
     }
-    
+
     @Override
-    public void init() throws DataLayerException{
+    public void init() throws DataLayerException {
         try {
             super.init();
-            
+
             //precompiliamo tutte le query utilizzate nella classe
             //precompile all the queries uses in this class
             UtenteById = connection.prepareStatement("SELECT * FROM utente WHERE id=?");
@@ -44,17 +43,17 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             CheckUtenteExist = connection.prepareStatement("SELECT * FROM utente WHERE (username=?) or (email=?)");
             addUtente = connection.prepareStatement("INSERT INTO utente (email, username, password, tipo)"
                     + "values(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            delUtente = connection.prepareStatement("DELETE FROM utente\n" +
-                    "WHERE id_utente=?;");
-            updUtente = connection.prepareStatement("UPDATE utente\n" +
-                "SET username=?, email=?\n" +
-                "WHERE id_utente=?;");
+            delUtente = connection.prepareStatement("DELETE FROM utente\n"
+                    + "WHERE id_utente=?;");
+            updUtente = connection.prepareStatement("UPDATE utente\n"
+                    + "SET username=?, email=?\n"
+                    + "WHERE id_utente=?;");
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante inizializzazione degli statement", ex);
         }
-        
+
     }
-    
+
     @Override
     public UtenteProxy createUtente() {
         return new UtenteProxy(getDataLayer());
@@ -80,8 +79,12 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         try {
             UtenteById.setInt(1, id_utente);
             ResultSet rs = UtenteById.executeQuery();
-            if(rs.next()){
-              return createUtente(rs);
+            try {
+                if (rs.next()) {
+                    return createUtente(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dello studente", ex);
@@ -94,12 +97,15 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         try {
             UtenteByLogin.setString(1, username);
             UtenteByLogin.setString(2, password);
-            
+
             ResultSet rs = UtenteByLogin.executeQuery();
-            if(rs.next()){
-                return createUtente(rs);
+            try {
+                if (rs.next()) {
+                    return createUtente(rs);
+                }
+            } finally {
+                rs.close();
             }
-            
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to load Utente by username and password", ex);
         }
@@ -111,8 +117,12 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         try {
             UtenteByUser.setString(1, username);
             ResultSet rs = UtenteByUser.executeQuery();
-            if(rs.next()){
-                return createUtente(rs);
+            try {
+                if (rs.next()) {
+                    return createUtente(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Unable to load Utente by username", ex);
@@ -126,8 +136,12 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             CheckUtenteExist.setString(1, username);
             CheckUtenteExist.setString(2, email);
             ResultSet rs = CheckUtenteExist.executeQuery();
-            if(rs.next()){
-                return true;
+            try {
+                if (rs.next()) {
+                    return true;
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Utente doesn't exists", ex);
@@ -164,7 +178,7 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
                     }
                 }
                 return 1;
-            } else { 
+            } else {
                 return 0;
             }
         } catch (SQLException ex) {
@@ -175,7 +189,7 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
     @Override
     public int delUtente(int utente) throws DataLayerException {
         try {
-            delUtente.setInt(1, utente);      
+            delUtente.setInt(1, utente);
             return delUtente.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore nella cancellazione dell'utente", ex);
@@ -192,10 +206,10 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'aggiornamento dati utente", ex);
         }
-       }
-    
+    }
+
     @Override
-    public void destroy() throws DataLayerException{
+    public void destroy() throws DataLayerException {
         //anche chiudere i PreparedStamenent è una buona pratica...
         //also closing PreparedStamenents is a good practice...
         try {
@@ -206,28 +220,28 @@ public class UtenteDAO_imp extends DAO implements UtenteDAO {
             UtenteByLogin.close();
             UtenteByUser.close();
             CheckUtenteExist.close();
-            
+
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante la chiusura degli statement", ex);
         }
         super.destroy();
     }
-    
+
     @Override
-    public void storeUtente(Utente utente) throws DataLayerException{
-        
-        if (utente.getId() > 0){//Controllo se esiste un istanza dell'oggetto
-            if(utente instanceof UtenteProxy && !((UtenteProxy) utente).isDirty()){
+    public void storeUtente(Utente utente) throws DataLayerException {
+
+        if (utente.getId() > 0) {//Controllo se esiste un istanza dell'oggetto
+            if (utente instanceof UtenteProxy && !((UtenteProxy) utente).isDirty()) {
                 return;//se l'oggetto è un istanza di utente proxy e dirty è false usciamo dal metodo
             }
-                updUtente(utente);
+            updUtente(utente);
 
-           }else{
-                addUtente(utente);  
+        } else {
+            addUtente(utente);
         }
-        if(utente instanceof UtenteProxy){
+        if (utente instanceof UtenteProxy) {
             ((UtenteProxy) utente).setDirty(false);
         }
-       
+
     }
 }

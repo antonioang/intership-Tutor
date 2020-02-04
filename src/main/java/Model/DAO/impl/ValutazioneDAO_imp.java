@@ -21,15 +21,15 @@ import java.util.ArrayList;
  *
  * @author jacopo
  */
-public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
-    
+public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO {
+
     private PreparedStatement getValutazione, getValutazioneSt, getValutazioneAz;
     private PreparedStatement addValutazione, delValutazione;
-    
-    
+
     public ValutazioneDAO_imp(DataLayer d) {
         super(d);
     }
+
     @Override
     public void init() throws DataLayerException {
         try {
@@ -41,29 +41,34 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         } catch (SQLException ex) {
             throw new DataLayerException("Errore inizializzazione degli statement valutazione azienda", ex);
         }
-        
+
     }
+
     @Override
-    public int addValutazione(Valutazione v)throws DataLayerException {
+    public int addValutazione(Valutazione v) throws DataLayerException {
         try {
             addValutazione.setInt(1, v.getPunteggio());
-            addValutazione.setInt(2,v.getStudente());
+            addValutazione.setInt(2, v.getStudente());
             addValutazione.setInt(3, v.getAzienda());
             return addValutazione.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante l'inserimento della valutazione", ex);
         }
-        
+
     }
 
     @Override
-    public List<Valutazione> getValutazioni(int az)throws DataLayerException {
+    public List<Valutazione> getValutazioni(int az) throws DataLayerException {
         List<Valutazione> l = new ArrayList();
         try {
             getValutazioneAz.setInt(1, az);
             ResultSet rs = getValutazioneAz.executeQuery();
-            while(rs.next()){
-                l.add(createValutazione(rs));
+            try {
+                while (rs.next()) {
+                    l.add(createValutazione(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della valutazione azienda", ex);
@@ -72,13 +77,17 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
     }
 
     @Override
-    public List<Valutazione> getValutazioniByStudente(int st)throws DataLayerException {
-         List<Valutazione> l = new ArrayList();
+    public List<Valutazione> getValutazioniByStudente(int st) throws DataLayerException {
+        List<Valutazione> l = new ArrayList();
         try {
             getValutazioneSt.setInt(1, st);
             ResultSet rs = getValutazioneSt.executeQuery();
-            while(rs.next()){
-                l.add(createValutazione(rs));
+            try {
+                while (rs.next()) {
+                    l.add(createValutazione(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della valutazione studente", ex);
@@ -99,7 +108,7 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
             v.setStudente(rs.getInt("studente"));
             v.setAzienda(rs.getInt("azienda"));
         } catch (SQLException ex) {
-             throw new DataLayerException("Errore durante la creazione della valutazione", ex);
+            throw new DataLayerException("Errore durante la creazione della valutazione", ex);
         }
         return v;
     }
@@ -110,17 +119,21 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
             getValutazione.setInt(1, id_az);
             getValutazione.setInt(2, id_st);
             ResultSet rs = getValutazione.executeQuery();
-            if (rs.next()){
-                return createValutazione(rs);
+            try {
+                if (rs.next()) {
+                    return createValutazione(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della valutazione", ex);
         }
         return null;
-        }
+    }
 
     @Override
-    public int delValutazione(int id_az, int id_st)throws DataLayerException {
+    public int delValutazione(int id_az, int id_st) throws DataLayerException {
         try {
             delValutazione.setInt(1, id_az);
             delValutazione.setInt(2, id_st);
@@ -130,9 +143,9 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         }
         return 0;
     }
-    
-     @Override
-    public void destroy()throws DataLayerException{
+
+    @Override
+    public void destroy() throws DataLayerException {
         try {
             delValutazione.close();
             getValutazione.close();
@@ -144,9 +157,9 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO{
         }
         super.destroy();
     }
-    
+
     @Override
-    public void storeValutazione(Valutazione v)throws DataLayerException{
-        
+    public void storeValutazione(Valutazione v) throws DataLayerException {
+
     }
 }

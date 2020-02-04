@@ -55,7 +55,6 @@ public class Login extends BaseController {
     }
     
     private void action_default (HttpServletRequest request, HttpServletResponse response) throws TemplateManagerException{
-        System.out.println("action_default");
         TemplateResult res = new TemplateResult(getServletContext());
         
         //passamano del referrer (prima a login html poi alla servlet che valida il login)

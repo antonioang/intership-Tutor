@@ -19,28 +19,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  *
  * @author jacopo
  */
-public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinioDAO{
-    
+public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinioDAO {
+
     private PreparedStatement addRichiestaTirocinio, updRichiestaTirocinioStato;
     private PreparedStatement getRichiestaTirocinio, getRichiesteTirocinioByTirocinio, getRicTirByTirocinioStudente;
     private PreparedStatement updDataInizioDataFine, updDocumento;
-    
+
     public RichiestaTirocinioDAO_imp(DataLayer d) {
         super(d);
     }
-    
+
     @Override
-    public void init() throws DataLayerException{
+    public void init() throws DataLayerException {
         try {
-            addRichiestaTirocinio = connection.prepareStatement("INSERT INTO richiesta_tirocinio\n" +
-                "(dottorato_ricerca, specializzazione, laurea, diploma, stato_candidatura, cfu, tutore_universitario, studente, tirocinio)\n" +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            addRichiestaTirocinio = connection.prepareStatement("INSERT INTO richiesta_tirocinio\n"
+                    + "(dottorato_ricerca, specializzazione, laurea, diploma, stato_candidatura, cfu, tutore_universitario, studente, tirocinio)\n"
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             updRichiestaTirocinioStato = connection.prepareStatement("UPDATE richiesta_tirocinio SET stato_candidatura=? WHERE id_richiesta=?");
             updDataInizioDataFine = connection.prepareStatement("UPDATE richiesta_tirocinio SET data_inizio=?, data_fine=? WHERE id_richiesta=?");
             getRichiestaTirocinio = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE id_richiesta=?");
@@ -48,7 +46,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             getRicTirByTirocinioStudente = connection.prepareStatement("SELECT * FROM richiesta_tirocinio WHERE tirocinio = ? AND studente = ?");
             updDocumento = connection.prepareStatement("UPDATE richiesta_tirocinio SET src_doc_candid=? WHERE id_richiesta=?");
         } catch (SQLException ex) {
-            throw new DataLayerException("Errore durante l'inizializzazione degli statements",ex);
+            throw new DataLayerException("Errore durante l'inizializzazione degli statements", ex);
         }
     }
 
@@ -59,8 +57,8 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
 
     @Override
     public RichiestaTirocinio createRichiestaTirocinio(ResultSet rs) throws DataLayerException {
-        RichiestaTirocinio  rt = createRichiestaTirocinio();
-        
+        RichiestaTirocinio rt = createRichiestaTirocinio();
+
         try {
             rt.setId(rs.getInt("id_richiesta"));
             rt.setSrcDocCandid(rs.getString("src_doc_candid"));
@@ -84,10 +82,14 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     @Override
     public RichiestaTirocinio getRichiestaTirocinio(int id_richiesta) throws DataLayerException {
         try {
-            getRichiestaTirocinio.setInt(1,id_richiesta);
+            getRichiestaTirocinio.setInt(1, id_richiesta);
             ResultSet rs = getRichiestaTirocinio.executeQuery();
-            if(rs.next()){
-                return createRichiestaTirocinio(rs);
+            try {
+                if (rs.next()) {
+                    return createRichiestaTirocinio(rs);
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della richiesta tirocinio", ex);
@@ -107,7 +109,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             addRichiestaTirocinio.setInt(7, r.getTutoreUniversitario());
             addRichiestaTirocinio.setInt(8, r.getStudente());
             addRichiestaTirocinio.setInt(9, r.getTirocinio());
-             if (addRichiestaTirocinio.executeUpdate() == 1) {
+            if (addRichiestaTirocinio.executeUpdate() == 1) {
                 //per leggere la chiave generata dal database
                 //per il record appena inserito, usiamo il metodo
                 //getGeneratedKeys sullo statement.
@@ -129,7 +131,7 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
                     }
                 }
                 return 1;
-            } else { 
+            } else {
                 return 0;
             }
         } catch (SQLException ex) {
@@ -149,11 +151,8 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     }
 
     @Override
-    public int updDocumento(int id_richiesta, String src) throws DataLayerException{
+    public int updDocumento(int id_richiesta, String src) throws DataLayerException {
         try {
-            System.out.println("dentro al metodo");
-            System.out.println("src: "+ src);
-            System.out.println("id: "+ id_richiesta);
             updDocumento.setString(1, src);
             updDocumento.setInt(2, id_richiesta);
             return updDocumento.executeUpdate();
@@ -168,8 +167,12 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
         try {
             getRichiesteTirocinioByTirocinio.setInt(1, id_tirocinio);
             ResultSet rs = getRichiesteTirocinioByTirocinio.executeQuery();
-            while(rs.next()){
-                lista.add(createRichiestaTirocinio(rs));
+            try {
+                while (rs.next()) {
+                    lista.add(createRichiestaTirocinio(rs));
+                }
+            } finally {
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero delle richieste tirocinio", ex);
@@ -183,8 +186,12 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             getRicTirByTirocinioStudente.setInt(1, id_tirocinio);
             getRicTirByTirocinioStudente.setInt(2, id_studente);
             ResultSet rs = getRicTirByTirocinioStudente.executeQuery();
-            if(rs.next()){
-                return createRichiestaTirocinio(rs);
+            try{
+                if (rs.next()) {
+                    return createRichiestaTirocinio(rs);
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della richiesta tirocinio", ex);
@@ -193,11 +200,11 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
     }
 
     @Override
-    public void destroy()throws DataLayerException{
+    public void destroy() throws DataLayerException {
         try {
             addRichiestaTirocinio.close();
             updRichiestaTirocinioStato.close();
-            getRichiestaTirocinio.close(); 
+            getRichiestaTirocinio.close();
             getRichiesteTirocinioByTirocinio.close();
             getRicTirByTirocinioStudente.close();
             updDataInizioDataFine.close();
@@ -219,14 +226,10 @@ public class RichiestaTirocinioDAO_imp extends DAO implements RichiestaTirocinio
             throw new DataLayerException("Errore durante l'aggiornamento delle date della richiesta tirocinio", ex);
         }
     }
-    
+
     @Override
     public void storeRichiestaTirocinio(RichiestaTirocinio rt) throws DataLayerException {
-        
+
     }
 
-    
-
-
-    
 }

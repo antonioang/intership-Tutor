@@ -83,8 +83,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         try {
             getPersona.setInt(1, id);
             ResultSet rs = getPersona.executeQuery();
-            if(rs.next()){
-                return createPersona(rs);
+            try{
+                if(rs.next()){
+                    return createPersona(rs);
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della persona", ex);
@@ -164,9 +168,13 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         List<Persona> lista = new ArrayList();
         try {
             ResultSet rs = getTutoriTirocinio.executeQuery();
-            while(rs.next()){
-                lista.add(createPersona(rs));
-            }
+            try{
+                while(rs.next()){
+                    lista.add(createPersona(rs));
+                }
+            } finally{
+                rs.close();
+            }     
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dei tutori", ex);
         }
@@ -196,8 +204,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         List<Persona> lista = new ArrayList();
         try {
             ResultSet rs = getTutoriUniversitari.executeQuery();
-            while(rs.next()){
-                lista.add(createPersona(rs));
+            try{
+                while(rs.next()){
+                    lista.add(createPersona(rs));
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dei tutori", ex);
@@ -210,8 +222,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         List<Persona> lista = new ArrayList();
         try {
             ResultSet rs = getResponsabiliTirocini.executeQuery();
-            while(rs.next()){
-                lista.add(createPersona(rs));
+            try{
+                while(rs.next()){
+                    lista.add(createPersona(rs));
+                }
+            } finally{
+                rs.close();
             }
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero dei tutori", ex);
@@ -242,8 +258,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         try {
             HashMap<Persona, Integer> lista = new HashMap<Persona, Integer>();
             ResultSet rs = getBestTutoriTirocinio.executeQuery();
-            while(rs.next()){
-                lista.put(createPersona(rs), rs.getInt("occorrenze"));
+            try{
+                while(rs.next()){
+                    lista.put(createPersona(rs), rs.getInt("occorrenze"));
+                }
+            } finally{
+                rs.close();
             }
             return lista;
         } catch (SQLException ex) {
@@ -256,8 +276,12 @@ public class PersonaDAO_imp extends DAO implements PersonaDAO {
         try {
             HashMap<Persona, Integer> lista = new HashMap<Persona, Integer>();
             ResultSet rs = getBestTutoriUni.executeQuery();
-            while(rs.next()){
-                lista.put(createPersona(rs), rs.getInt("occorrenze"));
+            try{
+                while(rs.next()){
+                    lista.put(createPersona(rs), rs.getInt("occorrenze"));
+                }
+            } finally{
+                rs.close();
             }
             return lista;
         } catch (SQLException ex) {

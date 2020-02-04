@@ -207,7 +207,6 @@ public class SecurityLayer {
         //convertiamo la stringa in numero, ma assicuriamoci prima che sia valida
         //convert the string to a number, ensuring its validity
         if (s != null) {
-            System.out.println("Stringa: "+ s+ " vera");
             //se la conversione fallisce, viene generata un'eccezione
             //if the conversion fails, an exception is raised
             return true;
