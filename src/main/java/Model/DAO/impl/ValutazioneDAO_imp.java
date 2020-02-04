@@ -135,8 +135,8 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO {
     @Override
     public int delValutazione(int id_az, int id_st) throws DataLayerException {
         try {
-            delValutazione.setInt(1, id_az);
-            delValutazione.setInt(2, id_st);
+            delValutazione.setInt(2, id_az);
+            delValutazione.setInt(1, id_st);
             delValutazione.executeUpdate();
         } catch (SQLException ex) {
             throw new DataLayerException("Errore durante il recupero della valutazione", ex);
