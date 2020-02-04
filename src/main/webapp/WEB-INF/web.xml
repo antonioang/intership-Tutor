@@ -29,10 +29,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <servlet>
-        <servlet-name>Prova</servlet-name>
-        <servlet-class>Controller.provaServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RegisterStudente</servlet-name>
         <servlet-class>Controller.RegisterStudente</servlet-class>
     </servlet>
@@ -112,10 +108,6 @@
         <servlet-name>Statistiche</servlet-name>
         <servlet-class>Controller.Statistiche</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Prova</servlet-name>
-        <url-pattern>/prova</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>provaServlet</servlet-name>
         <servlet-class>Controller.ServletProvaTemplate</servlet-class>
