@@ -31,7 +31,7 @@ import javax.sql.DataSource;
 public abstract class BaseController extends HttpServlet {
     
     @Resource(name = "jdbc/herokuDB")
-    DataSource ds;
+    private DataSource ds;
     
     protected abstract void processRequest(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException;
@@ -49,8 +49,7 @@ public abstract class BaseController extends HttpServlet {
 //            initCtx = new InitialContext();
 //            Context envCtx = (Context) initCtx.lookup("java:comp/env");
 //            // Look up our data source
-//            ds = (DataSource) envCtx.lookup("jdbc/herokuDB"); 
-            if(ds == null) System.out.println("Non c'è");
+//            ds = (DataSource) envCtx.lookup("jdbc/herokuDB");      
             dl = new BaseDataLayer(ds);
             dl.init();
             request.setAttribute("datalayer", dl);
@@ -71,7 +70,7 @@ public abstract class BaseController extends HttpServlet {
 //        } catch (NamingException ex) {
 //            Logger.getLogger(BaseController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-           
+//           
     }
      
      @Override

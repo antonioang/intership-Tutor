@@ -2,37 +2,37 @@
     <div class="row">
         <div class="col-md-12 mt">
             <table class="table table-hover">
-            <h4><i class="fa fa-angle-right"></i> Aziende da approvare <i class="fa fa-caret-square-o-right"></i></h4>
-            <hr>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Inizio/Fine Convenzione</th>
-                <th>Indirizzo</th>
-                <th>Ragione Sociale</th>
-                <th>Approva/Rifiuta Azienda</th>
-              </tr>
-            </thead>
-            <tbody>
-            <#assign count=1>
-            <#if (aziende_da_approvare?size>0)>
-              <#list aziende_da_approvare as azienda>
-              <tr>
-                <td>${count} <#assign count++></td>
-                <td>${azienda.getNome()}</td>
-                <td>${azienda.getInizioConv()} - ${azienda.getFineConv()}</td>
-                <td>${azienda.getIndirizzo()}</td>
-                <td>${azienda.getRagioneSociale()}</td>
-                <td>
-                    <a href="gestione_azienda?id=${azienda.getId()}">
-                        Gestione convenzione
-                    </a>
-                </td>
-              </tr>
-              </#list>
-            </#if>
-            </tbody>
+                <h4><i class="fa fa-angle-right"></i> Aziende da approvare <i class="fa fa-caret-square-o-right"></i></h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Inizio/Fine Convenzione</th>
+                        <th>Indirizzo</th>
+                        <th>Ragione Sociale</th>
+                        <th>Approva/Rifiuta Azienda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <#assign count=1>
+                    <#if (aziende_da_approvare?size>0)>
+                    <#list aziende_da_approvare as azienda>
+                    <tr>
+                        <td>${count} <#assign count++></td>
+                        <td>${azienda.getNome()}</td>
+                        <td>${azienda.getInizioConv()} - ${azienda.getFineConv()}</td>
+                        <td>${azienda.getIndirizzo()}</td>
+                        <td>${azienda.getRagioneSociale()}</td>
+                        <td>
+                            <a href="gestione_azienda?id=${azienda.getId()}">
+                                Gestione convenzione
+                            </a>
+                        </td>
+                    </tr>
+                    </#list>
+                    </#if>
+                </tbody>
             </table>
             <#if (aziende_da_approvare?size==0)>
             <p>La lista delle aziende da approvare &egrave; vuota</p>
