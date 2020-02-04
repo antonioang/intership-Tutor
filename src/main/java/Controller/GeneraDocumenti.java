@@ -18,7 +18,6 @@ import framework.result.TemplateManagerException;
 import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javax.servlet.ServletException;
@@ -62,7 +61,7 @@ public class GeneraDocumenti extends BaseController {
         }
         else{
             request.setAttribute("errore", "errore_caricamento");
-            request.setAttribute("message", "Impossibile caricare la pagina! Riprova");
+            request.setAttribute("messaggio", "Impossibile caricare la pagina! Riprova");
             action_error(request, response);
         }
         
@@ -100,7 +99,7 @@ public class GeneraDocumenti extends BaseController {
          }
          else{
             request.setAttribute("errore", "errore_caricamento");
-            request.setAttribute("message", "Impossibile caricare la pagina! Riprova");
+            request.setAttribute("messaggio", "Impossibile caricare la pagina! Riprova");
             action_error(request, response);
          }
     }
@@ -143,7 +142,7 @@ public class GeneraDocumenti extends BaseController {
         }
         else{
             request.setAttribute("errore", "errore_caricamento");
-            request.setAttribute("message", "Impossibile caricare la pagina! Riprova");
+            request.setAttribute("messaggio", "Impossibile caricare la pagina! Riprova");
             action_error(request, response);
         }
     }
@@ -176,7 +175,8 @@ public class GeneraDocumenti extends BaseController {
                  }
                  else{
                     request.setAttribute("errore", "errore_recupero_resoconto");
-                    request.setAttribute("message", "L'azienda non ha ancora compilato il resoconto dle tirocinio la pagina! Riprova più tardi");
+                    request.setAttribute("messaggio", "L'azienda non ha ancora compilato il resoconto dle tirocinio la pagina! Riprova più tardi");
+                    action_error(request, response);
                  }
                   
              } catch (DataLayerException ex) {
@@ -189,7 +189,7 @@ public class GeneraDocumenti extends BaseController {
          }
          else{
             request.setAttribute("errore", "errore_caricamento");
-            request.setAttribute("message", "Impossibile caricare la pagina! Riprova");
+            request.setAttribute("messaggio", "Impossibile caricare la pagina! Riprova");
             action_error(request, response);
         }
     }

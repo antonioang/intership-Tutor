@@ -36,7 +36,7 @@ public class DownloadDocumenti extends BaseController {
          }
          else{
             request.setAttribute("errore", "errore_caricamento");
-            request.setAttribute("message", "Impossibile caricare la pagina! Riprova");
+            request.setAttribute("messaggio", "Impossibile caricare la pagina! Riprova");
             action_error(request, response);
          }
         

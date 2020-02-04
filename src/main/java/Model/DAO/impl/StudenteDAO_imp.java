@@ -34,12 +34,12 @@ public class StudenteDAO_imp extends DAO implements StudenteDAO {
 
     public void init() throws DataLayerException {
         try {
-            addStudente = connection.prepareStatement("INSERT INTO heroku_fb8c344fac20fe1.studente"
+            addStudente = connection.prepareStatement("INSERT INTO studente"
                     + "(nome, cognome, cod_fiscale, data_nascita, citta_nascita, provincia_nascita, citta_residenza, provincia_residenza, cap_residenza, telefono, corso_laurea, handicap, utente)\n"
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             getStudentebyID = connection.prepareStatement("SELECT * FROM studente WHERE id_studente = ?");
             getStudenteByUtente = connection.prepareStatement("SELECT * FROM studente WHERE utente = ?");
-            updStudente = connection.prepareStatement("UPDATE heroku_fb8c344fac20fe1.studente\n"
+            updStudente = connection.prepareStatement("UPDATE studente\n"
                     + "SET nome=?, cognome=?, cod_fiscale=?, data_nascita=?, citta_nascita=?, provincia_nascita=?, citta_residenza=?, provincia_residenza=?, cap_residenza=?, telefono=?, corso_laurea=?, handicap=?, utente=?\n"
                     + "WHERE id_studente=?");
             getStudentiByTirocinioAccettato = connection.prepareStatement("SELECT * FROM studente JOIN richiesta_tirocinio ON studente.id_studente = richiesta_tirocinio.studente WHERE richiesta_tirocinio.tirocinio = ? AND stato_candidatura = 2");
