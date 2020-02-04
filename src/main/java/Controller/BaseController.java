@@ -70,7 +70,7 @@ public abstract class BaseController extends HttpServlet {
 //        } catch (NamingException ex) {
 //            Logger.getLogger(BaseController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//           
+           
     }
      
      @Override
