@@ -35,64 +35,61 @@ public class DettaglioTirocinio extends BaseController {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if(request.getParameter("id") != null && !request.getParameter("id").equals("0")){
+
+        if (request.getParameter("id") != null && !request.getParameter("id").equals("0")) {
             HttpSession s = SecurityLayer.checkSession(request);
-            if (s!= null) {
+            if (s != null) {
                 request.setAttribute("username", s.getAttribute("username"));
-                request.setAttribute("tipo", (int)s.getAttribute("tipo"));
+                request.setAttribute("tipo", (int) s.getAttribute("tipo"));
             }
-            if(request.getParameter("visibile") != null){
+            if (request.getParameter("visibile") != null) {
                 action_change_visibile(request, response);
-            }
-            else if(request.getParameter("valutazione") != null){
+            } else if (request.getParameter("valutazione") != null) {
                 action_valuta_azienda(request, response);
-            }
-            else if(request.getParameter("concludi") != null){
+            } else if (request.getParameter("concludi") != null) {
                 action_concludi_tirocinio(request, response);
             }
             action_default(request, response);
-        }
-        else{
+        } else {
             request.setAttribute("errore", "errore_recupero_tirocinio");
             request.setAttribute("messaggio", "Impossibile trovare il tirocinio");
             action_error(request, response);
         }
     }
-    
-    
-    private void action_default(HttpServletRequest request, HttpServletResponse response){
+
+    private void action_default(HttpServletRequest request, HttpServletResponse response) {
         //check input
-        if(SecurityLayer.checkNumber(request.getParameter("id"))){
+        if (SecurityLayer.checkNumber(request.getParameter("id"))) {
             try {
                 //ottengo il tirocinio dall'id e la lista degli studenti
                 int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
-                Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
+                Tirocinio tirocinio = ((BaseDataLayer) request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
                 request.setAttribute("tirocinio", tirocinio);
-                
-                
+
                 //mostro la lista degli studenti candidati, rifiutati o in sospeso solo se l'utente è un'azienda o un amministratore
-                if(request.getAttribute("tipo") !=null){
-                    if((int) request.getAttribute("tipo") == 2 || (int) request.getAttribute("tipo") == 3){
+                if (request.getAttribute("tipo") != null) {
+                    if ((int) request.getAttribute("tipo") == 2 || (int) request.getAttribute("tipo") == 3) {
                         //admin e azienda
-                        List<Studente> accettati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioAccettato(id_tirocinio);
-                        List<Studente> rifiutati = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioRifiutato(id_tirocinio);
-                        List<Studente> sospeso = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioSospeso(id_tirocinio);
-                       
+                        List<Studente> accettati = ((BaseDataLayer) request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioAccettato(id_tirocinio);
+                        List<Studente> rifiutati = ((BaseDataLayer) request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioRifiutato(id_tirocinio);
+                        List<Studente> sospeso = ((BaseDataLayer) request.getAttribute("datalayer")).getStudenteDAO().getStudentiByTirocinioSospeso(id_tirocinio);
+
                         //setto i dati necessari
                         request.setAttribute("studenti_candidati", accettati);
                         request.setAttribute("studenti_rifiutati", rifiutati);
                         request.setAttribute("studenti_sospeso", sospeso);
-                    }
-                    else{
+                    } else {
                         //studente
-                        Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername( (String) request.getAttribute("username"));
-                        Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
-                        RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, studente.getId());
+                        Utente utente = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
+                        Studente studente = ((BaseDataLayer) request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
                         request.setAttribute("studente", studente);
+
+                        RichiestaTirocinio richiesta = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, studente.getId());
                         request.setAttribute("richiesta_tirocinio", richiesta);
-                        //controlla lo stato
-                        switch (richiesta.getStatoCandidatura()) {
+                        if (richiesta != null) {
+                            request.setAttribute("richiesta_tirocinio", richiesta);
+                            //controlla lo stato
+                            switch (richiesta.getStatoCandidatura()) {
                                 //tirocinio richiesto
                                 case 1:
                                     request.setAttribute("stato_tirocinio", 1);
@@ -106,22 +103,23 @@ public class DettaglioTirocinio extends BaseController {
                                 //tirocinio concluso
                                 case 3:
                                     request.setAttribute("stato_tirocinio", 3);
-                                    Valutazione valutazione = ((BaseDataLayer)request.getAttribute("datalayer")).getValutazioneDAO().getValutazione(tirocinio.getAzienda(), studente.getId());
-                                    if(valutazione != null){
+                                    Valutazione valutazione = ((BaseDataLayer) request.getAttribute("datalayer")).getValutazioneDAO().getValutazione(tirocinio.getAzienda(), studente.getId());
+                                    if (valutazione != null) {
                                         request.setAttribute("valutato", "valutato");
                                     }
                                     break;
                                 //tirocinio rifiutato
                                 case 4:
                                     request.setAttribute("stato_tirocinio", 4);
-                                    break;    
+                                    break;
+                            }
                         }
+
                     }
-                }
-                else{
+                } else {
                     //anonimo
                 }
-                
+
                 //MOSTRO IL TEMPLATE
                 TemplateResult res = new TemplateResult(getServletContext());
                 res.activate("dettaglio_tirocinio.ftl.html", request, response);
@@ -133,30 +131,29 @@ public class DettaglioTirocinio extends BaseController {
                 action_error(request, response);
             }
         }
-        
+
     }
-    
-    private void action_valuta_azienda(HttpServletRequest request, HttpServletResponse response){
-        if(SecurityLayer.checkNumber(request.getParameter("valutazione"))){
+
+    private void action_valuta_azienda(HttpServletRequest request, HttpServletResponse response) {
+        if (SecurityLayer.checkNumber(request.getParameter("valutazione"))) {
             try {
                 int rating = SecurityLayer.checkNumeric(request.getParameter("valutazione"));
-                Valutazione valutazione = ((BaseDataLayer)request.getAttribute("datalayer")).getValutazioneDAO().createValutazione();
-                Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(SecurityLayer.checkNumeric(request.getParameter("id")));
-                Azienda azienda = ((BaseDataLayer)request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
-                Utente utente = ((BaseDataLayer)request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String)request.getAttribute("username"));
-                Studente studente = ((BaseDataLayer)request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
-                
+                Valutazione valutazione = ((BaseDataLayer) request.getAttribute("datalayer")).getValutazioneDAO().createValutazione();
+                Tirocinio tirocinio = ((BaseDataLayer) request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(SecurityLayer.checkNumeric(request.getParameter("id")));
+                Azienda azienda = ((BaseDataLayer) request.getAttribute("datalayer")).getAziendaDAO().getAzienda(tirocinio.getAzienda());
+                Utente utente = ((BaseDataLayer) request.getAttribute("datalayer")).getUtenteDAO().getUtentebyUsername((String) request.getAttribute("username"));
+                Studente studente = ((BaseDataLayer) request.getAttribute("datalayer")).getStudenteDAO().getStudenteByUtente(utente.getId());
+
                 valutazione.setAzienda(azienda.getId());
                 valutazione.setStudente(studente.getId());
                 valutazione.setPunteggio(rating);
-                
-                int insert = ((BaseDataLayer)request.getAttribute("datalayer")).getValutazioneDAO().addValutazione(valutazione);
-                if(insert != 1){
+
+                int insert = ((BaseDataLayer) request.getAttribute("datalayer")).getValutazioneDAO().addValutazione(valutazione);
+                if (insert != 1) {
                     request.setAttribute("errore", "errore_inserimento");
                     request.setAttribute("messaggio", "L'inserimento della valutazione non è andato a buon fine. Riprova!");
                     action_error(request, response);
-                }
-                else{
+                } else {
                     //valutazione inserita con successo
                     request.setAttribute("valutazione", rating);
                     action_default(request, response);
@@ -165,22 +162,21 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
-        }
-        else{
+        } else {
             request.setAttribute("errore", "errore_parametro");
             request.setAttribute("messaggio", "Il parametro non è del formato corretto. Riprova!");
             action_error(request, response);
         }
     }
-        
-    private void action_change_visibile(HttpServletRequest request, HttpServletResponse response){
-        if(SecurityLayer.checkString(request.getParameter("visibile")) && SecurityLayer.checkNumber(request.getParameter("id")) ){
+
+    private void action_change_visibile(HttpServletRequest request, HttpServletResponse response) {
+        if (SecurityLayer.checkString(request.getParameter("visibile")) && SecurityLayer.checkNumber(request.getParameter("id"))) {
             try {
                 int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
-                Tirocinio tirocinio = ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
-                ((BaseDataLayer)request.getAttribute("datalayer")).getTirocinioDAO().updTirocinioVisibile(id_tirocinio, !tirocinio.getVisibile());
-                response.sendRedirect("tirocinio?id="+id_tirocinio);
-                
+                Tirocinio tirocinio = ((BaseDataLayer) request.getAttribute("datalayer")).getTirocinioDAO().getTirocinio(id_tirocinio);
+                ((BaseDataLayer) request.getAttribute("datalayer")).getTirocinioDAO().updTirocinioVisibile(id_tirocinio, !tirocinio.getVisibile());
+                response.sendRedirect("tirocinio?id=" + id_tirocinio);
+
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
@@ -190,15 +186,15 @@ public class DettaglioTirocinio extends BaseController {
             }
         }
     }
-    
-    private void action_concludi_tirocinio(HttpServletRequest request, HttpServletResponse response){
+
+    private void action_concludi_tirocinio(HttpServletRequest request, HttpServletResponse response) {
         int id_tirocinio = SecurityLayer.checkNumeric(request.getParameter("id"));
-        if(request.getParameter("studente") != null){
+        if (request.getParameter("studente") != null) {
             try {
                 int id_studente = SecurityLayer.checkNumeric(request.getParameter("studente"));
-                RichiestaTirocinio richiesta = ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
-                ((BaseDataLayer)request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 3);
-                response.sendRedirect("crea_resoconto?studente="+id_studente+"&tirocinio="+id_tirocinio);
+                RichiestaTirocinio richiesta = ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().getRichiestaTirocinio(id_tirocinio, id_studente);
+                ((BaseDataLayer) request.getAttribute("datalayer")).getRichiestaTirocinioDAO().updRichiestaTirocinioStato(richiesta.getId(), 3);
+                response.sendRedirect("crea_resoconto?studente=" + id_studente + "&tirocinio=" + id_tirocinio);
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
@@ -206,16 +202,14 @@ public class DettaglioTirocinio extends BaseController {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
             }
-            
-            
+
         }
     }
-        
-    private void action_error(HttpServletRequest request, HttpServletResponse response){
-        if(request.getAttribute("eccezione") != null){
+
+    private void action_error(HttpServletRequest request, HttpServletResponse response) {
+        if (request.getAttribute("eccezione") != null) {
             (new FailureResult(getServletContext())).activate((Exception) request.getAttribute("eccezione"), request, response);
-        }
-        else{
+        } else {
             System.out.println((String) request.getAttribute("errore"));
             (new FailureResult(getServletContext())).activate((String) request.getAttribute("messaggio"), request, response);
         }
