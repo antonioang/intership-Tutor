@@ -55,7 +55,7 @@ public class DettaglioTirocinio extends BaseController {
         }
         else{
             request.setAttribute("errore", "errore_recupero_tirocinio");
-            request.setAttribute("message", "Impossibile trovare il tirocinio");
+            request.setAttribute("messaggio", "Impossibile trovare il tirocinio");
             action_error(request, response);
         }
     }
