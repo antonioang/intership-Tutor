@@ -17,15 +17,22 @@
                   </div>
                   <div>
                       <div class='rating'>
-                          <#assign n = valutazione>
-                            <#list 1..n as i>
-                                <span class="icon-colored">&#9733;</span>
-                            </#list>
-                          <#assign n = 5-valutazione>
-                            <#list 1..n as i>
-                                <span class="icon">&#9733;</span>
-                            </#list>  
-                      </div>
+                        <#if valutazione == 0>
+                        <#assign n = 5>
+                        <#list 1..n as i>
+                        <span class="icon">&#9733;</span>
+                        </#list> 
+                        <#else>
+                        <#assign n = valutazione>
+                        <#list 1..n as i>
+                        <span class="icon-colored">&#9733;</span>
+                        </#list>
+                        <#assign n = 5-valutazione>
+                        <#list 1..n as i>
+                        <span class="icon">&#9733;</span>
+                        </#list> 
+                        </#if>
+                    </div>
                       <p><strong>${valutazione}</strong> stelle su <strong>5</strong></p>
                   </div>
               </div>

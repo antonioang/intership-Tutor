@@ -200,6 +200,11 @@ body {margin-top: 0px;margin-left: 0px;}
     border-bottom: 1px solid black;
     margin-left:5%
 }
+.paragrafo2{
+    width: 80%;
+    border-bottom: 1px solid black;
+    margin-left:8%
+}
 .underlined{
     text-decoration: underline;
     font-weight: bold;
@@ -435,17 +440,13 @@ _____________________
 <P class="p62 ft7">Art. 10 Referenti per la Convenzione</P>
 <P class="p65 ft8">Referenti per la presente Convenzione e per i rapporti fra gli Enti Contraenti nell'ambito della Convenzione stessa sono:</P>
 <P class="p66 ft8">per Il Dipartimento di Ingegneria e Scienze dell'Informazione e Matematica dell'Universit&agrave; degli Studi L'Aquila:</P>
-
-<#if durata_conv??>
-<span class="underlined">${durata_conv} mesi</span>
-<#else>
 <P class="p62 ft8">___________________________________________</P>
-</#if>
+
 
 <P class="p62 ft8">per l'Ente/l'Azienda:</P>
 
-<#if durata_conv??>
-<div class="contenitore p9 ft8"><p class="paragrafo1"><span class="input">${responsabile_tirocinio}</span>&nbsp;</p></div>
+<#if responsabile_tirocini??>
+<div class="contenitore p9 ft8"><p class="paragrafo2"><span class="input">${responsabile_tirocini.getNome()} ${responsabile_tirocini.getCognome()}</span>&nbsp;</p></div>
 <#else>
 <P class="p62 ft8">___________________________________________</P>
 </#if>
