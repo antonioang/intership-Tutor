@@ -107,6 +107,7 @@ public class GestioneRichiestaTirocinio extends BaseController {
                     action_error(request, response);
                 }
                 else{
+                    request.setAttribute("messaggio", "Date impostate correttamente!");
                     action_default(request, response);
                 }
             } catch (DataLayerException ex) {

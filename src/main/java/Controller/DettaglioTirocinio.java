@@ -19,8 +19,6 @@ import framework.result.TemplateResult;
 import framework.security.SecurityLayer;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +48,14 @@ public class DettaglioTirocinio extends BaseController {
                 action_concludi_tirocinio(request, response);
             }
             action_default(request, response);
+            //MOSTRO IL TEMPLATE
+            TemplateResult res = new TemplateResult(getServletContext());
+            try {
+                res.activate("dettaglio_tirocinio.ftl.html", request, response);
+            } catch (TemplateManagerException ex) {
+                request.setAttribute("eccezione", ex);
+                action_error(request, response);
+            }
         } else {
             request.setAttribute("errore", "errore_recupero_tirocinio");
             request.setAttribute("messaggio", "Impossibile trovare il tirocinio");
@@ -103,8 +109,12 @@ public class DettaglioTirocinio extends BaseController {
                                 //tirocinio concluso
                                 case 3:
                                     request.setAttribute("stato_tirocinio", 3);
+                                    System.out.println("ID Studente: "+studente.getId());
+                                    System.out.println("ID Tirocinio: "+tirocinio.getId());
+                                    System.out.println("ID Azienda: "+tirocinio.getAzienda());
                                     Valutazione valutazione = ((BaseDataLayer) request.getAttribute("datalayer")).getValutazioneDAO().getValutazione(tirocinio.getAzienda(), studente.getId());
                                     if (valutazione != null) {
+                                        System.out.println("Dentro");
                                         request.setAttribute("valutato", "valutato");
                                     }
                                     break;
@@ -119,17 +129,10 @@ public class DettaglioTirocinio extends BaseController {
                 } else {
                     //anonimo
                 }
-
-                //MOSTRO IL TEMPLATE
-                TemplateResult res = new TemplateResult(getServletContext());
-                res.activate("dettaglio_tirocinio.ftl.html", request, response);
             } catch (DataLayerException ex) {
                 request.setAttribute("eccezione", ex);
                 action_error(request, response);
-            } catch (TemplateManagerException ex) {
-                request.setAttribute("eccezione", ex);
-                action_error(request, response);
-            }
+            } 
         }
 
     }

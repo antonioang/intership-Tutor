@@ -116,8 +116,8 @@ public class ValutazioneDAO_imp extends DAO implements ValutazioneDAO {
     @Override
     public Valutazione getValutazione(int id_az, int id_st) throws DataLayerException {
         try {
-            getValutazione.setInt(1, id_az);
-            getValutazione.setInt(2, id_st);
+            getValutazione.setInt(2, id_az);
+            getValutazione.setInt(1, id_st);
             ResultSet rs = getValutazione.executeQuery();
             try {
                 if (rs.next()) {
