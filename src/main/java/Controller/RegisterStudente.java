@@ -123,10 +123,10 @@ public class RegisterStudente extends BaseController{
                 }
                 
                 //Registrazione avenuta con successo
-                request.setAttribute("MSG", "Registrazione effettuata con successo!\nOra puoi accedere ed iniziare ad usare i nostri servizi");
-                request.setAttribute("ICON", "fas fa-check");
-                request.setAttribute("alert", "success");
-                request.setAttribute("TITLE", "OK");
+                SecurityLayer.createSession(request, ut.getUsername(), ut.getId(), ut.getTipo());
+                HttpSession sessione = SecurityLayer.checkSession(request);
+                sessione.setAttribute("nomeDaVisualizzare", st.getNome()+" "+st.getCognome());
+                response.sendRedirect("home");
                 response.sendRedirect("home");
 
             } else {

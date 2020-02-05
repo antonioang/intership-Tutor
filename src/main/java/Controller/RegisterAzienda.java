@@ -146,9 +146,9 @@ public class RegisterAzienda extends BaseController {
                         action_error(request, response);
                     }
                     //REGISTRAZIONE AVVENUTA CON SUCCESSO
-                    request.setAttribute("MSG", "Grazie per la registrazione. \nPotrai eseguire l'accesso non appena l'admin confermerà la vostra richiesta di convenzionamento");
-                    request.setAttribute("ICON", "fas fa-check");
-                    request.setAttribute("alert", "success");
+                    SecurityLayer.createSession(request, ut.getUsername(), ut.getId(), ut.getTipo());
+                    HttpSession sessione = SecurityLayer.checkSession(request);
+                    sessione.setAttribute("nomeDaVisualizzare", az.getNome());
                     response.sendRedirect("home");
                 }  else {
                     request.setAttribute("errore", "errore_validazione");
